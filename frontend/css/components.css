@@ -1,0 +1,424 @@
+.btn,
+.tg-btn,
+.zp-button,
+.lp-nav-cta,
+.send-btn {
+  min-height: 40px;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius-small);
+  padding: 10px 16px;
+  color: var(--on-accent);
+  background: var(--accent);
+  font-weight: 700;
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    opacity var(--motion-fast) var(--motion-ease);
+}
+.btn:hover,
+.tg-btn:hover,
+.zp-button:hover,
+.lp-nav-cta:hover,
+.send-btn:hover {
+  transform: translateY(-3px);
+}
+.btn:disabled,
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+  transform: none;
+}
+.btn.ghost,
+.zp-button.secondary,
+.link-button {
+  border-color: var(--line);
+  color: var(--ink);
+  background: var(--surface);
+}
+.btn.danger {
+  border-color: var(--danger);
+  background: var(--danger);
+}
+.icon-btn,
+.modal-close,
+.landing-theme-toggle {
+  display: inline-grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--surface);
+}
+.panel,
+.card,
+.modal,
+.onb-modal,
+.drawer,
+.terms-box {
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+}
+.panel,
+.card {
+  padding: 24px;
+}
+.panel-head,
+.modal-head,
+.drawer-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+.field,
+.field-row {
+  display: grid;
+  gap: 8px;
+}
+.field label {
+  font-size: 12px;
+  font-weight: 700;
+}
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  padding: 10px 12px;
+  color: var(--ink);
+  background: var(--surface-raised);
+}
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+.field-hint,
+.dd-empty {
+  color: var(--muted);
+}
+.toast-wrap {
+  position: fixed;
+  z-index: 2000;
+  top: 16px;
+  right: 16px;
+  display: grid;
+  gap: 8px;
+}
+.toast,
+.alert,
+.login-error {
+  border: 1px solid var(--danger);
+  border-radius: var(--radius-small);
+  padding: 10px 12px;
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+.success,
+.ok,
+.status-ok {
+  color: var(--success);
+}
+.warning,
+.status-warn {
+  color: var(--warning);
+}
+.modal-overlay,
+.overlay-soft,
+.onb-overlay {
+  position: fixed;
+  z-index: 1500;
+  inset: 0;
+  display: none;
+  place-items: center;
+  padding: 20px;
+  background: color-mix(in srgb, var(--ink-surface) 52%, transparent);
+}
+.modal-overlay.show,
+.onb-overlay.show {
+  display: grid;
+}
+.overlay-soft.show {
+  display: block;
+}
+.modal,
+.onb-modal {
+  width: min(640px, 100%);
+  max-height: min(760px, 90vh);
+  overflow: auto;
+  padding: 24px;
+}
+dialog {
+  border: 0;
+  padding: 0;
+  color: var(--ink);
+  background: transparent;
+}
+dialog::backdrop {
+  background: color-mix(in srgb, var(--ink-surface) 52%, transparent);
+}
+.spinning,
+.login-spinner {
+  animation: spin var(--motion-base) linear infinite;
+}
+
+/* Tariff promo controls are intentionally quiet until requested. */
+.promo-ticket {
+  border: 0;
+  padding: 0;
+  color: var(--accent-ink);
+  background: transparent;
+  font: inherit;
+  font-weight: 700;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.promo-box [data-plan-promo-controls] > div {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}
+.promo-box [data-plan-promo-status] {
+  display: block;
+  min-height: 1.25em;
+  margin-top: 6px;
+}
+.promo-box .promo-ok {
+  color: var(--success);
+}
+.promo-box .promo-error {
+  color: var(--danger);
+}
+.telegram-login-dialog {
+  width: min(520px, calc(100% - 32px));
+  max-height: calc(100vh - 32px);
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-large);
+  padding: 32px;
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.telegram-login-dialog form[method='dialog'] {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+}
+.telegram-login-close {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--surface-raised);
+  font-size: 24px;
+}
+.telegram-login-mark {
+  display: grid;
+  width: 56px;
+  height: 56px;
+  margin-bottom: 18px;
+  place-items: center;
+  border-radius: var(--radius);
+  color: var(--on-ink);
+  background: var(--accent);
+}
+.telegram-login-mark svg {
+  width: 30px;
+}
+.telegram-login-dialog h2 {
+  margin-top: 10px;
+  font-size: 32px;
+}
+.telegram-login-dialog > p,
+.telegram-login-dialog .lp-card-list {
+  margin-top: 14px;
+  color: var(--muted);
+}
+.telegram-login-dialog .tg-login-slot {
+  min-height: 48px;
+  margin-top: 22px;
+}
+.plan-confirm-dialog {
+  width: min(640px, calc(100% - 32px));
+  max-height: calc(100vh - 32px);
+}
+.plan-confirm-dialog .plan-confirm-modal {
+  width: 100%;
+  display: grid;
+  gap: 18px;
+}
+/* Диалог подтверждения оплаты: без этих правил рисованный самолётик Telegram
+   растягивался на всю модалку (у svg не было размеров) — модалка выглядела
+   «без стилей». Иконка теперь фиксированного размера, блоки — аккуратной сеткой. */
+.plan-confirm-hero {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.plan-confirm-icon {
+  display: grid;
+  flex: none;
+  width: 52px;
+  height: 52px;
+  place-items: center;
+  border-radius: var(--radius);
+  color: var(--on-ink);
+  background: var(--accent);
+}
+.plan-confirm-icon svg {
+  width: 26px;
+  height: 26px;
+}
+.plan-confirm-label {
+  font-size: 12px;
+  color: var(--muted);
+}
+.plan-confirm-name {
+  font-weight: 700;
+  font-size: 18px;
+}
+.plan-confirm-info,
+.plan-confirm-safe {
+  display: grid;
+  gap: 8px;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+}
+.plan-confirm-info b {
+  font-size: 13px;
+}
+.plan-confirm-info p,
+.plan-confirm-safe {
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.6;
+}
+.plan-confirm-info p:empty {
+  display: none;
+}
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 12px;
+}
+.plan-confirm-continue {
+  text-decoration: none;
+}
+dialog[open] {
+  animation: dialog-enter var(--motion-dialog) var(--motion-ease);
+}
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* Смена тарифа: цена слегка размывается на время пересчёта и не «прыгает».
+   tabular-nums держит ширину цифр стабильной. */
+.tariff-card [data-plan-price],
+.tariff-card [data-plan-checkout-price] {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+  transition:
+    filter var(--motion-base) var(--motion-ease),
+    opacity var(--motion-base) var(--motion-ease);
+}
+.tariff-card.is-swapping [data-plan-price],
+.tariff-card.is-swapping [data-plan-checkout-price] {
+  filter: blur(7px);
+  opacity: 0.45;
+}
+
+/* ─── Вход через Telegram: своя кнопка вместо синей ──────────────────────────
+   Официальный виджет — единственный источник подписанных данных, его iframe
+   убрать нельзя. Поэтому кнопка Telegram становится прозрачной и ложится
+   ПОВЕРХ нашей: человек видит фирменную кнопку, клик уходит в Telegram.
+   Класс is-ready ставит auth.js, когда iframe реально появился, — иначе на
+   экране висела бы красивая мёртвая кнопка. Слот обрезает содержимое, чтобы
+   растянутый iframe не собирал клики за пределами кнопки. */
+.telegram-login-dialog {
+  text-align: center;
+}
+.telegram-login-dialog .telegram-login-mark {
+  margin-inline: auto;
+}
+.telegram-login-dialog .lp-card-list {
+  text-align: left;
+}
+.telegram-login-dialog .lp-card-tag {
+  display: inline-block;
+}
+.tg-login-cta {
+  position: relative;
+  margin-top: 22px;
+}
+.tg-login-face {
+  display: none;
+}
+.tg-login-cta.is-direct {
+  cursor: pointer;
+}
+.tg-login-cta.is-direct .tg-login-face,
+.tg-login-cta.is-ready .tg-login-face {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 56px;
+  padding: 0 22px;
+  border-radius: var(--radius);
+  color: var(--on-ink);
+  background: var(--accent-gradient);
+  box-shadow: var(--shadow-small);
+  transition: transform var(--motion-fast) ease;
+}
+.tg-login-cta.is-direct .tg-login-face {
+  cursor: pointer;
+}
+.tg-login-cta.is-direct:hover .tg-login-face,
+.tg-login-cta.is-ready:hover .tg-login-face {
+  transform: translateY(-1px);
+}
+.tg-login-face svg {
+  width: 22px;
+  height: 22px;
+  flex: none;
+}
+.tg-login-face b {
+  font-size: 16px;
+  letter-spacing: 0.01em;
+}
+.tg-login-cta.is-direct .tg-login-slot,
+.tg-login-cta.is-ready .tg-login-slot {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  opacity: 0;
+  cursor: pointer;
+}
+.tg-login-cta.is-direct .tg-login-slot iframe,
+.tg-login-cta.is-ready .tg-login-slot iframe {
+  transform: scale(4, 2.2);
+  transform-origin: center;
+}

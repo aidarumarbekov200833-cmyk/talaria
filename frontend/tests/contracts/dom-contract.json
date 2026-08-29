@@ -1,0 +1,13787 @@
+[
+  {
+    "classes": [],
+    "tag": "html"
+  },
+  {
+    "classes": [],
+    "tag": "head"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "name": "viewport",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "name": "description",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "id": "appFavicon",
+    "tag": "link"
+  },
+  {
+    "classes": [],
+    "tag": "title"
+  },
+  {
+    "classes": [],
+    "tag": "link"
+  },
+  {
+    "classes": [],
+    "name": "robots",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "name": "theme-color",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "name": "theme-color",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "link"
+  },
+  {
+    "classes": [],
+    "tag": "link"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "name": "twitter:card",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "name": "twitter:title",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "name": "twitter:description",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "name": "twitter:image",
+    "tag": "meta"
+  },
+  {
+    "classes": [],
+    "tag": "script"
+  },
+  {
+    "classes": [],
+    "tag": "link"
+  },
+  {
+    "classes": [],
+    "tag": "link"
+  },
+  {
+    "classes": [],
+    "tag": "link"
+  },
+  {
+    "classes": [],
+    "tag": "link"
+  },
+  {
+    "classes": [],
+    "tag": "script"
+  },
+  {
+    "classes": [],
+    "tag": "script"
+  },
+  {
+    "classes": [],
+    "tag": "body"
+  },
+  {
+    "classes": [
+      "toast-wrap"
+    ],
+    "id": "toastWrap",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "overlay-soft"
+    ],
+    "id": "drawerOverlay",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "login-screen"
+    ],
+    "id": "loginScreen",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "login-page",
+      "zd-page"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lp-nav",
+      "zd-nav"
+    ],
+    "tag": "header"
+  },
+  {
+    "classes": [
+      "nav-in"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-side",
+      "nav-left"
+    ],
+    "tag": "nav"
+  },
+  {
+    "classes": [],
+    "tag": "a"
+  },
+  {
+    "classes": [],
+    "tag": "a"
+  },
+  {
+    "classes": [],
+    "tag": "a"
+  },
+  {
+    "classes": [],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "brand",
+      "landing-brand"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "tl-logo"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "defs"
+  },
+  {
+    "classes": [],
+    "id": "lgW",
+    "tag": "lineargradient"
+  },
+  {
+    "classes": [],
+    "tag": "stop"
+  },
+  {
+    "classes": [],
+    "tag": "stop"
+  },
+  {
+    "classes": [],
+    "tag": "stop"
+  },
+  {
+    "classes": [],
+    "tag": "g"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "landing-brand-name"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-side",
+      "nav-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tswitch",
+      "landing-theme-toggle"
+    ],
+    "id": "tsw",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "landing-theme-moon"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "landing-theme-sun"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "cta",
+      "lp-nav-cta"
+    ],
+    "data-telegram-login-trigger": {
+      "present": true,
+      "value": null
+    },
+    "id": "navLoginCta",
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "lp-nav-ava"
+    ],
+    "id": "navLoginAva",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "lp-nav-cta-label"
+    ],
+    "id": "navLoginLabel",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-main"
+    ],
+    "id": "zdTop",
+    "tag": "main"
+  },
+  {
+    "classes": [
+      "zp-hero"
+    ],
+    "id": "top",
+    "tag": "section"
+  },
+  {
+    "classes": [],
+    "id": "stars",
+    "tag": "canvas"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mono",
+      "rv",
+      "on"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h1"
+  },
+  {
+    "classes": [
+      "ln"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ln"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ln"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "pinkt"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "rv",
+      "on"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "hbtns",
+      "rv",
+      "on"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "cta"
+    ],
+    "data-telegram-login-trigger": {
+      "present": true,
+      "value": null
+    },
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "ghost"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "hero-free",
+      "rv",
+      "on"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "hero-snippet",
+      "rv",
+      "on"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "hero-snippet-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "hero-snippet-body"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "tg-login-slot",
+      "zd-legacy-login-slot"
+    ],
+    "id": "tg-widget-container",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-btn"
+    ],
+    "data-telegram-login-trigger": {
+      "present": true,
+      "value": null
+    },
+    "id": "heroTelegramLoginBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "tg-btn"
+    ],
+    "id": "demoLoginBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "login-hint"
+    ],
+    "id": "loginHint",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "hero-login-fallback-end"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "hero-art",
+      "rv",
+      "on"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "hero-plate"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-stats"
+    ],
+    "id": "pulse",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "shead",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h2"
+  },
+  {
+    "classes": [
+      "pulse-g"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "live-dot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "bignum"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "bigsub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "minirow"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mini"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "mini"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "mini"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "pulse-note"
+    ],
+    "id": "publicStatsStatus",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "pulse-note"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "feed",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "feed-h"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "live-dot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "feed-b"
+    ],
+    "id": "feedB",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fun"
+    ],
+    "id": "funList",
+    "tag": "ol"
+  },
+  {
+    "classes": [
+      "fun-row"
+    ],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "fun-k"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fun-bar"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "fun-v"
+    ],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "fun-row"
+    ],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "fun-k"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fun-bar"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "fun-v"
+    ],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "fun-row"
+    ],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "fun-k"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fun-bar"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "fun-v"
+    ],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "fun-row"
+    ],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "fun-k"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fun-bar"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "fun-v"
+    ],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "fun-note"
+    ],
+    "id": "funnelNote",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "zp-capabilities"
+    ],
+    "id": "features",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "shead",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h2"
+  },
+  {
+    "classes": [
+      "fgrid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fcard",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fim"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fplate",
+      "fplate-art",
+      "fplate-score"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fb"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fn"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "fcard",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fim"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fplate",
+      "fplate-art",
+      "fplate-context"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fb"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fn"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "fcard",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fim"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fplate",
+      "fplate-art",
+      "fplate-intro"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fb"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fn"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "fcard",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fim"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fplate",
+      "fplate-art",
+      "fplate-pace"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fb"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fn"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "fcard",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fim"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fplate",
+      "fplate-art",
+      "fplate-ledger"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fb"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fn"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "fcard",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fim"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fplate",
+      "fplate-art",
+      "fplate-funnel"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fb"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fn"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "zp-control-grid"
+    ],
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h2"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "dlist"
+    ],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "dchk"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "dchk"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "dchk"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "ghost"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "ph-stage",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "phone"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ph-key",
+      "ph-key-mute"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ph-key",
+      "ph-key-up"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ph-key",
+      "ph-key-down"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ph-key",
+      "ph-key-power"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ph-scr"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ph-island"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ph-cam"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "ph-status"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "tgClock",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ph-sig"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ph-i"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "ph-i"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "ph-bat"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "ph-notice"
+    ],
+    "id": "phNotice",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ph-notice-mark"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "ph-notice-copy"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "tg-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-back"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tg-unread"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "tg-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "tgSub",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "tg-ava"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "tg-body"
+    ],
+    "id": "chat",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-input"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-clip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "fld"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "tg-sticker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tg-mic"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "ph-home"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "zp-workflow"
+    ],
+    "id": "how",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "shead",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h2"
+  },
+  {
+    "classes": [
+      "aw-swipe-hint"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "appwin-scale",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "aw-frame"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "aw-frame-tag"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "appwin"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "aw-bar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "aw-url"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "awcur"
+    ],
+    "id": "awCur",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "app",
+      "aw-app"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "sidebar"
+    ],
+    "tag": "aside"
+  },
+  {
+    "classes": [
+      "brand"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "brand-mark"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "brand-name"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "brand-tag"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav"
+    ],
+    "tag": "nav"
+  },
+  {
+    "classes": [
+      "nav-group"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-group-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item",
+      "active"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-count"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "ellipse"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-count"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-group"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-group-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-count"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-count"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-group"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-group-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "sidebar-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "aw-quota"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "aw-quota-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "aw-quota-bar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "sidebar-session"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "sidebar-ava"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "sidebar-session-copy"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "sidebar-live"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "main"
+    ],
+    "tag": "main"
+  },
+  {
+    "classes": [
+      "aw-scene",
+      "on"
+    ],
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dashboard-clock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "btn",
+      "header-primary"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "content"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "lead-filter-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "input-mock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "input-mock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "input-mock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "input-mock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "input-mock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "input-mock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "chip-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip",
+      "accent"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "grid",
+      "grid-3",
+      "demo-kpis"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "table-wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "table"
+  },
+  {
+    "classes": [],
+    "tag": "thead"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "tbody"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "score"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge",
+      "hot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "score"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge",
+      "hot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "score"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge",
+      "warm"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "score"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge",
+      "warm"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "score"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge",
+      "cold"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "aw-scene"
+    ],
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dashboard-clock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "btn",
+      "header-primary"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "content"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "offer-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "offer-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "badge",
+      "success"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "offer-preview"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "offer-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "panel",
+      "offer-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "badge",
+      "success"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "offer-preview"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "offer-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "panel",
+      "offer-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "badge"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "offer-preview"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "offer-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "aw-scene"
+    ],
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dashboard-clock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "btn",
+      "header-primary"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "content"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "grid",
+      "grid-3",
+      "demo-kpis"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "badge",
+      "success"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "run-bar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "run-legend"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "table-wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "table"
+  },
+  {
+    "classes": [],
+    "tag": "thead"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "th"
+  },
+  {
+    "classes": [],
+    "tag": "tbody"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge",
+      "success"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge",
+      "success"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "tr"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "cell-lead"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "cell-ava"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [],
+    "tag": "td"
+  },
+  {
+    "classes": [
+      "badge"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "aw-track"
+    ],
+    "tag": "ul"
+  },
+  {
+    "classes": [
+      "aw-seg",
+      "on"
+    ],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "aw-seg"
+    ],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "aw-seg"
+    ],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-account-band"
+    ],
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ab-in",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ab-copy"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "zdAccountTitle",
+    "tag": "h2"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "ab-list"
+    ],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-pricing"
+    ],
+    "id": "pricing",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "shead",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h2"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "pgrid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "pcard",
+      "rv"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "grid-4-tariff",
+      "landing-tariffs"
+    ],
+    "id": "landingTariffGrid",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ptariff-note"
+    ],
+    "id": "landingTariffNote",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "landing-tariff-foot"
+    ],
+    "id": "landingTariffFoot",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "pplate",
+      "rv"
+    ],
+    "tag": "figure"
+  },
+  {
+    "classes": [
+      "pplate-art"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "pplate-cap"
+    ],
+    "tag": "figcaption"
+  },
+  {
+    "classes": [
+      "mono"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "pplate-cap-line"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "pplate-cap-note"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-final"
+    ],
+    "id": "zephyrFinale",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "zp-final-sticky"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fin-stage"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fin-mark"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fin-word",
+      "zp-final-word"
+    ],
+    "id": "finWord",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "zp-final-letter-char"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-final-letter-char"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-final-letter-char"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-final-letter-char"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-final-letter-char"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-final-letter-char"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "zp-final-letter-char"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fin-hand",
+      "zp-final-hand"
+    ],
+    "id": "zpFinalHand",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "picture"
+  },
+  {
+    "classes": [],
+    "tag": "source"
+  },
+  {
+    "classes": [
+      "fin-palm"
+    ],
+    "tag": "img"
+  },
+  {
+    "classes": [
+      "fin-letter-orbit"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "picture"
+  },
+  {
+    "classes": [],
+    "tag": "source"
+  },
+  {
+    "classes": [
+      "fin-letter-float",
+      "zp-final-letter"
+    ],
+    "tag": "img"
+  },
+  {
+    "classes": [
+      "fin-cta",
+      "zp-final-login"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fin-kicker"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "fin-btns"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fin-btn"
+    ],
+    "data-telegram-login-trigger": {
+      "present": true,
+      "value": null
+    },
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "fin-btn",
+      "ghost"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "fin-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "fin-foot-brand"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "fin-foot-logo"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "fin-foot-copy"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "fin-foot-name"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "telegram-login-dialog"
+    ],
+    "id": "telegramLoginDialog",
+    "tag": "dialog"
+  },
+  {
+    "classes": [],
+    "tag": "form"
+  },
+  {
+    "classes": [
+      "telegram-login-close"
+    ],
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "telegram-login-mark"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "lp-card-tag"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "telegramLoginDialogTitle",
+    "tag": "h2"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "tg-login-cta"
+    ],
+    "id": "tgLoginCta",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-login-face"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "tg-login-slot"
+    ],
+    "id": "tg-widget-dialog-container",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-btn"
+    ],
+    "id": "demoDialogLoginBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "login-hint"
+    ],
+    "id": "dialogLoginHint",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "lp-card-list"
+    ],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "app-wrapper"
+    ],
+    "id": "appWrapper",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "app"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "sidebar"
+    ],
+    "tag": "aside"
+  },
+  {
+    "classes": [
+      "brand"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "brand-mark"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tl-f"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "brand-name"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "brand-tag"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav"
+    ],
+    "tag": "nav"
+  },
+  {
+    "classes": [
+      "nav-group"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-group-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-item",
+      "active"
+    ],
+    "data-target": "dashboard",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "search",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "databases",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "ellipse"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-group"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-group-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "offer",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "mailing",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "neuro",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "messages",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "usage"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "usage-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "usageText",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "usage-bar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "usageBar",
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "usage-hint"
+    ],
+    "id": "usageHint",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tariff-btn"
+    ],
+    "data-target": "tariffs",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "t-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "sidebar-bottom"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "nav-item",
+      "sidebar-session"
+    ],
+    "data-target": "settings",
+    "id": "sessionUserCard",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "sidebar-session-avatar"
+    ],
+    "id": "sessionUserAvatar",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "sidebar-session-copy"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "sessionUserName",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "sessionUserUsername",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "sidebar-session-live"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "admin",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "settings",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "bottom-nav"
+    ],
+    "tag": "nav"
+  },
+  {
+    "classes": [
+      "nav-item",
+      "active"
+    ],
+    "data-target": "dashboard",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "search",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "databases",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "ellipse"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "offer",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "mailing",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "neuro",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "messages",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "nav-item"
+    ],
+    "data-target": "settings",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "global-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "icon-btn",
+      "ai"
+    ],
+    "data-act": "openDrawer",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "rel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "icon-btn"
+    ],
+    "data-act": "toggleDropdown",
+    "data-args": "[\"ddNotif\"]",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "ping"
+    ],
+    "id": "notifPing",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "dropdown"
+    ],
+    "id": "ddNotif",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "notifList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "setup-notices"
+    ],
+    "id": "setupNotices",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "main"
+    ],
+    "id": "main",
+    "tag": "main"
+  },
+  {
+    "classes": [
+      "trial-bar"
+    ],
+    "id": "trialBar",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section",
+      "active"
+    ],
+    "id": "dashboard",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "id": "dashGreeting",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "id": "dashSub",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right",
+      "dashboard-top-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dashboard-clock"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "id": "dashLiveClock",
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "btn",
+      "header-primary"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"search\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "quick-start"
+    ],
+    "id": "quickStart",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "quick-start-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "quick-start-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "quick-start-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "quickStartHide",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "quick-start-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "qs-cube"
+    ],
+    "data-act": "openKeyGuide",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "qs-cube-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "qs-cube-ico"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "qs-cube-num"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "qs-cube-state"
+    ],
+    "tag": "em"
+  },
+  {
+    "classes": [
+      "qs-cube"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"settings\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "qs-cube-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "qs-cube-ico"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "qs-cube-num"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "qs-cube-state"
+    ],
+    "tag": "em"
+  },
+  {
+    "classes": [
+      "qs-cube"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"search\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "qs-cube-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "qs-cube-ico"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "qs-cube-num"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "qs-cube-state"
+    ],
+    "tag": "em"
+  },
+  {
+    "classes": [
+      "qs-cube"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"offer\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "qs-cube-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "qs-cube-ico"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "qs-cube-num"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "qs-cube-state"
+    ],
+    "tag": "em"
+  },
+  {
+    "classes": [
+      "grid-4"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-card",
+      "go"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"databases\"]",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "ellipse"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "stat-go"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "id": "statLeads",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-card",
+      "go"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"databases\"]",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "stat-go"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "id": "statDatabases",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-card",
+      "go"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"offer\"]",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "stat-go"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "id": "statOffers",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-card",
+      "go"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"mailing\"]",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-top"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "stat-go"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "stat-value"
+    ],
+    "id": "statCampaigns",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "stat-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "pipeline-strip"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "data-act": "goTo",
+    "data-args": "[\"search\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "statVerifiedTelegram",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "data-act": "goTo",
+    "data-args": "[\"search\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "statPendingTelegram",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "data-act": "goTo",
+    "data-args": "[\"mailing\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "statSentMessages",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "data-act": "goTo",
+    "data-args": "[\"mailing\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "statReplies",
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "id": "statReplyRate",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "panel-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chart-wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "chart-range"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chart-range-btn"
+    ],
+    "data-act": "setChartDays",
+    "data-args": "[7]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "chart-range-btn",
+      "active"
+    ],
+    "data-act": "setChartDays",
+    "data-args": "[14]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "chart-range-btn"
+    ],
+    "data-act": "setChartDays",
+    "data-args": "[30]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "chart-note"
+    ],
+    "id": "chartTotal",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "chart-bars"
+    ],
+    "id": "chartBars",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chart-compare"
+    ],
+    "id": "chartCompare",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "dashboard-signal-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dashboard-kicker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "dashboard-live"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "dashboard-signal-map"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "tag": "em"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "tag": "em"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "dashboard-signal-copy"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "dash-limit"
+    ],
+    "id": "dashLimit",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "dashLimitText",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "dashLimitBar",
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "grid-2"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "chart-note"
+    ],
+    "id": "funnelTotal",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "leadFunnel",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "activity-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "link-button"
+    ],
+    "id": "activityShowAll",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "activity-list"
+    ],
+    "id": "activityFeed",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "dashboard-offer-stats"
+    ],
+    "id": "offerStatsPanel",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head",
+      "offer-main-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dashboard-kicker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "dashboard-offer-tools"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dashboard-offer-filter"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "active"
+    ],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "link-button"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"offer\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "offer-main-summary"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "offerStatsTotal",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "dashboard-live"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "grid-2",
+      "offer-kind-cards"
+    ],
+    "id": "offerKindCards",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "offerStatsTable",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "reply-heat-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "reply-heat-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "best-send-times"
+    ],
+    "id": "bestSendTimes",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "reply-heat-scroll"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "reply-heatmap"
+    ],
+    "id": "replyHeatmap",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "search",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "search-filter-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "resetLeadFilters",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "lead-filter-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadMinSubs",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadMaxSubs",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadMinViews",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadMinAverageViews",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadMinViewRatio",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadMinVideos",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadMaxAge",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadCountry",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "filter-switches"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "check-row"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadIncludeHidden",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "check-row"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadRequireTelegram",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "search-preset-bar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadPresetSelect",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadPresetName",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "action-menu",
+      "preset-actions"
+    ],
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": [
+      "action-menu-pop"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost",
+      "menu-action"
+    ],
+    "data-act": "saveSearchPreset",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost",
+      "menu-action",
+      "danger"
+    ],
+    "data-act": "deleteSearchPreset",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "search-tabs"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "search-tab",
+      "active"
+    ],
+    "data-act": "switchSearchTab",
+    "data-args": "[1]",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "search-tab"
+    ],
+    "data-act": "switchSearchTab",
+    "data-args": "[2]",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "search-tab"
+    ],
+    "data-act": "switchSearchTab",
+    "data-args": "[3]",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "search-tab-content",
+      "active"
+    ],
+    "id": "searchTab1",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step",
+      "active"
+    ],
+    "id": "trendsStep1",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "counter"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "data-act": "searchDec",
+    "data-args": "[\"trendsCount\", 5]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "data-args": "[\"__EL__\", 1, 50]",
+    "id": "trendsCount",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "data-act": "searchInc",
+    "data-args": "[\"trendsCount\", 50]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "counter-hint"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "counter-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "trendsRegion",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "generateTrends",
+    "id": "trendsGenBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "trendsStep1Err",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step",
+      "locked"
+    ],
+    "id": "trendsStep2",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "review-list"
+    ],
+    "id": "trendsReview",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "review-summary"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "trendsSelected",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "trendsTotal",
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "review-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "link"
+    ],
+    "data-act": "searchSelectAll",
+    "data-args": "[\"trendsReview\", true]",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "link"
+    ],
+    "data-act": "searchSelectAll",
+    "data-args": "[\"trendsReview\", false]",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "step",
+      "locked"
+    ],
+    "id": "trendsStep3",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "counter"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "data-act": "searchDec",
+    "data-args": "[\"trendsLimit\", 10]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "data-args": "[\"__EL__\", 1, 1000]",
+    "id": "trendsLimit",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "data-act": "searchInc",
+    "data-args": "[\"trendsLimit\", 1000]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "counter-hint"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "trendsDbName",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "id": "trendsCost",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "runTrendsSearch",
+    "id": "trendsSearchBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "trendsStep3Err",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "search-tab-content"
+    ],
+    "id": "searchTab2",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step",
+      "active"
+    ],
+    "id": "nichesStep1",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "niche-grid"
+    ],
+    "id": "nicheGrid",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "niche-count"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "nichesPicked",
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "counter-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "counter"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "data-act": "searchDec",
+    "data-args": "[\"nicheKwCount\", 5]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "data-args": "[\"__EL__\", 5, 200]",
+    "id": "nicheKwCount",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "data-act": "searchInc",
+    "data-args": "[\"nicheKwCount\", 200]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "counter-hint"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "generateNicheKeywords",
+    "id": "nichesGenKwBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "polyline"
+  },
+  {
+    "classes": [],
+    "tag": "line"
+  },
+  {
+    "classes": [
+      "step",
+      "locked"
+    ],
+    "id": "nichesStep2",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-sub"
+    ],
+    "id": "kwSourceNote",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "review-list"
+    ],
+    "id": "nicheKwReview",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "review-summary"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "nicheKwSelected",
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "review-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "link"
+    ],
+    "data-act": "searchSelectAll",
+    "data-args": "[\"nicheKwReview\", true]",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "link"
+    ],
+    "data-act": "searchSelectAll",
+    "data-args": "[\"nicheKwReview\", false]",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "kw-input-wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "nicheExtraKw",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "step",
+      "locked"
+    ],
+    "id": "nichesStep3",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "counter"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "data-act": "searchDec",
+    "data-args": "[\"nicheLimit\", 10]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "data-args": "[\"__EL__\", 1, 1000]",
+    "id": "nicheLimit",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "data-act": "searchInc",
+    "data-args": "[\"nicheLimit\", 1000]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "nicheDbName",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "id": "nicheCost",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "runNicheSearch",
+    "id": "nicheSearchBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "nicheStep3Err",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "search-tab-content"
+    ],
+    "id": "searchTab3",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step",
+      "active"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chips"
+    ],
+    "id": "customKeywordsChips",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "kw-input-wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "customKwInput",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "step",
+      "locked"
+    ],
+    "id": "customStep2",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "step-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "counter-label"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "counter"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "data-act": "searchDec",
+    "data-args": "[\"customLimit\", 10]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "data-args": "[\"__EL__\", 1, 1000]",
+    "id": "customLimit",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "data-act": "searchInc",
+    "data-args": "[\"customLimit\", 1000]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "customDbName",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "id": "customCost",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "runCustomSearch",
+    "id": "customSearchBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "customStep2Err",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "link"
+    ],
+    "data-act": "clearParseLogs",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "terminal"
+    ],
+    "id": "parseLogs",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "terminal-line"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "verification-panel"
+    ],
+    "id": "telegramVerificationPanel",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "pipeline-badge"
+    ],
+    "id": "verificationStatus",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "verify-toolbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "verificationDatabase",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "verify-live"
+    ],
+    "id": "verificationCurrent",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "verify-live-dot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "verify-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "cancelTelegramVerification",
+    "id": "verificationCancelBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "runTelegramVerification",
+    "id": "verificationRunBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "verify-progress"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "verificationProgressBar",
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "verify-kpis"
+    ],
+    "id": "verificationKpis",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "verification-results"
+    ],
+    "id": "verificationResults",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "databases",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "leadImportFile",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "leadImportBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "leadExportBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "id": "dbGridView",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "db-search"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "dbSearch",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "db-total"
+    ],
+    "id": "dbTotals",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "db-grid"
+    ],
+    "id": "databasesGrid",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "dbLeadsView",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "db-back"
+    ],
+    "data-act": "backToDatabases",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "openDbTitle",
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "db-search"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "leadSearch",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "lead-toolbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chips"
+    ],
+    "id": "leadChips",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip",
+      "active"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chip"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-sort"
+    ],
+    "id": "leadSort",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "resolveLeadNames",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "bulk-bar"
+    ],
+    "id": "leadBulkBar",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "bulk-count"
+    ],
+    "id": "leadBulkCount",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "lead-sort"
+    ],
+    "id": "leadBulkStatus",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "leadBulkApply",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost",
+      "danger"
+    ],
+    "id": "leadBulkDelete",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "leadBulkClear",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "list-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "leadsList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "empty-state"
+    ],
+    "id": "leadsEmpty",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-pager"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "leadCount",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "leadPage",
+    "data-args": "[-1]",
+    "id": "leadPrev",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "leadPage",
+    "data-args": "[1]",
+    "id": "leadNext",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "offer",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "offer-tabs"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "offer-tab",
+      "active"
+    ],
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "offer-tab"
+    ],
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "creator-with-log"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "offer-pane",
+      "active"
+    ],
+    "id": "offerPaneManual",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "grid-2"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "offerNameInput",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field",
+      "offer-media-field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "offer-upload"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "offerImageFile",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "offer-upload-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "offer-upload-copy"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "offer-upload-action"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "offerImageDraftPreview",
+    "tag": "img"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "offerTextInput",
+    "tag": "textarea"
+  },
+  {
+    "classes": [
+      "ph-wrap"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ph-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ph-hint"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "ph-chips"
+    ],
+    "id": "placeholderChips",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ph-note"
+    ],
+    "id": "placeholderNote",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "createOfferFromPage",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "clearOfferForm",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "panel",
+      "offer-pane"
+    ],
+    "id": "offerPaneAi",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "badge"
+    ],
+    "id": "aiOfferPlanBadge",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "offer-ai-lead"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "aiOfferTemplate",
+    "tag": "textarea"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "grid-2"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "aiOfferMaterials",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "aiOfferStatus",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "saveAiOfferSettings",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "generateAiOffer",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "ai-offer-result"
+    ],
+    "id": "aiOfferResult",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "link"
+    ],
+    "data-act": "clearOfferLog",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "terminal"
+    ],
+    "id": "offerLogs",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-preview"
+    ],
+    "id": "offerTgPreview",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-preview-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-preview-title"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "tg-preview-sub"
+    ],
+    "id": "tgPreviewLead",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "tg-window"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-bar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-ava"
+    ],
+    "id": "tgPreviewAva",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-name"
+    ],
+    "id": "tgPreviewName",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-status"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-chat"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-day"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-row",
+      "out"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-bubble"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-bubble-img"
+    ],
+    "id": "tgPreviewImg",
+    "tag": "img"
+  },
+  {
+    "classes": [
+      "tg-bubble-text"
+    ],
+    "id": "tgPreviewText",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-bubble-meta"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "tgPreviewTime",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "tg-ticks"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "tg-compose"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tg-c-ico"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tg-c-ph"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "tg-c-ico"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "tg-c-ico"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "tg-preview-warn"
+    ],
+    "id": "tgPreviewWarn",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "grid-3"
+    ],
+    "id": "offerGrid",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "mailing",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "danger"
+    ],
+    "data-act": "stopAllCampaigns",
+    "id": "campaignStopAllBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "plan-lock"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mailing-flow"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mailing-flow-step",
+      "active"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "mailing-flow-step"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "mailing-flow-step"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "creator-with-log",
+      "mailing-workspace"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "campaign-builder"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head",
+      "campaign-builder-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "campaign-kicker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "campaign-draft-state"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "campaign-section-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "grid-2",
+      "campaign-basics"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "campaignNameInput",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "campaignBaseInput",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "campaign-section-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "mode-row",
+      "campaign-mode-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "id": "aiModeSub",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "switch"
+    ],
+    "data-act": "toggleCampaignAi",
+    "id": "campaignAiToggle",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "switch-k"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "notice",
+      "warn"
+    ],
+    "id": "aiPlanNotice",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "campaignRegularPane",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "campaignOffersHint",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "mode-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "switch"
+    ],
+    "data-act": "toggleCampaignSpintax",
+    "id": "campaignSpintaxToggle",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "switch-k"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "campaignAiPane",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "ai-tpl-preview"
+    ],
+    "id": "campaignAiTemplatePreview",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "goTo",
+    "data-args": "[\"offer\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "campaign-section-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "grid-2",
+      "campaign-targeting"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "campaignMinScore",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "link"
+    ],
+    "data-act": "openModal",
+    "data-args": "[\"modalScoreInfo\"]",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field",
+      "campaign-account-auto"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "campaignAccounts",
+    "tag": "select"
+  },
+  {
+    "classes": [
+      "campaign-auto-pool"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "campaign-auto-shield"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "campaignAccountPoolCount",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "campaign-auto-live"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "campaign-pool-chips"
+    ],
+    "id": "campaignAccountPoolList",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [],
+    "data-act": "goTo",
+    "data-args": "[\"settings\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "campaignLimit",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "check-row"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "campaignSkipContacted",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "campaign-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "launchCampaign",
+    "id": "campaignLaunchBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "previewCampaign",
+    "id": "campaignPreviewBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "clearCampaignForm",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "campaignRecipientsHint",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "campaign-preview"
+    ],
+    "id": "campaignPreviewBox",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "send-note"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-panel",
+      "terminal-panel",
+      "campaign-log-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "terminal"
+    ],
+    "id": "campaignLogs",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "terminal-line",
+      "terminal-info"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-panel-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "link"
+    ],
+    "data-act": "clearCampaignLog",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "test-send"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "testSendUsername",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "testSendOffer",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "testSendText",
+    "tag": "textarea"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "sendTestMessage",
+    "id": "testSendBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "testSendStatus",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "test-send-receipt"
+    ],
+    "id": "testSendReceipt",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "test-reply-watch"
+    ],
+    "id": "testReplyWatch",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "test-reply-indicator"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "testReplyTitle",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "testReplyText",
+    "tag": "p"
+  },
+  {
+    "classes": [],
+    "id": "testReplyTimer",
+    "tag": "time"
+  },
+  {
+    "classes": [
+      "list-card"
+    ],
+    "id": "campaignList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "id": "campaignRecipientsPanel",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "id": "campaignRecipientsFor",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "campaignRecipientsClose",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "campaignRecipientsSummary",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "bulk-bar"
+    ],
+    "id": "campaignSendBar",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "bulk-count"
+    ],
+    "id": "campaignSendCount",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "id": "campaignMarkSent",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "action-menu"
+    ],
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": [
+      "action-menu-pop"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost",
+      "menu-action",
+      "danger"
+    ],
+    "id": "campaignMarkFailed",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost",
+      "menu-action"
+    ],
+    "id": "campaignSelClear",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "id": "campaignRecipientsList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-pager"
+    ],
+    "id": "campaignRecipientsPager",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "campaignRecipientsCount",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "campaignRecipientsPrev",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "campaignRecipientsNext",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "tariffs",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "notice"
+    ],
+    "id": "tariffsNotice",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "grid-4-tariff"
+    ],
+    "id": "tariffGrid",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "id": "myPlanPanel",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "badge"
+    ],
+    "id": "myPlanBadge",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "myPlanNotices",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "myPlanUntil",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "plan-limit-cols"
+    ],
+    "id": "myPlanUsage",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "myPlanRenew",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "neuro",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "reloadNeuro",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "startNeuro",
+    "id": "neuroStartBtn",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "plan-lock"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "neuro-budget"
+    ],
+    "id": "neuroBudget",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "neuro-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-title"
+    ],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "panel-sub"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "neuro-add"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "neuroTargetInput",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "addNeuroTarget",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "neuro-add"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "neuroSearchInput",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "searchNeuroTargets",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "neuro-list"
+    ],
+    "id": "neuroSearchResults",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "neuro-list"
+    ],
+    "id": "neuroTargets",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-title"
+    ],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "panel-sub"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "neuroPersona",
+    "tag": "textarea"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "neuroLink",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "neuroDailyLimit",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "neuro-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "saveNeuroRun",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "previewNeuroComment",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "neuro-preview"
+    ],
+    "id": "neuroPreview",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-title"
+    ],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "neuro-list"
+    ],
+    "id": "neuroLog",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "messages",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-account"
+    ],
+    "id": "chatAccount",
+    "tag": "select"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "reloadChat",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "chat-wrap"
+    ],
+    "id": "chatWrap",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-list"
+    ],
+    "id": "chatList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-search"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "chatSearch",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "chat-dialogs"
+    ],
+    "id": "chatDialogs",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-pane"
+    ],
+    "id": "chatPane",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-empty"
+    ],
+    "id": "chatEmpty",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "ce-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ce-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-room"
+    ],
+    "id": "chatRoom",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-back"
+    ],
+    "data-act": "closeChatRoom",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "chat-ava"
+    ],
+    "id": "chatHeadAva",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-head-text"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-head-title"
+    ],
+    "id": "chatHeadTitle",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-head-sub"
+    ],
+    "id": "chatHeadSub",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-head-lead"
+    ],
+    "data-act": "openChatLead",
+    "id": "chatHeadLead",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "chat-feed"
+    ],
+    "id": "chatFeed",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "chat-compose"
+    ],
+    "id": "chatCompose",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "chatInput",
+    "tag": "textarea"
+  },
+  {
+    "classes": [
+      "chat-send"
+    ],
+    "data-act": "sendChatMessage",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "chat-readonly"
+    ],
+    "id": "chatReadonly",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "settings",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section-kicker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "mode-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "id": "replyNotifySub",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "switch"
+    ],
+    "data-act": "toggleReplyNotify",
+    "id": "replyNotifyToggle",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "switch-k"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "notify-target"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-label"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [
+      "notify-target-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "notifyTargetSelect",
+    "tag": "select"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "testNotifyTarget",
+    "id": "notifyTargetTest",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "id": "notifyTargetHint",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section-kicker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "mode-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "id": "sendWindowSub",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "switch"
+    ],
+    "data-act": "toggleSendWindow",
+    "id": "sendWindowToggle",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "switch-k"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "send-window-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "sendWindowStart",
+    "tag": "select"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "sendWindowEnd",
+    "tag": "select"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "id": "sendWindowHint",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "reply-hours"
+    ],
+    "id": "replyHours",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "reply-hours-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "replyHoursNote",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "reply-hours-bars"
+    ],
+    "id": "replyHoursBars",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section-kicker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "sessions-list"
+    ],
+    "id": "sessionsList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "sessions-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "revokeOtherSessions",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section-kicker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "risk-list"
+    ],
+    "id": "accountRiskList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "account-health-center"
+    ],
+    "id": "accountHealthCenter",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-center-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section-kicker"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "health-head-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-sync"
+    ],
+    "id": "healthSyncState",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "health-overview-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-score-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-ring"
+    ],
+    "id": "healthScoreRing",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "healthScoreValue",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-eyebrow"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "healthScoreTitle",
+    "tag": "h4"
+  },
+  {
+    "classes": [],
+    "id": "healthScoreSummary",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "health-kpi"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-kpi-icon",
+      "ready"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "id": "healthReadyValue",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "healthReadyMeta",
+    "tag": "em"
+  },
+  {
+    "classes": [
+      "health-kpi"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-kpi-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "id": "healthSentValue",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "healthSentMeta",
+    "tag": "em"
+  },
+  {
+    "classes": [
+      "health-kpi"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-kpi-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "id": "healthErrorsValue",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "healthErrorsMeta",
+    "tag": "em"
+  },
+  {
+    "classes": [
+      "health-main-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-accounts-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-section-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h4"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "health-filters"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "active"
+    ],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "health-account-list"
+    ],
+    "id": "healthAccountList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-recommendations"
+    ],
+    "tag": "aside"
+  },
+  {
+    "classes": [
+      "health-section-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h4"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "recommend-count"
+    ],
+    "id": "healthRecommendationCount",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "healthRecommendations",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-trend-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-trend-copy"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "healthLoadTitle",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "healthLoadSummary",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "health-mini-chart"
+    ],
+    "id": "healthLoadChart",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "health-details-pop"
+    ],
+    "id": "healthDetailsPop",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "healthDetailsTitle",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "healthDetailsText",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "health-account-management"
+    ],
+    "id": "healthAccountManagement",
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": [
+      "health-management-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "health-management-count"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "health-management-chevron"
+    ],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "health-management-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "warmupList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "acc-add-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "addWarmupAccount",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "acc-add-hint"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "warmupDisclaimer",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "grid-2"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "list-card",
+      "appearance-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head",
+      "appearance-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "appearance-pickers"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "theme-grid"
+    ],
+    "id": "themeGrid",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "list-card"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "appearance-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost",
+      "danger"
+    ],
+    "data-act": "logout",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost",
+      "tut-open"
+    ],
+    "data-act": "openModal",
+    "data-args": "[\"modalKeyTutorial\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "id": "keysList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "key-add"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "newKeyValue",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "row-2"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "newKeyLabel",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "newKeyQuota",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "addKey",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "keysQuota",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "keysNote",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "section"
+    ],
+    "id": "admin",
+    "tag": "section"
+  },
+  {
+    "classes": [
+      "topbar"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "page-sub"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "topbar-right"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "adminSummary",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "adm-cards"
+    ],
+    "id": "adminOverview",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "admin-health-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "admin-health-up"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [
+      "admin-health-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "admin-health-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "admin-health-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "adminHealthAudience",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "admin-health-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "admin-health-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "adminHealthDelivery",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "admin-health-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "admin-health-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "adminHealthQueue",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "admin-health-item"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "admin-health-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "adminHealthAccess",
+    "tag": "small"
+  },
+  {
+    "classes": [
+      "panel",
+      "admin-notice-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "admin-notice-grid"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "adminNoticeTarget",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "adminNoticeUserId",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "adminNoticeLevel",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "adminNoticeMessage",
+    "tag": "textarea"
+  },
+  {
+    "classes": [
+      "btn-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "check-row"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "adminNoticeTelegram",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "sendAdminNotification",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "adminNoticeResult",
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "adm-revenue"
+    ],
+    "id": "adminRevenue",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "pay-form"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "payUserId",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "payAmount",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "payCurrency",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "payNote",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "addPayment",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "id": "adminPayments",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "adminChurn",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "adm-chart-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "adm-chart"
+    ],
+    "id": "adminChart",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "adm-live"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "adminVisitors",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel",
+      "admin-activity-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "panel-tools"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "link-button"
+    ],
+    "id": "adminRecentToggle",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "id": "adminRecentActions",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "db-search"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "adminSearch",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "adm-scopes"
+    ],
+    "id": "adminScopes",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "adminUsers",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-pager"
+    ],
+    "id": "adminPager",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "adminCount",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "adminPage",
+    "data-args": "[-1]",
+    "id": "adminPrev",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "adminPage",
+    "data-args": "[1]",
+    "id": "adminNext",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "panel",
+      "admin-maintenance-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "admin-maintenance-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "admin-maintenance-icon"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "recomputeLeadScores",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "promo-form"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "promo-wide"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "promoCode",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "promoPct",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "promoLimit",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "promo-wide"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "promoNote",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "createPromoCode",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "id": "promoList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "grant-days-form"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-label"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "grantAllDays",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "grant-note"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-label"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "grantAllNote",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "grantAllOnlyPaid",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "grantDaysToAll",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "whitelistList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "key-add"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "row-2"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "wlTelegramId",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "wlUsername",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "wlNote",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "addWhitelist",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "loginOnlyFailed",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "exportLoginAttempts",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-filters"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-sort"
+    ],
+    "id": "loginReasonFilter",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "id": "loginIpFilter",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "id": "loginQueryFilter",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "id": "loginAttemptsList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-pager"
+    ],
+    "id": "loginPager",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "loginCount",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "loginPrev",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "loginNext",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "panel",
+      "admin-journal-panel"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "panel-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-scope"
+    ],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "activityOnlyErrors",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "exportActivity",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "link-button"
+    ],
+    "id": "adminActivityToggle",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "log-filters"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-sort"
+    ],
+    "id": "activityScopeFilter",
+    "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "id": "activityUserFilter",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "id": "activityQueryFilter",
+    "tag": "input"
+  },
+  {
+    "classes": [],
+    "id": "adminActivityList",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-pager"
+    ],
+    "id": "activityPager",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "activityCount",
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "activityPrev",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "activityNext",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "plan-confirm-dialog"
+    ],
+    "id": "modalPlanTelegram",
+    "tag": "dialog"
+  },
+  {
+    "classes": [
+      "modal",
+      "plan-confirm-modal"
+    ],
+    "tag": "form"
+  },
+  {
+    "classes": [
+      "modal-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "planConfirmTitle",
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "modal-close"
+    ],
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "plan-confirm-hero"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "plan-confirm-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "plan-confirm-label"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "plan-confirm-name"
+    ],
+    "id": "planConfirmName",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "plan-confirm-info"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [],
+    "id": "planConfirmContact",
+    "tag": "strong"
+  },
+  {
+    "classes": [],
+    "id": "planConfirmPromo",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "plan-confirm-safe"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "plan-confirm-continue"
+    ],
+    "id": "planConfirmContinue",
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "modal-overlay"
+    ],
+    "id": "modalKeyTutorial",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal",
+      "modal-lg"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "modal-close"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalKeyTutorial\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "tut-links"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "tut-cta"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "tut-doc"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "tut-step"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-text"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "tut-open"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "tut-svg"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [
+      "t-win"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-bar"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-field"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-text"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-chip"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-text"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-pop"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-line"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-accent"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-btntext"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-ring"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "tut-step"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-text"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "tut-open"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "tut-svg"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [
+      "t-win"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-bar"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-text"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-field"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-text"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-pop"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-logo"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-play"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "t-title2"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-accent"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-btntext"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-ring"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "tut-step"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-text"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "tut-open"
+    ],
+    "tag": "a"
+  },
+  {
+    "classes": [
+      "tut-svg"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [
+      "t-win"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-bar"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-dot"
+    ],
+    "tag": "circle"
+  },
+  {
+    "classes": [
+      "t-text"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-chip"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-text"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-pop"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-accent"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-btntext"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-ring"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-line"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-line"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "tut-step"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-text"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "tut-svg"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [
+      "t-win"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-pop"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-title2"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-field"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-mono"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-accent"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-copy"
+    ],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "t-ring"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-line"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "tut-step"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-num"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-title"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "tut-text"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "tut-svg"
+    ],
+    "tag": "svg"
+  },
+  {
+    "classes": [
+      "t-win"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-title2"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-field"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-mono"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-field"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-text"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-field"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-text"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-accent"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "t-btntext"
+    ],
+    "tag": "text"
+  },
+  {
+    "classes": [
+      "t-ring"
+    ],
+    "tag": "rect"
+  },
+  {
+    "classes": [
+      "modal-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalKeyTutorial\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "modal-overlay"
+    ],
+    "id": "modalConfirm",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal",
+      "modal-narrow"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "confirmTitle",
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "modal-close"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalConfirm\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "id": "confirmText",
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "modal-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "danger"
+    ],
+    "data-act": "confirmAccept",
+    "id": "confirmOk",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalConfirm\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "modal-overlay"
+    ],
+    "id": "modalLeadNote",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "modal-close"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalLeadNote\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "leadNoteTitle",
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "leadNoteText",
+    "tag": "textarea"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "saveLeadNote",
+    "id": "leadNoteSave",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalLeadNote\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "modal-overlay"
+    ],
+    "id": "modalScoreInfo",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "modal-close"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalScoreInfo\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "score-legend"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "score-legend-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-score",
+      "hot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "score-legend-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-score",
+      "warm"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "score-legend-row"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "lead-score",
+      "cold"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [
+      "score-parts"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "score-part"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "score-part"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "score-part"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "score-part"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "modal-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalScoreInfo\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "modal-overlay"
+    ],
+    "id": "modalTgConnect",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal",
+      "wide"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "icon-btn"
+    ],
+    "data-act": "cancelTgConnect",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "modal-body"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "field-hint"
+    ],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "tg-connect-wrap"
+    ],
+    "id": "tgConnectWrap",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "cancelTgConnect",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "modal-overlay"
+    ],
+    "id": "modalOffer",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "modal-close"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalOffer\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "offerName",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "data-args": "[\"__EL__\"]",
+    "id": "offerImage",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "offer-img-preview"
+    ],
+    "id": "modalImgPreview",
+    "tag": "img"
+  },
+  {
+    "classes": [
+      "field"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "offerDesc",
+    "tag": "textarea"
+  },
+  {
+    "classes": [
+      "modal-actions"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"modalOffer\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "data-act": "createOffer",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "modal-overlay"
+    ],
+    "id": "adminUserModal",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal",
+      "modal-lg"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "modal-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [
+      "modal-close"
+    ],
+    "data-act": "closeModal",
+    "data-args": "[\"adminUserModal\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "id": "adminUserBody",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "dd-empty"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "onb-overlay"
+    ],
+    "id": "onbOverlay",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "onb-modal"
+    ],
+    "id": "onbModal",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "onb-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "onb-list"
+    ],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "onb-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "onb-list"
+    ],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "onb-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "onb-list"
+    ],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "onb-icon"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [
+      "onb-list"
+    ],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [
+      "onb-foot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "onbDots",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "onb-dot",
+      "active"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "onb-dot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "onb-dot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "onb-dot"
+    ],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "onb-skip-confirm"
+    ],
+    "id": "onbSkipConfirm",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "onbSkipYes",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "id": "onbSkipNo",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "onbSkip",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn",
+      "ghost"
+    ],
+    "id": "onbBack",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "btn"
+    ],
+    "id": "onbNext",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "drawer"
+    ],
+    "id": "aiDrawer",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "drawer-head"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "t"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ai-dot"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [
+      "modal-close"
+    ],
+    "data-act": "closeDrawer",
+    "tag": "button"
+  },
+  {
+    "classes": [
+      "drawer-body"
+    ],
+    "id": "aiBody",
+    "tag": "div"
+  },
+  {
+    "classes": [
+      "ai-intro"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [
+      "drawer-input"
+    ],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "aiInput",
+    "tag": "input"
+  },
+  {
+    "classes": [
+      "send-btn"
+    ],
+    "data-act": "sendAi",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "script"
+  },
+  {
+    "classes": [],
+    "tag": "script"
+  }
+]

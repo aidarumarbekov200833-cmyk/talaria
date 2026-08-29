@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, follow" />
+    <title>Страница не найдена — Talaria</title>
+    <!-- Страница ошибки намеренно самодостаточна: ни одного внешнего файла.
+         Если отдаётся 404, у клиента и так что-то не так с путями, и тянуть
+         css/шрифты значит рискнуть показать голый текст на белом фоне. -->
+    <style>
+      :root {
+        --ink: #f5eef6;
+        --muted: #b6a9bb;
+        --bg: #08070a;
+        --accent: #ff2fa4;
+        --line: rgba(245, 238, 246, 0.14);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+        display: grid;
+        place-items: center;
+        padding: 32px;
+      }
+      .wrap {
+        max-width: 560px;
+        text-align: center;
+      }
+      .code {
+        font-family: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, monospace;
+        font-size: 13px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 18px;
+      }
+      h1 {
+        font-size: clamp(30px, 7vw, 46px);
+        line-height: 1.1;
+        margin: 0 0 14px;
+        font-weight: 600;
+      }
+      p {
+        margin: 0 auto 28px;
+        max-width: 44ch;
+        color: var(--muted);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+      .actions {
+        display: flex;
+        gap: 12px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+      a {
+        display: inline-block;
+        padding: 12px 22px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          sans-serif;
+        font-size: 15px;
+      }
+      .primary {
+        background: var(--accent);
+        color: #0b0a0e;
+        font-weight: 600;
+      }
+      .ghost {
+        border: 1px solid var(--line);
+        color: var(--ink);
+      }
+      .mark {
+        width: 46px;
+        height: 40px;
+        margin: 0 auto 26px;
+        display: block;
+      }
+      @media (prefers-color-scheme: light) {
+        :root {
+          --ink: #171019;
+          --muted: #6d5f72;
+          --bg: #fbf7fb;
+          --line: rgba(23, 16, 25, 0.14);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <svg class="mark" viewBox="0 0 52 44" aria-hidden="true">
+        <g fill="currentColor">
+          <path
+            d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"
+          />
+          <path d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z" />
+          <path d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z" />
+          <path d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z" />
+          <path d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z" />
+        </g>
+      </svg>
+      <div class="code">Ошибка 404</div>
+      <h1>Такой страницы здесь нет</h1>
+      <p>
+        Адрес набран с опечаткой или страницу убрали. Ваши базы лидов, офферы и рассылки на месте —
+        они внутри кабинета.
+      </p>
+      <div class="actions">
+        <a class="primary" href="/">На главную</a>
+        <a class="ghost" href="/#login">Войти в кабинет</a>
+      </div>
+    </div>
+  </body>
+</html>

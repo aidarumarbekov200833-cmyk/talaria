@@ -1,0 +1,72 @@
+# Secrets — never commit real credentials. Copy .env.example to .env instead.
+.env
+.env.*
+!.env.example
+!deploy/.env.production.example
+
+# Локальный deploy-архив содержит корневой .env по явному запросу владельца.
+# Его можно переносить на сервер только по защищённому каналу, в git — никогда.
+release/
+
+# Файлы с «битым» именем вида #U0432 — так Windows/архиваторы сохраняют имена,
+# в которых сломалась кодировка. В корне проекта уже находился такой файл с
+# ЖИВЫМ BOT_TOKEN внутри, и ни одно из правил выше его не ловило.
+\#*
+*.env.bak
+*.env.save
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Environment
+.venv/
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Node (веб-Telegram клиент tg-mini-client)
+node_modules/
+# session.txt — это ПОЛНЫЙ доступ к аккаунту Telegram. Утечёт файл — утечёт аккаунт.
+tg-mini-client/sessions/
+
+# Дампы БД (сервис backup в docker-compose) — данные пользователей, не в git.
+backups/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Кеш линтера ruff — локальный, в истории не нужен.
+.ruff_cache/
+
+# Симлинк локального venv.
+.venv

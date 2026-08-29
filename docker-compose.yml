@@ -1,0 +1,316 @@
+# Общие настройки логирования для всех сервисов: без ротации json-логи Docker
+# растут бесконечно, и «кончилось место на диске» — одна из самых частых причин,
+# по которой падает вообще всё. 10 МБ × 3 файла на сервис — за глаза.
+x-logging: &default-logging
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
+
+services:
+  frontend:
+    build: ./frontend
+    # По умолчанию nginx публикуется на 80 — обычный запуск без TLS.
+    # При запуске с профилем tls впереди встаёт Caddy (80/443), поэтому фронтенд
+    # надо убрать с внешнего порта: FRONTEND_HTTP_PORT=127.0.0.1:8080 в .env.
+    ports:
+      - "${FRONTEND_HTTP_PORT:-80}:80"
+    # Форма /tg-connect/ доступна только по подписанному билету backend.
+    # Ждём именно здоровых соседей, а не просто «запущенных»: nginx резолвит
+    # имена backend и web-tg при старте и падает, если их ещё нет.
+    depends_on:
+      backend:
+        condition: service_healthy
+      web-tg:
+        condition: service_healthy
+    healthcheck:
+      # BusyBox wget в Alpine может резолвить localhost в ::1, тогда проверка
+      # падает при исправно работающем nginx, который слушает IPv4.
+      test: ["CMD-SHELL", "wget -q --spider http://127.0.0.1:80/ || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
+    restart: unless-stopped
+    logging: *default-logging
+
+  backend:
+    build: ./backend
+    env_file: .env
+    # Внутри сети compose Telegram-gateway доступен по имени сервиса.
+    # Тестовая отправка (/api/campaigns/test-send) ходит на этот адрес. Значение
+    # из .env (если задано) переопределит эту переменную окружения.
+    environment:
+      TG_CLIENT_URL: ${TG_CLIENT_URL:-http://web-tg:3000}
+    depends_on:
+      db:
+        condition: service_healthy
+    # Бэкенд «здоров», когда /api/health отвечает 200. В образе python:slim нет
+    # curl, поэтому проверяем через сам Python (urllib) — без лишних пакетов.
+    healthcheck:
+      test: ["CMD-SHELL", "python -c \"import urllib.request,sys; sys.exit(0 if urllib.request.urlopen('http://localhost:8000/api/health', timeout=3).status==200 else 1)\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 20s
+    restart: unless-stopped
+    logging: *default-logging
+    # Потолок памяти: если что-то потечёт, Docker перезапустит один сервис,
+    # а не ядро начнёт убивать процессы по всей машине (включая Postgres).
+    mem_limit: 1g
+
+  # Telegram-gateway: отдельный сервис с настоящими MTProto-сессиями.
+  # Порт 3000 наружу НЕ публикуем — доступ только изнутри сети compose, через
+  # nginx публикует только форму входа на /tg-connect/; порт наружу не открыт.
+  #
+  # Сессии (sessions/user-<owner>-acc-<account>.txt — по одной на слот, каждая
+  # даёт полный доступ к своему аккаунту) живут в томе web-tg-sessions,
+  # а не в образе и не в git. API_ID/API_HASH/TG_CLIENT_SECRET берутся из .env
+  # (PORT внутри фиксируем 3000).
+  web-tg:
+    build: ./tg-mini-client
+    env_file: .env
+    environment:
+      PORT: 3000
+      SITE_API_URL: ${SITE_API_URL:-http://backend:8000}
+    volumes:
+      - web-tg-sessions:/app/sessions
+    # В образе node:alpine нет curl, поэтому проверяем самим же Node.
+    # Любой ответ меньше 500 считаем живым: страница может отдать 401/404,
+    # но это значит, что процесс поднялся и отвечает.
+    healthcheck:
+      test: ["CMD-SHELL", "node -e \"require('http').get('http://127.0.0.1:3000/', r => process.exit(r.statusCode < 500 ? 0 : 1)).on('error', () => process.exit(1))\""]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    restart: unless-stopped
+    logging: *default-logging
+    # GramJS с несколькими живыми сессиями любит память — ограничиваем и его.
+    mem_limit: 768m
+
+  # Внешний HTTPS-шлюз (Caddy). Выключен по умолчанию — включается только
+  # профилем:  docker compose --profile tls up -d
+  # Публикует 80/443 наружу, всё проксирует на frontend:80 и сам ведёт
+  # Let's Encrypt. Фронтенд при этом должен слушать локально (см. frontend).
+  caddy:
+    image: caddy:2-alpine
+    profiles: ["tls"]
+    ports:
+      - "80:80"
+      - "443:443"
+    environment:
+      DOMAIN: ${DOMAIN:-localhost}
+      PRIMARY_DOMAIN: ${PRIMARY_DOMAIN:-localhost}
+      ALIAS_DOMAINS: ${ALIAS_DOMAINS:-alias.localhost}
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy-data:/data
+      - caddy-config:/config
+    depends_on:
+      frontend:
+        condition: service_healthy
+    restart: unless-stopped
+    logging: *default-logging
+
+  # Вынос ежедневных дампов за пределы машины (off-site). Выключен по умолчанию:
+  #   docker compose --profile offsite-backup up -d
+  # Требует в .env: RESTIC_REPO (sshuser@host:/restic-path или s3:...),
+  # RESTIC_PASSWORD, RESTIC_RSH (ssh-ключ) — см. README. Каждый час делает
+  # restic backup из ./backups и забывает старые снапшоты по политике.
+  offsite-backup:
+    image: restic/restic:latest
+    profiles: ["offsite-backup"]
+    env_file: .env
+    environment:
+      RESTIC_REPOSITORY: ${RESTIC_REPO}
+      RESTIC_PASSWORD: ${RESTIC_PASSWORD}
+      RESTIC_RSH: ${RESTIC_RSH:-ssh}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-30}
+    volumes:
+      - ./backups:/backups:ro
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        echo "Off-site бэкап: репозиторий зашифрован, снапшоты по дням.";
+        while true; do
+          if restic snapshots --json >/dev/null 2>&1; then
+            :
+          else
+            restic init || echo "restic init пропущен (репозиторий уже есть)" >&2;
+          fi;
+          if restic backup /backups --verbose --tag outly; then
+            echo "Off-site бэкап готов: $$(date +%Y%m%d-%H%M%S)";
+          else
+            echo "Off-site бэкап НЕ удался ($$(date +%Y%m%d-%H%M%S))" >&2;
+          fi;
+          restic forget --keep-daily $${BACKUP_KEEP_DAYS:-30} --keep-weekly 12 --keep-monthly 12 --prune >/dev/null 2>&1 || true;
+          sleep 3600;
+        done
+    restart: unless-stopped
+    logging: *default-logging
+
+  db:
+    image: postgres:16-alpine
+    # Пароль БОЛЬШЕ НЕ ИМЕЕТ ДЕФОЛТА. Раньше здесь стоял публичный шаблон, и если
+    # человек забывал задать пароль в .env, база молча поднималась в проде с
+    # паролем из публичного репозитория. Синтаксис :? — это осознанное
+    # «упадёт на старте с понятной ошибкой» вместо «тихо заработает небезопасно».
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-outly}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env (см. .env.example)}
+      POSTGRES_DB: ${POSTGRES_DB:-outly}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-outly}"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+    restart: unless-stopped
+    logging: *default-logging
+
+  # Ежедневный атомарный дамп БД + зашифровываемые restic'ом архивы
+  # Telegram-сессий. Скрипт пишет SHA-256 и marker свежести; healthcheck
+  # становится unhealthy, если новый подтверждённый дамп не появился вовремя.
+  backup:
+    image: postgres:16-alpine
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: ${POSTGRES_USER:-outly}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env (см. .env.example)}
+      PGDATABASE: ${POSTGRES_DB:-outly}
+      BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-30}
+      BACKUP_MIN_BYTES: ${BACKUP_MIN_BYTES:-256}
+      # Копия каждые 6 часов. Сжатый дамп — сотни килобайт, так что частота
+      # ничего не стоит по месту, а потеря при отказе диска сокращается
+      # с суток до шести часов.
+      BACKUP_INTERVAL_SECONDS: ${BACKUP_INTERVAL_SECONDS:-21600}
+      BACKUP_MAX_AGE_SECONDS: ${BACKUP_MAX_AGE_SECONDS:-32400}
+      SESSION_BACKUP_SOURCE: /state/telegram-sessions
+    volumes:
+      - ./backups:/backups
+      - web-tg-sessions:/state/telegram-sessions:ro
+      - ./scripts/backup.sh:/usr/local/bin/outly-backup:ro
+    entrypoint: ["/bin/sh", "/usr/local/bin/outly-backup"]
+    healthcheck:
+      test: ["CMD-SHELL", "test -s /backups/.last-ok.epoch && now=$$(date -u +%s) && last=$$(cat /backups/.last-ok.epoch) && test $$((now-last)) -le $${BACKUP_MAX_AGE_SECONDS:-32400}"]
+      interval: 30s
+      timeout: 10s
+      retries: 2
+      start_period: 2m
+    restart: unless-stopped
+    logging: *default-logging
+
+  # Раз в неделю разворачивает последний дамп в отдельную временную БД,
+  # проверяет ключевые таблицы и удаляет тестовую БД. Production не трогает.
+  # Это защищает от ситуации «архивы есть, но восстановить их нельзя».
+  backup-verify:
+    image: postgres:16-alpine
+    env_file: .env
+    depends_on:
+      db:
+        condition: service_healthy
+      backup:
+        condition: service_healthy
+    environment:
+      PGHOST: db
+      PGUSER: ${POSTGRES_USER:-outly}
+      PGPASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env (см. .env.example)}
+      PGDATABASE: ${POSTGRES_DB:-outly}
+      BACKUP_VERIFY_DB: ${BACKUP_VERIFY_DB:-outly_restore_verify}
+      BACKUP_VERIFY_INTERVAL_DAYS: ${BACKUP_VERIFY_INTERVAL_DAYS:-7}
+      BACKUP_VERIFY_MAX_AGE_SECONDS: ${BACKUP_VERIFY_MAX_AGE_SECONDS:-691200}
+    volumes:
+      - ./backups:/backups
+      - ./scripts/verify-backup.sh:/usr/local/bin/outly-verify-backup:ro
+    entrypoint: ["/bin/sh", "/usr/local/bin/outly-verify-backup"]
+    healthcheck:
+      test: ["CMD-SHELL", "test -s /backups/.last-restore-ok.epoch && now=$$(date -u +%s) && last=$$(cat /backups/.last-restore-ok.epoch) && test $$((now-last)) -le $${BACKUP_VERIFY_MAX_AGE_SECONDS:-691200}"]
+      interval: 30s
+      timeout: 10s
+      retries: 2
+      start_period: 10m
+    restart: unless-stopped
+    logging: *default-logging
+
+  # Следит за marker-файлами обоих backup-сервисов и свободным местом.
+  # При проблеме отправляет сообщение ADMIN_TELEGRAM_IDS через существующего
+  # Telegram-бота; повторяет не чаще заданного интервала и сообщает о recovery.
+  backup-watchdog:
+    build: ./backend
+    env_file: .env
+    depends_on:
+      backup:
+        condition: service_healthy
+      backup-verify:
+        condition: service_started
+    environment:
+      BACKUP_DIR: /backups
+      BACKUP_MAX_AGE_SECONDS: ${BACKUP_MAX_AGE_SECONDS:-32400}
+      BACKUP_VERIFY_MAX_AGE_SECONDS: ${BACKUP_VERIFY_MAX_AGE_SECONDS:-691200}
+      BACKUP_CHECK_INTERVAL_SECONDS: ${BACKUP_CHECK_INTERVAL_SECONDS:-300}
+      BACKUP_ALERT_REPEAT_SECONDS: ${BACKUP_ALERT_REPEAT_SECONDS:-21600}
+      BACKUP_MIN_FREE_BYTES: ${BACKUP_MIN_FREE_BYTES:-2147483648}
+    volumes:
+      - ./backups:/backups:ro
+    entrypoint: ["python", "-m", "app.backup_watchdog"]
+    restart: unless-stopped
+    logging: *default-logging
+
+  # Аналитика посещений — своя, на своём домене.
+  #
+  # Почему не Google Analytics или Plausible-облако: CSP разрешает скрипты
+  # только с 'self' и telegram.org, любой внешний счётчик она просто не
+  # загрузит. Ослаблять CSP ради счётчика — плохой размен. Umami отдаёт свой
+  # скрипт с нашего же origin, поэтому CSP трогать не пришлось.
+  #
+  # Кук не ставит и не собирает персональные данные — баннер согласия не нужен.
+  # Живёт в отдельной базе и под отдельной ролью: у аналитики нет доступа к
+  # данным приложения, даже если её однажды взломают.
+  umami:
+    image: ghcr.io/umami-software/umami:postgresql-latest
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_TYPE: postgresql
+      DATABASE_URL: postgresql://${UMAMI_DB_USER:-umami}:${UMAMI_DB_PASSWORD:?задайте UMAMI_DB_PASSWORD в .env}@db:5432/${UMAMI_DB_NAME:-umami}
+      APP_SECRET: ${UMAMI_APP_SECRET:?задайте UMAMI_APP_SECRET в .env}
+      # BASE_PATH здесь НЕ задаём: готовый образ его игнорирует (basePath у
+      # Next.js фиксируется на сборке). Umami живёт в корне своего контейнера, а
+      # наружу через nginx открыты только /insights/s.js и /insights/api/send.
+      # Имя файла трекера меняем: стандартный /umami.js вырезает половина
+      # блокировщиков рекламы, и статистика получилась бы заниженной в разы.
+      TRACKER_SCRIPT_NAME: s
+      DISABLE_TELEMETRY: "1"
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "wget -q -O - http://127.0.0.1:3000/api/heartbeat > /dev/null 2>&1 || exit 1",
+        ]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 90s
+    restart: unless-stopped
+    logging: *default-logging
+
+volumes:
+  # Явные имена не зависят от названия каталога/Compose project. Обновление или
+  # переименование папки не создаст случайно пустую БД вместо существующей.
+  pgdata:
+    name: ${OUTLY_PGDATA_VOLUME:-outly-pgdata}
+  web-tg-sessions:
+    name: ${OUTLY_TG_SESSIONS_VOLUME:-outly-telegram-sessions}
+  # Сертификаты и состояние ACME у Caddy. Без этого тома Let's Encrypt будет
+  # выпускать сертификат заново при каждом перезапуске и упрётся в лимиты.
+  caddy-data:
+    name: ${OUTLY_CADDY_DATA_VOLUME:-outly-caddy-data}
+  caddy-config:
+    name: ${OUTLY_CADDY_CONFIG_VOLUME:-outly-caddy-config}

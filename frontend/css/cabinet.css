@@ -1,0 +1,1260 @@
+/* ==========================================================================
+   КАБИНЕТ: спокойный «рабочий» слой поверх бренда.
+   ==========================================================================
+   Лендинг остаётся ярким — он продаёт. Кабинет в нём же виде мешал работать:
+   градиенты на каждой кнопке, свечения, капслок в заголовках и разная плотность
+   в каждом разделе. Здесь одна система: плоские поверхности, тихие границы,
+   один акцент на экран, единая высота полей и кнопок, иконки одного веса.
+
+   Всё под #appWrapper: снаружи (лендинг, экран входа) ничего не меняется.
+   Цвета — только через существующие токены и color-mix: hex-литералы живут в
+   tokens.css, это проверяет юнит-тест.
+   ========================================================================== */
+
+#appWrapper {
+  /* Границы и подложки выводим из --ink: на тёмной теме это светлый штрих по
+     тёмному, на светлой — тёмный по светлому. Один набор на две темы. */
+  --cab-line: color-mix(in srgb, var(--ink) 13%, transparent);
+  --cab-line-soft: color-mix(in srgb, var(--ink) 8%, transparent);
+  --cab-fill: color-mix(in srgb, var(--ink) 5%, transparent);
+  --cab-fill-strong: color-mix(in srgb, var(--ink) 9%, transparent);
+  --cab-radius: 14px;
+  --cab-radius-small: 10px;
+  --cab-control: 38px;
+}
+
+/* ── 1. Каркас ─────────────────────────────────────────────────────────── */
+
+#appWrapper .app {
+  grid-template-columns: 248px minmax(0, 1fr);
+  transition: grid-template-columns var(--motion-base) var(--motion-ease);
+}
+#appWrapper .app.sidebar-collapsed {
+  grid-template-columns: 72px minmax(0, 1fr);
+}
+
+#appWrapper .sidebar {
+  gap: 8px;
+  padding: 14px 12px 14px;
+  border-right: 1px solid var(--cab-line-soft);
+  background: var(--surface);
+}
+
+/* Шапка меню: текстовое лого, как в понятных панелях, и кнопка сворачивания. */
+#appWrapper .brand {
+  display: flex;
+  align-items: center;
+  padding: 4px 4px 10px;
+  gap: 8px;
+}
+#appWrapper .brand-mark {
+  display: none;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border-radius: 9px;
+  box-shadow: none;
+}
+#appWrapper .brand-mark svg {
+  width: 21px;
+  height: 21px;
+}
+#appWrapper .brand > div:not(.brand-mark) {
+  min-width: 0;
+  flex: 1;
+}
+#appWrapper .brand-name {
+  font-family: var(--font-display);
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1;
+  text-transform: lowercase;
+}
+/* Точка акцентом: подпись «Рассылки и офферы» в меню только шумела, а бренд
+   всё равно нужно отметить чем-то своим. */
+#appWrapper .brand-name::after {
+  color: var(--accent);
+  content: '.';
+}
+#appWrapper .brand-tag {
+  display: none;
+}
+#appWrapper .sidebar-collapse {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  color: var(--muted);
+  background: none;
+  cursor: pointer;
+  place-items: center;
+  transition:
+    color var(--motion-fast) var(--motion-ease),
+    background var(--motion-fast) var(--motion-ease);
+}
+#appWrapper .sidebar-collapse svg {
+  width: 17px;
+  height: 17px;
+}
+#appWrapper .sidebar-collapse:hover {
+  color: var(--ink);
+  background: var(--cab-fill);
+}
+
+#appWrapper .nav {
+  gap: 2px;
+}
+#appWrapper .nav-group {
+  gap: 2px;
+}
+#appWrapper .nav-group-label {
+  padding: 12px 10px 5px;
+  color: color-mix(in srgb, var(--muted) 88%, transparent);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+}
+#appWrapper :is(.nav-item, .tariff-btn) {
+  min-height: 36px;
+  padding: 8px 10px;
+  border-radius: var(--cab-radius-small);
+  font-size: 13.5px;
+  font-weight: 500;
+}
+#appWrapper .nav-item svg {
+  width: 18px;
+  height: 18px;
+  flex: none;
+  stroke-width: 1.7;
+}
+#appWrapper .nav-item:hover {
+  color: var(--ink);
+  background: var(--cab-fill);
+}
+/* Активный пункт: тихая заливка и акцент на иконке — без рамки и свечения. */
+#appWrapper .nav-item.active {
+  border: 1px solid transparent;
+  color: var(--ink);
+  background: var(--cab-fill-strong);
+  box-shadow: none;
+  font-weight: 600;
+}
+#appWrapper :is(.usage, .sidebar-session) {
+  border: 1px solid var(--cab-line-soft);
+  background: none;
+}
+#appWrapper .sidebar-session:hover {
+  background: var(--cab-fill);
+}
+#appWrapper .nav-item:hover {
+  transform: none;
+}
+#appWrapper .nav-item.active::before {
+  display: none;
+}
+#appWrapper .nav-item.active svg {
+  color: var(--accent);
+}
+#appWrapper .nav-count {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11.5px;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Квота и тариф — внизу, компактно: это не пункты меню, а состояние счёта. */
+#appWrapper .usage {
+  padding: 10px;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: var(--cab-radius-small);
+  background: none;
+  gap: 6px;
+}
+#appWrapper .usage-top {
+  font-size: 11.5px;
+  font-weight: 600;
+}
+#appWrapper .usage-bar {
+  height: 4px;
+  background: var(--cab-fill-strong);
+}
+#appWrapper .usage-hint {
+  font-size: 11px;
+  line-height: 1.45;
+}
+#appWrapper .tariff-btn {
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  font-weight: 600;
+}
+#appWrapper .tariff-btn:hover {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+#appWrapper .tariff-btn svg {
+  width: 17px;
+  height: 17px;
+  color: var(--accent);
+}
+#appWrapper .sidebar-bottom {
+  gap: 4px;
+  padding-top: 6px;
+  border-top: 1px solid var(--cab-line-soft);
+}
+#appWrapper .sidebar-session {
+  grid-template-columns: 28px 1fr auto;
+  min-height: 40px;
+}
+#appWrapper .sidebar-session-avatar {
+  width: 28px;
+  height: 28px;
+  font-size: 12px;
+}
+#appWrapper .sidebar-session-copy b {
+  font-size: 13px;
+  font-weight: 600;
+}
+#appWrapper .sidebar-session-copy small {
+  font-size: 11px;
+}
+
+/* Свёрнутое меню: только иконки, подписи и вспомогательные блоки скрыты. */
+#appWrapper .app.sidebar-collapsed .brand-mark {
+  display: grid;
+  margin: 0 auto;
+}
+#appWrapper .app.sidebar-collapsed :is(.brand-name, .brand > div:not(.brand-mark)) {
+  display: none;
+}
+#appWrapper .app.sidebar-collapsed .brand {
+  flex-direction: column;
+  gap: 10px;
+}
+#appWrapper
+  .app.sidebar-collapsed
+  :is(.nav-group-label, .nav-count, .usage, .sidebar-session-copy) {
+  display: none;
+}
+#appWrapper .app.sidebar-collapsed :is(.nav-item, .tariff-btn) {
+  justify-content: center;
+  padding: 8px;
+}
+#appWrapper .app.sidebar-collapsed :is(.nav-item span, .tariff-btn .t-label) {
+  display: none;
+}
+#appWrapper .app.sidebar-collapsed .sidebar-session {
+  grid-template-columns: 1fr;
+  justify-items: center;
+}
+#appWrapper .app.sidebar-collapsed .sidebar-session-live {
+  display: none;
+}
+
+/* ── 2. Топбар и заголовки ─────────────────────────────────────────────── */
+
+#appWrapper .topbar {
+  min-height: 64px;
+  /* Справа сверху висят кнопки ИИ и уведомлений (position: fixed), поэтому
+     место под них резервируем отступом — иначе «Обновить» уезжает под них. */
+  padding: 14px calc(clamp(16px, 2.2vw, 32px) + 104px) 14px clamp(16px, 2.2vw, 32px);
+  /* Шапка выходит за отступы раздела отрицательными полями. Их значение обязано
+     совпадать с padding раздела — иначе страница получает горизонтальную
+     прокрутку в 8px, которую видно только по дрожанию при скролле. */
+  margin-inline: calc(-1 * clamp(16px, 2.2vw, 32px));
+  border-bottom: 1px solid var(--cab-line-soft);
+  background: var(--fog);
+  backdrop-filter: none;
+  gap: 14px;
+}
+#appWrapper .page-title {
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  line-height: 1.15;
+  text-transform: none;
+}
+#appWrapper .page-sub {
+  margin-top: 2px;
+  font-size: 12.5px;
+}
+#appWrapper .topbar-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+#appWrapper .section {
+  padding: 18px clamp(16px, 2.2vw, 32px) 28px;
+}
+
+/* ── 3. Панели и карточки ──────────────────────────────────────────────── */
+
+#appWrapper
+  :is(
+    .panel,
+    .stat-card,
+    .campaign-card,
+    .step-card,
+    .search-result,
+    .database-card,
+    .list-card,
+    .offer-pane,
+    .search-filter-panel,
+    .verification-panel,
+    .campaign-builder,
+    .log-panel,
+    .terminal-panel,
+    .activity-panel,
+    .admin-health-panel,
+    .admin-notice-panel,
+    .admin-activity-panel,
+    .adm-chart-panel,
+    .campaign-log-panel
+  ) {
+  border: 1px solid var(--cab-line-soft);
+  border-radius: var(--cab-radius);
+  background: var(--surface);
+  box-shadow: none;
+}
+#appWrapper .panel {
+  padding: 16px;
+}
+#appWrapper .panel-head {
+  margin-bottom: 12px;
+  gap: 10px;
+}
+#appWrapper :is(.panel-head h3, .panel-title, .panel h3) {
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+#appWrapper .panel-head .link {
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+#appWrapper .panel-head .link:hover {
+  color: var(--accent-ink);
+}
+
+/* ── 4. Управление: кнопки, поля, переключатели ────────────────────────── */
+
+#appWrapper .btn {
+  min-height: var(--cab-control);
+  padding: 9px 14px;
+  border: 1px solid transparent;
+  border-radius: var(--cab-radius-small);
+  color: var(--on-accent);
+  background: var(--accent);
+  box-shadow: none;
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+#appWrapper .btn:hover:not(:disabled) {
+  background: color-mix(in srgb, var(--accent) 88%, var(--ink));
+  box-shadow: none;
+  transform: none;
+}
+#appWrapper .btn.ghost {
+  color: var(--ink);
+  border-color: var(--cab-line);
+  background: none;
+}
+#appWrapper .btn.ghost:hover:not(:disabled) {
+  background: var(--cab-fill);
+}
+#appWrapper .btn.danger {
+  color: var(--on-accent);
+  background: var(--danger);
+}
+#appWrapper .btn.small {
+  min-height: 32px;
+  padding: 6px 11px;
+  font-size: 12.5px;
+}
+#appWrapper .btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+#appWrapper
+  :is(
+    input[type='text'],
+    input[type='number'],
+    input[type='search'],
+    input[type='password'],
+    input[type='url'],
+    input:not([type]),
+    select
+  ) {
+  min-height: var(--cab-control);
+  padding: 8px 11px;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--cab-radius-small);
+  background: var(--surface-raised);
+  font-size: 13.5px;
+}
+#appWrapper textarea {
+  padding: 10px 12px;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--cab-radius-small);
+  background: var(--surface-raised);
+  font-size: 13.5px;
+  line-height: 1.5;
+}
+#appWrapper :is(input, textarea, select):focus-visible {
+  outline: none;
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+}
+#appWrapper :is(.field > label, .field > span:first-child, label > span:first-child) {
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+#appWrapper :is(.ph-label, .tg-preview-title, .section-label, .kicker) {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+#appWrapper .ph-hint {
+  color: var(--muted);
+  font-weight: 400;
+}
+#appWrapper .field-hint {
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+/* Сегменты (обычный/ИИ-оффер, диапазоны графиков) — одна форма на весь кабинет. */
+#appWrapper :is(.offer-tabs, .chart-range, .search-tabs, .seg) {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: 12px;
+  background: var(--cab-fill);
+  gap: 2px;
+}
+#appWrapper :is(.offer-tabs, .chart-range, .search-tabs, .seg) button {
+  min-height: 32px;
+  padding: 6px 14px;
+  border: 0;
+  border-radius: 9px;
+  color: var(--muted);
+  background: none;
+  cursor: pointer;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+#appWrapper :is(.offer-tabs, .chart-range, .search-tabs, .seg) button:hover {
+  color: var(--ink);
+}
+#appWrapper :is(.offer-tabs, .chart-range, .search-tabs, .seg) button.active {
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: none;
+}
+#appWrapper :is(.offer-tabs, .chart-range, .search-tabs, .seg) button.active {
+  border: 1px solid var(--cab-line-soft);
+}
+
+/* ── 5. Журналы процесса ───────────────────────────────────────────────── */
+
+#appWrapper .terminal {
+  padding: 10px;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: var(--cab-radius);
+}
+#appWrapper .terminal-line {
+  display: flex;
+  align-items: baseline;
+  padding: 4px 8px;
+  border-radius: 8px;
+  gap: 8px;
+}
+#appWrapper .terminal-line .t-ts {
+  flex: none;
+  color: color-mix(in srgb, var(--on-ink) 45%, transparent);
+  font-variant-numeric: tabular-nums;
+}
+#appWrapper .terminal-line .t-tag {
+  flex: none;
+  padding: 0 6px;
+  border: 1px solid currentcolor;
+  border-radius: 99px;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+#appWrapper .terminal-line .t-text {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+#appWrapper .terminal-line .t-count {
+  margin-left: auto;
+  flex: none;
+  opacity: 0.6;
+}
+/* Уровни: раньше «ошибка» красилась как «внимание», и по журналу нельзя было
+   понять, сломалось или просто предупредили. */
+#appWrapper .terminal-line.terminal-ok {
+  color: var(--success);
+}
+#appWrapper .terminal-line.terminal-warn {
+  color: var(--warning);
+}
+#appWrapper .terminal-line.terminal-err {
+  color: var(--danger);
+  background: color-mix(in srgb, var(--danger) 14%, transparent);
+}
+#appWrapper .terminal-empty {
+  padding: 12px 8px;
+  color: color-mix(in srgb, var(--on-ink) 55%, transparent);
+  font-family: var(--tal-font-mono);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+/* ── 6. Офферы ─────────────────────────────────────────────────────────── */
+
+/* Переключатель типа оффера НИЧЕГО не переключал: у .offer-pane не было ни
+   одного правила display, обе формы висели одна под другой, и «ИИ-оффер»
+   выглядел как второй блок страницы. */
+#offer .offer-pane {
+  display: none;
+  margin-top: 0;
+}
+#offer .offer-pane.active {
+  display: block;
+}
+#offer .offer-tabs {
+  margin-bottom: 16px;
+}
+/* Правая колонка: журнал + предпросмотр сообщения. Раньше предпросмотр лежал
+   отдельной полосой под всей страницей, а рядом с журналом оставалась пустота. */
+.offer-side {
+  display: grid;
+  min-width: 0;
+  align-content: start;
+  gap: 16px;
+}
+.offer-side > .panel {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+#appWrapper #offer .terminal {
+  min-height: 180px;
+  max-height: 260px;
+}
+.offer-side .tg-preview {
+  margin-top: 0;
+}
+/* Название и картинка в одну колонку: в половине ширины подпись «Добавить
+   изображение · PNG, JPEG, WebP или GIF» ломалась на четыре строки. */
+.offer-create-grid {
+  grid-template-columns: minmax(0, 1fr);
+}
+#appWrapper .offer-upload {
+  align-items: center;
+  padding: 12px;
+  border: 1px dashed var(--cab-line);
+  border-radius: var(--cab-radius-small);
+  gap: 12px;
+}
+#appWrapper .offer-upload-icon {
+  box-shadow: none;
+}
+#offer .grid-3:empty {
+  display: none;
+}
+#appWrapper .empty-state,
+#offer .grid-3 > .empty-state {
+  grid-column: 1 / -1;
+  padding: 26px 18px;
+  border: 1px dashed var(--cab-line);
+  border-radius: var(--cab-radius);
+  color: var(--muted);
+  background: none;
+  font-size: 13px;
+  text-align: center;
+}
+#appWrapper .ph-chip {
+  padding: 5px 10px;
+  border-radius: 9px;
+  font-size: 12px;
+}
+
+/* ── 7. Чат ────────────────────────────────────────────────────────────── */
+
+/* Окно чата вплотную упиралось в шапку раздела. */
+#messages .chat-wrap {
+  height: calc(100vh - 236px);
+  margin-top: 18px;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: var(--cab-radius);
+  grid-template-columns: minmax(268px, 332px) minmax(0, 1fr);
+}
+#messages .chat-list {
+  border-right: 1px solid var(--cab-line-soft);
+  background: var(--surface);
+}
+#messages .chat-search {
+  padding: 10px 12px;
+  border-bottom: 1px solid var(--cab-line-soft);
+}
+#messages .chat-search input {
+  min-height: 34px;
+  padding: 6px 10px;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: 99px;
+  background: var(--cab-fill);
+  font-size: 13px;
+}
+#messages .chat-dialogs {
+  padding: 6px;
+}
+
+/* Строка диалога: две строки, как в Telegram. Тип чата и «без звука» стали
+   иконками — текстовые плашки третьей строкой делали список рыхлым. */
+#messages .chat-dialog {
+  padding: 8px 10px;
+  border-bottom: 0;
+  border-radius: 12px;
+  gap: 11px;
+  grid-template-columns: 46px minmax(0, 1fr);
+}
+#messages .chat-dialog:hover {
+  background: var(--cab-fill);
+}
+#messages .chat-dialog.active {
+  background: color-mix(in srgb, var(--accent) 14%, transparent);
+}
+#messages .chat-ava {
+  width: 46px;
+  height: 46px;
+}
+#messages .cd-top {
+  align-items: center;
+  gap: 8px;
+}
+#messages .cd-title {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+  font-size: 13.5px;
+}
+#messages .cd-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#messages :is(.cd-kind-ico, .cd-mute, .cd-pin, .cd-badge-ico, .cd-sent) {
+  display: inline-flex;
+  flex: none;
+  color: var(--muted);
+}
+#messages :is(.cd-kind-ico, .cd-mute, .cd-pin, .cd-badge-ico) svg {
+  width: 14px;
+  height: 14px;
+}
+#messages .cd-sent svg {
+  width: 12px;
+  height: 12px;
+}
+#messages .cd-badge-ico {
+  color: var(--accent);
+}
+#messages .cd-meta {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 5px;
+}
+#messages .cd-lead {
+  flex: none;
+  padding: 1px 6px;
+  border-radius: 6px;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  font-size: 10px;
+  font-weight: 600;
+}
+#messages .cd-bottom {
+  margin-top: 2px;
+}
+#messages .cd-preview {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 5px;
+}
+#messages .cd-prev-text {
+  overflow: hidden;
+  min-width: 0;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+/* Непрочитанный диалог набран плотнее: в списке из сорока чатов бледная
+   строка с цифрой теряется. */
+#messages .chat-dialog.is-unread .cd-name {
+  color: var(--ink);
+  font-weight: 700;
+}
+#messages .chat-dialog.is-unread .cd-preview {
+  color: var(--ink);
+}
+#messages .cd-badge.is-muted {
+  color: var(--ink);
+  background: var(--cab-fill-strong);
+}
+
+/* Лента: пузыри с хвостиком, склейка подряд идущих сообщений, липкая дата. */
+#messages .chat-room {
+  position: relative;
+}
+#messages .chat-head {
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--cab-line-soft);
+}
+#messages .chat-feed {
+  padding: 14px 16px 18px;
+  background:
+    radial-gradient(
+      120% 80% at 50% 0%,
+      color-mix(in srgb, var(--accent) 5%, transparent),
+      transparent 70%
+    ),
+    var(--surface-raised);
+  gap: 2px;
+  scrollbar-width: thin;
+}
+#messages .chat-day {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  margin: 12px 0 8px;
+  padding: 3px 12px;
+  border: 1px solid var(--cab-line-soft);
+  background: var(--surface);
+  font-size: 11px;
+  font-weight: 600;
+}
+#messages .chat-msg {
+  position: relative;
+  align-items: flex-end;
+  margin-top: 8px;
+}
+#messages .chat-msg.is-stacked {
+  margin-top: 2px;
+}
+#messages .cm-bubble {
+  position: relative;
+  max-width: min(560px, 74%);
+  padding: 8px 12px 6px;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: 16px;
+  background: var(--surface);
+}
+#messages .chat-msg.out .cm-bubble {
+  border-color: color-mix(in srgb, var(--accent) 30%, transparent);
+  background: color-mix(in srgb, var(--accent) 16%, var(--surface));
+}
+/* Хвостик рисуем только у последнего сообщения блока: в Telegram склеенные
+   реплики идут одним «столбиком» без повторяющихся уголков. */
+#messages .chat-msg.is-last:not(.out) .cm-bubble {
+  border-bottom-left-radius: 5px;
+}
+#messages .chat-msg.is-last.out .cm-bubble {
+  border-bottom-right-radius: 5px;
+}
+#messages .cm-quote {
+  display: grid;
+  margin-bottom: 5px;
+  padding: 4px 8px;
+  border-left: 2px solid var(--accent);
+  border-radius: 6px;
+  background: var(--cab-fill);
+  gap: 1px;
+}
+#messages .cm-quote b {
+  color: var(--accent-ink);
+  font-size: 11.5px;
+}
+#messages .cm-quote span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#messages .cm-meta {
+  align-items: center;
+  gap: 4px;
+}
+#messages .cm-tick {
+  display: inline-flex;
+  color: var(--accent-ink);
+}
+#messages .cm-tick svg {
+  width: 12px;
+  height: 12px;
+}
+/* Кнопка «ответить» появляется по наведению: постоянная иконка у каждого
+   сообщения превращает ленту в панель управления. */
+#messages .cm-reply {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: none;
+  align-self: flex-end;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: 50%;
+  margin: 0 6px 2px;
+  color: var(--muted);
+  background: var(--surface);
+  cursor: pointer;
+  opacity: 0;
+  place-items: center;
+  transition: opacity var(--motion-fast) var(--motion-ease);
+}
+#messages .chat-msg.out .cm-reply {
+  order: -1;
+}
+#messages .cm-reply svg {
+  width: 15px;
+  height: 15px;
+}
+#messages .chat-msg:hover .cm-reply,
+#messages .cm-reply:focus-visible {
+  opacity: 1;
+}
+@media (hover: none) {
+  #messages .cm-reply {
+    opacity: 1;
+  }
+}
+
+#messages .chat-to-bottom {
+  position: absolute;
+  z-index: 3;
+  right: 16px;
+  bottom: 84px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: 50%;
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+  cursor: pointer;
+  opacity: 0;
+  place-items: center;
+  pointer-events: none;
+  transition: opacity var(--motion-fast) var(--motion-ease);
+}
+#messages .chat-to-bottom.is-on {
+  opacity: 1;
+  pointer-events: auto;
+}
+#messages .chat-to-bottom svg {
+  width: 18px;
+  height: 18px;
+}
+
+#messages .chat-reply-bar {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border-top: 1px solid var(--cab-line-soft);
+  background: var(--surface);
+  gap: 10px;
+}
+#messages .chat-reply-ico {
+  display: inline-flex;
+  color: var(--accent);
+}
+#messages .chat-reply-ico svg {
+  width: 17px;
+  height: 17px;
+}
+#messages .chat-reply-text {
+  display: grid;
+  min-width: 0;
+  flex: 1;
+  border-left: 2px solid var(--accent);
+  padding-left: 8px;
+}
+#messages .chat-reply-text b {
+  color: var(--accent-ink);
+  font-size: 11.5px;
+}
+#messages .chat-reply-text span {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12.5px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+#messages .chat-reply-x {
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border: 0;
+  border-radius: 50%;
+  color: var(--muted);
+  background: var(--cab-fill);
+  cursor: pointer;
+  font-size: 16px;
+  line-height: 1;
+}
+#messages .chat-compose {
+  padding: 10px 12px 12px;
+  border-top: 1px solid var(--cab-line-soft);
+  background: var(--surface);
+}
+#messages .chat-compose textarea {
+  border-radius: 20px;
+  background: var(--cab-fill);
+}
+#messages .chat-send {
+  width: 38px;
+  height: 38px;
+  color: var(--on-accent);
+  background: var(--accent);
+}
+
+/* Переключатель Telegram-аккаунта: раньше системный select, который вообще
+   исчезал при одном аккаунте — было не видно, чей Telegram открыт. */
+.chat-acc-box {
+  position: relative;
+}
+.chat-acc {
+  display: flex;
+  min-height: var(--cab-control);
+  align-items: center;
+  padding: 5px 10px 5px 6px;
+  border: 1px solid var(--cab-line);
+  border-radius: 99px;
+  color: var(--ink);
+  background: var(--surface);
+  cursor: pointer;
+  gap: 9px;
+}
+.chat-acc:hover {
+  background: var(--cab-fill);
+}
+.chat-acc-ava {
+  display: grid;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border-radius: 50%;
+  color: var(--on-accent);
+  background: var(--accent);
+  font-size: 12px;
+  font-weight: 700;
+  place-items: center;
+}
+.chat-acc-text {
+  display: grid;
+  min-width: 0;
+  text-align: left;
+}
+.chat-acc-text b {
+  overflow: hidden;
+  font-size: 12.5px;
+  font-weight: 600;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.chat-acc-text small {
+  color: var(--muted);
+  font-size: 10.5px;
+}
+.chat-acc-chev {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-right: 1.6px solid var(--muted);
+  border-bottom: 1.6px solid var(--muted);
+  margin-left: 2px;
+  transform: rotate(45deg) translateY(-2px);
+}
+.chat-acc-menu {
+  position: absolute;
+  z-index: 40;
+  top: calc(100% + 6px);
+  right: 0;
+  display: grid;
+  width: min(300px, 80vw);
+  padding: 6px;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--cab-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+  gap: 2px;
+}
+.chat-acc-item {
+  display: flex;
+  align-items: center;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--cab-radius-small);
+  background: none;
+  cursor: pointer;
+  gap: 9px;
+  text-align: left;
+}
+.chat-acc-item:hover {
+  background: var(--cab-fill);
+}
+.chat-acc-item.active {
+  background: var(--cab-fill-strong);
+}
+.chat-acc-item .chat-acc-text {
+  flex: 1;
+}
+.chat-acc-state {
+  width: 7px;
+  height: 7px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--danger);
+}
+.chat-acc-state.is-live {
+  background: var(--success);
+}
+
+/* ── 8. Телефон ────────────────────────────────────────────────────────── */
+
+@media (max-width: 900px) {
+  #appWrapper .app,
+  #appWrapper .app.sidebar-collapsed {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #appWrapper .sidebar-collapse {
+    display: none;
+  }
+  #appWrapper .page-title {
+    font-size: 19px;
+  }
+  #appWrapper .section {
+    padding: 14px 14px 24px;
+  }
+  /* Отрицательные поля шапки повторяют padding раздела и на телефоне: иначе
+     страница шире экрана на 2px и «дрожит» при горизонтальном свайпе. */
+  #appWrapper .topbar {
+    margin-inline: -14px;
+  }
+  #messages .chat-wrap {
+    height: calc(100vh - 210px);
+    margin-top: 14px;
+  }
+  #messages .cm-bubble {
+    max-width: 84%;
+  }
+  #messages .chat-to-bottom {
+    bottom: 76px;
+  }
+  .chat-acc-text small {
+    display: none;
+  }
+}
+
+/* ── 9. Точечные починки, найденные при обходе разделов ────────────────── */
+
+/* Поля в .field растягивались по высоте строки грида: «Минимальный балл лида»
+   превращался в пустую коробку 127px с подписью где-то внизу. */
+#appWrapper .field {
+  align-content: start;
+}
+#appWrapper .field > :is(input, select) {
+  height: var(--cab-control);
+  align-self: start;
+}
+
+/* Вкладки поиска НИЧЕГО не переключали — как и вкладки оффера, содержимое
+   всех трёх режимов висело одно под другим, и страница выглядела как три
+   одинаковых блока подряд. */
+#search .search-tab-content {
+  display: none;
+}
+#search .search-tab-content.active {
+  display: block;
+}
+
+/* Пустое состояние ленты событий попадало в 8-пиксельную колонку под точку —
+   текст переносился по одному слову в строку. */
+#dashboard .activity-list > .activity-empty,
+.admin-activity-panel .activity-list > .activity-empty {
+  display: block;
+  padding: 12px 2px;
+  color: var(--muted);
+  font-size: 12.5px;
+}
+
+/* Плитки иконок: градиент + свечение на каждой карточке превращали кабинет в
+   витрину. Оставляем тихую подложку и акцент штрихом. */
+#appWrapper
+  :is(.stat-icon, .qs-cube-ico, .offer-upload-icon, .offer-kind-mark, .step-num, .tut-num) {
+  border-radius: 10px;
+  color: var(--accent-ink);
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  background-image: none;
+  box-shadow: none;
+}
+#appWrapper .sidebar-session-avatar {
+  background-image: none;
+  box-shadow: none;
+}
+#appWrapper .usage-bar i {
+  background-image: none;
+  background-color: var(--accent);
+}
+#appWrapper .tariff-btn {
+  background-image: none;
+}
+#appWrapper :is(.stat-icon svg, .qs-cube-ico svg) {
+  width: 18px;
+  height: 18px;
+}
+
+/* Кнопки кабинета: капслок в 11px и розовое свечение — с лендинга. В работе
+   нужен обычный текст нормального размера. */
+#appWrapper .btn:not(.ghost):not(.danger) {
+  border-radius: var(--cab-radius-small);
+  background-image: none;
+  box-shadow: none;
+  font-size: 13.5px;
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+/* Журнал рассылки: подпись «Логи» и ссылка «Очистить» стояли по разным углам
+   панели, кнопка очистки болталась под чёрным окном. */
+#appWrapper .log-panel-head {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  gap: 10px;
+}
+#appWrapper .log-panel-head > span:first-child {
+  font-size: 15px;
+  font-weight: 600;
+}
+#appWrapper .log-scope {
+  margin-left: auto;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+#appWrapper .log-panel-foot {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+#appWrapper .log-panel-foot .link {
+  color: var(--muted);
+  font-size: 11.5px;
+  font-weight: 600;
+}
+
+/* Шаги («Сколько тем собрать?», «Проверьте темы») — одинаковая плотность и
+   выравнивание номера по первой строке заголовка. */
+#appWrapper .step {
+  padding: 14px 0;
+  border-bottom: 1px solid var(--cab-line-soft);
+}
+#appWrapper .step:last-child {
+  border-bottom: 0;
+}
+#appWrapper .step-head {
+  align-items: center;
+  gap: 10px;
+}
+#appWrapper .step-num {
+  width: 26px;
+  height: 26px;
+  font-size: 12px;
+  font-weight: 700;
+}
+#appWrapper .step-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+#appWrapper .step-sub {
+  font-size: 12px;
+}
+
+/* ── 10. Мелочи после второго обхода ──────────────────────────────────── */
+
+/* Кнопки в колонке-гриде растягивались на всю ширину панели: «Сгенерировать
+   темы» шириной 522px выглядела как баннер, а не как кнопка. */
+#search .btn,
+#appWrapper .step .btn {
+  width: fit-content;
+  justify-self: start;
+}
+
+/* Карта «Лучшее время отправки» при нуле ответов была залита розовым: пустая
+   сетка обещала данные, которых нет. */
+#dashboard .reply-heat-row > i,
+#dashboard .reply-heatmap > span i {
+  background: color-mix(in srgb, var(--accent) calc(var(--heat) * 100%), var(--cab-fill));
+}
+
+/* «Ответов 0 0%» — число и процент наезжали друг на друга. */
+#appWrapper .pipeline-strip b {
+  display: flex;
+  align-items: baseline;
+  gap: 6px;
+}
+#appWrapper .pipeline-strip b small {
+  color: var(--muted);
+  font-size: 12px;
+}
+#appWrapper #statReplies {
+  margin-left: 0;
+}
+
+/* Липкая дата в чате: два ярлыка разных дней налезали друг на друга. */
+#messages .chat-day {
+  position: static;
+  align-self: center;
+}
+
+/* Карточка «Аккаунты отправки»: текст по центру в узкой колонке читался как
+   стихи. */
+#appWrapper .campaign-account-auto :is(.acc-auto-card, .campaign-auto-card, div) {
+  text-align: left;
+}
+
+/* Телефон: шапка раздела переносит управление на вторую строку, иначе
+   переключатель аккаунта и «Обновить» лезут под кнопки ИИ и уведомлений. */
+@media (max-width: 900px) {
+  #appWrapper .topbar {
+    flex-wrap: wrap;
+    padding-right: 96px;
+  }
+  #appWrapper .topbar-right {
+    width: 100%;
+    flex-wrap: wrap;
+    padding-right: 0;
+  }
+  #appWrapper .chat-acc {
+    flex: 1;
+  }
+}

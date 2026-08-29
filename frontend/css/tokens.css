@@ -1,0 +1,341 @@
+:root {
+  --fog: #faf5fb;
+  --surface: #ffffff;
+  --surface-raised: #f7eef8;
+  --ink: #171019;
+  --muted: #6d5f72;
+  --line: #e4d8e6;
+  --accent: #ff2fa4;
+  /* Акцент для ТЕКСТА. Брендовый #ff2fa4 на белой бумаге даёт контраст
+     3.0–3.4 при норме 4.5: мелкие розовые подписи на светлой теме
+     читались с трудом. Заливки, градиенты и свечения остаются
+     ярко-розовыми — приглушается только текст. */
+  --accent-ink: #c30074;
+  --accent-strong: #c22bff;
+  --accent-soft: #ffe3f4;
+  --accent-gradient: linear-gradient(120deg, #ff8fe0, #ff2fa4 55%, #c22bff);
+  --ink-surface: #0b0a0e;
+  --ink-raised: #151218;
+  --on-ink: #f5eef6;
+  /* Текст поверх акцентной заливки. Градиент начинается со светло-розового
+     #ff8fe0: белая надпись на нём даёт контраст 2.05 при норме 4.5, тёмная —
+     от 4.7 до 9.5. Поэтому кнопки и активные вкладки пишутся тёмным в обеих
+     темах — так же, как это уже сделано на лендинге. */
+  --on-accent: var(--ink-surface);
+  --success: #16835c;
+  --success-soft: #e6f5ef;
+  --warning: #9a6500;
+  --warning-soft: #fff4db;
+  --danger: #b53848;
+  --danger-soft: #fbeaec;
+  --tint-soft: rgba(127, 127, 127, 0.07);
+  --tint-strong: rgba(127, 127, 127, 0.18);
+  --hand-highlight: #ffe7f7;
+  --hand-shadow: #d49bc8;
+  --glow: color-mix(in srgb, var(--accent) 34%, transparent);
+  --shadow: 0 28px 80px color-mix(in srgb, var(--ink) 16%, transparent);
+  --shadow-small: 0 10px 30px color-mix(in srgb, var(--ink) 10%, transparent);
+  --ring: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  --radius-large: 26px;
+  --radius: 20px;
+  --radius-small: 12px;
+  --content-width: 1440px;
+  --grid-columns: 12;
+  --motion-fast: 250ms;
+  --motion-base: 360ms;
+  --motion-slow: 480ms;
+  --motion-reveal: 420ms;
+  --motion-stagger: 70ms;
+  --motion-dialog: 320ms;
+  --motion-price: 400ms;
+  --motion-metrics: 1000ms;
+  /* Мигание точки на колокольчике: заметно, но не дёргано. */
+  --motion-blink: 1600ms;
+  /* Холостое дыхание логотипа: перья чуть отходят и возвращаются. Длинное
+     намеренно — быстрое подёргивание в углу экрана раздражает. */
+  --motion-idle-feather: 5200ms;
+  --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --font-ui: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  /* Финал v8: сцена следует теме — на светлой странице она светлая,
+     а вордмарк TALARIA становится тёмной вырезкой (Samat: «на тёмном белым,
+     на белом тёмным»). */
+  --fin-bg: #fdf6fb;
+  --fin-halo-a: #ffdcf0;
+  --fin-halo-b: rgba(255, 47, 164, 0.13);
+  --fin-ink: #1b1020;
+  --fin-mut: #7a5f7d;
+  --fin-kicker: #a82f79;
+  --fin-mark-ink: rgba(27, 16, 32, 0.13);
+  --fin-mark-strong: rgba(27, 16, 32, 0.13);
+  --fin-hairline: rgba(27, 16, 32, 0.14);
+  --fin-ghost-line: rgba(27, 16, 32, 0.22);
+  /* Гравюра тарифа — маска, цвет задаёт тема. */
+  /* Правка Samat: «все картинки на светлой теме такие тёмные» — прежний
+     тёмно-фиолетовый набор чернил читался как грязь. Тот же розовый, что
+     на тёмной теме, только верхний стоп глубже: на белой бумаге светлый
+     край выцветал. */
+  /* Правка Samat (2026-08-28): неоново-розовые чернила на белой бумаге
+     выглядели как маркер, а не как гравюра. Берём тёмную типографскую
+     краску с брендовым подтоном — на светлой теме гравюра читается как
+     оттиск, на тёмной остаётся розовой (см. блок тёмной темы). */
+  --plate-ink: linear-gradient(165deg, #ffb4e8, #ff2fa4 52%, #c22bff);
+  /* Розовая плита тарифа и чернила её гравюры — по темам. */
+  --pricing-plate-grad: linear-gradient(120deg, #ff8fe0, #ff2fa4 55%, #c22bff);
+  --pricing-art-ink: #fff2fb;
+  /* Исходящий пузырь предпросмотра: на ярком --accent-gradient белый текст
+     почти не читался, поэтому у пузыря свой, более глубокий градиент. */
+  --bubble-grad: linear-gradient(135deg, #c2216f, #7f21a8);
+  /* Заглушки аватаров в переписке. Шесть готовых пар вместо случайного
+     оттенка: произвольный hue регулярно давал цвета мимо палитры, а набор
+     фиксированных пар остаётся в брендовом диапазоне при любом собеседнике. */
+  --ava-1-bg: #ffe3f4;
+  --ava-1-ink: #9c1063;
+  --ava-2-bg: #e6ecff;
+  --ava-2-ink: #29408f;
+  --ava-3-bg: #e2f6ec;
+  --ava-3-ink: #16603f;
+  --ava-4-bg: #fdeede;
+  --ava-4-ink: #8a4a12;
+  --ava-5-bg: #efe6fb;
+  --ava-5-ink: #5a2b93;
+  --ava-6-bg: #e4f2f7;
+  --ava-6-ink: #14566b;
+}
+/* Демо-окно кабинета на лендинге всегда в тёмной палитре: это запись продукта,
+   а не часть страницы. Раньше в нём пиновались только шесть токенов лендинга
+   (--bg, --ink, --mut, --line, --card), а компоненты кабинета берут другие
+   имена (--surface, --muted, --ink-surface, --on-ink). На светлой теме те
+   следовали за страницей, и половина окна становилась белой: белый текст на
+   белом фоне, тёмный текст на чёрной панели. Поэтому окно получает ВЕСЬ
+   тёмный набор, а не выборку. */
+html[data-theme='dark'],
+html[data-theme='midnight'],
+html[data-theme='graphite'],
+#loginScreen .aw-frame {
+  --fog: #100c16;
+  --surface: #1a1522;
+  --surface-raised: #251d2e;
+  --ink: #f5eef6;
+  --muted: #b6a9bb;
+  --line: #352c3e;
+  --accent: #ff2fa4;
+  --accent-ink: #ff2fa4;
+  --accent-strong: #ff8fe0;
+  --accent-soft: #3b1830;
+  --ink-surface: #08070a;
+  --ink-raised: #151218;
+  --on-ink: #f5eef6;
+  --success: #65d7a4;
+  --success-soft: #173d32;
+  --warning: #ffd06a;
+  --warning-soft: #4b3c1e;
+  --danger: #ff9daa;
+  --danger-soft: #4d2731;
+  --hand-highlight: #ffe7f7;
+  --hand-shadow: #b869aa;
+  --shadow: 0 24px 60px color-mix(in srgb, #000000 40%, transparent);
+  --shadow-small: 0 8px 22px color-mix(in srgb, #000000 22%, transparent);
+  --fin-bg: #17091a;
+  --fin-halo-a: #2a0f2e;
+  --fin-halo-b: rgba(255, 47, 164, 0.18);
+  --fin-ink: #f5eef6;
+  --fin-mut: #b6a9bb;
+  --fin-kicker: #ffd9f0;
+  --fin-mark-ink: rgba(255, 255, 255, 0.14);
+  --fin-mark-strong: rgba(255, 255, 255, 0.16);
+  --fin-hairline: rgba(255, 255, 255, 0.14);
+  --fin-ghost-line: rgba(255, 255, 255, 0.24);
+  --plate-ink: linear-gradient(165deg, #ffb4e8, #ff2fa4 52%, #c22bff);
+  /* Тёмная тема: плита тарифа глубже градиента кнопки, гравюра на ней —
+     тёмными чернилами (кремовые светились ярче всей страницы). */
+  --pricing-plate-grad: linear-gradient(
+    120deg,
+    var(--tal-e04a9f),
+    var(--tal-b81f74) 55%,
+    var(--tal-7f21a8)
+  );
+  --pricing-art-ink: var(--tal-260b1b);
+  --bubble-grad: linear-gradient(135deg, #a81b60, #6a1a8e);
+  --ava-1-bg: #4a1030;
+  --ava-1-ink: #ffb5dc;
+  --ava-2-bg: #18244a;
+  --ava-2-ink: #b9c8ff;
+  --ava-3-bg: #123528;
+  --ava-3-ink: #8fe0bb;
+  --ava-4-bg: #3d2612;
+  --ava-4-ink: #ffca92;
+  --ava-5-bg: #2d1a47;
+  --ava-5-ink: #d5b8ff;
+  --ava-6-bg: #12303a;
+  --ava-6-ink: #9adcef;
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion-fast: 0ms;
+    --motion-base: 0ms;
+    --motion-slow: 0ms;
+    --motion-reveal: 0ms;
+    --motion-stagger: 0ms;
+    --motion-idle-feather: 0ms;
+    --motion-dialog: 0ms;
+    --motion-price: 0ms;
+    --motion-metrics: 0ms;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* === Talaria V5 landing palette === */
+/* Значения лендинга Talaria V5. Единственное место, где живут литералы. */
+:root {
+  --tal-font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --tal-font-mono: 'JetBrains Mono', monospace;
+  --tal-ff2fa4: #ff2fa4;
+  /* Тот же розовый, приглушённый до читаемого на белой бумаге:
+     #ff2fa4 на светлом фоне даёт контраст 3.15 при норме 4.5. */
+  --tal-c30074: #c30074;
+  --tal-ff8fe0: #ff8fe0;
+  --tal-c22bff: #c22bff;
+  /* Глубокий розово-фиолетовый набор: секция тарифа в тёмной теме (правка
+     Samat: «розовый где тариф слишком светлый»). */
+  --tal-e04a9f: #e04a9f;
+  --tal-b81f74: #b81f74;
+  --tal-7f21a8: #7f21a8;
+  --tal-260b1b: #260b1b;
+  /* Чернила гравюр на светлой теме: тёмная типографская краска на бумаге. */
+  --tal-3d1236: #3d1236;
+  --tal-1d0b1f: #1d0b1f;
+  --tal-281041: #281041;
+  --tal-0b0a0e: #0b0a0e;
+  --tal-121016: #121016;
+  --tal-f5eef6: #f5eef6;
+  --tal-a99cad: #a99cad;
+  --tal-ffffff-a14: rgba(255, 255, 255, 0.14);
+  --tal-151218: #151218;
+  --tal-ff2fa4-a35: rgba(255, 47, 164, 0.35);
+  --tal-faf5fb: #faf5fb;
+  --tal-white: #fff;
+  /* Кремовые чернила гравюры на розовой полосе тарифа. */
+  --tal-fff2fb: #fff2fb;
+  --tal-171019: #171019;
+  --tal-6d5f72: #6d5f72;
+  --tal-171019-a14: rgba(23, 16, 25, 0.14);
+  --tal-171019-a76: rgba(23, 16, 25, 0.76);
+  --tal-ff2fa4-a22: rgba(255, 47, 164, 0.22);
+  --tal-000000-a45: rgba(0, 0, 0, 0.45);
+  --tal-1c1c1f: #1c1c1f;
+  --tal-000000-a55: rgba(0, 0, 0, 0.55);
+  --tal-ffffff-a09: rgba(255, 255, 255, 0.09);
+  --tal-000000-a35: rgba(0, 0, 0, 0.35);
+  --tal-0e1621: #0e1621;
+  --tal-17212b: #17212b;
+  --tal-black: #000;
+  --tal-000000-a40: rgba(0, 0, 0, 0.4);
+  --tal-6ab3f3: #6ab3f3;
+  --tal-e05fa8: #e05fa8;
+  --tal-7b2bff: #7b2bff;
+  --tal-708499: #708499;
+  --tal-cfd8e3: #cfd8e3;
+  --tal-ffffff-a55: rgba(255, 255, 255, 0.55);
+  --tal-2b5278: #2b5278;
+  --tal-182533: #182533;
+  --tal-8fa4b8: #8fa4b8;
+  /* Telegram dark-theme phone mock (delivery block). Зелёные обои прежнего
+     макета выпадали из палитры сайта — блок читался как чужой скриншот.
+     Значения — настоящая тёмная тема Telegram: чернильный фон, синие
+     исходящие, графитовые входящие. */
+  --tg-wall-a: #17212b;
+  --tg-wall-b: #0e1621;
+  --tg-doodle: rgba(255, 255, 255, 0.07);
+  --tg-header: #17212b;
+  --tg-titlebar: #17212b;
+  --tg-out: #2b5278;
+  --tg-out-tail: #24466a;
+  --tg-in: #182533;
+  --tg-text: #ffffff;
+  --tg-time: #8fa4b8;
+  --tg-time-in: #8fa4b8;
+  --tg-check: #64b5ef;
+  --tg-blue: #64b5ef;
+  --tg-sys: rgba(0, 0, 0, 0.35);
+  --tg-shadow: rgba(0, 0, 0, 0.35);
+  --ph-frame: #1a1a1c;
+  --ph-frame-edge: #3a3a3e;
+  --ph-frame-inner: #4a4a50;
+  --ph-key: #2c2c30;
+  --ph-cam: #0d1a2b;
+  --ph-cam-ring: #14243a;
+  --ph-home-ink: rgba(0, 0, 0, 0.32);
+  --ph-home-gap: 22px;
+  --ph-shadow:
+    0 42px 90px rgba(0, 0, 0, 0.5), 0 10px 26px rgba(0, 0, 0, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.14);
+  /* Пуш-баннер поверх экрана телефона: матовое стекло iOS. Светлый независимо
+     от темы сайта — это экран чужого телефона, а не наш интерфейс. */
+  --ph-push-bg: rgba(248, 248, 250, 0.82);
+  --ph-push-line: rgba(255, 255, 255, 0.7);
+  --ph-push-text: #101012;
+  --ph-push-mut: rgba(20, 20, 26, 0.62);
+  --ph-push-shadow: 0 14px 34px rgba(10, 20, 14, 0.28);
+  --tal-000000-a30: rgba(0, 0, 0, 0.3);
+  --tal-0b0a0e-a55: rgba(11, 10, 14, 0.55);
+  --tal-ff4b4b: #ff4b4b;
+  --tal-ff5f57: #ff5f57;
+  --tal-febc2e: #febc2e;
+  --tal-28c840: #28c840;
+  --tal-e8b93c: #e8b93c;
+  --tal-000000-a50: rgba(0, 0, 0, 0.5);
+  --tal-f6edf5: #f6edf5;
+  --tal-ff2fa4-a40: rgba(255, 47, 164, 0.4);
+  --tal-ff2fa4-a10: rgba(255, 47, 164, 0.1);
+  --tal-ff2fa4-a50: rgba(255, 47, 164, 0.5);
+  --tal-c22bff-a28: rgba(194, 43, 255, 0.28);
+  --tal-ffd9f0: #ffd9f0;
+  --tal-160a14-a66: rgba(22, 10, 20, 0.66);
+  --tal-ff2fa4-a45: rgba(255, 47, 164, 0.45);
+  --tal-ff2fa4-a28: rgba(255, 47, 164, 0.28);
+  --tal-050308-a72: rgba(5, 3, 8, 0.72);
+  --tal-000000-a70: rgba(0, 0, 0, 0.7);
+  --tal-ff2fa4-a30: rgba(255, 47, 164, 0.3);
+  --tal-17091a: #17091a;
+  --tal-2a0f2e: #2a0f2e;
+  --tal-ff2fa4-a18: rgba(255, 47, 164, 0.18);
+  --tal-ffffff-a22: rgba(255, 255, 255, 0.22);
+  --tal-dur-200: 0.2s;
+  --tal-dur-250: 0.25s;
+  --tal-dur-300: 0.3s;
+  --tal-dur-350: 0.35s;
+  --tal-dur-400: 0.4s;
+  --tal-dur-450: 0.45s;
+  --tal-dur-500: 0.5s;
+  --tal-dur-550: 0.55s;
+  --tal-dur-600: 0.6s;
+  --tal-dur-900: 0.9s;
+  --tal-dur-1100: 1.1s;
+  /* v14: текст и линейки поверх розовой заливки секции тарифа. Белый с
+     прозрачностью, а не серый: серый на #ff2fa4 уходит в грязь. */
+  --tal-ffffff-a82: rgba(255, 255, 255, 0.82);
+  --tal-ffffff-a38: rgba(255, 255, 255, 0.38);
+}
+
+/* Токены движения из references/transitions (transitions.dev): открытие
+   медленнее закрытия, закрытие никогда не пружинит. Держим здесь, потому что
+   в остальных файлах сырые ms в transition запрещены линтером архитектуры. */
+:root {
+  --toast-open: 350ms;
+  --toast-close: 250ms;
+  --ease-smooth-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-bounce: cubic-bezier(0.34, 1.36, 0.64, 1);
+}
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --toast-open: 0ms;
+    --toast-close: 0ms;
+  }
+}

@@ -1,0 +1,17 @@
+{
+  "name": "zephyr-frontend-tools",
+  "private": true,
+  "type": "module",
+  "version": "0.0.0",
+  "scripts": {
+    "format": "prettier --write index.html css js tests playwright.config.js .prettierrc.json",
+    "format:check": "prettier --check index.html css js tests playwright.config.js .prettierrc.json",
+    "test:unit": "node --test tests/unit/*.test.js",
+    "test:smoke": "playwright test",
+    "test:contracts": "node ../scripts/run_frontend_contracts.mjs"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.51.1",
+    "prettier": "^3.5.3"
+  }
+}

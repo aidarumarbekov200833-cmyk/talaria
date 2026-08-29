@@ -1,0 +1,12 @@
+# Зависимости для разработки и тестов.
+#   pip install -r requirements.txt -r requirements-dev.txt
+#
+# httpx уже в requirements.txt (нужен и приложению, и TestClient).
+# SQLite-драйвер pysqlite входит в стандартную библиотеку Python — отдельной
+# строкой не ставим; тестовая БД (sqlite+pysqlite:///:memory:) работает из коробки.
+-r requirements.txt
+
+pytest==8.*
+mypy==1.*
+ruff==0.6.*
+black==24.*
