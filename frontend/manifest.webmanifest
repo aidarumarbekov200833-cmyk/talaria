@@ -1,0 +1,16 @@
+{
+  "name": "Talaria",
+  "short_name": "Talaria",
+  "description": "Поиск лидов на YouTube, персональные офферы и доставка в Telegram.",
+  "lang": "ru",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0a0e",
+  "theme_color": "#0b0a0e",
+  "icons": [
+    { "src": "/assets/talaria/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/talaria/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "/assets/talaria/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

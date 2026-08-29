@@ -1,0 +1,69 @@
+# Production hardening layered on top of docker-compose.yml.
+# Usage: docker compose -f docker-compose.yml -f docker-compose.prod.yml --profile tls up -d --build
+name: ${COMPOSE_PROJECT_NAME:-outly}
+
+services:
+  frontend:
+    read_only: true
+    tmpfs:
+      - /var/cache/nginx:rw,noexec,nosuid,size=32m
+      - /var/run:rw,noexec,nosuid,size=4m
+      - /tmp:rw,noexec,nosuid,size=8m
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 20s
+
+  backend:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=64m
+    security_opt:
+      - no-new-privileges:true
+    init: true
+    stop_grace_period: 30s
+
+  web-tg:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=32m
+    security_opt:
+      - no-new-privileges:true
+    init: true
+    stop_grace_period: 45s
+
+  caddy:
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 30s
+
+  db:
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 60s
+
+  backup:
+    security_opt:
+      - no-new-privileges:true
+
+  backup-verify:
+    security_opt:
+      - no-new-privileges:true
+
+  backup-watchdog:
+    read_only: true
+    tmpfs:
+      - /tmp:rw,noexec,nosuid,size=16m
+    security_opt:
+      - no-new-privileges:true
+    init: true
+
+  offsite-backup:
+    security_opt:
+      - no-new-privileges:true
+
+  # Umami появился позже этого файла и оставался без ужесточения.
+  # read_only не ставим: Next.js пишет кеш сборки в свой каталог.
+  umami:
+    security_opt:
+      - no-new-privileges:true
+    stop_grace_period: 20s

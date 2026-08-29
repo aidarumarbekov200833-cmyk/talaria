@@ -1,0 +1,12 @@
+# Фронтенд — статика (nginx). В образ едут только index.html, css/, js/, nginx.conf.
+# Здесь отсекаем всё лишнее из контекста сборки.
+node_modules/
+.git/
+.gitignore
+.vscode/
+.idea/
+*.log
+
+# Локальное окружение — на всякий случай.
+.env
+.env.*

@@ -1,0 +1,11 @@
+# В образ tg-mini-client НЕ копируем: локальную сессию, .env, node_modules
+# (зависимости ставятся в образе из package.json), git/IDE-мусор.
+node_modules/
+sessions/
+.env
+.env.*
+.git/
+.gitignore
+.vscode/
+.idea/
+*.log

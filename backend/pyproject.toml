@@ -1,0 +1,38 @@
+[tool.ruff]
+# Таргет совпадает с Dockerfile: FROM python:3.12
+target-version = "py312"
+line-length = 100
+exclude = ["alembic/versions/*"]
+# Включаем: pyflakes (F), pycodestyle (E/W), isort (I), bugbear (B), pyupgrade (UP),
+# annotations (ANN) — только типы возвращаемых значений.
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "ANN2"]
+ignore = [
+    # ANN201 — возвращаемое значение публичных функций. FastAPI-маршруты
+    # часто работают без явного -> при response_model в декораторе.
+    "ANN201",
+    # B008 — вызов функции в аргументах по умолчанию. FastAPI Depends() и
+    # Query() именно так и работают.
+    "B008",
+    # E501 — длинные строки. Маршруты с Depends() иногда неизбежно
+    # выходят за 100. Black сам разбивает строки фактически всегда.
+    "E501",
+]
+[tool.ruff.lint.isort]
+# SQLAlchemy, FastAPI и app.* отображаются как сторонние библиотеки, не как local
+known-first-party = ["app"]
+
+[tool.black]
+line-length = 100
+target-version = ["py312"]
+
+[tool.mypy]
+python_version = "3.12"
+ignore_missing_imports = true
+# Проверяем только свой код, не alembic-миграции
+exclude = "alembic"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q --tb=short"

@@ -1,0 +1,25 @@
+# Что НЕ копировать в образ бэкенда (COPY app ./app и т.п. и так берут только нужное,
+# но .dockerignore защищает от мусора при сборке контекста и ускоряет её).
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Тесты и dev-зависимости в рантайм-образ не нужны.
+tests/
+requirements-dev.txt
+pytest.ini
+
+# Локальное окружение и секреты — никогда в образ.
+.env
+.env.*
+.venv/
+venv/
+
+# VCS/IDE
+.git/
+.gitignore
+.vscode/
+.idea/

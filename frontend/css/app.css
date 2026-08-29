@@ -1,0 +1,3582 @@
+.app-shell,
+.app {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 1fr);
+  grid-template-rows: auto minmax(0, 1fr);
+  min-height: 100vh;
+}
+.sidebar {
+  grid-row: 1 / -1;
+  position: sticky;
+  top: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  height: 100vh;
+  padding: 22px 14px;
+  border-right: 1px solid var(--line);
+  background: var(--surface);
+}
+.brand,
+.sidebar-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 8px;
+  font-size: 18px;
+  font-weight: 800;
+}
+.nav,
+.sidebar-nav {
+  display: grid;
+  gap: 4px;
+}
+.nav a,
+.nav-item,
+.sidebar-nav button,
+.sidebar-nav a {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 42px;
+  border: 0;
+  border-radius: var(--radius-small);
+  padding: 10px 12px;
+  color: var(--muted);
+  background: transparent;
+  text-align: left;
+  font-weight: 600;
+  transition:
+    color var(--motion-fast) var(--motion-ease),
+    background var(--motion-fast) var(--motion-ease);
+}
+/* Наведение — мягкая подсветка, без «прыжка» в акцент. */
+.nav a:hover,
+.nav-item:hover,
+.sidebar-nav button:hover,
+.sidebar-nav a:hover {
+  color: var(--ink);
+  background: var(--surface-raised);
+}
+/* Активный пункт — акцент + вертикальная метка слева (сразу видно, где ты). */
+.nav a.active,
+.nav-item.active,
+.sidebar-nav .active {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.nav-item.active::before,
+.sidebar-nav .active::before {
+  content: '';
+  position: absolute;
+  left: 3px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 3px;
+  height: 18px;
+  border-radius: 99px;
+  background: var(--accent);
+}
+.workspace,
+.main-area,
+.main {
+  grid-column: 2;
+  grid-row: 2;
+  min-width: 0;
+  background: var(--fog);
+}
+.topbar {
+  position: sticky;
+  z-index: 4;
+  top: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 72px;
+  padding: 14px clamp(18px, 3vw, 40px);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--fog) 90%, transparent);
+  backdrop-filter: blur(16px);
+}
+.topbar-actions,
+.top-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.content,
+.app-content {
+  width: min(100%, 1240px);
+  margin: 0 auto;
+  padding: clamp(20px, 3vw, 40px);
+}
+.section {
+  display: none;
+  animation: fade-up var(--motion-base) var(--motion-ease);
+}
+.section.active {
+  display: block;
+}
+.page-head,
+.section-head {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+.page-title,
+.section-head h1 {
+  font-size: clamp(24px, 2.6vw, 34px);
+  line-height: 1.05;
+  letter-spacing: 0;
+}
+.stats-grid,
+.dashboard-stats,
+.grid-2,
+.grid-3,
+.grid-4 {
+  display: grid;
+  gap: 16px;
+}
+.stats-grid,
+.dashboard-stats,
+.grid-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+.grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+.grid-2 {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+.stat-card,
+.metric-card,
+.kpi-card {
+  min-height: 124px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+  transition:
+    border-color var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
+}
+.stat-card.go:hover {
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+  transform: translateY(-2px);
+}
+.stat-value,
+.metric-value {
+  display: block;
+  margin-top: 10px;
+  font-size: 34px;
+}
+.table-wrap,
+.table-scroll {
+  overflow: auto;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+th,
+td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+  vertical-align: middle;
+}
+th {
+  color: var(--muted);
+  font-size: 12px;
+}
+.drawer {
+  position: fixed;
+  z-index: 1600;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: min(440px, 100%);
+  padding: 22px;
+  border-radius: 0;
+  transform: translateX(110%);
+  transition: transform var(--motion-base) var(--motion-ease);
+}
+.drawer.show {
+  transform: translateX(0);
+}
+.drawer-body {
+  overflow: auto;
+}
+.mobile-menu,
+.menu-toggle {
+  display: none;
+}
+.badge,
+.status,
+.chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 26px;
+  border-radius: 99px;
+  padding: 4px 9px;
+  color: var(--muted);
+  background: var(--surface-raised);
+  font-size: 12px;
+  font-weight: 700;
+}
+.status.success,
+.badge.success {
+  color: var(--success);
+  background: var(--success-soft);
+}
+.status.error,
+.badge.error {
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+.app-wrapper {
+  display: none;
+  min-height: 100vh;
+}
+.app-wrapper.active {
+  display: block;
+}
+.brand-mark {
+  display: grid;
+  width: 36px;
+  height: 36px;
+  place-items: center;
+  border-radius: 11px;
+  color: var(--ink-surface);
+  background: var(--accent-gradient);
+  box-shadow: 0 6px 18px var(--glow);
+}
+.brand-mark svg {
+  width: 26px;
+  height: 26px;
+}
+.brand-name {
+  font-family: var(--font-display);
+  font-size: 19px;
+  font-weight: 600;
+  line-height: 1.05;
+}
+.brand-tag,
+.nav-group-label,
+.page-sub,
+.usage-hint {
+  color: var(--muted);
+  font-size: 12px;
+}
+.nav-group {
+  display: grid;
+  gap: 4px;
+}
+.nav-group-label {
+  padding: 10px 10px 4px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.sidebar-bottom {
+  display: grid;
+  gap: 8px;
+  margin-top: auto;
+}
+.sidebar-session {
+  display: grid;
+  grid-template-columns: 32px 1fr auto;
+  align-items: center;
+  gap: 8px;
+}
+.sidebar-session-avatar {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--surface);
+  background: var(--ink-surface);
+}
+.usage {
+  display: grid;
+  gap: 8px;
+  padding: 12px 10px;
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+}
+.usage-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+.usage-bar {
+  height: 6px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--line);
+}
+.usage-bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+}
+.tariff-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 10px;
+  border-radius: var(--radius-small);
+  color: var(--on-accent);
+  background: var(--ink-surface);
+  font-weight: 700;
+}
+.global-actions,
+.topbar-right,
+.panel-tools,
+.btn-row,
+.row-2,
+.key-add,
+.log-filters {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.global-actions {
+  position: fixed;
+  z-index: 8;
+  right: 22px;
+  bottom: 22px;
+}
+.setup-notices {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  width: auto;
+  margin: 16px clamp(18px, 3vw, 40px) 0;
+  gap: 8px;
+}
+.setup-notice {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 4px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  width: 100%;
+  color: var(--ink);
+  text-align: left;
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+}
+.setup-notice b,
+.setup-notice small {
+  display: block;
+}
+.setup-notice > span {
+  min-width: 0;
+}
+.mailing-flow {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  margin: 16px 0;
+}
+.mailing-flow-step {
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: 9px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface);
+}
+.mailing-flow-step > span:first-child {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  font-size: 11px;
+  font-weight: 800;
+}
+.mailing-flow-step b,
+.mailing-flow-step small {
+  display: block;
+}
+.mailing-flow-step small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.plan-active-features > div {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+.plan-active-features > div > span {
+  display: inline-flex;
+  padding: 6px 9px;
+  border-radius: 99px;
+  color: var(--ink);
+  background: var(--accent-soft);
+  font-size: 12px;
+}
+#themeGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+#themeGrid .theme-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 32px minmax(0, 1fr);
+  gap: 10px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+}
+#themeGrid .theme-card.active {
+  border-color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+#themeGrid .theme-meta {
+  display: grid;
+  gap: 2px;
+}
+#themeGrid .theme-name {
+  font-weight: 700;
+}
+#themeGrid .theme-sub {
+  color: var(--muted);
+  font-size: 12px;
+}
+#themeGrid .theme-preview {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--ink-surface);
+}
+#themeGrid .theme-check {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  color: var(--accent-ink);
+}
+.bottom-nav {
+  display: none;
+}
+.drawer-input {
+  display: flex;
+  gap: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.drawer-input .send-btn {
+  min-width: 40px;
+  padding: 8px;
+}
+.nav-item svg,
+.stat-icon svg,
+.stat-go svg,
+.icon-btn svg,
+.brand-mark svg,
+.tariff-btn svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 auto;
+}
+.stat-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.stat-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: var(--radius-small);
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.stat-label,
+.step-sub,
+.list-card p,
+.terminal-line,
+.campaign-meta,
+.creator-with-log small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.panel-row,
+.creator-with-log {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.pipeline-strip {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 8px;
+  margin: 16px 0;
+}
+.pipeline-strip button {
+  display: grid;
+  gap: 3px;
+  min-height: 58px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  color: var(--muted);
+  background: var(--surface);
+  text-align: left;
+}
+.pipeline-strip b {
+  color: var(--ink);
+  font-size: 18px;
+}
+.dashboard-signal-panel,
+.chart-wrap {
+  min-height: 180px;
+}
+.dashboard-signal-panel span,
+.dashboard-signal-panel b,
+.dashboard-signal-panel i {
+  margin-right: 7px;
+}
+#statReplies {
+  margin-left: 4px;
+}
+.chart-wrap,
+.list-card,
+.terminal,
+.campaign-card,
+.step-card,
+.search-result,
+.database-card {
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+}
+.chart-wrap svg,
+.chart-bars {
+  width: 100%;
+  max-height: 260px;
+}
+.chart-range,
+.search-tabs,
+.tabs,
+.lead-pager {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.chart-range-btn,
+.search-tab,
+.tab {
+  min-height: 36px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 7px 11px;
+  color: var(--muted);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 700;
+}
+.chart-range-btn.active,
+.search-tab.active,
+.tab.active {
+  border-color: var(--accent-ink);
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.search-tabs {
+  margin-bottom: 18px;
+}
+.list-card,
+.search-result,
+.database-card,
+.campaign-card {
+  display: grid;
+  gap: 12px;
+}
+.list-card-head,
+.campaign-head,
+.step-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+.step-list,
+.campaign-list,
+.terminal-lines {
+  display: grid;
+  gap: 12px;
+}
+.step-card {
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 14px;
+}
+.step-num,
+.tut-num {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--surface);
+  /* Заливка кружка несёт светлую цифру, поэтому берёт приглушённый акцент:
+     белое на ярком розовом даёт контраст 3.4 при норме 4.5. */
+  background: var(--accent-ink);
+  font-size: 12px;
+  font-weight: 800;
+}
+.terminal {
+  overflow: auto;
+  color: var(--on-ink);
+  background: var(--ink-surface);
+  font-family: var(--font-ui);
+}
+.tariff-topline,
+.tariff-price-live,
+.plan-period,
+.plan-currency,
+.tariff-feats {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+.tariff-topline {
+  justify-content: space-between;
+  min-width: 0;
+}
+.tariff-price-live {
+  margin: 20px 0;
+  align-items: baseline;
+}
+.tariff-price-live strong {
+  font-size: 34px;
+}
+.plan-period,
+.plan-currency {
+  padding: 5px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  background: var(--surface);
+}
+.plan-period button,
+.plan-currency button {
+  padding: 7px 10px;
+  border-radius: 99px;
+  /* Переключатель лежит на своей светлой подложке (--surface), а текст
+     наследовался от `.tariff-checkout` — там `--on-ink` под тёмную панель.
+     На светлой теме неактивная кнопка получалась белой на белом. */
+  color: var(--ink);
+}
+.plan-period .active,
+.plan-currency .active {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.tariff-feats {
+  display: grid;
+  gap: 10px;
+  padding: 0;
+  list-style: none;
+}
+.tariff-feats li {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.tariff-feats svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  color: var(--success);
+}
+.terminal-line {
+  padding: 7px 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--on-ink) 14%, transparent);
+}
+.grid-4-tariff,
+.adm-cards,
+.admin-health-grid,
+.admin-notice-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.health-overview-grid {
+  display: grid;
+  grid-template-columns: 2fr repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 20px;
+}
+.health-score-card,
+.health-kpi,
+.health-accounts-panel,
+.health-recommendations {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface-raised);
+}
+.health-score-card {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+}
+.health-ring {
+  display: grid;
+  width: 112px;
+  height: 112px;
+  flex: 0 0 112px;
+  place-items: center;
+  border: 12px solid var(--accent-soft);
+  border-radius: 50%;
+  color: var(--accent-ink);
+  text-align: center;
+}
+.health-ring b {
+  display: block;
+  font-size: 30px;
+}
+.health-kpi {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.health-kpi-icon,
+.admin-health-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border-radius: var(--radius-small);
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.health-kpi-icon svg,
+.admin-health-icon svg {
+  width: 22px;
+  height: 22px;
+}
+#settings svg {
+  width: 24px;
+  height: 24px;
+}
+.health-load-chart,
+.health-load-chart svg {
+  max-width: 100%;
+}
+.section svg {
+  max-width: 48px;
+  max-height: 48px;
+}
+.section .tut-svg,
+.section .chart-wrap svg {
+  max-width: 100%;
+  max-height: 260px;
+}
+.check-row,
+.check-row label,
+.lead-check {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.check-row input,
+.lead-check input {
+  width: auto;
+  flex: 0 0 auto;
+}
+.tabs,
+.offer-tabs,
+.mailing-tabs {
+  margin: 16px 0;
+}
+.tabs button,
+.offer-tabs button,
+.mailing-tabs button {
+  min-height: 38px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  padding: 8px 12px;
+}
+.file-input,
+.offer-img-preview {
+  max-width: 260px;
+}
+.offer-creator,
+.mailing-creator,
+.database-creator {
+  display: grid;
+  gap: 16px;
+}
+.mailing-steps,
+.offer-steps,
+.campaign-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+}
+.mailing-steps > *,
+.offer-steps > *,
+.campaign-steps > * {
+  min-width: 0;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+@media (max-width: 900px) {
+  .mailing-steps,
+  .offer-steps,
+  .campaign-steps {
+    grid-template-columns: 1fr;
+  }
+}
+.health-kpi b,
+.health-kpi em,
+.admin-health-item b,
+.admin-health-item small {
+  display: block;
+}
+.health-kpi em {
+  color: var(--muted);
+  font-size: 12px;
+  font-style: normal;
+}
+.health-main-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 16px;
+  margin-top: 16px;
+}
+.health-section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.health-filters {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.health-filters button {
+  min-height: 34px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  padding: 6px 9px;
+}
+.admin-health-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 110px;
+}
+@media (max-width: 900px) {
+  .health-overview-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .health-main-grid {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 560px) {
+  .health-overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .health-score-card {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
+.tariff-card,
+.admin-health-item,
+.admin-maintenance-row {
+  padding: 20px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.dropdown {
+  display: none;
+  position: absolute;
+  z-index: 20;
+  right: 0;
+  top: calc(100% + 8px);
+  width: min(360px, calc(100vw - 32px));
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.dropdown.show {
+  display: grid;
+  gap: 10px;
+}
+.rel {
+  position: relative;
+}
+.lead-pager {
+  justify-content: space-between;
+  margin-top: 16px;
+}
+.check-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 40px;
+}
+
+/* Form, tariff and account-health families share the workspace rhythm. */
+.dashboard-clock {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  color: var(--muted);
+}
+.dashboard-clock > span,
+.dashboard-clock small,
+.dashboard-clock b {
+  display: grid;
+  min-width: 0;
+}
+.dashboard-clock b {
+  color: var(--ink);
+  font-size: 13px;
+}
+.dashboard-clock i,
+.health-sync i,
+.campaign-draft-state i,
+.admin-health-up i {
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--success);
+}
+.filter-switches {
+  display: grid;
+  gap: 8px;
+}
+.check-row,
+.lead-check {
+  align-items: flex-start;
+  line-height: 1.4;
+}
+.check-row input,
+.lead-check input {
+  margin-top: 3px;
+}
+.offer-tabs,
+.mailing-tabs,
+.tabs {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface);
+}
+.offer-tabs button,
+.mailing-tabs button,
+.tabs button {
+  border-color: transparent;
+  color: var(--muted);
+  background: transparent;
+}
+.offer-tabs .active,
+.mailing-tabs .active,
+.tabs .active {
+  border-color: var(--accent-soft);
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.offer-upload {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  min-height: 96px;
+  padding: 14px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-small);
+  color: var(--ink);
+  background: var(--surface-raised);
+}
+.offer-upload input[type='file'] {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+}
+.offer-upload-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: var(--radius-small);
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.offer-upload-icon svg {
+  width: 24px;
+  height: 24px;
+}
+.offer-upload-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+.offer-upload-copy small {
+  overflow-wrap: anywhere;
+}
+.offer-upload-action {
+  padding: 7px 10px;
+  border: 1px solid var(--line);
+  border-radius: 99px;
+  color: var(--accent-ink);
+  background: var(--surface);
+  font-size: 12px;
+  font-weight: 700;
+}
+.offer-upload #offerImageDraftPreview {
+  display: none;
+  grid-column: 2 / -1;
+  width: 100%;
+  max-height: 160px;
+  object-fit: contain;
+}
+.offer-upload:has(#offerImageDraftPreview[src]) #offerImageDraftPreview {
+  display: block;
+}
+.campaign-section-label {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-top: 22px;
+}
+.campaign-section-label > span {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  font-size: 11px;
+  font-weight: 800;
+}
+.campaign-section-label div,
+.campaign-section-label b,
+.campaign-section-label small {
+  display: block;
+}
+.campaign-section-label small {
+  margin-top: 2px;
+}
+.tariff-single-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+.tariff-card-single {
+  overflow: hidden;
+  border-color: var(--accent-soft);
+  background-color: var(--surface);
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent 0,
+    transparent 10px,
+    color-mix(in srgb, var(--accent) 5%, transparent) 10px,
+    color-mix(in srgb, var(--accent) 5%, transparent) 11px
+  );
+}
+.tariff-body-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(280px, 0.65fr);
+  gap: 24px;
+}
+.tariff-checkout {
+  display: grid;
+  align-content: start;
+  gap: 14px;
+  padding: 20px;
+  border-radius: var(--radius-small);
+  background: var(--ink-surface);
+  color: var(--on-ink);
+}
+.tariff-checkout p,
+.tariff-checkout label,
+.tariff-checkout small {
+  color: var(--on-ink);
+}
+.tariff-checkout .btn.ghost,
+.tariff-checkout input {
+  border-color: color-mix(in srgb, var(--on-ink) 24%, transparent);
+  color: var(--on-ink);
+  background: color-mix(in srgb, var(--on-ink) 8%, transparent);
+}
+.health-center-head,
+.health-head-actions,
+.health-trend-row,
+.health-management-body {
+  display: flex;
+  gap: 16px;
+}
+.health-center-head,
+.health-trend-row {
+  align-items: flex-start;
+  justify-content: space-between;
+}
+.health-head-actions {
+  align-items: center;
+  flex-wrap: wrap;
+}
+.health-sync,
+.campaign-draft-state,
+.admin-health-up {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.health-management-icon {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: 0 0 40px;
+  place-items: center;
+  border-radius: var(--radius-small);
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.health-management-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.health-account-management summary {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto auto;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  cursor: pointer;
+}
+.health-account-management summary div,
+.health-account-management summary b,
+.health-account-management summary small {
+  display: block;
+}
+.health-account-management summary small {
+  margin-top: 3px;
+}
+.health-management-body {
+  flex-direction: column;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+}
+.db-search {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 16px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface);
+}
+.db-search svg,
+.db-back svg {
+  width: 20px;
+  height: 20px;
+  flex: 0 0 20px;
+  color: var(--muted);
+}
+.db-search input {
+  border: 0;
+  background: transparent;
+}
+.db-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 16px;
+}
+.table-empty,
+.empty-state {
+  padding: 24px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  color: var(--muted);
+  background: var(--surface);
+}
+.campaign-auto-pool {
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  gap: 10px 12px;
+  align-items: center;
+  padding: 16px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+}
+.campaign-auto-shield {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: var(--radius-small);
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.campaign-auto-shield svg {
+  width: 24px;
+  height: 24px;
+}
+.campaign-auto-pool b,
+.campaign-auto-pool small,
+.campaign-auto-pool p {
+  display: block;
+}
+.campaign-auto-pool p,
+.campaign-pool-chips,
+.campaign-auto-pool button {
+  grid-column: 2 / -1;
+}
+.campaign-auto-pool p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+.dashboard-live,
+.dashboard-signal-map,
+.dashboard-signal-map > span,
+.offer-main-summary,
+.reply-heat-head > div:first-child {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.dashboard-live i,
+.dashboard-signal-map i {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  flex: 0 0 8px;
+  border-radius: 50%;
+  background: var(--success);
+}
+.dashboard-signal-map {
+  justify-content: space-between;
+  margin: 20px 0;
+}
+.dashboard-signal-map > span {
+  min-width: 0;
+}
+.dashboard-signal-map small,
+.reply-heat-head span {
+  color: var(--muted);
+  font-size: 12px;
+}
+.dashboard-signal-map em {
+  width: 24px;
+  height: 1px;
+  flex: 0 1 56px;
+  background: var(--line);
+}
+.offer-main-summary,
+.reply-heat-head {
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.offer-kind-cards {
+  margin-top: 16px;
+}
+.offer-kind-card {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+}
+.offer-kind-mark {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  font-size: 12px;
+  font-weight: 800;
+}
+.offer-kind-copy,
+.offer-kind-rate {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.offer-kind-copy span,
+.offer-kind-rate small {
+  color: var(--muted);
+  font-size: 12px;
+}
+.offer-kind-rate {
+  text-align: right;
+}
+.reply-heat-panel {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.reply-heat-scroll {
+  overflow-x: auto;
+}
+.reply-heatmap {
+  display: grid;
+  gap: 5px;
+  min-width: 620px;
+}
+.reply-heat-hours {
+  display: grid;
+  grid-template-columns: 26px repeat(24, minmax(12px, 1fr));
+  gap: 4px;
+  color: var(--muted);
+}
+.reply-heat-hours > span {
+  font-size: 10px;
+  text-align: center;
+}
+.reply-heat-row {
+  display: grid;
+  grid-template-columns: 26px repeat(24, minmax(12px, 1fr));
+  gap: 4px;
+  align-items: center;
+}
+.reply-heat-row > b,
+.reply-heat-row > span {
+  min-width: 0;
+  font-size: 11px;
+}
+.reply-heat-row > span {
+  display: grid;
+  min-height: 14px;
+  place-items: center;
+  border-radius: 4px;
+  background: var(--accent-soft);
+}
+.reply-heat-row > i {
+  display: block;
+  min-height: 14px;
+  border-radius: 4px;
+  background: color-mix(in srgb, var(--accent) calc(var(--heat) * 100%), var(--accent-soft));
+}
+.reply-heatmap > span {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+}
+.best-send-times,
+.best-send-times > span,
+.health-trend-copy,
+.health-trend-copy span,
+.health-trend-copy b,
+.health-trend-copy small {
+  display: grid;
+  gap: 3px;
+}
+.health-trend-copy b {
+  margin-top: 3px;
+}
+.health-trend-copy small {
+  margin-top: 3px;
+}
+.reply-heat-head > div:first-child {
+  align-items: flex-start;
+  flex-direction: column;
+  gap: 2px;
+}
+
+@media (max-width: 700px) {
+  .setup-notices {
+    grid-template-columns: 1fr;
+    margin: 12px 16px 0;
+  }
+  .tariff-topline,
+  .tariff-price-live {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .tariff-price-live {
+    gap: 4px;
+    margin: 16px 0;
+  }
+  .plan-period,
+  .plan-currency {
+    width: 100%;
+  }
+  .plan-period button,
+  .plan-currency button {
+    flex: 1 1 0;
+  }
+  .reply-heatmap {
+    min-width: 0;
+  }
+  .reply-heat-hours,
+  .reply-heat-row {
+    grid-template-columns: 20px repeat(24, minmax(0, 1fr));
+    gap: 2px;
+  }
+  .reply-heat-hours > span {
+    font-size: 8px;
+  }
+  .mailing-flow {
+    grid-template-columns: 1fr;
+  }
+  .panel-head,
+  .admin-journal-panel .panel-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .offer-upload,
+  .tariff-body-grid,
+  .campaign-auto-pool,
+  .health-account-management summary {
+    grid-template-columns: 1fr;
+  }
+  .offer-upload-icon,
+  .campaign-auto-shield {
+    width: 40px;
+  }
+  .offer-upload #offerImageDraftPreview,
+  .campaign-auto-pool p,
+  .campaign-pool-chips,
+  .campaign-auto-pool button {
+    grid-column: auto;
+  }
+  .health-center-head,
+  .health-trend-row {
+    flex-direction: column;
+  }
+  .dashboard-signal-map {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+  .offer-kind-card {
+    grid-template-columns: 34px minmax(0, 1fr);
+  }
+  .offer-kind-rate {
+    grid-column: 2;
+    text-align: left;
+  }
+  .dashboard-signal-map em {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .panel-row,
+  .creator-with-log {
+    grid-template-columns: 1fr;
+  }
+  .pipeline-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .grid-4-tariff,
+  .adm-cards,
+  .admin-health-grid,
+  .admin-notice-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .grid-4-tariff,
+  .adm-cards,
+  .admin-health-grid,
+  .admin-notice-grid {
+    grid-template-columns: 1fr;
+  }
+  .pipeline-strip {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+  }
+  .row-2,
+  .key-add {
+    align-items: stretch;
+    flex-direction: column;
+  }
+}
+@media (max-width: 900px) {
+  .app-shell,
+  .app {
+    grid-template-columns: 1fr;
+  }
+  .sidebar {
+    display: none;
+  }
+  .bottom-nav {
+    position: fixed;
+    z-index: 10;
+    right: 12px;
+    bottom: 12px;
+    left: 12px;
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    padding: 6px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    background: color-mix(in srgb, var(--surface) 94%, transparent);
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(16px);
+  }
+  .bottom-nav .nav-item {
+    display: grid;
+    min-width: 0;
+    min-height: 44px;
+    overflow: hidden;
+    place-items: center;
+    padding: 4px;
+    color: var(--muted);
+    font-size: 10px;
+  }
+  .bottom-nav .nav-item span {
+    max-width: 100%;
+    overflow-wrap: anywhere;
+  }
+  .bottom-nav .nav-item.active {
+    color: var(--accent-ink);
+    background: var(--accent-soft);
+  }
+  .main {
+    grid-column: 1;
+    grid-row: 2;
+    padding-bottom: 84px;
+  }
+  /* На телефоне плавающая панель неизбежно накрывала бы поля формы, поэтому
+     подсказки идут обычным потоком ПОД контентом (тоже «снизу», как просил
+     Samat), а на десктопе висят в правом нижнем углу над кнопками. */
+  .setup-notices {
+    grid-column: 1;
+    grid-row: 3;
+  }
+  .mobile-menu,
+  .menu-toggle {
+    display: inline-grid;
+  }
+  .stats-grid,
+  .dashboard-stats,
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+@media (max-width: 560px) {
+  .content,
+  .app-content {
+    padding: 18px 16px;
+  }
+  .page-head,
+  .section-head {
+    align-items: start;
+    flex-direction: column;
+  }
+  /* Мобилка: KPI-карточки по 2 в ряд и компактнее, а не одна огромная колонка. */
+  .stats-grid,
+  .dashboard-stats,
+  .grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 10px;
+  }
+  .stat-card,
+  .metric-card,
+  .kpi-card {
+    min-height: 96px;
+    padding: 13px;
+  }
+  .stat-value,
+  .metric-value {
+    margin-top: 6px;
+    font-size: 26px;
+  }
+  .stat-icon {
+    width: 32px;
+    height: 32px;
+  }
+  .grid-3,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ==========================================================================
+   ПАКЕТ v6: кабинет «где нет стилей».
+   Аудит показал 186 классов в разметке без единого CSS-правила: онбординг,
+   ИИ-помощник, фильтры поиска, конструктор кампании, офферы, превью Telegram,
+   инструкция по ключу, админка. Из-за этого страницы выглядели как черновик:
+   гигантские иконки (svg без размеров), поля в одну колонку, переключатели
+   в виде пустых кнопок. Ниже — недостающие примитивы, все на токенах.
+   ========================================================================== */
+
+/* --- Плавающие подсказки настройки: были сверху страницы (Samat: «фигово
+   выглядит»), теперь стоят в правом нижнем углу над кнопками ИИ и
+   уведомлений. -------------------------------------------------------- */
+.setup-notices {
+  position: fixed;
+  z-index: 8;
+  right: 22px;
+  bottom: 84px;
+  grid-column: auto;
+  grid-row: auto;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  width: min(330px, calc(100vw - 44px));
+  margin: 0;
+  gap: 8px;
+}
+.setup-notice {
+  gap: 10px;
+  padding: 11px 13px;
+  border-radius: var(--radius-small);
+  background: color-mix(in srgb, var(--surface) 96%, transparent);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(14px);
+  cursor: pointer;
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease);
+}
+.setup-notice:hover {
+  transform: translateY(-2px);
+  border-color: color-mix(in srgb, var(--accent) 45%, var(--line));
+}
+.setup-notice b {
+  font-size: 13px;
+}
+.setup-notice small {
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.45;
+}
+.setup-notice i {
+  color: var(--accent-ink);
+  font-style: normal;
+}
+
+/* --- Сайдбар: карточка сессии. Имя и подпись слипались (Samat). ------- */
+.sidebar-session {
+  align-items: center;
+  gap: 10px;
+}
+.sidebar-session-copy {
+  display: grid;
+  min-width: 0;
+  gap: 3px;
+  line-height: 1.25;
+}
+.sidebar-session-copy b {
+  display: block;
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sidebar-session-copy small {
+  display: block;
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 11px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.sidebar-session-live {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  flex: 0 0 auto;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 22%, transparent);
+}
+
+/* --- Быстрый старт: шаги «кубиками» прямо на Главной (Samat). --------- */
+.quick-start {
+  margin-bottom: 18px;
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+}
+.quick-start-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-bottom: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.quick-start-title {
+  font-family: var(--font-display);
+  font-size: 19px;
+}
+.quick-start-sub {
+  color: var(--muted);
+  font-size: 12px;
+}
+.quick-start-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.qs-cube {
+  position: relative;
+  display: grid;
+  align-content: start;
+  padding: 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  gap: 9px;
+  color: var(--ink);
+  text-align: left;
+  background: var(--surface-raised);
+  cursor: pointer;
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease),
+    box-shadow var(--motion-fast) var(--motion-ease);
+}
+.qs-cube:hover {
+  transform: translateY(-3px);
+  border-color: color-mix(in srgb, var(--accent) 50%, var(--line));
+  box-shadow: var(--shadow-small);
+}
+.qs-cube-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+.qs-cube-ico {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  place-items: center;
+  color: var(--on-ink);
+  background: var(--accent-gradient);
+}
+.qs-cube-ico svg {
+  width: 18px;
+  height: 18px;
+}
+.qs-cube-num {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+}
+.qs-cube b {
+  font-size: 13.5px;
+  line-height: 1.3;
+}
+.qs-cube span {
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+.qs-cube.done {
+  border-color: color-mix(in srgb, var(--success) 45%, var(--line));
+}
+.qs-cube.done .qs-cube-ico {
+  color: var(--success);
+  background: var(--success-soft);
+}
+.qs-cube-state {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  padding: 3px 9px;
+  border-radius: 999px;
+  color: var(--accent-ink);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  background: var(--accent-soft);
+}
+.qs-cube.done .qs-cube-state {
+  color: var(--success);
+  background: var(--success-soft);
+}
+
+/* --- Онбординг: у модалки не было ни одного правила, из-за чего svg шага
+   растягивался на весь экран. -------------------------------------------- */
+.onb-modal {
+  display: grid;
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-large);
+  gap: 4px;
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.onb-icon {
+  display: grid;
+  width: 46px;
+  height: 46px;
+  margin-bottom: 14px;
+  border-radius: 14px;
+  place-items: center;
+  color: var(--on-ink);
+  background: var(--accent-gradient);
+}
+.onb-icon svg {
+  width: 22px;
+  height: 22px;
+}
+.onb-modal h3 {
+  margin-bottom: 8px;
+  font-family: var(--font-display);
+  font-size: 21px;
+}
+.onb-modal p {
+  color: var(--muted);
+  font-size: 13.5px;
+  line-height: 1.6;
+}
+.onb-list {
+  display: grid;
+  margin-top: 14px;
+  gap: 8px;
+  list-style: none;
+}
+.onb-list li {
+  position: relative;
+  padding-left: 22px;
+  color: var(--ink);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.onb-list li::before {
+  position: absolute;
+  top: 7px;
+  left: 4px;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  content: '';
+}
+.onb-foot {
+  display: flex;
+  align-items: center;
+  margin-top: 22px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  gap: 8px;
+}
+#onbDots {
+  display: flex;
+  margin-right: auto;
+  gap: 6px;
+}
+.onb-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background var(--motion-fast) var(--motion-ease);
+}
+.onb-dot.done {
+  background: color-mix(in srgb, var(--accent) 45%, transparent);
+}
+.onb-dot.active {
+  width: 20px;
+  border-radius: 999px;
+  background: var(--accent);
+}
+
+/* --- ИИ-помощник: шапка, интро и пузыри. Иконка была без размеров. ---- */
+.drawer-head .t {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-size: 17px;
+}
+.ai-dot {
+  display: grid;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  place-items: center;
+  color: var(--on-ink);
+  background: var(--accent-gradient);
+  flex: 0 0 auto;
+}
+.ai-dot svg {
+  width: 18px;
+  height: 18px;
+}
+.ai-intro {
+  display: grid;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  gap: 7px;
+  background: var(--surface-raised);
+}
+.ai-intro b {
+  font-size: 13.5px;
+}
+.ai-intro p {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.ai-intro span {
+  color: var(--accent-ink);
+  font-size: 12px;
+}
+.msg {
+  max-width: 88%;
+  margin-bottom: 10px;
+  padding: 10px 13px;
+  border-radius: 14px;
+  font-size: 13px;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+.msg.user {
+  margin-left: auto;
+  color: var(--on-ink);
+  background: var(--accent-gradient);
+  border-bottom-right-radius: 5px;
+}
+.msg.ai {
+  border: 1px solid var(--line);
+  background: var(--surface-raised);
+  border-bottom-left-radius: 5px;
+}
+.msg.error {
+  border: 1px solid color-mix(in srgb, var(--danger) 45%, transparent);
+  color: var(--danger);
+  background: var(--danger-soft);
+}
+/* Индикатор «думает»: три точки, которые дышат по очереди. */
+.msg.thinking {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 13px;
+}
+.msg.thinking i {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: aiDots 1.25s ease-in-out infinite;
+}
+.msg.thinking i:nth-child(2) {
+  animation-delay: 0.18s;
+}
+.msg.thinking i:nth-child(3) {
+  animation-delay: 0.36s;
+}
+@keyframes aiDots {
+  0%,
+  70%,
+  100% {
+    opacity: 0.28;
+    transform: translateY(0);
+  }
+  35% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+
+/* --- Переключатели (role=switch). Были пустыми кнопками без вида. ----- */
+.switch {
+  position: relative;
+  width: 46px;
+  height: 26px;
+  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-raised);
+  cursor: pointer;
+  flex: 0 0 auto;
+  transition: background var(--motion-fast) var(--motion-ease);
+}
+.switch-k {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--muted);
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    background var(--motion-fast) var(--motion-ease);
+}
+.switch[aria-checked='true'] {
+  border-color: transparent;
+  background: var(--accent-gradient);
+}
+.switch[aria-checked='true'] .switch-k {
+  background: var(--on-ink);
+  transform: translateX(20px);
+}
+.switch:focus-visible {
+  box-shadow: var(--ring);
+  outline: none;
+}
+.mode-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 12px 0;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  gap: 14px;
+  background: var(--surface-raised);
+}
+.row-title {
+  font-size: 13.5px;
+  font-weight: 600;
+}
+.row-sub {
+  margin-top: 3px;
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.5;
+}
+
+/* --- Сетки полей. Фильтры поиска шли одной колонкой во всю ширину. ---- */
+.lead-filter-grid,
+.verify-kpis,
+.plan-limit-cols,
+.lead-toolbar,
+.campaign-basics,
+.campaign-targeting,
+.acc-add-row,
+.review-summary {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 14px;
+}
+.lead-filter-grid {
+  margin-top: 14px;
+}
+.search-filter-panel,
+.verification-panel,
+.campaign-builder,
+.log-panel,
+.terminal-panel,
+.activity-panel,
+.offer-pane,
+.admin-health-panel,
+.admin-notice-panel,
+.admin-activity-panel,
+.adm-chart-panel,
+.campaign-log-panel {
+  padding: 18px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.search-preset-bar,
+.preset-actions,
+.verify-actions,
+.verify-toolbar,
+.review-actions,
+.campaign-actions,
+.lead-sort,
+.log-panel-head,
+.log-panel-foot,
+.offer-main-head,
+.campaign-builder-head,
+.log-scope,
+.bulk-bar,
+.acc-add-hint,
+.chart-compare,
+.campaign-mode-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.log-panel-head,
+.offer-main-head,
+.campaign-builder-head {
+  justify-content: space-between;
+  margin-bottom: 14px;
+}
+.bulk-bar {
+  margin: 12px 0;
+  padding: 10px 14px;
+  border: 1px solid color-mix(in srgb, var(--accent) 35%, var(--line));
+  border-radius: var(--radius-small);
+  background: var(--accent-soft);
+}
+.bulk-count {
+  color: var(--accent-ink);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.campaign-kicker,
+.dashboard-kicker,
+.section-kicker,
+.health-eyebrow,
+.counter-label,
+.ph-label,
+.tut-text b {
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.tut-text b {
+  color: var(--ink);
+  font-size: inherit;
+  letter-spacing: normal;
+  text-transform: none;
+}
+
+/* --- Счётчик «− значение +». --------------------------------------- */
+.counter-row {
+  display: flex;
+  align-items: center;
+  margin: 8px 0;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.counter {
+  display: inline-flex;
+  align-items: center;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-raised);
+}
+.counter button {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  color: var(--ink);
+  font-size: 15px;
+  background: transparent;
+  cursor: pointer;
+}
+.counter button:hover {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.counter input {
+  width: 56px;
+  padding: 0;
+  border: 0;
+  text-align: center;
+  background: transparent;
+}
+.counter-hint {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+
+/* --- Шаги-карточки внутри страниц (поиск, рассылка). ------------------ */
+/* .step — это «шаг страницы»: шапка (номер + заголовок) и тело под ней.
+   НЕ две колонки: иначе тело шага сжимается в узкий столбик. */
+.step {
+  display: grid;
+  margin-bottom: 16px;
+  gap: 12px;
+}
+.step-head {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+.step-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.step-body {
+  display: grid;
+  gap: 10px;
+  padding-top: 2px;
+}
+
+/* --- Ниши и пресеты. -------------------------------------------------- */
+.niche-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  margin-top: 12px;
+  gap: 8px;
+}
+.niche-count,
+.recommend-count,
+.db-total,
+.health-management-count {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.kw-input-wrap {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.kw-input-wrap input {
+  min-width: 200px;
+  flex: 1 1 220px;
+}
+
+/* --- Скоринг: легенда и разбор баллов. -------------------------------- */
+.score-legend,
+.score-parts {
+  display: grid;
+  gap: 6px;
+}
+.score-legend-row,
+.score-part {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.score-part b {
+  color: var(--ink);
+}
+
+/* --- Логи процесса: моноширинная консоль вместо пустой чёрной полосы. - */
+.log-panel pre,
+.terminal-panel pre,
+.terminal-info {
+  overflow: auto;
+  max-height: 320px;
+  padding: 12px;
+  border-radius: var(--radius-small);
+  color: var(--on-ink);
+  font-family: var(--font-ui);
+  font-size: 11.5px;
+  line-height: 1.6;
+  background: var(--ink-surface);
+}
+.log-panel-foot {
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.send-note,
+.chart-note,
+.acc-add-hint,
+.ph-note {
+  color: var(--muted);
+  font-size: 11.5px;
+  line-height: 1.55;
+}
+
+/* --- Превью Telegram (офферы). --------------------------------------- */
+.tg-window {
+  overflow: hidden;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+}
+.tg-bar {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  gap: 10px;
+  background: var(--surface-raised);
+}
+.tg-name {
+  font-size: 13px;
+  font-weight: 600;
+}
+.tg-status {
+  color: var(--muted);
+  font-size: 11px;
+}
+.tg-chat {
+  display: grid;
+  min-height: 150px;
+  padding: 14px;
+  gap: 8px;
+  background: var(--surface-raised);
+}
+.tg-day {
+  justify-self: center;
+  padding: 3px 11px;
+  border-radius: 999px;
+  color: var(--muted);
+  font-size: 10.5px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.tg-row {
+  display: flex;
+}
+.tg-row.out {
+  justify-content: flex-end;
+}
+.tg-bubble {
+  max-width: 82%;
+  padding: 9px 12px;
+  border-radius: 16px;
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+}
+.tg-row.out .tg-bubble {
+  color: var(--on-ink);
+  background: var(--accent-gradient);
+  border-bottom-right-radius: 5px;
+}
+.tg-bubble-img {
+  display: block;
+  width: 100%;
+  max-height: 190px;
+  margin-bottom: 8px;
+  border-radius: 10px;
+  object-fit: cover;
+}
+.tg-bubble-text {
+  font-size: 12.5px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.tg-bubble-meta {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 4px;
+  gap: 4px;
+  font-size: 10px;
+  opacity: 0.75;
+}
+.tg-preview-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+.tg-preview-title {
+  font-size: 14px;
+  font-weight: 600;
+}
+.tg-preview-sub,
+.tg-preview {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.tg-preview-warn {
+  margin-top: 8px;
+  padding: 9px 12px;
+  border-radius: var(--radius-small);
+  color: var(--warning);
+  font-size: 11.5px;
+  background: var(--warning-soft);
+}
+.tg-connect-wrap {
+  display: grid;
+  gap: 10px;
+}
+.tg-c-ph {
+  display: grid;
+  padding: 16px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius-small);
+  place-items: center;
+  color: var(--muted);
+  font-size: 12px;
+}
+.tg-c-ico svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* --- Инструкция «Как получить ключ YouTube API». ---------------------- */
+.tut-step {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  margin-top: 18px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+  gap: 14px;
+}
+.tut-step:first-of-type {
+  border-top: 0;
+}
+.tut-num {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  place-items: center;
+  color: var(--on-ink);
+  font-size: 13px;
+  font-weight: 700;
+  background: var(--accent-gradient);
+}
+.tut-title {
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.tut-text {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.6;
+}
+.tut-svg {
+  display: block;
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  margin-top: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+}
+.tut-open {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  gap: 6px;
+  color: var(--accent-ink);
+  font-size: 12.5px;
+  font-weight: 600;
+}
+.t-win {
+  fill: var(--surface);
+  stroke: var(--line);
+}
+.t-bar {
+  fill: var(--surface-raised);
+}
+.t-dot {
+  fill: var(--line);
+}
+.t-field,
+.t-chip,
+.t-pop {
+  fill: var(--surface-raised);
+  stroke: var(--line);
+}
+.t-line {
+  fill: var(--line);
+}
+.t-accent {
+  fill: var(--accent);
+}
+.t-ring {
+  fill: none;
+  stroke: var(--accent);
+  stroke-dasharray: 5 4;
+}
+.t-text {
+  fill: var(--muted);
+  font-family: var(--font-ui);
+  font-size: 8px;
+}
+.t-btntext {
+  fill: var(--on-ink);
+  font-family: var(--font-ui);
+  font-size: 8px;
+}
+.t-mono {
+  font-family: var(--font-ui);
+}
+.t-title2 {
+  fill: var(--ink);
+  font-family: var(--font-ui);
+  font-size: 9px;
+  font-weight: 700;
+}
+.t-logo {
+  fill: var(--accent);
+}
+.t-copy {
+  fill: var(--muted);
+}
+.t-play {
+  fill: var(--accent);
+}
+
+/* --- Офферы. ---------------------------------------------------------- */
+.offer-pane {
+  margin-top: 14px;
+}
+.offer-media-field,
+.acc-add-row {
+  display: grid;
+  gap: 10px;
+}
+.ai-offer-result,
+.ai-tpl-preview,
+.offer-ai-lead {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  font-size: 12.5px;
+  line-height: 1.6;
+  background: var(--surface-raised);
+  white-space: pre-wrap;
+}
+.offer-ai-lead {
+  color: var(--muted);
+  white-space: normal;
+}
+
+/* --- Проверка и обзор перед запуском. --------------------------------- */
+.verification-results,
+.review-list,
+.activity-list,
+.health-account-list {
+  display: grid;
+  margin-top: 12px;
+  gap: 8px;
+}
+.review-list > *,
+.activity-list > *,
+.health-account-list > * {
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  font-size: 12.5px;
+  background: var(--surface-raised);
+}
+.verify-progress {
+  overflow: hidden;
+  height: 6px;
+  margin: 10px 0;
+  border-radius: 999px;
+  background: var(--surface-raised);
+}
+.verify-progress > * {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: var(--accent-gradient);
+  transition: width var(--motion-base) var(--motion-ease);
+}
+.verify-live,
+.test-reply-watch,
+.adm-live,
+.campaign-auto-live {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.verify-live-dot,
+.test-reply-indicator {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--success) 20%, transparent);
+}
+.test-send-receipt {
+  margin-top: 10px;
+  padding: 11px 13px;
+  border-radius: var(--radius-small);
+  color: var(--success);
+  font-size: 12px;
+  background: var(--success-soft);
+}
+
+/* --- Кампания: сводка и предпросмотр. --------------------------------- */
+.campaign-preview,
+.campaign-account-auto,
+.dashboard-signal-copy,
+.dashboard-offer-stats,
+.health-trend-copy,
+.health-details-pop,
+.admin-maintenance-panel {
+  display: grid;
+  gap: 8px;
+}
+.campaign-preview {
+  margin-top: 12px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+}
+.mailing-workspace {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 16px;
+}
+
+/* --- Уведомления-плашки, выпадашки, меню действий. -------------------- */
+.notice {
+  margin: 10px 0;
+  padding: 11px 14px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.55;
+  background: var(--surface-raised);
+}
+.notice.warn {
+  border-color: color-mix(in srgb, var(--warning) 40%, transparent);
+  color: var(--warning);
+  background: var(--warning-soft);
+}
+.dd-title {
+  padding: 12px 14px 8px;
+  color: var(--muted);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.action-menu {
+  position: relative;
+}
+.action-menu-pop {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 6px);
+  right: 0;
+  display: grid;
+  min-width: 190px;
+  padding: 6px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+.menu-action {
+  padding: 9px 11px;
+  border: 0;
+  border-radius: 9px;
+  color: var(--ink);
+  font-size: 12.5px;
+  text-align: left;
+  background: transparent;
+  cursor: pointer;
+}
+.menu-action:hover {
+  background: var(--surface-raised);
+}
+.header-primary {
+  white-space: nowrap;
+}
+
+/* --- Модалки: тело и подвал. ------------------------------------------ */
+.modal-lg {
+  width: min(760px, 100%);
+}
+.modal-body {
+  display: grid;
+  gap: 12px;
+}
+.modal-foot {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* --- Настройки: внешний вид. ------------------------------------------ */
+.appearance-card {
+  display: grid;
+  gap: 12px;
+}
+.appearance-head {
+  display: grid;
+  gap: 4px;
+}
+.appearance-pickers,
+.theme-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 10px;
+}
+.appearance-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.tswitch {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  gap: 3px;
+  background: var(--surface-raised);
+}
+
+/* --- Админка и здоровье аккаунтов. ------------------------------------ */
+/* Раньше здесь одно правило красило ВСЕХ прямых детей графика розовой
+   заливкой. В разметке дети — это колонка целиком (столбики + подпись даты),
+   легенда и заглушка «Загрузка…», поэтому график выглядел рядом сплошных
+   розовых плашек с текстом поверх. Красим только сами столбики. */
+.adm-chart {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  min-height: 90px;
+  margin-top: 10px;
+  gap: 4px;
+}
+.adm-bar-col {
+  display: flex;
+  flex: 1 1 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  min-width: 0;
+}
+.adm-bars {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 3px;
+  width: 100%;
+  height: 90px;
+}
+.adm-bar {
+  width: 9px;
+  min-height: 3px;
+  border-radius: 3px 3px 0 0;
+}
+.adm-bar.events {
+  background: var(--accent);
+}
+.adm-bar.logins {
+  background: var(--accent-strong);
+}
+.adm-bar-label {
+  color: var(--muted);
+  font-size: 10px;
+  white-space: nowrap;
+}
+.adm-legend {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  margin-top: 4px;
+  color: var(--muted);
+  font-size: 11px;
+}
+.adm-legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.adm-legend .dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex: 0 0 auto;
+}
+.adm-legend .dot.events {
+  background: var(--accent);
+}
+.adm-legend .dot.logins {
+  background: var(--accent-strong);
+}
+/* «Нагрузка отправителей» — это строки с прогресс-полосой, а не столбики:
+   раскладка вертикальная, розовой остаётся только заполненная часть. */
+.health-mini-chart {
+  display: grid;
+  gap: 10px;
+  min-height: 90px;
+  margin-top: 10px;
+  align-content: start;
+}
+.health-load-row {
+  display: grid;
+  gap: 6px;
+}
+.health-load-row.today .health-load-meta b {
+  color: var(--accent-ink);
+}
+.health-load-meta {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+  font-size: 12px;
+}
+.health-load-meta span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.health-load-meta b {
+  flex: 0 0 auto;
+  font-variant-numeric: tabular-nums;
+}
+.health-load-track {
+  overflow: hidden;
+  height: 8px;
+  border-radius: 999px;
+  background: var(--tint-soft);
+}
+.health-load-track i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent-gradient);
+}
+.admin-maintenance-icon svg,
+.health-management-chevron svg,
+.admin-notice-panel svg {
+  width: 20px;
+  height: 20px;
+}
+.admin-notice-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+.account-health-center {
+  display: grid;
+  gap: 14px;
+}
+
+/* --- Мелочи. ---------------------------------------------------------- */
+.ph-wrap {
+  display: grid;
+  gap: 8px;
+}
+.ph-chips {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+.dash-limit,
+.lp-card-tag {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+/* Подпись лежит на ярком градиенте кнопки, поэтому берёт цвет кнопки,
+   а не приглушённый --muted: серое на розовом читается плохо. */
+.t-label {
+  color: inherit;
+  font-size: 12.5px;
+  letter-spacing: 0.02em;
+}
+.dashboard-offer-tools,
+.dashboard-offer-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pipeline-badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--accent-ink);
+  font-size: 10.5px;
+  background: var(--accent-soft);
+}
+.zd-page {
+  min-height: 100%;
+}
+
+/* --- Мобилка (Samat: «текст в кнопках снизу уходит», «слиплено»). ----- */
+@media (max-width: 900px) {
+  /* Подписи в нижнем меню обрезались: 6 колонок × 10px текст с переносом.
+     Одна строка, многоточие, чуть выше кнопка — тап удобный, текст цел. */
+  .bottom-nav .nav-item {
+    align-content: center;
+    min-height: 50px;
+    padding: 5px 2px;
+    gap: 3px;
+    line-height: 1.1;
+  }
+  .bottom-nav .nav-item svg {
+    width: 18px;
+    height: 18px;
+  }
+  .bottom-nav .nav-item span {
+    display: block;
+    overflow: hidden;
+    max-width: 100%;
+    font-size: 9px;
+    letter-spacing: 0;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow-wrap: normal;
+  }
+  .main {
+    padding-bottom: 96px;
+  }
+  /* Плавающая панель на телефоне неизбежно накрывала бы поля формы, поэтому
+     подсказки идут обычным потоком ПОД контентом (тоже «внизу», как просил
+     Samat). Правый отступ оставляет свободным угол с кнопками ИИ и
+     уведомлений, нижний — место под мобильное меню. */
+  .setup-notices {
+    position: static;
+    grid-column: 1;
+    grid-row: 3;
+    width: auto;
+    margin: 0 120px 104px 16px;
+  }
+  .global-actions {
+    right: 14px;
+    bottom: 84px;
+  }
+  .quick-start-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  .mailing-workspace {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .lead-filter-grid,
+  .verify-kpis,
+  .plan-limit-cols,
+  .campaign-basics,
+  .campaign-targeting {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+}
+@media (max-width: 560px) {
+  /* Кнопки и текст «слипались»: заголовок страницы вплотную к кнопке. */
+  .topbar,
+  .page-head,
+  .section-head,
+  .panel-head {
+    gap: 12px;
+  }
+  .topbar-right,
+  .panel-tools,
+  .btn-row {
+    width: 100%;
+    gap: 8px;
+  }
+  .quick-start-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .quick-start {
+    padding: 14px;
+  }
+  .mode-row {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .onb-modal {
+    padding: 20px;
+  }
+  .onb-foot {
+    flex-wrap: wrap;
+  }
+  .tut-step {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 8px;
+  }
+}
+
+/* Подтверждение пропуска тура — одной строкой в подвале модалки. */
+.onb-skip-confirm {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.onb-skip-confirm span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* Инструкция по ключу: прямые ссылки на нужные экраны Google Cloud. */
+.tut-links {
+  display: flex;
+  align-items: center;
+  margin-top: 14px;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.tut-cta {
+  text-decoration: none;
+}
+.tut-doc {
+  color: var(--muted);
+  font-size: 12px;
+  text-decoration: underline;
+}
+a.tut-open {
+  text-decoration: none;
+}
+
+/* Балл лида в таблице баз: цвет по «температуре» (databases.js scoreClass). */
+.lead-score {
+  display: inline-grid;
+  min-width: 38px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  place-items: center;
+  font-size: 12px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+.lead-score.hot {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+}
+.lead-score.warm {
+  color: var(--warning);
+  background: var(--warning-soft);
+}
+.lead-score.cold {
+  color: var(--muted);
+  background: var(--surface-raised);
+}
+.ready {
+  color: var(--success);
+}
+.locked {
+  color: var(--muted);
+  opacity: 0.6;
+}
+.tg-ticks {
+  color: var(--on-ink);
+  letter-spacing: -0.08em;
+}
+.tg-compose {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-top: 1px solid var(--line);
+  gap: 8px;
+  color: var(--muted);
+  font-size: 12px;
+  background: var(--surface);
+}
+.tut-body {
+  min-width: 0;
+}
+.ph-hint {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.dashboard-top-actions {
+  justify-content: flex-end;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   ТОСТЫ. Было: единственное правило `.toast, .alert, .login-error` красило
+   ЛЮБОЙ тост в аварийный красный — «Вы вышли из системы» выглядело как сбой.
+   Теперь у каждого типа свой цвет, иконка в кружке, и движение по
+   references/transitions/22-toast.md: вход 350ms, уход 250ms, без пружины.
+   ───────────────────────────────────────────────────────────────────── */
+.toast-wrap {
+  top: auto;
+  right: 18px;
+  bottom: 18px;
+  gap: 10px;
+  width: min(360px, calc(100vw - 36px));
+  pointer-events: none;
+}
+.toast {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 11px;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  font-size: 13.5px;
+  line-height: 1.4;
+  pointer-events: auto;
+  opacity: 0;
+  transform: translateY(16px) scale(0.97);
+  transition:
+    opacity var(--toast-open) var(--ease-smooth-out),
+    transform var(--toast-open) var(--ease-smooth-out);
+}
+.toast.on {
+  opacity: 1;
+  transform: none;
+}
+.toast.hide {
+  opacity: 0;
+  transform: translateY(6px) scale(0.99);
+  transition:
+    opacity var(--toast-close) var(--ease-smooth-out),
+    transform var(--toast-close) var(--ease-smooth-out);
+}
+.toast-ic {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--surface);
+  background: var(--muted);
+}
+.toast-ic svg {
+  width: 16px;
+  height: 16px;
+}
+.toast.success .toast-ic {
+  background: var(--success);
+}
+.toast.info .toast-ic {
+  color: var(--ink-surface);
+  background: var(--accent-gradient);
+}
+.toast.warn .toast-ic {
+  background: var(--warning);
+}
+.toast.error .toast-ic {
+  background: var(--danger);
+}
+.toast.error {
+  border-color: color-mix(in srgb, var(--danger) 40%, var(--line));
+}
+.toast-body b {
+  display: block;
+  font-size: 13px;
+}
+.toast-body small {
+  display: block;
+  margin-top: 1px;
+  color: var(--muted);
+  font-size: 12px;
+}
+@media (max-width: 720px) {
+  .toast-wrap {
+    right: 12px;
+    left: 12px;
+    bottom: 84px;
+    width: auto;
+  }
+}
+
+/* ---------------------------- Нейрокомментинг ----------------------------
+ *
+ * Раздел переиспользует .panel и .btn кабинета: собственная типографика и
+ * кнопки здесь означали бы второй визуальный язык внутри одного окна.
+ */
+
+.neuro-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 16px;
+  margin: 16px 0;
+}
+
+@media (max-width: 900px) {
+  .neuro-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.neuro-budget-main {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.neuro-budget-num {
+  font-size: 34px;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.neuro-budget-cap,
+.neuro-budget-hint {
+  font-size: 12px;
+  opacity: 0.7;
+}
+
+.neuro-budget-note {
+  font-size: 13px;
+  display: grid;
+  gap: 6px;
+}
+
+.neuro-add {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 10px;
+}
+
+.neuro-add input {
+  flex: 1;
+}
+
+.neuro-list {
+  display: grid;
+  gap: 8px;
+  max-height: 420px;
+  overflow: auto;
+}
+
+.neuro-row {
+  display: flex;
+  gap: 12px;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 10px 12px;
+  border-radius: 10px;
+  background: var(--tint-soft);
+}
+
+.neuro-row-main {
+  min-width: 0;
+}
+
+.neuro-row-title {
+  font-weight: 600;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.neuro-row-sub {
+  font-size: 13px;
+  opacity: 0.85;
+  /* Комментарий может быть длинным — переносим, а не растягиваем строку. */
+  overflow-wrap: anywhere;
+}
+
+.neuro-row-meta {
+  font-size: 12px;
+  opacity: 0.6;
+}
+
+.neuro-row-err {
+  font-size: 12px;
+  color: var(--danger);
+  margin-top: 4px;
+}
+
+.neuro-row-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+}
+
+.neuro-tag {
+  font-size: 11px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: var(--tint-strong);
+  font-weight: 500;
+}
+
+.neuro-tag.ok {
+  background: var(--success-soft);
+  color: var(--success);
+}
+
+.neuro-tag.warn {
+  background: var(--danger-soft);
+  color: var(--danger);
+}
+
+.neuro-empty,
+.neuro-note {
+  font-size: 13px;
+  opacity: 0.7;
+  padding: 10px 2px;
+}
+
+.neuro-actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.neuro-preview {
+  margin-top: 12px;
+  padding: 12px;
+  border-radius: 10px;
+  background: var(--tint-soft);
+  font-size: 13px;
+  display: grid;
+  gap: 8px;
+}
+
+.btn.sm {
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+/* ── Пробный тариф ───────────────────────────────────────────────────────
+   Полоса над кабинетом и замок на разделах, которых пробный доступ не даёт.
+   Оба блока объясняют причину словами: «кнопка не работает» без объяснения —
+   это баг с точки зрения человека, даже если так задумано. */
+.trial-bar {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  margin-bottom: 18px;
+  padding: 14px 18px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.trial-bar.warn {
+  border-left-color: var(--danger);
+}
+.trial-bar > div {
+  display: grid;
+  gap: 4px;
+  min-width: 0;
+}
+.trial-bar b {
+  font-size: 14px;
+}
+.trial-bar span {
+  color: var(--mut);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.trial-bar .btn {
+  flex: none;
+}
+.plan-lock {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 18px;
+  padding: 16px 18px;
+  border: 1px dashed var(--line);
+  border-radius: var(--radius);
+  background: var(--tint-soft);
+  justify-items: start;
+}
+.plan-lock b {
+  font-size: 14px;
+}
+.plan-lock span {
+  max-width: 70ch;
+  color: var(--mut);
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.plan-lock .btn {
+  margin-top: 6px;
+}
+
+@media (max-width: 700px) {
+  .trial-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .trial-bar .btn {
+    width: 100%;
+  }
+}
+
+/* ── Админка: группы пользователей и рубильник регистрации ───────────────
+   С открытой регистрацией список перестал быть однородным: рядом живут
+   пробные, платящие и мусорные аккаунты. Кнопки-группы с числами дают ответ
+   «сколько кого» без выгрузки и подсчёта руками. */
+.adm-scopes {
+  display: grid;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.adm-scope-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.adm-scope {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 7px 13px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mut);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12.5px;
+}
+.adm-scope:hover {
+  color: var(--fg);
+}
+.adm-scope.active {
+  border-color: var(--accent-ink);
+  background: var(--tint-strong);
+  color: var(--fg);
+}
+.adm-scope i {
+  color: var(--mut);
+  font-size: 11px;
+  font-style: normal;
+}
+.adm-reg {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 12px 16px;
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--card);
+}
+.adm-reg.off {
+  border-left-color: var(--danger);
+}
+.adm-reg span {
+  display: grid;
+  gap: 3px;
+  min-width: 0;
+}
+.adm-reg b {
+  font-size: 13px;
+}
+.adm-reg small {
+  color: var(--mut);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.adm-reg .btn {
+  flex: none;
+  margin-left: auto;
+}
+/* Признаки «похоже на бота». Это подсказки, а не приговор: у живого человека
+   тоже может не быть username, поэтому вид спокойный, без красного. */
+.adm-flags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+  margin-top: 5px;
+}
+.adm-flag {
+  padding: 2px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--mut);
+  font-size: 10.5px;
+  white-space: nowrap;
+}
+
+@media (max-width: 700px) {
+  .adm-reg {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .adm-reg .btn {
+    margin-left: 0;
+  }
+}
+
+/* ── v14. Нижнее меню на телефоне: один ряд ─────────────────────────────
+   Пунктов восемь (добавился «Нейрокомментинг»), а сетка была на семь
+   колонок — восьмой заворачивался во второй ряд и меню становилось
+   двухэтажным. Колонок теперь ровно столько, сколько пунктов, и они
+   выкладываются потоком по колонке: добавится девятый — ряд останется
+   один, а не поедет вниз. */
+@media (max-width: 900px) {
+  .bottom-nav {
+    grid-auto-flow: column;
+    grid-template-columns: none;
+    grid-auto-columns: minmax(0, 1fr);
+    gap: 1px;
+    padding: 5px 4px;
+  }
+  .bottom-nav .nav-item {
+    padding: 5px 1px;
+  }
+  .bottom-nav .nav-item span {
+    font-size: 8.5px;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Состояние «нет подключённого Telegram» в переписке: не красная строка, а
+   объяснение с кнопкой. Раньше сюда попадал текст ошибки шлюза, и человек
+   читал его как требование заново войти на сайт. */
+.chat-none.chat-none-cta {
+  display: grid;
+  gap: 8px;
+  justify-items: start;
+  padding: 16px 14px;
+  color: var(--muted);
+  text-align: left;
+  white-space: normal;
+}
+.chat-none-cta b {
+  color: var(--ink);
+  font-size: 13px;
+}
+.chat-none-cta span {
+  font-size: 12px;
+  line-height: 1.5;
+}
+.chat-none-cta .btn {
+  margin-top: 2px;
+}

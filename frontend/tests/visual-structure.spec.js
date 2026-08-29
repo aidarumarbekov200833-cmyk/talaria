@@ -1,0 +1,342 @@
+import { expect, test } from '@playwright/test';
+import { mockApi } from './helpers/mock-api.js';
+test.setTimeout(120_000);
+
+const landingMatrix = [
+  ['landing-desktop', 1440, 1000],
+  ['landing-tablet', 1024, 768],
+  ['landing-mobile', 390, 844],
+];
+const sections = [
+  'dashboard',
+  'search',
+  'databases',
+  'offer',
+  'mailing',
+  'messages',
+  'tariffs',
+  'settings',
+  'admin',
+];
+const sectionSentinels = {
+  dashboard: '#offerStatsPanel',
+  search: '.search-filter-panel',
+  databases: '#dbGridView',
+  offer: '#offerPaneManual',
+  mailing: '#campaignNameInput',
+  messages: '#chatDialogs',
+  tariffs: '#tariffGrid [data-plan-card]',
+  settings: '#accountHealthCenter',
+  admin: '#adminOverview',
+};
+
+function pngDimensions(png) {
+  return { width: png.readUInt32BE(16), height: png.readUInt32BE(20) };
+}
+
+async function expectNoHorizontalOverflow(page) {
+  const overflow = await page.evaluate(() => {
+    const viewport = window.innerWidth;
+    const elements = [...document.querySelectorAll('body *')]
+      .filter((element) => {
+        // Финальная сцена — намеренно полноэкранная и обрезается по краям
+        // (overflow:hidden): рука выезжает из-за правого края экрана. Реальную
+        // ширину документа это не меняет, поэтому клипованный слой пропускаем.
+        if (element.closest('.zp-final-sticky')) return false;
+        // Демо кабинета на узком экране не ужимается до нечитаемого, а
+        // листается вбок: контейнер обрезает содержимое (overflow-x: auto),
+        // поэтому ширину документа его дети тоже не меняют.
+        if (element.closest('.appwin-scale.is-scrollable')) return false;
+        const rect = element.getBoundingClientRect();
+        return rect.right > viewport + 1 || rect.left < -1;
+      })
+      .slice(0, 8)
+      .map((element) => ({
+        className: element.className,
+        id: element.id,
+        tagName: element.tagName,
+        text: element.textContent?.trim().slice(0, 80),
+      }));
+    return {
+      documentWidth: document.documentElement.scrollWidth,
+      viewport,
+      elements,
+    };
+  });
+  expect(overflow.documentWidth).toBeLessThanOrEqual(overflow.viewport);
+  expect(overflow.elements).toEqual([]);
+}
+
+async function hideNonCaptureLayers(page) {
+  await page
+    .locator('.drawer, .modal-overlay, .onb-overlay, .overlay-soft, .toast-wrap')
+    .evaluateAll((elements) => {
+      for (const element of elements) {
+        element.classList.remove('show');
+        element.style.display = 'none';
+      }
+    });
+}
+
+async function prepareFullPageLandingCapture(page) {
+  await page.evaluate(() => {
+    document.documentElement.style.overflow = 'visible';
+    document.body.style.overflow = 'visible';
+    Object.assign(document.querySelector('#loginScreen').style, {
+      position: 'relative',
+      inset: 'auto',
+      overflow: 'visible',
+      height: 'auto',
+    });
+  });
+  const landing = await page.evaluate(() => ({
+    viewportHeight: window.innerHeight,
+    documentHeight: document.documentElement.scrollHeight,
+    finaleTop: document.querySelector('#zephyrFinale').getBoundingClientRect().top,
+  }));
+  expect(landing.documentHeight).toBeGreaterThan(landing.viewportHeight);
+  expect(landing.finaleTop).toBeGreaterThan(landing.viewportHeight);
+}
+
+async function activateCaptureSection(page, sectionId) {
+  await page.evaluate((activeId) => {
+    for (const element of document.querySelectorAll('[data-target]')) {
+      const active = element.getAttribute('data-target') === activeId;
+      element.classList.toggle('active', active);
+    }
+    for (const element of document.querySelectorAll('.section')) {
+      const active = element.id === activeId;
+      element.classList.toggle('active', active);
+      element.hidden = !active;
+      element.style.display = active ? 'block' : 'none';
+    }
+    window.scrollTo(0, 0);
+  }, sectionId);
+}
+
+test('captures the required landing and workspace visual matrix without overflow', async ({
+  page,
+}, testInfo) => {
+  await mockApi(page);
+
+  for (const [name, width, height] of landingMatrix) {
+    await page.setViewportSize({ width, height });
+    for (const theme of ['light', 'dark']) {
+      await page.goto('/index.html');
+      await page
+        .locator('html')
+        .evaluate((element, value) => element.setAttribute('data-theme', value), theme);
+      await page.locator('#loginHint').evaluate((element) => {
+        element.style.display = 'none';
+      });
+      await hideNonCaptureLayers(page);
+      // Композиция лендинга V5: шесть возможностей, три шага кампании и три
+      // гарантии доставки. Прежние .zp-product-card из старого лендинга ушли
+      // вместе с ним — фиксируем то, что на странице есть сейчас.
+      await expect(page.locator('.zp-capabilities .fcard')).toHaveCount(6);
+      await expect(page.locator('.zp-workflow li')).toHaveCount(3);
+      await expect(page.locator('.zp-account-band .ab-list li')).toHaveCount(3);
+      await prepareFullPageLandingCapture(page);
+      await expect(page.locator('.zp-final')).toBeVisible();
+      // Финал переработан в шторку: подписи по углам убраны (Samat), слово
+      // TALARIA на шторке остаётся ключевым элементом кадра.
+      await expect(page.locator('.zp-final .fin-word')).toBeVisible();
+      await expectNoHorizontalOverflow(page);
+      const screenshot = await page.screenshot({
+        path: testInfo.outputPath(`${name}-${theme}.png`),
+        fullPage: true,
+      });
+      const dimensions = pngDimensions(screenshot);
+      expect(dimensions.width).toBe(width);
+      expect(dimensions.height).toBeGreaterThan(height);
+    }
+  }
+
+  for (const [viewportName, width, height] of [
+    ['workspace-desktop', 1440, 1000],
+    ['workspace-mobile', 390, 844],
+  ]) {
+    await page.setViewportSize({ width, height });
+    for (const theme of ['light', 'dark']) {
+      await page.addInitScript(() => localStorage.setItem('mf_token', 'visual-fixture-token'));
+      await page.goto('/index.html');
+      // Автовхода больше нет (по просьбе владельца): живой токен оставляет
+      // человека на лендинге. В кабинет заходим так же, как заходит он —
+      // кликом по «Войти». Признак data-session="warm" появляется, когда
+      // токен проверен и вход пройдёт мгновенно, без окна Telegram.
+      await expect(page.locator('html[data-session="warm"]')).toHaveCount(1);
+      await page.locator('[data-telegram-login-trigger]').first().click();
+      await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+      await page
+        .locator('html')
+        .evaluate((element, value) => element.setAttribute('data-theme', value), theme);
+      await page.locator('#loginScreen').evaluate((element) => {
+        element.classList.add('hidden');
+        element.style.display = 'none';
+      });
+      await page.locator('#appWrapper').evaluate((element) => {
+        element.style.display = 'block';
+      });
+      await expect(page.locator('#loginScreen')).toHaveCSS('display', 'none');
+      await hideNonCaptureLayers(page);
+      for (const sectionId of sections) {
+        await activateCaptureSection(page, sectionId);
+        await expect(page.locator(`#${sectionId}`)).toBeVisible();
+        await expect(page.locator(`#${sectionId}`)).toHaveClass(/\bactive\b/);
+        await expect(page.locator(`#${sectionId} .page-title`)).toBeVisible();
+        expect(
+          await page
+            .locator(`[data-target="${sectionId}"].active`)
+            .evaluateAll(
+              (elements, activeId) =>
+                elements.length > 0 &&
+                [...document.querySelectorAll('[data-target].active')].every(
+                  (element) => element.getAttribute('data-target') === activeId,
+                ),
+              sectionId,
+            ),
+        ).toBe(true);
+        await page.waitForTimeout(550);
+        await activateCaptureSection(page, sectionId);
+        await expect(page.locator(`#${sectionId}`)).toHaveCSS('opacity', '1');
+        await expect(page.locator(`#${sectionId}`)).toHaveCSS('display', 'block');
+        const sectionBox = await page.locator(`#${sectionId}`).boundingBox();
+        expect(sectionBox?.height || 0).toBeGreaterThan(100);
+        expect(sectionBox?.y ?? 1000).toBeLessThan(1000);
+        await expect(page.locator(sectionSentinels[sectionId])).toBeVisible();
+        if (sectionId === 'tariffs') {
+          await expect(page.locator('#tariffGrid [data-plan-card]')).toBeVisible();
+        }
+        if (theme === 'dark') {
+          await expect(page.locator(`#${sectionId} .page-title`)).toHaveCSS(
+            'color',
+            'rgb(245, 238, 246)',
+          );
+        }
+        await expectNoHorizontalOverflow(page);
+        await page.screenshot({
+          path: testInfo.outputPath(`${viewportName}-${sectionId}-${theme}.png`),
+        });
+      }
+    }
+  }
+});
+
+test('setup tasks live inside the notifications dropdown with an unread badge', async ({
+  page,
+}) => {
+  await mockApi(page);
+  for (const [width, height] of [
+    [1440, 1000],
+    [390, 844],
+  ]) {
+    await page.setViewportSize({ width, height });
+    await page.addInitScript(() => {
+      localStorage.setItem('mf_token', 'visual-fixture-token');
+      // Отметка «прочитано» живёт в localStorage: на втором прогоне (другой
+      // экран, тот же контекст) без сброса непрочитанных уже не будет.
+      localStorage.removeItem('talaria_notif_seen');
+    });
+    await page.goto('/index.html');
+    // Автовхода нет: в кабинет заходим кликом по «Войти», как живой человек.
+    await expect(page.locator('html[data-session="warm"]')).toHaveCount(1);
+    await page.locator('[data-telegram-login-trigger]').first().click();
+    await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+    await page.locator('#loginScreen').evaluate((element) => {
+      element.classList.add('hidden');
+      element.style.display = 'none';
+    });
+    await page.locator('#appWrapper').evaluate((element) => {
+      element.style.display = 'block';
+    });
+    await hideNonCaptureLayers(page);
+    await activateCaptureSection(page, 'dashboard');
+
+    // Плиток поверх страницы больше нет: подсказки настройки ушли в колокольчик.
+    await expect(page.locator('#setupNotices')).toBeHidden();
+    // Пока список не открыли, точка на колокольчике мигает и показывает счёт.
+    await expect(page.locator('#notifPing')).toHaveClass(/\bis-on\b/);
+    await expect(page.locator('#notifPing')).toHaveText('2');
+
+    await page.locator('[data-args=\'["ddNotif"]\']').click();
+    await expect(page.locator('#ddNotif')).toHaveClass(/\bshow\b/);
+    await expect(page.locator('#ddNotif .dd-setup-item')).toHaveCount(2);
+    await expect(page.locator('#notifCount')).toHaveText('2 новых');
+    // Открытый список = прочитано: мигание гаснет.
+    await expect(page.locator('#notifPing')).not.toHaveClass(/\bis-on\b/);
+
+    const geometry = await page.evaluate(() => {
+      const dropdown = document.querySelector('#ddNotif').getBoundingClientRect();
+      return {
+        insideViewport:
+          dropdown.left >= -1 &&
+          dropdown.right <= window.innerWidth + 1 &&
+          dropdown.bottom <= window.innerHeight + 1,
+        hasHeight: dropdown.height > 80,
+      };
+    });
+    expect(geometry).toEqual({ insideViewport: true, hasHeight: true });
+    await expectNoHorizontalOverflow(page);
+
+    // Клик по подсказке ведёт в настройки и закрывает список за собой.
+    await page.locator('#ddNotif .dd-setup-item').first().click();
+    await expect(page.locator('#ddNotif')).not.toHaveClass(/\bshow\b/);
+  }
+});
+
+test('ai chat keeps the composer on screen and scrolls its message feed', async ({ page }) => {
+  await mockApi(page);
+  for (const [width, height] of [
+    [1440, 900],
+    [390, 844],
+  ]) {
+    await page.setViewportSize({ width, height });
+    await page.addInitScript(() => localStorage.setItem('mf_token', 'visual-fixture-token'));
+    await page.goto('/index.html');
+    await page.locator('[data-telegram-login-trigger]').first().click();
+    await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+    await page.locator('#loginScreen').evaluate((element) => {
+      element.classList.add('hidden');
+      element.style.display = 'none';
+    });
+    await page.locator('#appWrapper').evaluate((element) => {
+      element.style.display = 'block';
+    });
+    await activateCaptureSection(page, 'dashboard');
+    await page.locator('.icon-btn.ai').click();
+    await expect(page.locator('#aiDrawer')).toHaveClass(/\bshow\b/);
+
+    // Длинная переписка не должна выдавливать поле ввода за нижний край.
+    await page.evaluate(() => {
+      const body = document.getElementById('aiBody');
+      for (let index = 0; index < 12; index += 1) {
+        const bubble = document.createElement('div');
+        bubble.className = index % 2 ? 'msg ai' : 'msg user';
+        bubble.textContent = `Сообщение ${index + 1}: длинная строка, чтобы лента переросла высоту ящика.`;
+        body.appendChild(bubble);
+      }
+      body.scrollTop = body.scrollHeight;
+    });
+
+    const layout = await page.evaluate(() => {
+      const body = document.getElementById('aiBody');
+      const input = document.querySelector('#aiDrawer .drawer-input');
+      const inputRect = input.getBoundingClientRect();
+      const bodyRect = body.getBoundingClientRect();
+      return {
+        composerVisible: inputRect.bottom <= window.innerHeight + 1 && inputRect.height > 20,
+        composerBelowFeed: inputRect.top >= bodyRect.bottom - 1,
+        feedScrolls: body.scrollHeight > body.clientHeight + 1,
+        feedStaysInsideDrawer: bodyRect.bottom <= window.innerHeight + 1,
+        scrolledToBottom: Math.abs(body.scrollHeight - body.clientHeight - body.scrollTop) < 2,
+      };
+    });
+    expect(layout).toEqual({
+      composerVisible: true,
+      composerBelowFeed: true,
+      feedScrolls: true,
+      feedStaysInsideDrawer: true,
+      scrolledToBottom: true,
+    });
+  }
+});

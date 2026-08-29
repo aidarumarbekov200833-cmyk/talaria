@@ -1,0 +1,195 @@
+# ⚠️ Файл лежит НЕ в `.github/workflows/`, потому что интеграция Viktor заливает
+# код от имени GitHub App, а у приложения нет права `workflows` — GitHub отклоняет
+# push, который создаёт или меняет файлы автопроверок.
+# Чтобы включить автопроверки: на GitHub нажать «Add file» → «Create new file»,
+# ввести путь `.github/workflows/ci.yml` и вставить содержимое этого файла.
+#
+# CI-пайплайн: линт, тесты, проверка синтаксиса фронтенда.
+#
+# Запускается на каждый push и pull_request в main.
+# Для деплоя на VPS добавьте секрет DEPLOY_SSH_KEY и разкомментируйте шаг deploy.
+
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  # -----------------------------------------------------------------------
+  # Бэкенд: линт + тесты
+  # -----------------------------------------------------------------------
+  backend:
+    name: Backend (lint + tests)
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Установить Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+          cache-dependency-path: |
+            backend/requirements.txt
+            backend/requirements-dev.txt
+
+      - name: Установить зависимости
+        working-directory: backend
+        run: pip install -r requirements-dev.txt
+
+      - name: ruff (линт + импорты)
+        working-directory: backend
+        run: ruff check app/ tests/
+
+      - name: ruff format (проверка форматирования)
+        working-directory: backend
+        run: ruff format --check app/ tests/
+
+      - name: mypy (статическая типизация)
+        working-directory: backend
+        run: mypy app/
+        continue-on-error: true   # пока аннотации не полные — не блокируем, но видим
+
+      - name: pytest
+        working-directory: backend
+        env:
+          DATABASE_URL: sqlite+pysqlite:///:memory:
+          BOT_TOKEN: test-bot-token
+          BOT_USERNAME: test_bot
+          JWT_SECRET: test-secret
+          ADMIN_USERNAME: admin_user
+          RATE_LIMIT_ENABLED: "false"
+        run: pytest
+
+  # -----------------------------------------------------------------------
+  # Фронтенд: проверка синтаксиса JS-модулей
+  # -----------------------------------------------------------------------
+  frontend:
+    name: Frontend (JS syntax check)
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Установить Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Проверка синтаксиса каждого JS-модуля
+        working-directory: frontend
+        run: |
+          mkdir -p /tmp/jscheck
+          for f in js/*.js; do
+            cp "$f" "/tmp/jscheck/$(basename $f .js).mjs"
+          done
+          for f in /tmp/jscheck/*.mjs; do
+            node --check "$f" || exit 1
+          done
+          echo 'JS OK'
+
+      - name: Отсутствие inline-обработчиков (защита CSP)
+        working-directory: frontend
+        run: |
+          n=$(grep -cE 'on(click|change|input|submit|keyup)="' index.html || true)
+          if [ "$n" -gt 0 ]; then
+            echo "Найдено $n inline-обработчиков — поместите data-act= вместо onclick=", file=2
+            exit 1
+          fi
+          echo 'Инлайн-обработчиков нет, хорошо'
+
+  # -----------------------------------------------------------------------
+  # Проверка докеровской сборки (без push)
+  # -----------------------------------------------------------------------
+  docker-build:
+    name: Docker build check
+    runs-on: ubuntu-22.04
+    # Запускаем только при push в main — PR быстро выдают ошибки линтом.
+    if: github.event_name == 'push'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Сборка backend
+        uses: docker/build-push-action@v5
+        with:
+          context: backend
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Сборка frontend
+        uses: docker/build-push-action@v5
+        with:
+          context: frontend
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: Сборка tg-mini-client
+        uses: docker/build-push-action@v5
+        with:
+          context: tg-mini-client
+          push: false
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+  # -----------------------------------------------------------------------
+  # Скан секретов в репозитории
+  # -----------------------------------------------------------------------
+  secrets-scan:
+    name: Secrets scan (truffleHog lite)
+    runs-on: ubuntu-22.04
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # полная история git нужна для скана прошлых коммитов
+
+      # Простый регярный скан: токен Telegram в формате <id>:AA<base64>
+      - name: Поиск Telegram-токенов в воркинг-директории
+        run: |
+          found=$(grep -rE '[0-9]{8,10}:AA[A-Za-z0-9_-]{30,}' \
+            --exclude-dir='.git' --exclude='*.zip' . || true)
+          if [ -n "$found" ]; then
+            echo "Найден потенциальный BOT_TOKEN:"
+            echo "$found"
+            exit 1
+          fi
+          echo 'Секретов не найдено'
+
+  # -----------------------------------------------------------------------
+  # Деплой на VPS (откомментирован, пока SSH-ключ не добавлен)
+  # Чтобы включить:
+  #   1. Добавьте секрет DEPLOY_SSH_KEY в Settings → Secrets репозитория.
+  #   2. Добавьте секрет VPS_HOST с адресом сервера (например: 185.120.44.55).
+  #   3. Уберите комментарий у шага deploy.
+  # -----------------------------------------------------------------------
+  # deploy:
+  #   name: Деплой на VPS
+  #   needs: [backend, frontend, docker-build]
+  #   runs-on: ubuntu-22.04
+  #   if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+  #
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #
+  #     - name: SSH-деплой
+  #       uses: appleboy/ssh-action@v1
+  #       with:
+  #         host: ${{ secrets.VPS_HOST }}
+  #         username: deploy
+  #         key: ${{ secrets.DEPLOY_SSH_KEY }}
+  #         script: |
+  #           cd /opt/madiflow
+  #           git pull --ff-only
+  #           docker compose pull
+  #           docker compose up -d --build --remove-orphans
+  #           docker compose exec -T backend alembic upgrade head

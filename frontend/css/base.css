@@ -1,0 +1,92 @@
+* {
+  box-sizing: border-box;
+}
+html {
+  min-height: 100%;
+  background: var(--fog);
+}
+body {
+  min-width: 0;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--ink);
+  background: var(--fog);
+  font: 500 14px/1.55 var(--font-ui);
+  -webkit-font-smoothing: antialiased;
+  /* Раньше здесь стоял запрет выделения на всём body и запрет перетаскивания
+     картинок (жалоба «в кабинете цепляется текст»). Из-за него не копировался
+     ни текст, ни изображения — по просьбе владельца запрет снят. Выделение
+     гасим только на декоративных гигантских вордмарках лендинга, где его
+     нечего копировать. */
+}
+body:has(.login-screen:not(.hidden)) {
+  overflow: hidden;
+}
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+button {
+  cursor: pointer;
+  border: 0;
+  color: inherit;
+  background: transparent;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img,
+svg {
+  max-width: 100%;
+}
+[hidden] {
+  display: none !important;
+}
+:focus-visible {
+  outline: none;
+  box-shadow: var(--ring);
+}
+::selection {
+  color: var(--on-ink);
+  background: var(--accent);
+}
+h1,
+h2,
+h3,
+h4,
+p {
+  margin: 0;
+}
+h1,
+h2,
+h3,
+.page-title,
+.stat-value,
+.tariff-price {
+  font-family: var(--font-display);
+  letter-spacing: -0.035em;
+}
+small,
+.field-hint,
+.login-hint {
+  font-size: 12px;
+  color: var(--muted);
+}
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

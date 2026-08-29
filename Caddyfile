@@ -1,0 +1,62 @@
+# Caddy — автоматический HTTPS перед nginx (сервис caddy, профиль tls).
+#
+# Домен берётся из окружения (.env -> DOMAIN):
+#   - реальный домен  -> Caddy сам получит и будет продлевать сертификат
+#                        Let's Encrypt, порт 80 останется для редиректа и ACME;
+#   - localhost        -> Caddy выпустит сертификат своего внутреннего CA,
+#                        удобно проверить схему с TLS на своей машине.
+#
+# Хотите письма об истечении сертификата — добавьте сверху глобальный блок:
+#   {
+#       email вы@домен
+#   }
+
+{$DOMAIN:localhost} {
+	encode gzip
+
+	# Заголовки безопасности. Ставим именно здесь, а не в nginx: Caddy — единственная
+	# точка, через которую трафик приходит извне, и только он знает, что соединение
+	# действительно по HTTPS.
+	header {
+		# HSTS — год, с поддоменами. Включается только когда сайт уже живёт по
+		# HTTPS на своём домене (то есть в профиле tls). preload намеренно не
+		# ставим: список preload практически необратим, а проект ещё молодой.
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+
+		# Форма /tg-connect/ встраивается в настройки на том же origin.
+		X-Frame-Options "SAMEORIGIN"
+		X-Content-Type-Options "nosniff"
+		Referrer-Policy "strict-origin-when-cross-origin"
+
+		# Отключаем то, чем приложение не пользуется.
+		Permissions-Policy "geolocation=(), microphone=(), camera=(), payment=()"
+
+		# Убираем подпись сервера — меньше подсказок сканерам.
+		-Server
+
+		# CSP и что в ней где:
+		#  * script-src требует telegram.org — там живёт виджет Telegram Login;
+		#  * 'unsafe-inline' для скриптов убран: inline-обработчиков onclick в разметке
+		#    больше нет — всё идёт через data-act и делегацию (frontend/js/actions.js).
+		#    Если где-то снова появится onclick, он просто не сработает — это ожидаемо;
+		#  * в style-src 'unsafe-inline' пока остаётся: в разметке есть style="…",
+		#    риск от inline-стилей несравнимо ниже, чем от inline-скриптов;
+		#  * frame-ancestors 'self' дублирует X-Frame-Options для современных браузеров.
+		Content-Security-Policy "default-src 'self'; script-src 'self' https://telegram.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' wss:; frame-src 'self' https://oauth.telegram.org; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+	}
+
+	# Всё (статика, /api/, /tg-connect/) уходит на nginx фронтенда — маршрутизация
+	# уже описана там, дублировать её здесь не нужно.
+	#
+	# WebSocket (/api/ws для живой ленты и /tg-connect/ для входа аккаунта)
+	# Caddy проксирует прозрачно: заголовки Upgrade/Connection передаются как
+	# есть, отдельный блок для них не требуется.
+	reverse_proxy frontend:80
+}
+
+# Алиасы домена. Telegram Login привязан ровно к одному домену (BotFather
+# /setdomain), поэтому www и старый адрес не обслуживаем, а редиректим на
+# основной домен: иначе кнопка входа отдаёт «Bot domain invalid».
+{$ALIAS_DOMAINS:alias.localhost} {
+	redir https://{$PRIMARY_DOMAIN:localhost}{uri} permanent
+}
