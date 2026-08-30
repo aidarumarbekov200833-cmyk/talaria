@@ -16,6 +16,7 @@ from __future__ import annotations
 
 import re
 
+from .countries import country_name
 from .models import Lead
 
 TOKEN_RE = re.compile(r"\{([a-z_]+)\}")
@@ -89,7 +90,7 @@ PLACEHOLDERS: list[dict] = [
         "token": "{country}",
         "title": "\u0421\u0442\u0440\u0430\u043d\u0430",
         "field": "country",
-        "example": "KZ",
+        "example": "\u041a\u0430\u0437\u0430\u0445\u0441\u0442\u0430\u043d",
         "available": True,
         "source": "youtube",
         "note": "\u041a\u0430\u043d\u0430\u043b \u0443\u043a\u0430\u0437\u044b\u0432\u0430\u0435\u0442 \u0441\u0442\u0440\u0430\u043d\u0443 \u043d\u0435 \u0432\u0441\u0435\u0433\u0434\u0430.",
@@ -142,7 +143,8 @@ def values_for(lead: Lead) -> dict[str, str]:
         "{subscribers}": _group(lead.subscribers) if lead.subscribers is not None else "\u2014",
         "{videos}": _group(lead.video_count) if lead.video_count is not None else "\u2014",
         "{views}": _group(lead.view_count) if lead.view_count is not None else "\u2014",
-        "{country}": lead.country or "\u2014",
+        # Страна словами: в письме «KZ» выглядит как служебный код.
+        "{country}": country_name(lead.country) or "\u2014",
         "{link}": channel_link(lead),
         # Из списка подсказок {keyword} убран (в письме он выглядел как
         # служебная пометка), но подстановка осталась: в старых офферах

@@ -192,7 +192,7 @@ def test_delivery_quarantines_and_retries_same_lead_on_next_account(db, paid_use
     calls: list[tuple[int, str]] = []
 
     def fake_send(_owner_id, account_id, _username, _text, **kwargs):  # noqa: ANN001, ANN202
-        calls.append((account_id, kwargs.get("image", "")))
+        calls.append((account_id, tuple(kwargs.get("images", ()))))
         if account_id == first.id:
             return sending.SendOutcome(False, "Подождите 2 минуты", "FLOOD_WAIT", 120)
         return sending.SendOutcome(True)
@@ -202,7 +202,8 @@ def test_delivery_quarantines_and_retries_same_lead_on_next_account(db, paid_use
 
     assert result["sent"] == 1
     assert result["failed"] == 0
-    assert calls == [(first.id, offer.image), (second.id, offer.image)]
+    # v38: оффер уходит альбомом — список картинок вместо одной строки.
+    assert calls == [(first.id, (offer.image,)), (second.id, (offer.image,))]
     db.refresh(first)
     assert first.operational_status == "cooldown"
     assert first.cooldown_until is not None

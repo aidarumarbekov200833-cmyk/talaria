@@ -409,6 +409,17 @@ export async function addKey() {
     toast('Вставьте ключ', 'warn');
     return;
   }
+  // Лёгкая проверка формата до похода на сервер: ключ Google API — это ровно
+  // 39 символов, начинающихся на «AIza». Так человек сразу видит, что вставил
+  // не тот текст (например, Client ID или ссылку из консоли), и не ждёт ответа
+  // «недействительный ключ» после запроса к YouTube.
+  if (!/^AIza[0-9A-Za-z_-]{35}$/.test(key)) {
+    toast(
+      'Это не похоже на ключ YouTube API: он начинается с «AIza» и содержит 39 символов без пробелов',
+      'warn',
+    );
+    return;
+  }
   const body = {
     key,
     label: (document.getElementById('newKeyLabel')?.value || '').trim(),

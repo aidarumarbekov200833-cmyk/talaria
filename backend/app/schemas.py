@@ -176,6 +176,8 @@ class OfferIn(BaseModel):
     name: str
     text: str = ""
     image: str = ""
+    # Альбом до 10 картинок. Telegram больше в одно сообщение не принимает.
+    images: list[str] = Field(default_factory=list, max_length=10)
 
 
 class OfferOut(ORMModel):
@@ -183,6 +185,22 @@ class OfferOut(ORMModel):
     name: str
     text: str | None
     image: str | None
+    images: list[str] = []
+
+    @field_validator("images", mode="before")
+    @classmethod
+    def parse_images(cls, value: object) -> list[str]:
+        """В базе альбом лежит JSON-строкой, наружу отдаём списком."""
+        if isinstance(value, list):
+            return [str(item) for item in value if item]
+        if isinstance(value, str) and value.strip():
+            try:
+                parsed = json.loads(value)
+            except ValueError:
+                return []
+            if isinstance(parsed, list):
+                return [str(item) for item in parsed if item]
+        return []
     # "user" или "ai": в списке офферов написанные помощником помечаются, чтобы
     # человек не отправил сотне людей текст, которого он не читал.
     created_by: str = "user"
@@ -661,7 +679,33 @@ class TopicRunIn(BaseModel):
     mode: str = "trends"  # trends | niches
     count: int = 10
     region: str = "KZ"
+    # Мультирегион: владелец просил выбирать несколько регионов трендов сразу.
+    # Каждый регион — отдельный вызов videos.list, то есть отдельная единица
+    # квоты, поэтому список ограничен восемью.
+    regions: list[str] = Field(default_factory=list, max_length=8)
     niches: list[str] = []
+
+    @field_validator("regions")
+    @classmethod
+    def validate_regions(cls, values: list[str]) -> list[str]:
+        cleaned: list[str] = []
+        for value in values:
+            code = str(value or "").strip().upper()
+            if not code:
+                continue
+            if not code.isalpha() or len(code) > 8:
+                raise ValueError("код региона — только буквы, до 8 символов")
+            if code not in cleaned:
+                cleaned.append(code)
+        return cleaned
+
+    @property
+    def region_codes(self) -> list[str]:
+        """Регионы запроса: список, а если он пуст — одиночное поле region."""
+        if self.regions:
+            return self.regions
+        single = (self.region or "").strip().upper()
+        return [single or "KZ"]
 
 
 class TopicRunOut(BaseModel):
@@ -705,8 +749,33 @@ class SearchIn(BaseModel):
     min_videos: int = Field(default=0, ge=0, le=10_000_000)
     max_channel_age_days: int | None = Field(default=None, ge=1, le=50_000)
     country: str = Field(default="", max_length=8, pattern=r"^[A-Za-z]{0,8}$")
+    # Мультивыбор стран: владелец просил список с галочками вместо одного поля.
+    # Старое поле country оставлено — им пользуются сохранённые наборы фильтров.
+    countries: list[str] = Field(default_factory=list, max_length=40)
     include_hidden_subscribers: bool = True
     require_telegram_link: bool = False
+
+    @field_validator("countries")
+    @classmethod
+    def validate_countries(cls, values: list[str]) -> list[str]:
+        cleaned: list[str] = []
+        for value in values:
+            code = str(value or "").strip().upper()
+            if not code:
+                continue
+            if not code.isalpha() or len(code) > 8:
+                raise ValueError("код страны — только буквы, до 8 символов")
+            if code not in cleaned:
+                cleaned.append(code)
+        return cleaned
+
+    @property
+    def country_codes(self) -> set[str]:
+        """Все страны фильтра одним множеством: список плюс одиночное поле."""
+        codes = set(self.countries)
+        if self.country:
+            codes.add(self.country.upper())
+        return codes
 
     @field_validator("keywords")
     @classmethod
@@ -1793,6 +1862,21 @@ class ChatMediaOut(BaseModel):
     name: str = ""
     size: int = 0
     duration: int = 0
+
+    @field_validator("size", "duration", mode="before")
+    @classmethod
+    def round_numbers(cls, value: object) -> int:
+        """Telegram отдаёт длительность голосового дробной (12.8 с).
+
+        Строгая модель роняла всю историю переписки в 500 — жалоба владельца
+        «в чате Внутренняя ошибка сервера». Округляем до целых секунд/байтов.
+        """
+        if value is None or value == "":
+            return 0
+        try:
+            return int(float(value))
+        except (TypeError, ValueError):
+            return 0
 
 
 class ChatMessageOut(BaseModel):

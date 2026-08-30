@@ -25,23 +25,41 @@ function matches(region, query) {
   return region.name.toLowerCase().includes(q) || region.code.toLowerCase().startsWith(q);
 }
 
-export function initRegionPicker(selectId = 'trendsRegion') {
+export function initRegionPicker(selectId = 'trendsRegion', options = {}) {
   const select = document.getElementById(selectId);
   if (!select || select.dataset.regionPicker === 'on') return;
   select.dataset.regionPicker = 'on';
 
+  // multi: несколько стран галочками. Пустой выбор допустим — тогда страна не
+  // ограничивается (просьба владельца: «можно и не выбирать»).
+  const multi = !!options.multi || select.multiple;
+  const emptyLabel = options.emptyLabel || (multi ? 'Не важно' : '');
   const groups = ordered();
+  const preselected = multi
+    ? [...select.selectedOptions].map((option) => option.value).filter(Boolean)
+    : [];
   const initial = groups.all.some((r) => r.code === select.value) ? select.value : 'KZ';
 
   // В самом <select> держим полный список: значение читают другие модули, а
   // при отключённом JS-виджете остаётся рабочий нативный выбор.
   select.innerHTML = groups.all.map((r) => `<option value="${r.code}">${r.name}</option>`).join('');
-  select.value = initial;
+  if (multi) {
+    select.multiple = true;
+    const wanted = new Set(
+      preselected.length ? preselected : selectId === 'trendsRegion' ? ['KZ'] : [],
+    );
+    [...select.options].forEach((option) => {
+      option.selected = wanted.has(option.value);
+    });
+  } else {
+    select.value = initial;
+  }
   select.hidden = true;
   select.removeAttribute('style');
 
   const wrap = document.createElement('div');
   wrap.className = 'region-picker';
+  wrap.dataset.for = selectId;
   wrap.innerHTML = `
     <button type="button" class="region-picker-btn" aria-haspopup="listbox" aria-expanded="false">
       <span class="region-picker-code"></span><span class="region-picker-name"></span>${CHEVRON}
@@ -59,14 +77,29 @@ export function initRegionPicker(selectId = 'trendsRegion') {
   const search = wrap.querySelector('.region-picker-search');
   const list = wrap.querySelector('.region-picker-list');
 
+  const chosen = () => [...select.selectedOptions].map((option) => option.value);
+
   const syncButton = () => {
+    if (multi) {
+      const codes = chosen();
+      codeLabel.textContent = codes.length ? String(codes.length) : '—';
+      nameLabel.textContent = codes.length
+        ? codes
+            .map((code) => groups.all.find((r) => r.code === code)?.name || code)
+            .join(', ')
+            .slice(0, 90)
+        : emptyLabel;
+      return;
+    }
     const region = groups.all.find((r) => r.code === select.value) || groups.all[0];
     codeLabel.textContent = region.code;
     nameLabel.textContent = region.name;
   };
 
+  const isPicked = (code) => (multi ? chosen().includes(code) : code === select.value);
+
   const row = (region) =>
-    `<button type="button" class="region-picker-item${region.code === select.value ? ' active' : ''}" role="option" aria-selected="${region.code === select.value}" data-code="${region.code}"><span>${region.code}</span>${region.name}</button>`;
+    `<button type="button" class="region-picker-item${isPicked(region.code) ? ' active' : ''}" role="option" aria-selected="${isPicked(region.code)}" data-code="${region.code}"><span>${region.code}</span>${region.name}</button>`;
 
   const renderList = (query = '') => {
     const q = query.trim();
@@ -99,6 +132,15 @@ export function initRegionPicker(selectId = 'trendsRegion') {
 
   const choose = (code) => {
     if (!code) return;
+    if (multi) {
+      // Панель остаётся открытой: за один заход выбирают несколько стран.
+      const option = [...select.options].find((item) => item.value === code);
+      if (option) option.selected = !option.selected;
+      select.dispatchEvent(new Event('change', { bubbles: true }));
+      syncButton();
+      renderList(search.value);
+      return;
+    }
     select.value = code;
     // Другие модули могут слушать change у селекта — событие обязательно.
     select.dispatchEvent(new Event('change', { bubbles: true }));

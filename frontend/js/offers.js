@@ -20,6 +20,10 @@ let placeholders = []; // из GET /api/offers/placeholders
 // Картинка со страницы хранится как data-URL: бэкенд принимает строку, а файл
 // на диск мы не кладём — оффер должен уехать в Telegram целиком, одним объектом.
 let pageImage = '';
+// Альбом страницы: до 10 кадров. pageImage остаётся первым — на него смотрят
+// предпросмотр Telegram и старый код сохранения.
+let pageAlbum = [];
+const MAX_ALBUM = 10;
 // Автопредпросмотр: таймер гасит дрожь набора, счётчик — гонку ответов:
 // без него медленный ответ на старый текст перезатирал бы свежий.
 let previewTimer = null;
@@ -38,8 +42,11 @@ const ALLOWED_IMAGE_TYPES = new Set(['image/png', 'image/jpeg', 'image/webp', 'i
 /** Карточка оффера. Все значения из API проходят через esc(), иначе кавычка
  *  в названии или ссылке закрывает атрибут и ломает разметку. */
 function offerCardHtml(o, withActions) {
+  const album = Array.isArray(o.images) ? o.images.filter(Boolean) : [];
   const img = o.image
-    ? `<img class="offer-img-preview has-img" src="${esc(o.image)}" alt="Превью" style="display:block">`
+    ? `<img class="offer-img-preview has-img" src="${esc(o.image)}" alt="Превью" style="display:block">${
+        album.length > 1 ? `<span class="offer-album-badge">${album.length} фото</span>` : ''
+      }`
     : '';
   const actions = withActions
     ? `<div class="row-actions">
@@ -497,6 +504,10 @@ export function openOfferEdit(id) {
     prev.classList.add('has-img');
     prev.style.display = 'block';
   }
+  // Альбом оффера открываем в конструкторе на странице: в модалке для десяти
+  // кадров нет места, а терять их при правке нельзя.
+  pageAlbum = Array.isArray(o.images) ? o.images.filter(Boolean).slice(0, MAX_ALBUM) : [];
+  syncAlbumToPreview();
   document.querySelector('#modalOffer .modal-head h3').textContent = 'Редактировать оффер';
   document.getElementById('modalOffer').classList.add('show');
 }
@@ -582,7 +593,12 @@ export async function createOfferFromPage() {
     button.textContent = 'Сохраняем…';
   }
   try {
-    const saved = await api('POST', '/api/offers', { name, text, image: pageImage });
+    const saved = await api('POST', '/api/offers', {
+      name,
+      text,
+      image: pageImage,
+      images: pageAlbum,
+    });
     OFFERS.unshift(saved);
     renderOffers();
     clearOfferForm();
@@ -605,11 +621,58 @@ export function clearOfferForm() {
   const file = document.getElementById('offerImageFile');
   if (file) file.value = '';
   pageImage = '';
+  pageAlbum = [];
   paintOfferImageDraft('', '');
+  paintOfferAlbum();
   const preview = document.getElementById('offerTgPreview');
   if (preview) preview.style.display = 'none';
   showPlaceholderNote('');
   previewOffer({ silent: true });
+}
+
+/** Прочитать один файл в data-URL с проверками формата и размера. */
+function readImageFile(file) {
+  return new Promise((resolve) => {
+    if (!ALLOWED_IMAGE_TYPES.has(file.type)) {
+      toast(`«${file.name}»: поддерживаются PNG, JPEG, WebP и GIF`, 'warn');
+      resolve('');
+      return;
+    }
+    if (file.size > MAX_IMAGE_BYTES) {
+      toast(`«${file.name}» больше 800 КБ — не приложена`, 'warn');
+      offerLog(`Картинка «${file.name}» больше 800 КБ — не приложена`, 'warn');
+      resolve('');
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (event) => resolve(String(event.target.result || ''));
+    reader.onerror = () => resolve('');
+    reader.readAsDataURL(file);
+  });
+}
+
+/** Перерисовать плитки альбома под загрузчиком. */
+function paintOfferAlbum() {
+  const box = document.getElementById('offerAlbum');
+  if (!box) return;
+  box.hidden = pageAlbum.length < 1;
+  box.innerHTML = pageAlbum
+    .map(
+      (src, index) =>
+        `<div class="offer-album-item"><img src="${esc(src)}" alt="Кадр ${index + 1}"><button type="button" class="offer-album-del" data-album-remove="${index}" aria-label="Убрать кадр ${index + 1}">✕</button>${index === 0 ? '<span class="offer-album-cover">обложка</span>' : ''}</div>`,
+    )
+    .join('');
+}
+
+function syncAlbumToPreview() {
+  pageImage = pageAlbum[0] || '';
+  paintOfferImageDraft(pageImage, pageAlbum.length > 1 ? `альбом из ${pageAlbum.length}` : '');
+  paintOfferAlbum();
+  const img = document.getElementById('tgPreviewImg');
+  if (img) {
+    img.src = pageImage;
+    img.style.display = pageImage ? 'block' : 'none';
+  }
 }
 
 function paintOfferImageDraft(src, name) {
@@ -672,41 +735,42 @@ export function initOffers() {
       if (del) removeOffer(Number(del.dataset.removeOffer));
     });
 
-  // Картинка со страницы: читаем файл в data-URL и сразу показываем в чате.
-  document.getElementById('offerImageFile')?.addEventListener('change', function () {
-    const f = this.files && this.files[0];
-    if (!f) {
-      pageImage = '';
-      paintOfferImageDraft('', '');
+  // Картинки со страницы: читаем файлы в data-URL и складываем в альбом.
+  // Выбор файлов дополняет альбом, а не заменяет его: человек добирает кадры
+  // по одному, из разных папок.
+  document.getElementById('offerImageFile')?.addEventListener('change', async function () {
+    const files = [...(this.files || [])];
+    this.value = '';
+    if (!files.length) return;
+    const free = MAX_ALBUM - pageAlbum.length;
+    if (free <= 0) {
+      toast(`В альбом влезает ${MAX_ALBUM} картинок — уберите лишние`, 'warn');
       return;
     }
-    if (!ALLOWED_IMAGE_TYPES.has(f.type)) {
-      toast('Поддерживаются PNG, JPEG, WebP и GIF', 'warn');
-      this.value = '';
-      pageImage = '';
-      paintOfferImageDraft('', '');
-      return;
+    if (files.length > free) {
+      toast(`Добавим только ${free}: в альбоме максимум ${MAX_ALBUM} картинок`, 'warn');
     }
-    if (f.size > MAX_IMAGE_BYTES) {
-      toast('Картинка слишком большая — до 800 КБ', 'warn');
-      offerLog(`Картинка «${f.name}» больше 800 КБ — не приложена`, 'warn');
-      this.value = '';
-      pageImage = '';
-      paintOfferImageDraft('', '');
-      return;
+    let added = 0;
+    for (const file of files.slice(0, free)) {
+      const src = await readImageFile(file);
+      if (!src || pageAlbum.includes(src)) continue;
+      pageAlbum.push(src);
+      added += 1;
     }
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      pageImage = e.target.result;
-      paintOfferImageDraft(pageImage, f.name);
-      offerLog(`Приложена картинка «${f.name}»`);
-      const img = document.getElementById('tgPreviewImg');
-      if (img) {
-        img.src = pageImage;
-        img.style.display = 'block';
-      }
-    };
-    reader.readAsDataURL(f);
+    if (added) {
+      offerLog(
+        added > 1 ? `Приложен альбом из ${pageAlbum.length} картинок` : 'Приложена картинка',
+      );
+    }
+    syncAlbumToPreview();
+  });
+
+  // Удаление кадра из альбома.
+  document.getElementById('offerAlbum')?.addEventListener('click', (event) => {
+    const button = event.target.closest('[data-album-remove]');
+    if (!button) return;
+    pageAlbum.splice(Number(button.dataset.albumRemove), 1);
+    syncAlbumToPreview();
   });
 
   // Вкладки конструктора и ИИ.

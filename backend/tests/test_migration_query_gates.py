@@ -59,12 +59,12 @@ def test_migrations_have_single_head_with_exact_indexes_and_model_parity() -> No
 
     Проверка именно на «одну голову», а не на конкретный номер: иначе тест
     приходится править при каждой миграции, и смысл (нет расходящихся веток)
-    теряется за обновлением константы. Актуальная голова — 0033, глобальные
-    настройки площадки (рубильник открытой регистрации).
+    теряется за обновлением константы. Актуальная голова — 0034: альбом офферов,
+    мультирегион трендов и снос таблиц нейрокомментинга.
     """
     captured = capture_alembic(BACKEND_ROOT / "alembic" / "versions")
     assert len(captured["heads"]) == 1, f"расходящиеся ветки миграций: {captured['heads']}"
-    assert captured["heads"] == ["0033"]
+    assert captured["heads"] == ["0034"]
     assert captured["indexes"].count(CAMPAIGN_INDEX) == 1
     assert captured["indexes"].count(LEAD_INDEX) == 1
 

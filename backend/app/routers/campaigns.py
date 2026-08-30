@@ -75,6 +75,7 @@ from ..schemas import (
     TestSendOut,
 )
 from ..services import log_event, resolve_ai_provider, send_window
+from ..services.offers import album_of as offer_album
 from ..services.settings import get_settings
 from ..telegram_sessions import live_accounts
 
@@ -612,7 +613,7 @@ def test_send(
     if not username:
         raise HTTPException(400, "Укажите username получателя")
 
-    image = ""
+    image: list[str] = []
     if (data.text or "").strip():
         rendered = (data.text or "").strip()
         offer_label = "произвольный текст"
@@ -632,7 +633,7 @@ def test_send(
             .first()
         )
         rendered = render(offer.text or "", first_lead)
-        image = offer.image or ""
+        image = offer_album(offer)
         offer_label = f"оффер «{offer.name}»"
     else:
         raise HTTPException(400, "Укажите оффер или текст сообщения")
@@ -648,7 +649,7 @@ def test_send(
         accounts[0].id,
         username,
         rendered,
-        image=image if data.offer_id and not (data.text or "").strip() else "",
+        images=image if data.offer_id and not (data.text or "").strip() else [],
         watch_seconds=300,
     )
     ok, detail = outcome

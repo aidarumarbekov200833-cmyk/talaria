@@ -221,7 +221,8 @@ def test_campaign_reply_falls_back_to_username_and_real_send_watches_for_one_hou
     monkeypatch.setattr(sending.gateway, "send", fake_gateway_send)
     outcome = sending.send_via_client(paid_user.id, account.id, "Lead", "Оффер")
     assert outcome.ok is True
-    assert gateway_calls == [{"image": "", "watch_seconds": 3600}]
+    # v38: альбом офферов — шлюз получает ещё и список картинок.
+    assert gateway_calls == [{"image": "", "images": [], "watch_seconds": 3600}]
 
 
 def test_second_message_does_not_fall_back_to_an_older_campaign_send(
@@ -310,7 +311,7 @@ def test_test_send_creates_300_second_watch_and_consumes_first_reply(
         json={"username": "@TwinAccount", "text": "Проверка уведомления"},
     )
     assert sent.status_code == 200, sent.text
-    assert send_calls == [{"image": "", "watch_seconds": 300}]
+    assert send_calls == [{"images": [], "watch_seconds": 300}]
     db.expire_all()
     watch = db.query(TestReplyWatch).one()
     assert watch.account_id == account.id

@@ -56,6 +56,10 @@ class Offer(Base):
     name = Column(String(200), nullable=False)
     text = Column(Text, default="")
     image = Column(Text, default="")
+    # Альбом: JSON-список data-URL. Просьба владельца «медиа оффер несколько
+    # картинок → альбом»: 2–10 фото уходят лиду одним сообщением. Поле image
+    # хранит первую картинку — на неё смотрят предпросмотр и старые записи.
+    images = Column(Text, default="[]", server_default="[]")
     # user | ai — кто написал текст. Помощник умеет сохранять офферы сам, и
     # человек должен видеть, что этот текст не его: отправлять незнакомое
     # письмо сотням людей он согласия не давал.
@@ -399,7 +403,8 @@ class TopicRun(Base):
     id = Column(Integer, primary_key=True)
     owner_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=False)
     mode = Column(String(30), default="trends")  # trends | niches
-    region = Column(String(8), default="KZ")
+    # Список регионов через запятую: «KZ,RU,US». Одиночный код тоже валиден.
+    region = Column(String(64), default="KZ")
     niches = Column(Text, default="[]")  # JSON list of niche slugs
     topics = Column(Text, default="[]")  # JSON list of topic objects
     requested = Column(Integer, default=10)

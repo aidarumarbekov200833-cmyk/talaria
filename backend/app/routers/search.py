@@ -162,20 +162,37 @@ def generate_topics(
         for phrase in build_keywords(seeds, count):
             topics.append(TopicItem(topic=phrase, source="niche", evidence="выбранные ниши"))
     else:
-        key = _require_key(db, user, q.COST_VIDEOS_LIST)
-        units = q.spend(db, key, "videos.list")
-        db.commit()
-        try:
-            videos = yt.most_popular(key.key, payload.region or "KZ", 50)
-        except yt.YouTubeError as exc:
-            if exc.is_quota:
-                key.status, key.status_detail = "quota_exceeded", exc.message
-            elif exc.is_key_problem:
-                key.status, key.status_detail = "invalid", f"{exc.reason}: {exc.message}"
-            key.last_checked_at = datetime.now(UTC)
+        # Мультирегион: по одному вызову videos.list на регион. Единицы квоты
+        # тратятся за каждый — считаем их, а не одну.
+        regions = payload.region_codes
+        videos: list[dict] = []
+        failures: list[str] = []
+        for code in regions:
+            key = _require_key(db, user, q.COST_VIDEOS_LIST)
+            units += q.spend(db, key, "videos.list")
             db.commit()
-            log_event(db, user.id, "search", f"Тренды не получены: {exc.message}", "error")
-            raise HTTPException(502, f"YouTube: {exc.message}") from exc
+            try:
+                videos.extend(yt.most_popular(key.key, code, 50))
+            except yt.YouTubeError as exc:
+                if exc.is_quota:
+                    key.status, key.status_detail = "quota_exceeded", exc.message
+                elif exc.is_key_problem:
+                    key.status, key.status_detail = "invalid", f"{exc.reason}: {exc.message}"
+                key.last_checked_at = datetime.now(UTC)
+                db.commit()
+                failures.append(f"{code}: {exc.message}")
+        if not videos:
+            reason = "; ".join(failures) or "YouTube не вернул популярных видео"
+            log_event(db, user.id, "search", f"Тренды не получены: {reason}", "error")
+            raise HTTPException(502, f"YouTube: {reason}")
+        if failures:
+            log_event(
+                db,
+                user.id,
+                "search",
+                "Часть регионов не ответила — " + "; ".join(failures),
+                "warn",
+            )
 
         seen: set[str] = set()
         for video in videos:
@@ -216,7 +233,7 @@ def generate_topics(
     run = TopicRun(
         owner_id=user.id,
         mode=mode,
-        region=payload.region or "KZ",
+        region=",".join(payload.region_codes)[:64] if mode == "trends" else (payload.region or "KZ"),
         niches=json.dumps(payload.niches, ensure_ascii=False),
         topics=json.dumps([t.model_dump() for t in topics], ensure_ascii=False),
         requested=count,
@@ -429,6 +446,7 @@ def _filter_config(payload: SearchIn) -> dict[str, object]:
         "min_videos": payload.min_videos,
         "max_channel_age_days": payload.max_channel_age_days,
         "country": payload.country.upper(),
+        "countries": sorted(payload.country_codes),
         "include_hidden_subscribers": payload.include_hidden_subscribers,
         "require_telegram_link": payload.require_telegram_link,
     }
@@ -459,7 +477,8 @@ def _matches_filters(item: dict, payload: SearchIn, now: datetime) -> bool:
         ratio_percent = average_views * 100 / subscribers
         if ratio_percent < payload.min_view_subscriber_ratio:
             return False
-    if payload.country and str(item.get("country") or "").upper() != payload.country.upper():
+    countries = payload.country_codes
+    if countries and str(item.get("country") or "").upper() not in countries:
         return False
     if payload.max_channel_age_days:
         raw = str(item.get("published_at") or "")

@@ -158,7 +158,14 @@ test('captures the required landing and workspace visual matrix without overflow
   ]) {
     await page.setViewportSize({ width, height });
     for (const theme of ['light', 'dark']) {
-      await page.addInitScript(() => localStorage.setItem('mf_token', 'visual-fixture-token'));
+      await page.addInitScript(() => {
+        localStorage.setItem('mf_token', 'visual-fixture-token');
+        // v38. Признак «кабинет уже открывали в этой вкладке» живёт в
+        // sessionStorage и заставляет страницу входить сама (это и есть новое
+        // поведение при F5). В тесте каждый прогон начинается с лендинга, поэтому
+        // отметку снимаем — иначе кнопка «Войти» уже скрыта и клик невозможен.
+        sessionStorage.removeItem('talaria_in_app');
+      });
       await page.goto('/index.html');
       // Автовхода больше нет (по просьбе владельца): живой токен оставляет
       // человека на лендинге. В кабинет заходим так же, как заходит он —
@@ -236,6 +243,7 @@ test('setup tasks live inside the notifications dropdown with an unread badge', 
       // Отметка «прочитано» живёт в localStorage: на втором прогоне (другой
       // экран, тот же контекст) без сброса непрочитанных уже не будет.
       localStorage.removeItem('talaria_notif_seen');
+      sessionStorage.removeItem('talaria_in_app');
     });
     await page.goto('/index.html');
     // Автовхода нет: в кабинет заходим кликом по «Войти», как живой человек.
@@ -262,8 +270,11 @@ test('setup tasks live inside the notifications dropdown with an unread badge', 
     await expect(page.locator('#ddNotif')).toHaveClass(/\bshow\b/);
     await expect(page.locator('#ddNotif .dd-setup-item')).toHaveCount(2);
     await expect(page.locator('#notifCount')).toHaveText('2 новых');
-    // Открытый список = прочитано: мигание гаснет.
-    await expect(page.locator('#notifPing')).not.toHaveClass(/\bis-on\b/);
+    // v38. Задачи настройки открытием списка не гасятся: пока ключа YouTube и
+    // Telegram-аккаунта нет, работать нечем, и точка обязана мигать (просьба
+    // владельца). Гаснут только обычные события — их прочтение отмечается.
+    await expect(page.locator('#notifPing')).toHaveClass(/\bis-on\b/);
+    await expect(page.locator('#notifPing')).toHaveText('2');
 
     const geometry = await page.evaluate(() => {
       const dropdown = document.querySelector('#ddNotif').getBoundingClientRect();
@@ -291,7 +302,10 @@ test('ai chat keeps the composer on screen and scrolls its message feed', async 
     [390, 844],
   ]) {
     await page.setViewportSize({ width, height });
-    await page.addInitScript(() => localStorage.setItem('mf_token', 'visual-fixture-token'));
+    await page.addInitScript(() => {
+      localStorage.setItem('mf_token', 'visual-fixture-token');
+      sessionStorage.removeItem('talaria_in_app');
+    });
     await page.goto('/index.html');
     await page.locator('[data-telegram-login-trigger]').first().click();
     await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);

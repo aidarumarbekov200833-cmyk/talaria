@@ -4430,6 +4430,29 @@
     "tag": "button"
   },
   {
+    "classes": ["filter-mode"],
+    "tag": "div"
+  },
+  {
+    "classes": ["filter-mode-btn", "active"],
+    "data-act": "setLeadFilterMode",
+    "data-args": "[\"auto\"]",
+    "id": "leadModeAuto",
+    "tag": "button"
+  },
+  {
+    "classes": ["filter-mode-btn"],
+    "data-act": "setLeadFilterMode",
+    "data-args": "[\"manual\"]",
+    "id": "leadModeManual",
+    "tag": "button"
+  },
+  {
+    "classes": ["filter-mode-note"],
+    "id": "leadModeNote",
+    "tag": "span"
+  },
+  {
     "classes": ["lead-filter-grid"],
     "tag": "div"
   },
@@ -4533,7 +4556,7 @@
     "tag": "input"
   },
   {
-    "classes": ["field"],
+    "classes": ["field", "field-wide"],
     "tag": "div"
   },
   {
@@ -4543,7 +4566,11 @@
   {
     "classes": [],
     "id": "leadCountry",
-    "tag": "input"
+    "tag": "select"
+  },
+  {
+    "classes": ["field-hint"],
+    "tag": "span"
   },
   {
     "classes": ["filter-switches"],
@@ -4557,71 +4584,6 @@
     "classes": [],
     "id": "leadIncludeHidden",
     "tag": "input"
-  },
-  {
-    "classes": ["check-row"],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "leadRequireTelegram",
-    "tag": "input"
-  },
-  {
-    "classes": ["search-preset-bar"],
-    "tag": "div"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "leadPresetSelect",
-    "tag": "select"
-  },
-  {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "leadPresetName",
-    "tag": "input"
-  },
-  {
-    "classes": ["action-menu", "preset-actions"],
-    "tag": "details"
-  },
-  {
-    "classes": [],
-    "tag": "summary"
-  },
-  {
-    "classes": ["action-menu-pop"],
-    "tag": "div"
-  },
-  {
-    "classes": ["btn", "ghost", "menu-action"],
-    "data-act": "saveSearchPreset",
-    "tag": "button"
-  },
-  {
-    "classes": ["btn", "ghost", "menu-action", "danger"],
-    "data-act": "deleteSearchPreset",
-    "tag": "button"
   },
   {
     "classes": ["field-hint"],
@@ -5930,6 +5892,11 @@
     "tag": "img"
   },
   {
+    "classes": ["offer-album"],
+    "id": "offerAlbum",
+    "tag": "div"
+  },
+  {
     "classes": ["field"],
     "tag": "div"
   },
@@ -6748,6 +6715,10 @@
     "tag": "div"
   },
   {
+    "classes": ["side-stack", "mailing-side"],
+    "tag": "div"
+  },
+  {
     "classes": ["panel", "log-panel-uniform", "campaign-log-panel"],
     "tag": "div"
   },
@@ -6770,11 +6741,7 @@
     "tag": "div"
   },
   {
-    "classes": ["terminal-line", "terminal-info"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel"],
+    "classes": ["panel", "test-send-panel"],
     "tag": "div"
   },
   {
@@ -7129,7 +7096,8 @@
   },
   {
     "classes": ["btn", "ghost"],
-    "data-act": "reloadChat",
+    "data-act": "markAllChatsRead",
+    "id": "chatReadAllBtn",
     "tag": "button"
   },
   {
@@ -7161,6 +7129,28 @@
   {
     "classes": [],
     "id": "chatSearch",
+    "tag": "input"
+  },
+  {
+    "classes": ["chat-filters"],
+    "tag": "div"
+  },
+  {
+    "classes": ["chat-filter"],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "chatShowGroups",
+    "tag": "input"
+  },
+  {
+    "classes": ["chat-filter"],
+    "tag": "label"
+  },
+  {
+    "classes": [],
+    "id": "chatShowBots",
     "tag": "input"
   },
   {

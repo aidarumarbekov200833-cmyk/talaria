@@ -14,14 +14,17 @@ import { goTo } from './nav.js?v=zephyr4';
  */
 export function renderQuotaHint(hint, q) {
   if (!hint) return;
+  hint.textContent = '';
   const hasKeys = Number(q.keys_enabled ?? 0) > 0 || Number(q.total_daily ?? 0) > 0;
   if (hasKeys) {
-    hint.textContent =
-      `Потрачено ${Number(q.used_today || 0).toLocaleString('ru-RU')} из ` +
-      `${Number(q.total_daily || 0).toLocaleString('ru-RU')} баллов за сегодня по всем ключам`;
+    // Ключ добавлен — длинная подсказка больше не нужна: цифры уже стоят строкой
+    // выше. Просьба владельца: «сделай чтобы снизу текст уходил после
+    // добавления ключа и занимало меньше текста».
+    hint.hidden = true;
     return;
   }
-  hint.textContent = 'Добавьте ';
+  hint.hidden = false;
+  hint.append(document.createTextNode('Добавьте '));
   const link = document.createElement('button');
   link.type = 'button';
   link.className = 'usage-hint-link';
@@ -35,7 +38,7 @@ export function renderQuotaHint(hint, q) {
     }, 220);
   });
   hint.append(link);
-  hint.append(document.createTextNode(' — без него поиск лидов не запустится.'));
+  hint.append(document.createTextNode(' — без него поиск не запустится.'));
 }
 
 /** Обновить виджет квоты в сайдбаре. */
