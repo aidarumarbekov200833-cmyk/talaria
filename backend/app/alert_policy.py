@@ -26,7 +26,6 @@ from __future__ import annotations
 import re
 from dataclasses import dataclass
 
-
 # Кому адресована поломка.
 #   OWNER  — сломалось у нас: база, диск, сервис. Чинит владелец сервиса.
 #   CLIENT — сломалось у конкретного пользователя: ЕГО ключ YouTube, ЕГО аккаунт

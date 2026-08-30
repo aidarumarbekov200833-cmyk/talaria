@@ -74,8 +74,7 @@ from ..schemas import (
     TestSendIn,
     TestSendOut,
 )
-from ..services import log_event, resolve_ai_provider
-from ..services import send_window
+from ..services import log_event, resolve_ai_provider, send_window
 from ..services.settings import get_settings
 from ..telegram_sessions import live_accounts
 

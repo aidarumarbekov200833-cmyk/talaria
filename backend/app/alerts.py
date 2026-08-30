@@ -273,7 +273,6 @@ def _telegram_id_of(owner_id: int) -> int | None:
     """
     try:
         from .database import SessionLocal
-        from .models import User
 
         with SessionLocal() as session:
             return notify_target_of(session, owner_id)

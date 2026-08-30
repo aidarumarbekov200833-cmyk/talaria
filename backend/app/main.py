@@ -13,8 +13,8 @@ from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import JSONResponse
 from starlette.exceptions import HTTPException as StarletteHTTPException
 
-from .access import bind_request_ip
 from . import alerts, metrics
+from .access import bind_request_ip
 from .config import settings
 from .events_hub import hub
 from .logging_setup import (

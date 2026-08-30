@@ -45,8 +45,8 @@ from sqlalchemy.pool import StaticPool
 
 from app import models  # noqa: F401  (регистрация моделей на метаданных)
 from app.database import Base, get_db
-from app.models import PromoCode
 from app.main import app
+from app.models import PromoCode
 from app.security import create_jwt
 from app.telegram_gateway import gateway
 

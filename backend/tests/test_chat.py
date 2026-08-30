@@ -8,6 +8,7 @@
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from datetime import UTC, datetime
 
 import pytest
@@ -38,8 +39,8 @@ def stub_chat(monkeypatch):
     """Подменяет шлюз и записывает, с какими аргументами его звали."""
     calls: list[tuple[str, tuple, dict]] = []
 
-    def record(name, result):
-        def _call(*args, **kwargs):
+    def record(name, result) -> Callable[..., object]:
+        def _call(*args, **kwargs) -> object:
             calls.append((name, args, kwargs))
             return result() if callable(result) else result
 
@@ -241,7 +242,7 @@ def test_текст_сообщения_не_попадает_в_журнал(
 def test_флуд_лимит_отдаётся_как_429(client, auth_headers, connected_account, monkeypatch):
     """Клиент по коду понимает, что надо подождать, а не что чат сломался."""
 
-    def boom(*_args, **_kwargs):
+    def boom(*_args, **_kwargs) -> None:
         raise TelegramGatewayError("Слишком часто", code="FLOOD_WAIT", retry_after=30)
 
     monkeypatch.setattr(gateway, "chat_dialogs", boom)
@@ -251,7 +252,7 @@ def test_флуд_лимит_отдаётся_как_429(client, auth_headers, c
 
 
 def test_недоступный_шлюз_отдаётся_как_502(client, auth_headers, connected_account, monkeypatch):
-    def boom(*_args, **_kwargs):
+    def boom(*_args, **_kwargs) -> None:
         raise TelegramGatewayError("Telegram-gateway недоступен")
 
     monkeypatch.setattr(gateway, "chat_history", boom)

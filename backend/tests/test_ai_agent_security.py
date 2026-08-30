@@ -289,7 +289,7 @@ def test_лимит_тарифа_действует_и_для_помощника
     """У записи от ИИ те же лимиты, что у ручной: путь создания один на оба."""
     from app import ai_tools
 
-    def deny(_db, _owner_id, _kind):
+    def deny(_db, _owner_id, _kind) -> None:
         raise HTTPException(403, "Лимит тарифа: офферов больше нельзя")
 
     monkeypatch.setattr("app.plans.check_object_limit", deny)
@@ -329,7 +329,7 @@ def test_за_одну_реплику_нельзя_сохранить_много
     monkeypatch.setattr(app_config, "ai_api_key", "test-key")
     monkeypatch.setattr(app_config, "ai_model", "test-model")
 
-    def fake_call(_base_url, _api_key, _model, _system, messages, _tools):
+    def fake_call(_base_url, _api_key, _model, _system, messages, _tools) -> dict:
         # Пока приходят результаты инструментов — модель «просит» сохранить ещё.
         saved_replies = sum(1 for m in messages if m.get("role") == "tool")
         if saved_replies >= 6:

@@ -15,7 +15,9 @@ from app.services import payments as payments_service
 from app.services.errors import DomainError
 
 
-def _pay(db, owner_id: int, amount_minor: int, *, currency="RUB", days_ago=0):
+def _pay(
+    db, owner_id: int, amount_minor: int, *, currency="RUB", days_ago=0
+) -> models.Payment:
     return payments_service.add_payment(
         db,
         owner_id,

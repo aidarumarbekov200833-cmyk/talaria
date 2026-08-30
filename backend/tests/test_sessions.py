@@ -14,7 +14,9 @@ from app.security import create_jwt
 from app.services import sessions as sessions_service
 
 
-def _login(db, user, *, ip="203.0.113.7", agent="Mozilla/5.0 (Windows NT 10.0) Chrome/120"):
+def _login(
+    db, user, *, ip="203.0.113.7", agent="Mozilla/5.0 (Windows NT 10.0) Chrome/120"
+) -> tuple[dict[str, str], str]:
     """Выдать токен и записать сеанс — как это делает вход."""
     token, jti = create_jwt(user.id)
     sessions_service.register(db, user.id, jti, ip=ip, user_agent=agent, ttl_days=14)

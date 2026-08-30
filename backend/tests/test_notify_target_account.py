@@ -92,7 +92,7 @@ def test_проверка_идёт_на_выбранный_аккаунт_а_н�
 
     seen: list[int] = []
 
-    def fake_send(target, text, **kwargs):
+    def fake_send(target, text, **kwargs) -> bool:
         seen.append(target)
         return True
 
