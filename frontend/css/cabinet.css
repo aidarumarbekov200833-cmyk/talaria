@@ -12,6 +12,41 @@
    ========================================================================== */
 
 #appWrapper {
+  /* v34. Кабинет полностью переведён на нейтральную палитру (--cabp-* в
+     tokens.css). Правка Samat: «весь дизайн как виктор, он профессиональный,
+     а не розовый». Переопределяем БРЕНДОВЫЕ токены на уровне контейнера —
+     ни одно правило ниже не знает о цвете, поэтому розовый уходит целиком,
+     а лендинг и экран входа (они снаружи #appWrapper) не меняются. */
+  --fog: var(--cabp-fog);
+  --surface: var(--cabp-surface);
+  --surface-raised: var(--cabp-raised);
+  --ink: var(--cabp-ink);
+  --muted: var(--cabp-muted);
+  --line: var(--cabp-line);
+  --accent: var(--cabp-accent);
+  --accent-ink: var(--cabp-accent-ink);
+  --accent-strong: var(--cabp-accent-strong);
+  --accent-soft: var(--cabp-accent-soft);
+  /* Заливки, где раньше стоял градиент, становятся плоской краской:
+     сам градиент оставлен градиентом, чтобы не переписывать 89 правил. */
+  --accent-gradient: linear-gradient(0deg, var(--cabp-accent), var(--cabp-accent));
+  --on-accent: var(--cabp-on-accent);
+  --ink-surface: var(--cabp-well);
+  --ink-raised: var(--cabp-well-raised);
+  --on-ink: var(--cabp-on-well);
+  /* Свечения в рабочем интерфейсе не нужны — остаётся только контраст. */
+  --glow: transparent;
+  --ring: 0 0 0 3px var(--cabp-ring);
+  /* Шрифт: моноширинный кабинет читался как терминал. Интерфейсный текст —
+     Inter, моноширинный остаётся только на данных (логи, подстановки, id). */
+  --font-ui: var(--cabp-font-ui);
+  --font-display: var(--cabp-font-ui);
+  /* Предпросмотр «как придёт в Telegram»: исходящий пузырь был розово-фиолетовым.
+     Это чужой мессенджер, а не наш бренд — берём настоящий синий Telegram. */
+  --bubble-grad: linear-gradient(0deg, var(--tg-out), var(--tg-out));
+  /* body получает шрифт из :root, а font-family наследуется уже вычисленным,
+     поэтому одной подмены токена мало — задаём семейство самому контейнеру. */
+  font-family: var(--cabp-font-ui);
   /* Границы и подложки выводим из --ink: на тёмной теме это светлый штрих по
      тёмному, на светлой — тёмный по светлому. Один набор на две темы. */
   --cab-line: color-mix(in srgb, var(--ink) 13%, transparent);
@@ -44,38 +79,39 @@
 #appWrapper .brand {
   display: flex;
   align-items: center;
-  padding: 4px 4px 10px;
-  gap: 8px;
+  padding: 4px 2px 12px;
+  gap: 7px;
 }
+/* v34: знак рядом с вордмарком (правка Samat: «надпись жирненьким и шрифтом
+   как виктор и рядом поставь лого»). Знак — крылатая «Т» из лендинга, без
+   заливки и свечения: чернильный силуэт того же цвета, что и надпись. */
 #appWrapper .brand-mark {
-  display: none;
-  width: 30px;
-  height: 30px;
+  display: grid;
+  width: 26px;
+  height: 26px;
   flex: none;
-  border-radius: 9px;
+  border: 0;
+  border-radius: 0;
+  color: var(--ink);
+  background: none;
   box-shadow: none;
+  place-items: center;
 }
 #appWrapper .brand-mark svg {
-  width: 21px;
-  height: 21px;
+  width: 26px;
+  height: 26px;
 }
 #appWrapper .brand > div:not(.brand-mark) {
   min-width: 0;
   flex: 1;
 }
 #appWrapper .brand-name {
-  font-family: var(--font-display);
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
+  font-family: var(--cabp-font-brand);
+  font-size: 23px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
   line-height: 1;
   text-transform: lowercase;
-}
-/* Точка акцентом: подпись «Рассылки и офферы» в меню только шумела, а бренд
-   всё равно нужно отметить чем-то своим. */
-#appWrapper .brand-name::after {
-  color: var(--accent);
-  content: '.';
 }
 #appWrapper .brand-tag {
   display: none;
@@ -594,6 +630,26 @@
   padding: 5px 10px;
   border-radius: 9px;
   font-size: 12px;
+}
+/* v34: интерфейс перешёл на Inter, но данные остаются моноширинными —
+   подстановки, служебные пометки и терминальные врезки читаются как код. */
+#appWrapper :is(.ph-chip code, .ph-chip b, .terminal-info, .mono, code, kbd, samp) {
+  font-family: var(--tal-font-mono);
+}
+#appWrapper .num,
+#appWrapper .kpi-value {
+  font-variant-numeric: tabular-nums;
+}
+
+/* ── 6.1 Заголовки под Inter ───────────────────────────────────────────── */
+/* Playfair в кабинете давал «журнальный» вид: у Viktor заголовки — тот же
+   Inter, плотнее и с отрицательным трекингом. */
+#appWrapper :is(h1, h2, h3, .section-head h2, .quick-start-title, .onb-modal h3) {
+  font-weight: 650;
+  letter-spacing: -0.02em;
+}
+#appWrapper .section-head h2 {
+  text-transform: none;
 }
 
 /* ── 7. Чат ────────────────────────────────────────────────────────────── */

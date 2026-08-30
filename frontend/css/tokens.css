@@ -55,6 +55,28 @@
      намеренно — быстрое подёргивание в углу экрана раздражает. */
   --motion-idle-feather: 5200ms;
   --motion-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  /* === Кабинет v34: нейтральная рабочая палитра ===
+     Правка Samat: «весь дизайн сделай как виктор, он профессиональный, а не
+     розовый». Розовый остаётся брендом лендинга — он продаёт. Внутри кабинета
+     работают с чужими деньгами и данными, там нужен спокойный серый инструмент:
+     чернила, бумага, тонкие линии, единственный акцент — контраст, а не цвет. */
+  --cabp-fog: #f6f6f7;
+  --cabp-surface: #ffffff;
+  --cabp-raised: #f2f2f4;
+  --cabp-ink: #17171a;
+  --cabp-muted: #6b6b74;
+  --cabp-line: #e4e4e8;
+  --cabp-accent: #1b1b1f;
+  --cabp-on-accent: #ffffff;
+  --cabp-accent-ink: #2c2c32;
+  --cabp-accent-soft: #ededf0;
+  --cabp-accent-strong: #000000;
+  --cabp-ring: rgba(23, 23, 26, 0.16);
+  --cabp-well: #101013;
+  --cabp-well-raised: #17171b;
+  --cabp-on-well: #ececef;
+  --cabp-font-ui: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --cabp-font-brand: 'Poppins', 'Inter', -apple-system, sans-serif;
   --font-ui: 'JetBrains Mono', ui-monospace, monospace;
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
   /* Финал v8: сцена следует теме — на светлой странице она светлая,
@@ -134,6 +156,22 @@ html[data-theme='graphite'],
   --danger-soft: #4d2731;
   --hand-highlight: #ffe7f7;
   --hand-shadow: #b869aa;
+  /* Кабинет v34, тёмная тема: графит, как в панели Viktor. */
+  --cabp-fog: #0d0d0f;
+  --cabp-surface: #141417;
+  --cabp-raised: #1c1c21;
+  --cabp-ink: #f1f1f3;
+  --cabp-muted: #9b9ba5;
+  --cabp-line: #2b2b32;
+  --cabp-accent: #f1f1f3;
+  --cabp-on-accent: #121215;
+  --cabp-accent-ink: #e8e8ec;
+  --cabp-accent-soft: #26262d;
+  --cabp-accent-strong: #ffffff;
+  --cabp-ring: rgba(255, 255, 255, 0.2);
+  --cabp-well: #0a0a0c;
+  --cabp-well-raised: #121216;
+  --cabp-on-well: #ececef;
   --shadow: 0 24px 60px color-mix(in srgb, #000000 40%, transparent);
   --shadow-small: 0 8px 22px color-mix(in srgb, #000000 22%, transparent);
   --fin-bg: #17091a;
