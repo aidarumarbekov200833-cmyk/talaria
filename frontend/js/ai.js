@@ -15,16 +15,29 @@ import { loadOffers } from './offers.js?v=aioffer1';
 const history = [];
 let busy = false;
 
-/** Добавить сообщение в DOM. role: 'user' | 'ai' | 'tool' | 'error'. */
+/** Добавить сообщение в DOM. role: 'user' | 'ai' | 'tool' | 'error'.
+ *
+ *  У каждого сообщения — время, как в мессенджере: в длинной переписке с
+ *  помощником иначе непонятно, ответ свежий или остался с прошлого захода.
+ */
 function bubble(role, text) {
   const body = document.getElementById('aiBody');
   if (!body) return null;
   const el = document.createElement('div');
   el.className = 'msg ' + role;
-  el.textContent = text; // textContent: не даём разметке из ответа исполниться
+  const line = document.createElement('span');
+  line.className = 'msg-text';
+  line.textContent = text; // textContent: не даём разметке из ответа исполниться
+  const time = document.createElement('time');
+  time.className = 'msg-time';
+  time.textContent = new Date().toLocaleTimeString('ru-RU', {
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+  el.append(line, time);
   body.appendChild(el);
   body.scrollTop = body.scrollHeight;
-  return el;
+  return line;
 }
 
 /** Пузырь «думает»: три точки, которые дышат (CSS-анимация aiDots).

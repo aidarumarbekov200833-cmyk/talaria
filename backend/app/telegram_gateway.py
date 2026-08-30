@@ -257,6 +257,7 @@ class TelegramGateway:
         text: str,
         *,
         image: str = "",
+        images: list[str] | None = None,
         watch_seconds: int = 3600,
     ) -> dict[str, Any]:
         return self._post(
@@ -267,6 +268,9 @@ class TelegramGateway:
                 "username": username,
                 "text": text,
                 "image": image,
+                # Альбом: список картинок одним сообщением. Пустой список шлюз
+                # трактует как «медиа нет» и отправляет обычный текст.
+                "images": list(images or []),
                 "watch_seconds": max(0, min(3600, int(watch_seconds))),
             },
             45.0,

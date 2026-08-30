@@ -28,6 +28,7 @@ import {
   initDashboardDynamics,
   loadOfferStats,
   setChartDays,
+  showAllNotifications,
 } from './dashboard.js?v=tal32';
 import {
   initDatabases,
@@ -87,6 +88,7 @@ import {
   loadMoreDialogs,
   loadOlderMessages,
   reloadChat,
+  markAllChatsRead,
   replyToChatMessage,
   cancelChatReply,
   scrollChatToBottom,
@@ -158,9 +160,7 @@ import {
   removeCustomKeyword,
   runCustomSearch,
   resetLeadFilters,
-  applySearchPreset,
-  saveSearchPreset,
-  deleteSearchPreset,
+  setLeadFilterMode,
   runTelegramVerification,
   cancelTelegramVerification,
 } from './search.js?v=zephyr1';
@@ -182,6 +182,7 @@ Object.assign(window, {
   loadMoreDialogs,
   loadOlderMessages,
   reloadChat,
+  markAllChatsRead,
   replyToChatMessage,
   cancelChatReply,
   scrollChatToBottom,
@@ -208,6 +209,7 @@ Object.assign(window, {
   buildChart,
   loadOfferStats,
   setChartDays,
+  showAllNotifications,
   // Базы лидов
   loadDatabases,
   searchDatabases,
@@ -308,9 +310,7 @@ Object.assign(window, {
   removeCustomKeyword,
   runCustomSearch,
   resetLeadFilters,
-  applySearchPreset,
-  saveSearchPreset,
-  deleteSearchPreset,
+  setLeadFilterMode,
   runTelegramVerification,
   cancelTelegramVerification,
   // ИИ (реальный чат через /api/ai/chat)

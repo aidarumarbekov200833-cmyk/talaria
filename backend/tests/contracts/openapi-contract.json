@@ -4675,6 +4675,14 @@
             "title": "Image",
             "type": "string"
           },
+          "images": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 10,
+            "title": "Images",
+            "type": "array"
+          },
           "name": {
             "title": "Name",
             "type": "string"
@@ -4806,6 +4814,14 @@
               }
             ],
             "title": "Image"
+          },
+          "images": {
+            "default": [],
+            "items": {
+              "type": "string"
+            },
+            "title": "Images",
+            "type": "array"
           },
           "name": {
             "title": "Name",
@@ -5705,6 +5721,14 @@
       },
       "SearchIn": {
         "properties": {
+          "countries": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 40,
+            "title": "Countries",
+            "type": "array"
+          },
           "country": {
             "default": "",
             "maxLength": 8,
@@ -6662,6 +6686,14 @@
             "default": "KZ",
             "title": "Region",
             "type": "string"
+          },
+          "regions": {
+            "items": {
+              "type": "string"
+            },
+            "maxItems": 8,
+            "title": "Regions",
+            "type": "array"
           }
         },
         "title": "TopicRunIn",

@@ -25,10 +25,6 @@ let activeTab = 1;
 let verificationDatabaseId = 0;
 let verificationPollTimer = null;
 
-const SEARCH_PRESET_KEY = 'outly.search-presets.v1';
-const LEGACY_SEARCH_PRESET_KEY = 'zapp.search-presets.v1';
-const SEARCH_PRESET_LIMIT = 20;
-
 const SPIN =
   '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="spinning" style="width:16px;height:16px"><circle cx="12" cy="12" r="10" stroke-opacity=".3"/><path d="M12 2a10 10 0 0110 10"/></svg>';
 
@@ -96,129 +92,149 @@ function collectLeadFilters() {
     min_view_subscriber_ratio: optionalFloat('leadMinViewRatio') || 0,
     min_videos: optionalNum('leadMinVideos') || 0,
     max_channel_age_days: maxAge === null ? null : Math.max(1, maxAge),
-    country: (document.getElementById('leadCountry')?.value || '').trim().toUpperCase(),
+    countries: selectedCodes('leadCountry'),
     include_hidden_subscribers: !!document.getElementById('leadIncludeHidden')?.checked,
-    require_telegram_link: !!document.getElementById('leadRequireTelegram')?.checked,
   };
 }
 
-function readSearchPresets() {
-  try {
-    const current = localStorage.getItem(SEARCH_PRESET_KEY);
-    const legacy = localStorage.getItem(LEGACY_SEARCH_PRESET_KEY);
-    const parsed = JSON.parse(current || legacy || '[]');
-    if (!current && legacy) localStorage.setItem(SEARCH_PRESET_KEY, legacy);
-    return Array.isArray(parsed)
-      ? parsed
-          .filter((item) => item && typeof item.name === 'string' && item.filters)
-          .slice(0, SEARCH_PRESET_LIMIT)
-      : [];
-  } catch (_) {
-    return [];
-  }
+/** Коды из мультиселекта: и виджет, и нативный список читаются одинаково. */
+function selectedCodes(id) {
+  const select = document.getElementById(id);
+  if (!select) return [];
+  return [...select.selectedOptions].map((option) => option.value).filter(Boolean);
 }
 
-function writeSearchPresets(items) {
-  localStorage.setItem(SEARCH_PRESET_KEY, JSON.stringify(items.slice(0, SEARCH_PRESET_LIMIT)));
-}
-
-function renderSearchPresets(selectedName = '') {
-  const select = document.getElementById('leadPresetSelect');
+function applyCodes(id, codes) {
+  const select = document.getElementById(id);
   if (!select) return;
-  const presets = readSearchPresets();
-  select.innerHTML =
-    '<option value="">Без пресета</option>' +
-    presets.map((item) => `<option value="${esc(item.name)}">${esc(item.name)}</option>`).join('');
-  if (selectedName && presets.some((item) => item.name === selectedName))
-    select.value = selectedName;
-}
-
-function applyLeadFilters(filters) {
-  const values = {
-    leadMinSubs: filters.min_subscribers,
-    leadMaxSubs: filters.max_subscribers,
-    leadMinViews: filters.min_views,
-    leadMinAverageViews: filters.min_average_views,
-    leadMinViewRatio: filters.min_view_subscriber_ratio,
-    leadMinVideos: filters.min_videos,
-    leadMaxAge: filters.max_channel_age_days,
-    leadCountry: filters.country,
-  };
-  Object.entries(values).forEach(([id, value]) => {
-    const el = document.getElementById(id);
-    if (el) el.value = value == null ? '' : String(value);
+  const wanted = new Set((codes || []).map((code) => String(code).toUpperCase()));
+  [...select.options].forEach((option) => {
+    option.selected = wanted.has(option.value);
   });
-  const hidden = document.getElementById('leadIncludeHidden');
-  const telegram = document.getElementById('leadRequireTelegram');
-  if (hidden) hidden.checked = !!filters.include_hidden_subscribers;
-  if (telegram) telegram.checked = !!filters.require_telegram_link;
+  select.dispatchEvent(new Event('change', { bubbles: true }));
 }
 
-export function applySearchPreset() {
-  const name = document.getElementById('leadPresetSelect')?.value || '';
-  if (!name) return;
-  const preset = readSearchPresets().find((item) => item.name === name);
-  if (!preset) return;
-  applyLeadFilters(preset.filters);
-  const input = document.getElementById('leadPresetName');
-  if (input) input.value = preset.name;
-  toast(`Пресет «${preset.name}» применён`, 'info');
-}
+/* ---------- фильтры: режим и запоминание ----------
+   Пресеты убраны по просьбе владельца («название нового пресета — фигня, у
+   каждого человека его прошлые настройки сохраняются всегда»). Фильтры и режим
+   пишутся в localStorage при каждом изменении и восстанавливаются при входе. */
 
-export function saveSearchPreset() {
-  const input = document.getElementById('leadPresetName');
-  const name = (input?.value || '').trim().slice(0, 60);
-  if (!name) {
-    toast('Введите название пресета', 'warn');
-    return;
+/** Рекомендованный набор: подобран так, чтобы в выдаче оставались живые каналы
+ *  с контактами, а не заброшенные страницы. Страна не ограничивается — лиды
+ *  ищутся во всех регионах сразу. */
+const RECOMMENDED_FILTERS = {
+  leadMinSubs: '1000',
+  leadMaxSubs: '',
+  leadMinViews: '0',
+  leadMinAverageViews: '500',
+  leadMinViewRatio: '1',
+  leadMinVideos: '5',
+  leadMaxAge: '',
+};
+const RECOMMENDED_NOTE =
+  'от 1 000 подписчиков, 5+ видео, 500+ средних просмотров, вовлечённость от 1 %, все страны';
+const MANUAL_NOTE = 'Поля открыты — меняйте что нужно, настройки сохраняются автоматически';
+const FILTER_STATE_KEY = 'talaria.search-filters.v1';
+const FILTER_FIELD_IDS = [...Object.keys(RECOMMENDED_FILTERS), 'leadIncludeHidden'];
+let leadFilterMode = 'auto';
+
+function writeFilterState() {
+  const values = {};
+  FILTER_FIELD_IDS.forEach((id) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    values[id] = el.type === 'checkbox' ? el.checked : el.value;
+  });
+  try {
+    localStorage.setItem(
+      FILTER_STATE_KEY,
+      JSON.stringify({ mode: leadFilterMode, values, countries: selectedCodes('leadCountry') }),
+    );
+  } catch (_) {
+    /* приватный режим браузера — настройки просто не запомнятся */
   }
-  const presets = readSearchPresets();
-  const next = { name, filters: collectLeadFilters(), saved_at: new Date().toISOString() };
-  const at = presets.findIndex(
-    (item) => item.name.toLocaleLowerCase('ru-RU') === name.toLocaleLowerCase('ru-RU'),
-  );
-  if (at >= 0) presets.splice(at, 1);
-  presets.unshift(next);
-  writeSearchPresets(presets);
-  renderSearchPresets(name);
-  toast(at >= 0 ? 'Пресет обновлён' : 'Пресет сохранён', 'success');
 }
 
-export function deleteSearchPreset() {
-  const select = document.getElementById('leadPresetSelect');
-  const name = select?.value || '';
-  if (!name) {
-    toast('Выберите пресет для удаления', 'warn');
-    return;
+function readFilterState() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(FILTER_STATE_KEY) || 'null');
+    return parsed && typeof parsed === 'object' ? parsed : null;
+  } catch (_) {
+    return null;
   }
-  writeSearchPresets(readSearchPresets().filter((item) => item.name !== name));
-  renderSearchPresets();
-  const input = document.getElementById('leadPresetName');
-  if (input?.value === name) input.value = '';
-  toast('Пресет удалён', 'info');
 }
 
-export function resetLeadFilters() {
-  const values = {
-    leadMinSubs: '1000',
-    leadMaxSubs: '',
-    leadMinViews: '0',
-    leadMinAverageViews: '0',
-    leadMinViewRatio: '0',
-    leadMinVideos: '3',
-    leadMaxAge: '',
-    leadCountry: '',
-  };
-  Object.entries(values).forEach(([id, value]) => {
+function applyRecommendedFilters() {
+  Object.entries(RECOMMENDED_FILTERS).forEach(([id, value]) => {
     const el = document.getElementById(id);
     if (el) el.value = value;
   });
   const hidden = document.getElementById('leadIncludeHidden');
-  const telegram = document.getElementById('leadRequireTelegram');
   if (hidden) hidden.checked = false;
-  if (telegram) telegram.checked = false;
-  const select = document.getElementById('leadPresetSelect');
-  if (select) select.value = '';
+  applyCodes('leadCountry', []);
+}
+
+function paintFilterMode() {
+  const auto = leadFilterMode === 'auto';
+  const panel = document.querySelector('.search-filter-panel');
+  if (panel) panel.classList.toggle('is-auto', auto);
+  const note = document.getElementById('leadModeNote');
+  if (note) note.textContent = auto ? RECOMMENDED_NOTE : MANUAL_NOTE;
+  [
+    ['leadModeAuto', auto],
+    ['leadModeManual', !auto],
+  ].forEach(([id, on]) => {
+    const button = document.getElementById(id);
+    if (!button) return;
+    button.classList.toggle('active', on);
+    button.setAttribute('aria-pressed', String(on));
+  });
+  // В авто-режиме поля только для чтения: набор проверен, случайная правка
+  // ломает выдачу молча. Кнопка «Вручную» открывает всё одним нажатием.
+  document.querySelectorAll('.lead-filter-grid input').forEach((input) => {
+    input.disabled = auto;
+  });
+  document.querySelectorAll('.filter-switches input').forEach((input) => {
+    input.disabled = auto;
+  });
+  const country = document.querySelector('.region-picker[data-for="leadCountry"] button');
+  if (country) country.disabled = auto;
+}
+
+export function setLeadFilterMode(mode) {
+  leadFilterMode = mode === 'manual' ? 'manual' : 'auto';
+  if (leadFilterMode === 'auto') applyRecommendedFilters();
+  paintFilterMode();
+  writeFilterState();
+}
+
+function restoreFilterState() {
+  const saved = readFilterState();
+  leadFilterMode = saved?.mode === 'manual' ? 'manual' : 'auto';
+  if (leadFilterMode === 'auto' || !saved) {
+    applyRecommendedFilters();
+  } else {
+    Object.entries(saved.values || {}).forEach(([id, value]) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      if (el.type === 'checkbox') el.checked = !!value;
+      else el.value = value == null ? '' : String(value);
+    });
+    applyCodes('leadCountry', saved.countries || []);
+  }
+  paintFilterMode();
+  // Любая правка сразу уходит в память: отдельной кнопки «сохранить» нет.
+  document
+    .querySelectorAll('.lead-filter-grid input, .filter-switches input, #leadCountry')
+    .forEach((el) => el.addEventListener('change', writeFilterState));
+}
+
+export function resetLeadFilters() {
+  applyRecommendedFilters();
+  leadFilterMode = 'auto';
+  paintFilterMode();
+  writeFilterState();
+  toast('Вернули рекомендованные настройки', 'info');
 }
 
 function setStep(id, state) {
@@ -333,12 +349,16 @@ async function showCost(boxId, keywords, limit) {
 
 export async function generateTrends() {
   const count = num('trendsCount');
-  const region = document.getElementById('trendsRegion').value;
+  const regions = selectedCodes('trendsRegion');
+  if (!regions.length) {
+    showErr('trendsStep1Err', 'Выберите хотя бы один регион');
+    return;
+  }
   showErr('trendsStep1Err', '');
   busy('trendsGenBtn', true, 'Запрос к YouTube…');
-  log(`Запрос трендов: регион ${region}, тем ${count}`, 'info');
+  log(`Запрос трендов: регионы ${regions.join(', ')}, тем ${count}`, 'info');
   try {
-    const run = await api('POST', '/api/topics', { mode: 'trends', count, region });
+    const run = await api('POST', '/api/topics', { mode: 'trends', count, regions });
     trendTopics = run.topics || [];
     if (!trendTopics.length) {
       showErr('trendsStep1Err', 'YouTube не вернул подходящих тем. Попробуйте другой регион.');
@@ -390,7 +410,8 @@ export async function runTrendsSearch() {
       limit: num('trendsLimit'),
       database_name: document.getElementById('trendsDbName').value.trim(),
       mode: 'trends',
-      region: document.getElementById('trendsRegion').value,
+      // Поиск каналов YouTube принимает один регион: берём первый выбранный.
+      region: selectedCodes('trendsRegion')[0] || '',
     },
     'trendsSearchBtn',
     'trendsStep3Err',
@@ -458,16 +479,22 @@ export async function generateNicheKeywords() {
 
 export function addNicheExtraKw() {
   const inp = document.getElementById('nicheExtraKw');
-  const val = inp.value.trim();
-  if (!val) return;
-  if (!nicheKeywords.some((k) => k.toLowerCase() === val.toLowerCase())) {
-    nicheKeywords.push(val);
+  const words = parseKeywordList(inp.value);
+  if (!words.length) return;
+  let added = 0;
+  words.forEach((word) => {
+    if (nicheKeywords.some((k) => k.toLowerCase() === word.toLowerCase())) return;
+    nicheKeywords.push(word);
+    added += 1;
+  });
+  if (added) {
     renderReview(
       'nicheKwReview',
       nicheKeywords.map((k) => ({ text: k })),
       updateNicheSelection,
     );
   }
+  if (added > 1) toast(`Добавлено слов: ${added}`, 'success');
   inp.value = '';
 }
 
@@ -501,14 +528,45 @@ export async function runNicheSearch() {
 
 /* ---------- ВКЛАДКА 3: СВОИ СЛОВА ---------- */
 
+/** Разобрать строку в список слов.
+ *
+ *  Владелец вставляет готовый список: «монтаж, обзоры игр, рецепты» или просто
+ *  слова через пробел. Раньше вся строка становилась одним ключевым словом, и
+ *  YouTube искал фразу целиком. Запятая и перевод строки — главный разделитель;
+ *  если их нет, делим по пробелам.
+ */
+function parseKeywordList(raw) {
+  const text = String(raw || '').trim();
+  if (!text) return [];
+  const parts = /[,;\n\r\t]/.test(text) ? text.split(/[,;\n\r\t]+/) : text.split(/\s+/);
+  const seen = new Set();
+  const words = [];
+  parts.forEach((part) => {
+    const word = part
+      .trim()
+      .replace(/^[-•·]+\s*/, '')
+      .slice(0, 200);
+    if (!word) return;
+    const key = word.toLowerCase();
+    if (seen.has(key)) return;
+    seen.add(key);
+    words.push(word);
+  });
+  return words;
+}
+
 export function addCustomKeyword() {
   const inp = document.getElementById('customKwInput');
-  const val = inp.value.trim();
-  if (!val) return;
-  if (!customKeywords.some((k) => k.toLowerCase() === val.toLowerCase())) {
-    customKeywords.push(val);
-    renderCustomChips();
-  }
+  const words = parseKeywordList(inp.value);
+  if (!words.length) return;
+  let added = 0;
+  words.forEach((word) => {
+    if (customKeywords.some((k) => k.toLowerCase() === word.toLowerCase())) return;
+    customKeywords.push(word);
+    added += 1;
+  });
+  if (added) renderCustomChips();
+  if (added > 1) toast(`Добавлено слов: ${added}`, 'success');
   inp.value = '';
 }
 
@@ -580,6 +638,9 @@ async function doSearch(payload, btnId, errId) {
     if (window.loadDatabases) window.loadDatabases();
     if (window.loadCampaignBases) window.loadCampaignBases();
     await loadVerificationDatabases(db.id);
+    // Проверка Telegram больше не отдельный ручной шаг: сразу после поиска
+    // база уходит в проверку сама (просьба владельца «сделай автоматически»).
+    await autoStartVerification(db.id);
   } catch (e) {
     showErr(errId, e.message);
     log('Поиск не выполнен: ' + e.message, 'warn');
@@ -723,6 +784,29 @@ async function loadVerificationSummary() {
   return summary;
 }
 
+/** Запустить проверку сразу после поиска.
+ *
+ *  Тихо: если аккаунтов Telegram нет или проверять нечего — просто ничего не
+ *  делаем, лишнее предупреждение сразу после успешного поиска только пугает.
+ */
+async function autoStartVerification(databaseId) {
+  if (!databaseId) return;
+  try {
+    const summary = await api('GET', `/api/leads/databases/${databaseId}/telegram-summary`);
+    const active = ['queued', 'running', 'cancel_requested'].includes(summary?.job?.status);
+    if (active || !summary?.accounts_connected || !summary?.pending) return;
+    const job = await api('POST', `/api/leads/databases/${databaseId}/verification/start`, {
+      retry_errors: false,
+    });
+    log(`Telegram: проверка запущена автоматически, каналов ${job.total}`, 'info');
+    toast('Проверка базы запущена автоматически', 'success');
+    startVerificationPolling();
+    await loadVerificationSummary();
+  } catch (e) {
+    log('Автопроверка не запустилась: ' + e.message, 'warn');
+  }
+}
+
 export async function runTelegramVerification() {
   const id = Number(document.getElementById('verificationDatabase')?.value || 0);
   if (!id) {
@@ -771,9 +855,10 @@ export async function cancelTelegramVerification() {
 export function initSearch() {
   const grid = document.getElementById('nicheGrid');
   if (!grid) return;
-  initRegionPicker();
+  initRegionPicker('trendsRegion', { multi: true, emptyLabel: 'Выберите регионы' });
+  initRegionPicker('leadCountry', { multi: true, emptyLabel: 'Любая страна' });
   loadNiches();
-  renderSearchPresets();
+  restoreFilterState();
   loadVerificationDatabases();
   document.getElementById('verificationDatabase')?.addEventListener('change', async (event) => {
     verificationDatabaseId = Number(event.target.value || 0);

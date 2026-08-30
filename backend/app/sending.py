@@ -34,6 +34,7 @@ from .models import AppSettings, Campaign, CampaignLog, CampaignSend, Lead, Offe
 from .placeholders import render
 from .plans import effective_plan_slug, get_plan
 from .services import get_settings, log_event, roll_month
+from .services.offers import album_of
 from .telegram_gateway import gateway
 from .telegram_sessions import live_safe_accounts, probe_account_safety
 
@@ -124,6 +125,7 @@ def send_via_client(
     text: str,
     *,
     image: str = "",
+    images: list[str] | None = None,
     watch_seconds: int = 3600,
 ) -> SendOutcome:
     """Отправить одно сообщение через tg-mini-client. Возвращает (успех, ошибка).
@@ -144,6 +146,8 @@ def send_via_client(
                 username,
                 text,
                 image=image,
+                # Пустой список, а не None: шлюз ждёт массив.
+                images=list(images or []),
                 watch_seconds=watch_seconds,
             )
             raw_message_id = body.get("message_id")
@@ -444,7 +448,7 @@ def run_launch(
                 account.id,
                 username,
                 text,
-                image=offer.image if offer and offer.image else "",
+                images=album_of(offer) if offer else [],
             )
             ok, error = raw_outcome
             if ok:

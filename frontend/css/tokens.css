@@ -75,6 +75,19 @@
   --cabp-well: #101013;
   --cabp-well-raised: #17171b;
   --cabp-on-well: #ececef;
+  /* v38. Настоящая СВЕТЛАЯ палитра Telegram для предпросмотра сообщения:
+     на светлой теме кабинета тёмный мок выглядел чужим скриншотом. */
+  --cabp-tg-wall-a: #e7ebee;
+  --cabp-tg-wall-b: #dfe5e9;
+  --cabp-tg-doodle: rgba(0, 0, 0, 0.05);
+  --cabp-tg-header: #ffffff;
+  --cabp-tg-out: #eeffde;
+  --cabp-tg-out-tail: #d9f2c4;
+  --cabp-tg-in: #ffffff;
+  --cabp-tg-text: #1f2933;
+  --cabp-tg-time: #5f8f4a;
+  --cabp-tg-check: #4fae4e;
+  --cabp-tg-sys: rgba(0, 0, 0, 0.16);
   --cabp-font-ui: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
   --cabp-font-brand: 'Poppins', 'Inter', -apple-system, sans-serif;
   --font-ui: 'JetBrains Mono', ui-monospace, monospace;
@@ -157,20 +170,23 @@ html[data-theme='graphite'],
   --hand-highlight: #ffe7f7;
   --hand-shadow: #b869aa;
   /* Кабинет v34, тёмная тема: графит, как в панели Viktor. */
-  --cabp-fog: #0d0d0f;
-  --cabp-surface: #141417;
-  --cabp-raised: #1c1c21;
+  /* v38. Владелец задал фон кабинета точным цветом: HEX #18181A (24, 24, 26).
+     Панели строим на два шага светлее, чтобы иерархия «страница → карточка →
+     вложенный блок» читалась без градиентов и свечений. */
+  --cabp-fog: #18181a;
+  --cabp-surface: #1f1f22;
+  --cabp-raised: #26262a;
   --cabp-ink: #f1f1f3;
   --cabp-muted: #9b9ba5;
-  --cabp-line: #2b2b32;
+  --cabp-line: #32323a;
   --cabp-accent: #f1f1f3;
   --cabp-on-accent: #121215;
   --cabp-accent-ink: #e8e8ec;
-  --cabp-accent-soft: #26262d;
+  --cabp-accent-soft: #2d2d33;
   --cabp-accent-strong: #ffffff;
   --cabp-ring: rgba(255, 255, 255, 0.2);
-  --cabp-well: #0a0a0c;
-  --cabp-well-raised: #121216;
+  --cabp-well: #0e0e10;
+  --cabp-well-raised: #141417;
   --cabp-on-well: #ececef;
   --shadow: 0 24px 60px color-mix(in srgb, #000000 40%, transparent);
   --shadow-small: 0 8px 22px color-mix(in srgb, #000000 22%, transparent);

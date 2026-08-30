@@ -96,7 +96,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&amp;family=Poppins:wght@700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria11" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria12" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -2071,8 +2071,33 @@
                   </div>
                 </div>
                 <button class="btn ghost" type="button" data-act="resetLeadFilters">
-                  Сбросить
+                  Вернуть рекомендованные
                 </button>
+              </div>
+              <!-- Режим настроек. «Авто» ставит проверенный набор и запирает поля,
+                   чтобы случайная правка не обнулила выдачу; «вручную» открывает всё. -->
+              <div class="filter-mode" role="group" aria-label="Режим настроек поиска">
+                <button
+                  type="button"
+                  class="filter-mode-btn active"
+                  id="leadModeAuto"
+                  data-act="setLeadFilterMode"
+                  data-args='["auto"]'
+                  aria-pressed="true"
+                >
+                  Автоматически
+                </button>
+                <button
+                  type="button"
+                  class="filter-mode-btn"
+                  id="leadModeManual"
+                  data-act="setLeadFilterMode"
+                  data-args='["manual"]'
+                  aria-pressed="false"
+                >
+                  Вручную
+                </button>
+                <span class="filter-mode-note" id="leadModeNote"></span>
               </div>
               <div class="lead-filter-grid">
                 <div class="field">
@@ -2129,9 +2154,12 @@
                     inputmode="numeric"
                   />
                 </div>
-                <div class="field">
-                  <label>Страна канала</label
-                  ><input id="leadCountry" maxlength="8" placeholder="например KZ" />
+                <div class="field field-wide">
+                  <label>Страны каналов</label
+                  ><select id="leadCountry" multiple hidden></select>
+                  <span class="field-hint"
+                    >Можно выбрать несколько или не выбирать вовсе — тогда страна не важна.</span
+                  >
                 </div>
               </div>
               <div class="filter-switches">
@@ -2139,41 +2167,6 @@
                   ><input type="checkbox" id="leadIncludeHidden" /> Включать каналы со скрытыми
                   подписчиками</label
                 >
-                <label class="check-row"
-                  ><input type="checkbox" id="leadRequireTelegram" /> Только с Telegram-ссылкой в
-                  описании</label
-                >
-              </div>
-              <div class="search-preset-bar">
-                <div class="field">
-                  <label>Сохранённый набор фильтров</label
-                  ><select id="leadPresetSelect" data-change-act="applySearchPreset">
-                    <option value="">Без пресета</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label>Название нового пресета</label
-                  ><input
-                    id="leadPresetName"
-                    maxlength="60"
-                    placeholder="Например: микро-блогеры KZ"
-                  />
-                </div>
-                <details class="action-menu preset-actions">
-                  <summary aria-label="Действия с набором фильтров">⋯</summary>
-                  <div class="action-menu-pop">
-                    <button class="btn ghost menu-action" type="button" data-act="saveSearchPreset">
-                      Сохранить набор
-                    </button>
-                    <button
-                      class="btn ghost menu-action danger"
-                      type="button"
-                      data-act="deleteSearchPreset"
-                    >
-                      Удалить набор
-                    </button>
-                  </div>
-                </details>
               </div>
               <div class="field-hint">
                 YouTube не умеет фильтровать поиск по подписчикам: сервис получает найденные каналы,
@@ -2227,7 +2220,8 @@
                             <button data-act="searchInc" data-args='["trendsCount", 50]'>+</button>
                           </div>
                           <span class="counter-hint"
-                            >1–50, каждое реальное видео = 1 единица квоты</span
+                            >1–50 тем. Каждый регион — отдельный запрос к YouTube и 1 единица
+                            квоты</span
                           >
                         </div>
                         <div class="counter-row">
@@ -2238,7 +2232,7 @@
                            стили тут были на несуществующих переменных
                            (--surface-2, --text), из-за чего меню селекта
                            получалось белым по белому. -->
-                          <select id="trendsRegion" aria-label="Регион трендов">
+                          <select id="trendsRegion" multiple hidden aria-label="Регионы трендов">
                             <option value="KZ">Казахстан</option>
                           </select>
                         </div>
@@ -2559,7 +2553,8 @@
                         <div>
                           <div class="step-title">Введите ключевые слова</div>
                           <div class="step-sub">
-                            Каждое слово с Enter — можно добавить сколько угодно.
+                            Вставьте список через пробел, запятую или с новой строки — слова
+                            разберутся сами. Enter добавляет введённое.
                           </div>
                         </div>
                       </div>
@@ -2572,7 +2567,7 @@
                         <div class="kw-input-wrap">
                           <input
                             id="customKwInput"
-                            placeholder="Например: монтаж видео, обзоры игр, рецепты…"
+                            placeholder="монтаж видео, обзоры игр, рецепты…"
                             data-enter-act="addCustomKeyword"
                           />
                         </div>
@@ -2669,9 +2664,10 @@
                     <div>
                       <h3>Telegram-верификация базы</h3>
                       <div class="field-hint">
-                        Шаг 2: ссылка проверяется через подключённые аккаунты. User сохраняется как
-                        получатель; у канала или бота ищется публичный контакт владельца в about и
-                        последних постах.
+                        Запускается сама сразу после поиска: ссылка проверяется через подключённые
+                        аккаунты, найденный user сохраняется получателем, у канала или бота ищется
+                        публичный контакт владельца. Кнопка нужна только чтобы повторить проверку
+                        вручную.
                       </div>
                     </div>
                     <span class="pipeline-badge" id="verificationStatus">Выберите базу</span>
@@ -2714,8 +2710,8 @@
                   </div>
                   <div class="verification-results" id="verificationResults">
                     <div class="dd-empty">
-                      Выберите базу и нажмите одну кнопку — дальше Talaria сам проверит все каналы и
-                      будет сохранять найденных пользователей.
+                      После поиска проверка стартует автоматически. Здесь будет видно, сколько
+                      каналов проверено и сколько получателей найдено.
                     </div>
                   </div>
                 </div>
@@ -2898,6 +2894,7 @@
                         <input
                           type="file"
                           id="offerImageFile"
+                          multiple
                           accept="image/png,image/jpeg,image/webp,image/gif"
                         />
                         <span class="offer-upload-icon"
@@ -2914,8 +2911,10 @@
                             <circle cx="15.5" cy="8.5" r="1.5" /></svg
                         ></span>
                         <span class="offer-upload-copy"
-                          ><b>Добавить изображение</b
-                          ><small>PNG, JPEG, WebP или GIF · до 800 КБ</small></span
+                          ><b>Добавить изображения</b
+                          ><small
+                            >PNG, JPEG, WebP или GIF · до 800 КБ каждое · до 10 в альбом</small
+                          ></span
                         >
                         <span class="offer-upload-action">Выбрать</span>
                         <img
@@ -2923,6 +2922,9 @@
                           alt="Предпросмотр загруженного изображения"
                         />
                       </label>
+                      <!-- Альбом: 2–10 картинок уходят лиду одним сообщением.
+                       Первая — обложка, её же показывает предпросмотр. -->
+                      <div class="offer-album" id="offerAlbum" hidden></div>
                     </div>
                   </div>
 
@@ -3366,82 +3368,85 @@
                 </div>
               </div>
 
-              <div class="panel log-panel-uniform campaign-log-panel">
-                <div class="panel-head" style="margin-bottom: 12px">
-                  <h3>Логи процесса</h3>
-                  <span class="link" data-act="clearCampaignLog">Очистить</span>
-                </div>
-                <div class="terminal" id="campaignLogs">
-                  <div class="terminal-line terminal-info">Здесь появится ход отправки.</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Проверка полного пути: исходящее сообщение + реальный входящий ответ. -->
-            <div class="panel" style="margin-bottom: 22px">
-              <div class="panel-head">
-                <div>
-                  <h3>Тест сообщения и уведомления</h3>
-                  <div class="field-hint">
-                    Напишите своему второму аккаунту, ответьте с него и проверьте, что Talaria
-                    увидел входящее сообщение.
+              <div class="side-stack mailing-side">
+                <div class="panel log-panel-uniform campaign-log-panel">
+                  <div class="panel-head" style="margin-bottom: 12px">
+                    <h3>Логи процесса</h3>
+                    <span class="link" data-act="clearCampaignLog">Очистить</span>
                   </div>
+                  <div class="terminal" id="campaignLogs"></div>
                 </div>
-                <span class="log-scope">реальная проверка</span>
-              </div>
-              <div class="test-send">
-                <div class="field">
-                  <label>Твинк или тестовый аккаунт</label>
-                  <input
-                    type="text"
-                    id="testSendUsername"
-                    placeholder="@username аккаунта, с которого затем ответите"
-                  />
-                  <div class="field-hint">
-                    Подключённый к Talaria аккаунт отправит сообщение этому получателю.
+                <!-- Проверка полного пути: исходящее сообщение + реальный входящий ответ. -->
+                <div class="panel test-send-panel">
+                  <div class="panel-head">
+                    <div>
+                      <h3>Тест сообщения и уведомления</h3>
+                      <div class="field-hint">
+                        Напишите своему второму аккаунту, ответьте с него и проверьте, что Talaria
+                        увидел входящее сообщение.
+                      </div>
+                    </div>
+                    <span class="log-scope">реальная проверка</span>
                   </div>
-                </div>
-                <div class="field">
-                  <label>Оффер для теста</label>
-                  <select id="testSendOffer">
-                    <option value="">Офферов пока нет</option>
-                  </select>
-                  <div class="field-hint">Или вместо оффера вставьте произвольный текст ниже.</div>
-                </div>
-                <div class="field">
-                  <label>Произвольный текст (необязательно)</label>
-                  <textarea
-                    id="testSendText"
-                    rows="3"
-                    placeholder="Если заполнено — отправится этот текст, иначе выбранный оффер"
-                  ></textarea>
-                </div>
-                <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
-                  <button class="btn" id="testSendBtn" data-act="sendTestMessage">
-                    <svg
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      style="width: 16px; height: 16px"
-                      stroke-width="2"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                    >
-                      <path d="M22 2L11 13" />
-                      <path d="M22 2l-7 20-4-9-9-4 20-7z" />
-                    </svg>
-                    Отправить и ждать ответ
-                  </button>
-                  <span class="field-hint" id="testSendStatus"></span>
-                </div>
-                <div class="test-send-receipt" id="testSendReceipt" hidden></div>
-                <div class="test-reply-watch" id="testReplyWatch" hidden aria-live="polite">
-                  <span class="test-reply-indicator"><i></i></span>
-                  <div>
-                    <b id="testReplyTitle">Ожидаем входящий ответ</b>
-                    <p id="testReplyText">Ответьте с тестового аккаунта на полученное сообщение.</p>
+                  <div class="test-send">
+                    <div class="field">
+                      <label>Твинк или тестовый аккаунт</label>
+                      <input
+                        type="text"
+                        id="testSendUsername"
+                        placeholder="@username аккаунта, с которого затем ответите"
+                      />
+                      <div class="field-hint">
+                        Подключённый к Talaria аккаунт отправит сообщение этому получателю.
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Оффер для теста</label>
+                      <select id="testSendOffer">
+                        <option value="">Офферов пока нет</option>
+                      </select>
+                      <div class="field-hint">
+                        Или вместо оффера вставьте произвольный текст ниже.
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label>Произвольный текст (необязательно)</label>
+                      <textarea
+                        id="testSendText"
+                        rows="3"
+                        placeholder="Если заполнено — отправится этот текст, иначе выбранный оффер"
+                      ></textarea>
+                    </div>
+                    <div style="display: flex; gap: 12px; flex-wrap: wrap; align-items: center">
+                      <button class="btn" id="testSendBtn" data-act="sendTestMessage">
+                        <svg
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          style="width: 16px; height: 16px"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M22 2L11 13" />
+                          <path d="M22 2l-7 20-4-9-9-4 20-7z" />
+                        </svg>
+                        Отправить и ждать ответ
+                      </button>
+                      <span class="field-hint" id="testSendStatus"></span>
+                    </div>
+                    <div class="test-send-receipt" id="testSendReceipt" hidden></div>
+                    <div class="test-reply-watch" id="testReplyWatch" hidden aria-live="polite">
+                      <span class="test-reply-indicator"><i></i></span>
+                      <div>
+                        <b id="testReplyTitle">Ожидаем входящий ответ</b>
+                        <p id="testReplyText">
+                          Ответьте с тестового аккаунта на полученное сообщение.
+                        </p>
+                      </div>
+                      <time id="testReplyTimer">05:00</time>
+                    </div>
                   </div>
-                  <time id="testReplyTimer">05:00</time>
                 </div>
               </div>
             </div>
@@ -3550,7 +3555,12 @@
                   aria-label="Telegram-аккаунт"
                   hidden
                 ></select>
-                <button class="btn ghost" data-act="reloadChat">Обновить</button>
+                <!-- Обновление в чате идёт само (опрос ленты и списка), кнопка
+                 «Обновить» только сбивала с толку. Вместо неё — снятие
+                 непрочитанных: они портили оценку готовности аккаунта. -->
+                <button class="btn ghost" data-act="markAllChatsRead" id="chatReadAllBtn">
+                  Прочитать всё
+                </button>
               </div>
             </div>
 
@@ -3569,6 +3579,16 @@
                     <path d="M21 21l-4.3-4.3" />
                   </svg>
                   <input id="chatSearch" placeholder="Поиск по диалогам…" autocomplete="off" />
+                </div>
+                <!-- Что показывать в списке. Личные диалоги нужны всегда, а
+                 каналы, группы и боты у большинства только мешают искать лида. -->
+                <div class="chat-filters">
+                  <label class="chat-filter"
+                    ><input type="checkbox" id="chatShowGroups" /> группы и каналы</label
+                  >
+                  <label class="chat-filter"
+                    ><input type="checkbox" id="chatShowBots" /> боты</label
+                  >
                 </div>
                 <div class="chat-dialogs" id="chatDialogs"></div>
               </div>

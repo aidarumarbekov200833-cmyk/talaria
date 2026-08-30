@@ -671,8 +671,14 @@ app.post("/send", async (req, res) => {
   const username = publicUsername(req.body && req.body.username);
   const text = String((req.body && req.body.text) || "");
   const image = String((req.body && req.body.image) || "");
+  // Альбом: 2-10 картинок уходят лиду одним сообщением (sendFile массивом).
+  // Одиночное image оставлено ради старых вызовов и предпросмотра.
+  const album = Array.isArray(req.body && req.body.images)
+    ? req.body.images.map((item) => String(item || "")).filter(Boolean).slice(0, 10)
+    : [];
+  const media = album.length ? album : image ? [image] : [];
   const watchSeconds = Math.max(0, Math.min(3600, Number((req.body && req.body.watch_seconds) || 0)));
-  if (!username || (!text.trim() && !image)) {
+  if (!username || (!text.trim() && !media.length)) {
     return res.status(400).json({ ok: false, error: "Нужны username и сообщение" });
   }
   if (text.length > 4096) {
@@ -690,17 +696,24 @@ app.post("/send", async (req, res) => {
           throw new Error("Получатель не является доступным личным аккаунтом");
         }
         let sent;
-        if (image) {
-          const match = /^data:image\/(png|jpeg|webp|gif);base64,([A-Za-z0-9+/=]+)$/.exec(image);
-          if (!match) throw new Error("Некорректный формат изображения оффера");
-          const buffer = Buffer.from(match[2], "base64");
-          if (!buffer.length || buffer.length > 800000) {
-            throw new Error("Изображение оффера должно быть не больше 800 КБ");
-          }
-          const extension = match[1] === "jpeg" ? "jpg" : match[1];
-          const file = new CustomFile(`zephyr-offer.${extension}`, buffer.length, "", buffer);
-          const media = await client.sendFile(peer, {
-            file,
+        if (media.length) {
+          const files = media.map((item, index) => {
+            const match = /^data:image\/(png|jpeg|webp|gif);base64,([A-Za-z0-9+/=]+)$/.exec(item);
+            if (!match) throw new Error("Некорректный формат изображения оффера");
+            const buffer = Buffer.from(match[2], "base64");
+            if (!buffer.length || buffer.length > 800000) {
+              throw new Error("Каждая картинка оффера должна быть не больше 800 КБ");
+            }
+            const extension = match[1] === "jpeg" ? "jpg" : match[1];
+            return new CustomFile(
+              `talaria-offer-${index + 1}.${extension}`,
+              buffer.length,
+              "",
+              buffer
+            );
+          });
+          const album = await client.sendFile(peer, {
+            file: files.length === 1 ? files[0] : files,
             caption: text.length <= 1024 ? text : "",
             forceDocument: false,
           });
@@ -709,7 +722,9 @@ app.post("/send", async (req, res) => {
           // обрезая пользовательский текст и не теряя медиа.
           sent = text.length > 1024
             ? await client.sendMessage(peer, { message: text })
-            : media;
+            : Array.isArray(album)
+              ? album[0]
+              : album;
         } else {
           sent = await client.sendMessage(peer, { message: text });
         }
@@ -1127,7 +1142,16 @@ app.post("/chat/avatar", async (req, res) => {
     mediaCache.set(cacheKey, image);
     res.json({ ok: true, image });
   } catch (err) {
-    console.error("chat-avatar:", err && err.message);
+    const message = String((err && err.message) || "");
+    // Собеседника нет в кеше сущностей (диалог за пределами прогретых 200 или
+    // канал, из которого вышли) — это не сбой: аватар просто отсутствует.
+    // Раньше такой случай отдавал 502, и в списке вместо инициалов появлялась
+    // красная ошибка. Кешируем пустую картинку и отвечаем спокойно.
+    if (/input entity|CHANNEL_INVALID|PEER_ID_INVALID|USER_ID_INVALID/i.test(message)) {
+      mediaCache.set(cacheKey, "");
+      return res.json({ ok: true, image: "" });
+    }
+    console.error("chat-avatar:", message);
     res.status(502).json(errorPayload(err));
   }
 });
@@ -1153,7 +1177,21 @@ app.post("/chat/media", async (req, res) => {
         if (!message || !message.media) return "";
         // Только уменьшенная копия. Оригинал видео или скана на несколько
         // мегабайт превратил бы прокрутку переписки в загрузку файлов.
-        const buffer = await client.downloadMedia(message, { thumb: -1 });
+        // thumb: -1 — самая большая из уменьшенных копий. У части сообщений
+        // (стикеры, кружки, свежие фото без готовых превью) её нет, и раньше
+        // такое вложение оставалось пустым квадратом. Тогда тянем оригинал, но
+        // только если он влезает в 3 МБ.
+        let buffer = await client.downloadMedia(message, { thumb: -1 }).catch(() => null);
+        if (!buffer || !buffer.length) {
+          const size = Number(
+            (message.document && message.document.size) ||
+              (message.photo && message.photo.sizes && message.photo.sizes.length) ||
+              0
+          );
+          if (!message.document || size <= 3000000) {
+            buffer = await client.downloadMedia(message).catch(() => null);
+          }
+        }
         if (!buffer || !buffer.length) return "";
         return `data:image/jpeg;base64,${Buffer.from(buffer).toString("base64")}`;
       },
@@ -1162,7 +1200,12 @@ app.post("/chat/media", async (req, res) => {
     mediaCache.set(cacheKey, image);
     res.json({ ok: true, image });
   } catch (err) {
-    console.error("chat-media:", err && err.message);
+    const message = String((err && err.message) || "");
+    if (/input entity|CHANNEL_INVALID|PEER_ID_INVALID|USER_ID_INVALID/i.test(message)) {
+      mediaCache.set(cacheKey, "");
+      return res.json({ ok: true, image: "" });
+    }
+    console.error("chat-media:", message);
     res.status(502).json(errorPayload(err));
   }
 });

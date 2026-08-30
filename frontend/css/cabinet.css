@@ -1740,3 +1740,434 @@
 details.action-menu:not([open]) > .action-menu-pop {
   display: none;
 }
+
+/* ══════════════════════════════════════════════════════════════════════════
+   v38. Правки по замечаниям владельца (30.08.2026)
+
+   Цвет фона задан им точным значением (24, 24, 26) — он лежит в --cabp-fog
+   (css/tokens.css). Здесь только геометрия и то, что мешало смотреть:
+   градиент на фоне, слипшиеся блоки, маленький чат, капсула из двух кнопок.
+   ══════════════════════════════════════════════════════════════════════════ */
+
+/* ── 14.1 Плоский фон вместо градиента ─────────────────────────────────────
+   На .main лежал linear-gradient «акцент 4% → прозрачный»: сверху страницы
+   получалась серая полоса, заметная на каждом разделе. Владелец: «на сайте
+   темный цвет нужен» и дал точное значение. Фон становится ровной краской. */
+#appWrapper .main {
+  background: var(--fog);
+}
+#appWrapper .topbar {
+  background: var(--fog);
+  backdrop-filter: none;
+}
+#messages .chat-feed {
+  background: var(--surface-raised);
+}
+
+/* ── 14.2 Кнопки ИИ и уведомлений: два скруглённых куба ───────────────────
+   Были сшиты в одну «капсулу» с общей рамкой, и выглядело это как одна кнопка
+   с двумя половинами. Просьба: «сделай кубы скругленные». */
+#appWrapper .global-actions {
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: none;
+  box-shadow: none;
+  backdrop-filter: none;
+  gap: 10px;
+}
+#appWrapper .global-actions .icon-btn {
+  width: 40px;
+  height: 40px;
+  border: 1px solid var(--cab-line);
+  border-radius: 12px;
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+}
+#appWrapper .global-actions .icon-btn:hover {
+  border-color: color-mix(in srgb, var(--ink) 22%, transparent);
+  background: var(--cab-fill-strong);
+}
+#appWrapper .global-actions .icon-btn.ai,
+#appWrapper .global-actions .icon-btn.ai:hover {
+  border-color: var(--accent);
+  color: var(--on-accent);
+  background: var(--accent);
+}
+#appWrapper .global-actions .ping.is-on {
+  top: -5px;
+  right: -5px;
+}
+
+/* ── 14.3 Список уведомлений: подвал «Посмотреть все» ─────────────────────── */
+#appWrapper .dd-foot {
+  display: grid;
+  padding: 10px 12px 4px;
+  border-top: 1px solid var(--cab-line-soft);
+  place-items: center;
+}
+#appWrapper .dd-foot .dd-foot-btn {
+  width: 100%;
+  min-height: 34px;
+  padding: 6px 12px;
+  font-size: 12.5px;
+}
+#appWrapper .dd-foot-note {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+/* ── 14.4 Рассылка: тест сообщения под журналом ────────────────────────────
+   Правая колонка заканчивалась журналом, и под ним оставалась пустая половина
+   экрана (скриншот владельца). Панель проверки переехала туда — как в поиске. */
+#appWrapper .mailing-side {
+  grid-template-rows: minmax(240px, 1fr) auto;
+}
+#appWrapper .test-send-panel {
+  margin: 0;
+}
+#appWrapper .test-send {
+  display: grid;
+  gap: 12px;
+}
+#appWrapper .test-send .field-hint {
+  margin-top: 6px;
+}
+/* Кнопка стояла вплотную к textarea — «на 3 картинке слиплена кнопка». */
+#appWrapper .test-send > div:has(> #testSendBtn) {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid var(--cab-line-soft);
+}
+
+/* ── 14.5 Чат: выше, без горизонтальной прокрутки, с фильтрами ────────────── */
+#messages .chat-wrap {
+  /* Под окном оставалась пустая полоса в треть экрана: раздел ничего больше не
+     показывает, значит место должно достаться переписке. */
+  height: calc(100vh - 148px);
+  min-height: 520px;
+  margin-top: 14px;
+}
+#messages .chat-feed,
+#messages .chat-dialogs {
+  overflow-x: hidden;
+}
+#messages .cm-bubble {
+  overflow-wrap: anywhere;
+}
+#messages .chat-filters {
+  display: flex;
+  gap: 14px;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--cab-line-soft);
+  flex-wrap: wrap;
+}
+#messages .chat-filter {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  gap: 6px;
+  color: var(--muted);
+  font-size: 12px;
+}
+#messages .chat-filter input {
+  cursor: pointer;
+  margin: 0;
+}
+
+/* ── 14.6 ИИ-помощник: время у сообщения ──────────────────────────────────── */
+#aiDrawer .msg {
+  display: grid;
+  gap: 2px;
+}
+#aiDrawer .msg-text {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+#aiDrawer .msg-time {
+  color: color-mix(in srgb, currentcolor 62%, transparent);
+  font-size: 10.5px;
+  font-variant-numeric: tabular-nums;
+  justify-self: end;
+}
+#aiDrawer .drawer-body {
+  overflow-x: hidden;
+}
+
+/* ── 14.7 Тарифы: «К оплате» и переключатель валюты ────────────────────────
+   Строка слиплась, а на тёмной теме неактивная кнопка валюты пропадала. */
+#appWrapper .tariff-checkout-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+#appWrapper .tariff-checkout .plan-currency {
+  border-color: color-mix(in srgb, var(--on-ink) 28%, transparent);
+  background: color-mix(in srgb, var(--on-ink) 10%, transparent);
+}
+#appWrapper .tariff-checkout .plan-currency button {
+  color: var(--on-ink);
+}
+#appWrapper .tariff-checkout .plan-currency .active {
+  color: var(--ink-surface);
+  background: var(--on-ink);
+}
+
+/* ── 14.8 Поиск: режим настроек и мультивыбор стран ───────────────────────── */
+#appWrapper .filter-mode {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+  flex-wrap: wrap;
+}
+#appWrapper .filter-mode-btn {
+  min-height: var(--cab-control);
+  padding: 0 14px;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--cab-radius-small);
+  color: var(--muted);
+  background: var(--surface);
+  font-size: 13px;
+  font-weight: 600;
+}
+#appWrapper .filter-mode-btn.active {
+  border-color: var(--accent);
+  color: var(--on-accent);
+  background: var(--accent);
+}
+#appWrapper .filter-mode-note {
+  color: var(--muted);
+  font-size: 12px;
+}
+/* В авто-режиме поля заперты: видно, что значения не случайные, но правки
+   требуют осознанного нажатия «Вручную». */
+#appWrapper .search-filter-panel.is-auto .lead-filter-grid,
+#appWrapper .search-filter-panel.is-auto .filter-switches {
+  opacity: 0.72;
+}
+#appWrapper .field-wide {
+  grid-column: 1 / -1;
+}
+#appWrapper .region-picker {
+  width: 100%;
+}
+#appWrapper .region-picker-btn {
+  width: 100%;
+  min-height: var(--cab-control);
+  justify-content: flex-start;
+}
+#appWrapper .region-picker-item.active {
+  border-color: var(--accent);
+}
+
+/* ── 14.9 Альбом оффера ────────────────────────────────────────────────────
+   Владелец выбрал «альбом»: 2–10 картинок уходят лиду одним сообщением.
+   Плитки под загрузчиком показывают порядок кадров, первый помечен обложкой. */
+#appWrapper .offer-album {
+  display: grid;
+  gap: 8px;
+  margin-top: 10px;
+  grid-template-columns: repeat(auto-fill, minmax(84px, 1fr));
+}
+#appWrapper .offer-album-item {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--cab-radius-small);
+  background: var(--cab-fill);
+}
+#appWrapper .offer-album-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+#appWrapper .offer-album-del {
+  position: absolute;
+  top: 4px;
+  right: 4px;
+  display: grid;
+  width: 22px;
+  height: 22px;
+  place-items: center;
+  cursor: pointer;
+  border-radius: 50%;
+  color: var(--on-ink);
+  background: color-mix(in srgb, var(--cabp-well) 78%, transparent);
+  font-size: 11px;
+  line-height: 1;
+}
+#appWrapper .offer-album-cover {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 2px 6px;
+  color: var(--on-ink);
+  background: color-mix(in srgb, var(--cabp-well) 72%, transparent);
+  font-size: 10px;
+  text-align: center;
+}
+#appWrapper .offer-album-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  color: var(--on-ink);
+  background: color-mix(in srgb, var(--cabp-well) 78%, transparent);
+  font-size: 10.5px;
+  font-weight: 600;
+}
+/* Загрузчик — нажимаемый: курсор обязателен (просьба про курсоры). */
+#appWrapper .offer-upload,
+#appWrapper .offer-upload * {
+  cursor: pointer;
+}
+
+/* ── 14.10 Предпросмотр Telegram на светлой теме ──────────────────────────
+   Мок собран из цветов ТЁМНОЙ темы Telegram: чернильные обои, синий исходящий
+   пузырь, светло-серый текст. На светлой теме кабинета это выглядело чужим
+   скриншотом — «видишь как выглядит сообщение у лида, говняно выглядит на
+   светлой теме». Берём настоящую СВЕТЛУЮ палитру Telegram: голубоватые обои,
+   белый входящий, зеленоватый исходящий с тёмным текстом. */
+html[data-theme='light'] #appWrapper {
+  --tg-wall-a: var(--cabp-tg-wall-a);
+  --tg-wall-b: var(--cabp-tg-wall-b);
+  --tg-doodle: var(--cabp-tg-doodle);
+  --tg-header: var(--cabp-tg-header);
+  --tg-titlebar: var(--cabp-tg-header);
+  --tg-out: var(--cabp-tg-out);
+  --tg-out-tail: var(--cabp-tg-out-tail);
+  --tg-in: var(--cabp-tg-in);
+  --tg-text: var(--cabp-tg-text);
+  --tg-time: var(--cabp-tg-time);
+  --tg-time-in: var(--cabp-tg-time);
+  --tg-check: var(--cabp-tg-check);
+  --tg-blue: var(--cabp-tg-check);
+  --tg-sys: var(--cabp-tg-sys);
+}
+html[data-theme='light'] #appWrapper :is(.terminal, .ink-surface) {
+  --on-ink: var(--cabp-on-well);
+}
+/* Текст исходящего пузыря берём из палитры Telegram, а не из служебного
+   --on-ink: на светлой теме он серый и на пузыре читался плохо. */
+#appWrapper .tg-row.out .tg-bubble,
+#messages .chat-msg.out .cm-bubble {
+  color: var(--tg-text);
+}
+#appWrapper .tg-bubble-meta {
+  color: var(--tg-time);
+  opacity: 1;
+}
+
+/* ── 14.11 Настройки: воздух между блоками ─────────────────────────────────
+   «В настройках всё слиплено»: панели шли одна к другой, надпись-надзаголовок
+   («УВЕДОМЛЕНИЯ») прилипала к краю предыдущей карточки, текст объяснения — к
+   переключателю. Задаём один ритм: 16 px между карточками, 20 px внутри. */
+#appWrapper #settings > .panel,
+#appWrapper #settings > .grid-2 {
+  margin-bottom: 16px;
+}
+#appWrapper #settings > .panel {
+  padding: 20px 22px;
+}
+#appWrapper #settings .panel > .section-kicker,
+#appWrapper #settings .panel > .health-eyebrow {
+  display: block;
+  margin-bottom: 10px;
+}
+#appWrapper #settings .panel > h3 {
+  margin: 0 0 6px;
+}
+#appWrapper #settings .panel > p,
+#appWrapper #settings .panel > .field-hint {
+  margin: 0 0 16px;
+  max-width: 84ch;
+}
+#appWrapper #settings .mode-row {
+  margin-top: 0;
+}
+/* Блок «куда слать уведомления» относится к переключателю выше, но читался как
+   отдельная мысль без начала: отделяем линией и воздухом. */
+#appWrapper #settings .notify-target {
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid var(--cab-line-soft);
+}
+#appWrapper #settings .notify-target-row {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: minmax(0, 1fr) auto;
+}
+#appWrapper #settings .send-window-row,
+#appWrapper #settings .grid-2 > div > .list-card,
+#appWrapper #settings .grid-2 > div > .panel {
+  margin-bottom: 16px;
+}
+#appWrapper #settings .reply-heat-head {
+  margin-bottom: 10px;
+}
+#appWrapper #settings .key-add {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--cab-line-soft);
+}
+
+/* ── 14.12 Журнал: заголовок и «Очистить» в одну строку ────────────────────── */
+#appWrapper .log-panel-uniform > .panel-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+/* ── 14.13 Фильтры чата в одну строку ─────────────────────────────────────── */
+#messages .chat-filter {
+  white-space: nowrap;
+}
+
+/* ── 14.14 Всплывающие сообщения ниже кнопок шапки ─────────────────────────
+   Тосты поднялись наверх (просьба «системные сообщения сверху»), но легли
+   ровно на кнопки ИИ и уведомлений. Сдвигаем ниже их строки. */
+#toastWrap,
+body > .toast-wrap {
+  top: 70px;
+}
+
+/* ── 14.15 Касса тарифа на тёмной теме ─────────────────────────────────────
+   `.tariff-checkout` лежит на тёмной подложке (--ink-surface) и красит текст в
+   --on-ink. В нейтральной палитре кабинета --on-ink переопределён на ТЁМНЫЙ
+   (он нужен глифам внутри светлых акцентных заливок) — и вся касса стала
+   тёмной по тёмному: «К оплате, 25 000 ₸ не видно на тёмной теме». Возвращаем
+   кассе цвет для тёмной подложки, как это уже сделано для терминала. */
+#appWrapper .tariff-checkout {
+  --on-ink: var(--cabp-on-well);
+}
+
+/* ── 14.16 Заглушка аватара ────────────────────────────────────────────────
+   Когда фото в Telegram нет, в сайдбаре оставалась одна тёмная буква без
+   подложки («у меня темная с, без фона, фигово выглядит»). Кружок получает
+   контрастную заливку и центрирует букву; с фотографией всё остаётся как было. */
+#appWrapper .sidebar-session-avatar {
+  overflow: hidden;
+  border: 1px solid var(--cab-line);
+  color: var(--on-accent);
+  background-color: var(--accent);
+  background-position: center;
+  background-size: cover;
+  font-size: 12.5px;
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: 0;
+}
+/* Аватары в чате: инициалы на цветной подложке, а не прозрачная буква. */
+#messages .chat-ava:not(:has(img)) {
+  color: var(--on-accent);
+  background-color: color-mix(in srgb, var(--accent) 88%, var(--surface));
+  font-weight: 700;
+}

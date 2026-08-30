@@ -237,11 +237,13 @@ def test_real_http_offer_crud_keeps_exact_json_order_ownership_and_events(
     first = created.json()
     # created_by появилось вместе с сохранением офферов помощником: список
     # должен показывать, что текст написан не человеком.
-    assert set(first) == {"id", "name", "text", "image", "created_by", "created_at"}
+    assert set(first) == {"id", "name", "text", "image", "images", "created_by", "created_at"}
     assert first["created_by"] == "user"
     assert first["name"] == "N" * 200
     assert first["text"] == "Text one"
     assert first["image"] == image
+    # Одиночная картинка сохраняется и как альбом из одного кадра.
+    assert first["images"] == [image]
 
     second = client.post(
         "/api/offers",

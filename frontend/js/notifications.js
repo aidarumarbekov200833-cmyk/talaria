@@ -44,14 +44,20 @@ export function isUnreadEvent(event) {
   return !seen.ts || stamp(event?.created_at) > stamp(seen.ts);
 }
 
-/** Сколько непрочитанного: свежие события + непоказанные подсказки настройки. */
+/** Сколько непрочитанного: свежие события + все незакрытые задачи настройки.
+ *
+ *  Задачи настройки («Добавьте YouTube API») больше не гасятся открытием
+ *  списка: пока ключа нет, поиск не работает, и точка обязана мигать. Просьба
+ *  владельца: «уведомление всегда должно мигать, если уведомление типо
+ *  добавьте апи». Гаснет оно только когда задача действительно выполнена — тогда
+ *  бэкенд перестаёт её присылать.
+ */
 export function unreadCount() {
   const seen = readSeen();
   const events = snapshot.events.filter(
     (event) => !seen.ts || stamp(event.created_at) > stamp(seen.ts),
   );
-  const setup = snapshot.setup.filter((item) => !seen.setup.includes(item.id));
-  return events.length + setup.length;
+  return events.length + snapshot.setup.length;
 }
 
 function plural(count) {
@@ -97,8 +103,8 @@ export function markNotificationsSeen() {
     (top, event) => (stamp(event.created_at) > stamp(top) ? event.created_at : top),
     seen.ts,
   );
-  const setup = [...new Set([...seen.setup, ...snapshot.setup.map((item) => item.id)])];
-  writeSeen({ ts: newest || '', setup });
+  // Список задач настройки в отметке не запоминаем — см. unreadCount().
+  writeSeen({ ts: newest || '', setup: seen.setup });
   paintNotifBadge();
   const badge = document.getElementById('notifCount');
   if (badge && wasUnread > 0) {

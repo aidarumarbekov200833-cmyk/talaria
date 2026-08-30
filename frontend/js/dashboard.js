@@ -276,12 +276,21 @@ export async function loadActivity() {
 /** Выпадающий список уведомлений (колокольчик). Тоже из /api/events —
  *  никаких выдуманных «рассылка запущена». Первым блоком идут подсказки
  *  настройки, дальше события; индикатор считает только непрочитанное. */
+// Сколько событий показывает колокольчик. «Показать все» поднимает предел —
+// просьба владельца: «где уведы посмотреть все уведы».
+let notifLimit = 10;
+
+export async function showAllNotifications() {
+  notifLimit = 100;
+  await loadNotifications();
+}
+
 export async function loadNotifications() {
   const list = document.getElementById('notifList');
   if (!list || !getToken()) return;
   try {
     const [data, keysData, accountsData] = await Promise.all([
-      api('GET', '/api/events?limit=10'),
+      api('GET', `/api/events?limit=${notifLimit}`),
       api('GET', '/api/keys').catch(() => ({ keys: [] })),
       api('GET', '/api/warmup').catch(() => ({ accounts: [] })),
     ]);
@@ -338,6 +347,13 @@ export async function loadNotifications() {
       el.querySelector('p').textContent = ev.message;
       list.appendChild(el);
     });
+    const foot = document.createElement('div');
+    foot.className = 'dd-foot';
+    foot.innerHTML =
+      notifLimit > 10
+        ? `<span class="dd-foot-note">Показаны все за последнее время: ${events.length}</span>`
+        : '<button type="button" class="btn ghost dd-foot-btn" data-act="showAllNotifications">Посмотреть все</button>';
+    list.appendChild(foot);
   } catch (e) {
     console.log('Не удалось загрузить уведомления:', e.message);
   }

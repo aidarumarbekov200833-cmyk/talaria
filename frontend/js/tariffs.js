@@ -116,7 +116,7 @@ export function createTariffCardMarkup(plan, current, containerId) {
 // должны быть перед глазами вместе с честной границей пробного тарифа.
 const TRIAL_NOTE = `<div class="tariff-trial">
   <b>Сначала бесплатно, 14 дней</b>
-  <p>Поиск лидов на YouTube, сбор контактов и проверка в Telegram — без оплаты и без карты. Рассылка и нейрокомментинг на пробном тарифе выключены: сообщения уходят с ваших аккаунтов в чужие личные, и за это мы отвечаем только на платном.</p>
+  <p>Поиск лидов на YouTube, сбор контактов и проверка в Telegram — без оплаты и без карты. Рассылка на пробном тарифе выключена: сообщения уходят с ваших аккаунтов в чужие личные, и за это мы отвечаем только на платном.</p>
   <button type="button" class="btn ghost" data-telegram-login-trigger data-umami-event="tariff-trial">Начать бесплатно</button>
 </div>`;
 
@@ -351,7 +351,7 @@ function renderTrialBar(data) {
     const left = Number(data.trial_days_left || 0);
     const days = left === 1 ? 'день' : left >= 2 && left <= 4 ? 'дня' : 'дней';
     bar.className = 'trial-bar on';
-    bar.innerHTML = `<div><b>Пробный доступ · осталось ${left} ${days}</b><span>Поиск лидов, сбор контактов и проверка в Telegram работают полностью. Рассылка и нейрокомментинг выключены: сообщения уходят с ваших аккаунтов в чужие личные, и это только на платном тарифе.</span></div>${pay}`;
+    bar.innerHTML = `<div><b>Пробный доступ · осталось ${left} ${days}</b><span>Поиск лидов, сбор контактов и проверка в Telegram работают полностью. Рассылка выключена: сообщения уходят с ваших аккаунтов в чужие личные, и это только на платном тарифе.</span></div>${pay}`;
     bar.hidden = false;
     return;
   }

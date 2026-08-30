@@ -37,6 +37,10 @@ const state = {
   // и в шапке, а перезапрашивать картинку на каждую перерисовку — расточительно.
   images: new Map(),
   initialized: false,
+  // Что показывать в списке: группы/каналы и боты по умолчанию скрыты — в
+  // рабочем кабинете ищут человека, а не подписки.
+  showGroups: false,
+  showBots: false,
   // На какое сообщение отвечаем. Telegram без ответов читается плохо: в длинной
   // переписке непонятно, к какой строке относится «да, давайте».
   replyTo: null,
@@ -263,6 +267,7 @@ async function loadDialogs({ append = false } = {}) {
     state.dialogs = append ? state.dialogs.concat(body.items || []) : body.items || [];
     state.cursor = body.next || null;
     renderDialogs();
+    autoOpenFirstDialog();
     loadAvatars(body.items || []);
   } catch (error) {
     renderDialogsError(error);
@@ -333,8 +338,13 @@ async function loadHistory({ older = false } = {}) {
 
 function visibleDialogs() {
   const query = state.query.trim().toLowerCase();
-  if (!query) return state.dialogs;
-  return state.dialogs.filter(
+  const byKind = state.dialogs.filter((dialog) => {
+    if (dialog.kind === 'bot') return state.showBots;
+    if (dialog.kind === 'group' || dialog.kind === 'channel') return state.showGroups;
+    return true;
+  });
+  if (!query) return byKind;
+  return byKind.filter(
     (dialog) =>
       dialog.title.toLowerCase().includes(query) ||
       String(dialog.username || '')
@@ -721,6 +731,7 @@ export async function openChatDialog(peerId) {
 
 /** Отметка о прочтении уходит в настоящий Telegram, иначе счётчики разойдутся. */
 async function markRead(dialog) {
+  if (!dialog || !dialog.peer_id) return;
   if (!dialog.unread) return;
   try {
     await api('POST', '/api/chat/read', {
@@ -815,6 +826,58 @@ export async function loadOlderMessages() {
   }
 }
 
+/**
+ * Снять непрочитанные во всех загруженных диалогах.
+ *
+ * Владелец просил, чтобы непрочитанные не накапливались: их рост поднимает
+ * оценку риска аккаунта и мешает прогреву. Идём по одному с паузой — сорок
+ * одновременных read-запросов Telegram считает флудом.
+ */
+export async function markAllChatsRead() {
+  const targets = state.dialogs.filter((dialog) => Number(dialog.unread || 0) > 0);
+  const button = el('chatReadAllBtn');
+  if (!targets.length) {
+    toast('Непрочитанных нет', 'info');
+    return;
+  }
+  if (button) {
+    button.disabled = true;
+    button.textContent = `Читаем 0/${targets.length}`;
+  }
+  let done = 0;
+  for (const dialog of targets) {
+    try {
+      await api('POST', '/api/chat/read', {
+        peer_id: dialog.peer_id,
+        account_id: state.accountId,
+      });
+      dialog.unread = 0;
+      done += 1;
+      if (button) button.textContent = `Читаем ${done}/${targets.length}`;
+      renderDialogs();
+    } catch (_) {
+      // Один недоступный диалог не должен останавливать остальные.
+    }
+    await new Promise((resolve) => window.setTimeout(resolve, 120));
+  }
+  if (button) {
+    button.disabled = false;
+    button.textContent = 'Прочитать всё';
+  }
+  toast(
+    done ? `Отмечено прочитанными: ${done}` : 'Не удалось снять непрочитанные',
+    done ? 'success' : 'warn',
+  );
+}
+
+/** Открыть первый диалог сам, если ни один не выбран (на широком экране). */
+function autoOpenFirstDialog() {
+  if (state.peerId) return;
+  if (window.matchMedia('(max-width: 900px)').matches) return;
+  const first = visibleDialogs().slice().sort(dialogSort)[0];
+  if (first) openChatDialog(first.peer_id);
+}
+
 export async function reloadChat() {
   state.cursor = null;
   await loadDialogs({});
@@ -891,6 +954,39 @@ export async function initChat() {
   if (select) {
     select.addEventListener('change', () => switchChatAccount(select.value));
   }
+
+  // Галочки «группы и каналы» / «боты» помнятся между входами.
+  try {
+    const saved = JSON.parse(localStorage.getItem('talaria.chat-filters.v1') || 'null');
+    if (saved) {
+      state.showGroups = !!saved.groups;
+      state.showBots = !!saved.bots;
+    }
+  } catch (_) {
+    /* нет сохранённых настроек — остаются значения по умолчанию */
+  }
+  const groupsBox = el('chatShowGroups');
+  const botsBox = el('chatShowBots');
+  if (groupsBox) groupsBox.checked = state.showGroups;
+  if (botsBox) botsBox.checked = state.showBots;
+  [
+    [groupsBox, 'showGroups'],
+    [botsBox, 'showBots'],
+  ].forEach(([box, key]) => {
+    if (!box) return;
+    box.addEventListener('change', () => {
+      state[key] = box.checked;
+      try {
+        localStorage.setItem(
+          'talaria.chat-filters.v1',
+          JSON.stringify({ groups: state.showGroups, bots: state.showBots }),
+        );
+      } catch (_) {
+        /* приватный режим — настройка не запомнится */
+      }
+      renderDialogs();
+    });
+  });
 
   const feed = el('chatFeed');
   if (feed) feed.addEventListener('scroll', paintToBottom, { passive: true });

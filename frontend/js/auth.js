@@ -417,19 +417,46 @@ async function loadUserData() {
   ]);
 }
 
-export function enterApp(user) {
+// Признак «в этой вкладке кабинет уже открывали». Живёт в sessionStorage: при
+// F5 остаётся, при закрытии вкладки исчезает. Благодаря этому обновление
+// страницы возвращает в тот же раздел (просьба владельца), а первый заход на
+// сайт по-прежнему показывает лендинг — автовход остаётся запрещённым.
+const IN_APP_KEY = 'talaria_in_app';
+
+function markInApp(on) {
+  try {
+    if (on) sessionStorage.setItem(IN_APP_KEY, '1');
+    else sessionStorage.removeItem(IN_APP_KEY);
+  } catch (_) {
+    /* приватный режим: обновление вернёт на лендинг, это допустимо */
+  }
+}
+
+function wasInApp() {
+  try {
+    return sessionStorage.getItem(IN_APP_KEY) === '1';
+  } catch (_) {
+    return false;
+  }
+}
+
+export function enterApp(user, options = {}) {
   resetUnauthorized(); // новая сессия — снова разрешаем предупреждение о протухании
+  markInApp(true);
   initTheme(); // применить сохранённый шрифт и акцент рабочего пространства
   document.getElementById('loginScreen').classList.add('hidden');
   document.getElementById('appWrapper').classList.add('active');
   closeTelegramLoginDialog();
   applyUser(user);
   restoreLastSection();
+  const silent = !!options.silent;
   setTimeout(() => {
     animateCounters(); // тянет /api/stats, сам строит график и грузит ленту
     loadUserData(); // раньше грузились только офферы и кампании
     connectLive(); // живая лента событий по WebSocket
-    toast(user && user.name ? `Привет, ${user.name}!` : 'Успешный вход', 'success');
+    // При обновлении страницы (silent) здороваться заново не нужно: человек
+    // никуда не входил, он просто нажал F5.
+    if (!silent) toast(user && user.name ? `Привет, ${user.name}!` : 'Успешный вход', 'success');
     maybeShowOnboarding(); // покажется только при первом входе
   }, 400);
 }
@@ -441,6 +468,7 @@ export function logout() {
     api('POST', '/api/auth/logout').catch(() => {});
   }
   disconnectLive(); // закрыть WebSocket и перестать переподключаться
+  markInApp(false);
   clearToken();
   initTheme(); // гостевой лендинг: Talaria pink + Unbounded/JetBrains Mono
   applyAdminVisibility(false);
@@ -507,6 +535,14 @@ async function tryAutoLogin() {
     // кнопке — «Войти» вместо «Войти через Telegram».
     document.documentElement.dataset.session = 'warm';
     showWarmSessionChip(me);
+    if (wasInApp()) {
+      // Это обновление страницы внутри кабинета, а не заход на сайт: возвращаем
+      // человека туда же, где он был, без приветствия и без экрана входа.
+      warmSession = null;
+      delete document.documentElement.dataset.session;
+      enterApp(me, { silent: true });
+      return true;
+    }
     return false; // токен жив, но вход — только по клику
   } catch (_) {
     // Токен истёк или подписан другим секретом. Здесь это не «выкинуло», а

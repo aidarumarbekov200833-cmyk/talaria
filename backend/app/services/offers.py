@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import base64
 import binascii
+import json
 from collections.abc import Callable
 
 from sqlalchemy.orm import Session
@@ -60,6 +61,44 @@ def validated_image(value: str) -> str:
     return value
 
 
+MAX_ALBUM_IMAGES = 10
+
+
+def validated_album(values: list[str], validate_image_fn: Callable[[str], str]) -> list[str]:
+    """Проверить альбом: 1–10 картинок, каждая по тем же правилам, что одиночная.
+
+    Telegram отправляет альбомом не больше 10 файлов, поэтому лишние не режем
+    молча, а сообщаем — иначе человек не поймёт, почему лид получил меньше.
+    """
+    cleaned: list[str] = []
+    for value in values or []:
+        item = str(value or "").strip()
+        if not item:
+            continue
+        if item in cleaned:
+            continue
+        cleaned.append(validate_image_fn(item))
+    if len(cleaned) > MAX_ALBUM_IMAGES:
+        raise DomainError(400, f"В альбом можно вложить не больше {MAX_ALBUM_IMAGES} картинок")
+    return cleaned
+
+
+def album_of(offer: Offer) -> list[str]:
+    """Картинки оффера списком: альбом, а если его нет — одиночная картинка."""
+    raw = getattr(offer, "images", "") or ""
+    if isinstance(raw, str) and raw.strip():
+        try:
+            parsed = json.loads(raw)
+        except ValueError:
+            parsed = []
+        if isinstance(parsed, list):
+            items = [str(item) for item in parsed if item]
+            if items:
+                return items[:MAX_ALBUM_IMAGES]
+    single = (getattr(offer, "image", "") or "").strip()
+    return [single] if single else []
+
+
 def clamp_materials(value: object, fallback: int = 5) -> int:
     """Clamp the material count to the nearest supported value, lower on ties."""
     try:
@@ -110,11 +149,15 @@ def create_offer(
     вторую копию правил, которую однажды забудут обновить.
     """
     check_object_limit_fn(db, owner_id, "offers")
+    album = validated_album(data.images, validate_image_fn)
+    if not album and data.image:
+        album = [validate_image_fn(data.image)]
     offer = Offer(
         owner_id=owner_id,
         name=data.name[:200],
         text=data.text,
-        image=validate_image_fn(data.image),
+        image=album[0] if album else "",
+        images=json.dumps(album, ensure_ascii=False),
         # Ставим явно, а не полагаемся на умолчание колонки: значение нужно
         # ещё до вставки в базу, и подделать его снаружи нельзя — параметр
         # приходит из кода, а не из тела запроса.
@@ -153,11 +196,17 @@ def update_offer(
     offer = repository.get_offer(offer_id)
     if offer is None or offer.owner_id != owner_id:
         raise DomainError(404, "Не найдено")
-    next_image = validate_image_fn(data.image) if data.image else offer.image
+    if data.images:
+        album = validated_album(data.images, validate_image_fn)
+    elif data.image:
+        album = [validate_image_fn(data.image)]
+    else:
+        album = album_of(offer)
     try:
         offer.name = data.name[:200]
         offer.text = data.text
-        offer.image = next_image
+        offer.image = album[0] if album else ""
+        offer.images = json.dumps(album, ensure_ascii=False)
         repository.stage_update()
         db.commit()
         db.refresh(offer)
@@ -277,4 +326,6 @@ __all__ = [
     "save_ai_offer_settings",
     "update_offer",
     "validated_image",
+    "validated_album",
+    "album_of",
 ]
