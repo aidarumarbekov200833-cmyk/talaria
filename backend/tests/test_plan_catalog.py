@@ -70,7 +70,6 @@ EXPECTED_PLANS = {
         "max_warmup": 0,
         "ai": False,
         "ai_offer": False,
-        "neuro_comment": False,
         "features": [],
     },
     "pro": {
@@ -90,7 +89,6 @@ EXPECTED_PLANS = {
         "max_warmup": 5,
         "ai": True,
         "ai_offer": False,
-        "neuro_comment": False,
         "features": [
             'До 10 000 лидов в месяц',
             'До 2 000 отправок в месяц, 50 за запуск',
@@ -118,7 +116,6 @@ EXPECTED_PLANS = {
         "max_warmup": 20,
         "ai": True,
         "ai_offer": True,
-        "neuro_comment": True,
         "features": [
             'До 50 000 лидов в месяц',
             'До 10 000 отправок в месяц, 150 за запуск',
@@ -145,7 +142,6 @@ EXPECTED_PLANS = {
         "max_warmup": -1,
         "ai": True,
         "ai_offer": True,
-        "neuro_comment": True,
         "features": [
             'Безлимит лидов, баз и офферов; 50 000 отправок',
             'Неограниченный прогрев',
@@ -170,13 +166,12 @@ EXPECTED_PLANS = {
         "max_warmup": 1,
         "ai": False,
         "ai_offer": False,
-        "neuro_comment": False,
         "features": [
             'Поиск каналов по YouTube и сбор контактов',
             'До 1 000 лидов в месяц, 3 базы и 3 оффера',
             'Один аккаунт Telegram для проверки лидов',
             'Отправка сообщений недоступна',
-            'Нейрокомментинг и ИИ-помощник недоступны',
+            'ИИ-помощник недоступен',
         ],
     },
     "zephyr": {
@@ -196,7 +191,6 @@ EXPECTED_PLANS = {
         "max_warmup": -1,
         "ai": True,
         "ai_offer": True,
-        "neuro_comment": True,
         "features": [
             'Поиск и проверка лидов по YouTube',
             'Базы лидов, офферы и Telegram-рассылки',
@@ -205,7 +199,6 @@ EXPECTED_PLANS = {
             'Тепловая карта лучшего времени отправки',
             'Центр безопасности аккаунтов и автопауза',
             'ИИ-помощник по данным рабочего пространства',
-            'Нейрокомментинг: живые комментарии в чатах и каналах',
         ],
     },
 }
@@ -328,7 +321,6 @@ def test_catalog_snapshot_public_dicts_and_compatibility_identity() -> None:
         "ai": True,
         "ai_offer": True,
         "sending": True,
-        "neuro_comment": True,
         "features": [
             "Поиск и проверка лидов по YouTube",
             "Базы лидов, офферы и Telegram-рассылки",
@@ -337,7 +329,6 @@ def test_catalog_snapshot_public_dicts_and_compatibility_identity() -> None:
             "Тепловая карта лучшего времени отправки",
             "Центр безопасности аккаунтов и автопауза",
             "ИИ-помощник по данным рабочего пространства",
-            "Нейрокомментинг: живые комментарии в чатах и каналах",
         ],
     }
     assert plan_catalog.public_plan("zephyr") == expected_public

@@ -96,7 +96,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&amp;family=Poppins:wght@700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria9" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria11" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -228,7 +228,7 @@
                 <a class="ghost" href="#how">Как это летит ↓</a>
               </div>
               <p class="hero-free rv on" style="--d: 0.62s">
-                14 дней бесплатно, без карты. <span>Рассылка и нейрокомментинг — на платном.</span>
+                14 дней бесплатно, без карты. <span>Рассылка и ИИ-помощник — на платном.</span>
               </p>
               <div class="hero-snippet rv on" style="--d: 0.7s">
                 <div class="hero-snippet-head">
@@ -1384,24 +1384,6 @@
                 </svg>
                 <span>Рассылка</span>
               </div>
-              <div class="nav-item" data-target="neuro">
-                <svg
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  stroke-width="2"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                >
-                  <path
-                    d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-4-.9L3 21l1.9-4.6A8.4 8.4 0 013 11.5 8.4 8.4 0 0112 3a8.4 8.4 0 019 8.5z"
-                  />
-                  <circle cx="9" cy="11.5" r="1" />
-                  <circle cx="12" cy="11.5" r="1" />
-                  <circle cx="15" cy="11.5" r="1" />
-                </svg>
-                <span>Нейрокомментинг</span>
-              </div>
               <div class="nav-item" data-target="messages">
                 <svg
                   viewBox="0 0 24 24"
@@ -1568,24 +1550,6 @@
               <path d="M3 7l9 6 9-6" />
             </svg>
             <span>Рассылка</span>
-          </div>
-          <div class="nav-item" data-target="neuro">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-4-.9L3 21l1.9-4.6A8.4 8.4 0 013 11.5 8.4 8.4 0 0112 3a8.4 8.4 0 019 8.5z"
-              />
-              <circle cx="9" cy="11.5" r="1" />
-              <circle cx="12" cy="11.5" r="1" />
-              <circle cx="15" cy="11.5" r="1" />
-            </svg>
-            <span>Нейро</span>
           </div>
           <div class="nav-item" data-target="messages">
             <svg
@@ -2685,9 +2649,11 @@
                 </div>
               </div>
 
-              <!-- Правая панель: логи -->
-              <div>
-                <div class="panel" style="height: 100%; display: flex; flex-direction: column">
+              <!-- Правая колонка: журнал и проверка базы под ним (правка Samat: «проверку
+               сделай справа, под логами»). Журнал занимает свободную высоту, проверка
+               остаётся своего размера — низ колонки совпадает с левой. -->
+              <div class="side-stack">
+                <div class="panel log-panel-uniform">
                   <div class="panel-head" style="margin-bottom: 12px">
                     <h3>Логи процесса</h3>
                     <span class="link" data-act="clearParseLogs">Очистить</span>
@@ -2698,55 +2664,60 @@
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-
-            <div class="panel verification-panel" id="telegramVerificationPanel">
-              <div class="panel-head">
-                <div>
-                  <h3>Telegram-верификация базы</h3>
-                  <div class="field-hint">
-                    Шаг 2: ссылка проверяется через подключённые аккаунты. User сохраняется как
-                    получатель; у канала или бота ищется публичный контакт владельца в about и
-                    последних постах.
+                <div class="panel verification-panel" id="telegramVerificationPanel">
+                  <div class="panel-head">
+                    <div>
+                      <h3>Telegram-верификация базы</h3>
+                      <div class="field-hint">
+                        Шаг 2: ссылка проверяется через подключённые аккаунты. User сохраняется как
+                        получатель; у канала или бота ищется публичный контакт владельца в about и
+                        последних постах.
+                      </div>
+                    </div>
+                    <span class="pipeline-badge" id="verificationStatus">Выберите базу</span>
                   </div>
-                </div>
-                <span class="pipeline-badge" id="verificationStatus">Выберите базу</span>
-              </div>
-              <div class="verify-toolbar">
-                <div class="field">
-                  <label>База YouTube-каналов</label
-                  ><select id="verificationDatabase">
-                    <option value="">Выберите базу…</option>
-                  </select>
-                </div>
-                <div class="verify-live" id="verificationCurrent">
-                  <span class="verify-live-dot"></span>
-                  <div><b>Готово к запуску</b><small>Проверка продолжится в фоне</small></div>
-                </div>
-                <div class="verify-actions">
-                  <button
-                    class="btn ghost"
-                    id="verificationCancelBtn"
-                    data-act="cancelTelegramVerification"
-                    hidden
-                  >
-                    Остановить
-                  </button>
-                  <button class="btn" id="verificationRunBtn" data-act="runTelegramVerification">
-                    Проверить всю базу
-                  </button>
-                </div>
-              </div>
-              <div class="verify-progress"><i id="verificationProgressBar"></i></div>
-              <div class="verify-kpis" id="verificationKpis">
-                <span><b>0</b> каналов</span><span><b>0</b> подтверждено</span
-                ><span><b>0</b> ожидает</span><span><b>0</b> без контакта</span>
-              </div>
-              <div class="verification-results" id="verificationResults">
-                <div class="dd-empty">
-                  Выберите базу и нажмите одну кнопку — дальше Talaria сам проверит все каналы и
-                  будет сохранять найденных пользователей.
+                  <div class="verify-toolbar">
+                    <div class="field">
+                      <label>База YouTube-каналов</label
+                      ><select id="verificationDatabase">
+                        <option value="">Выберите базу…</option>
+                      </select>
+                    </div>
+                    <div class="verify-live" id="verificationCurrent">
+                      <span class="verify-live-dot"></span>
+                      <div class="verify-live-copy">
+                        <b>Готово к запуску</b><small>Проверка продолжится в фоне</small>
+                      </div>
+                    </div>
+                    <div class="verify-actions">
+                      <button
+                        class="btn ghost"
+                        id="verificationCancelBtn"
+                        data-act="cancelTelegramVerification"
+                        hidden
+                      >
+                        Остановить
+                      </button>
+                      <button
+                        class="btn"
+                        id="verificationRunBtn"
+                        data-act="runTelegramVerification"
+                      >
+                        Проверить всю базу
+                      </button>
+                    </div>
+                  </div>
+                  <div class="verify-progress"><i id="verificationProgressBar"></i></div>
+                  <div class="verify-kpis" id="verificationKpis">
+                    <span><b>0</b> каналов</span><span><b>0</b> подтверждено</span
+                    ><span><b>0</b> ожидает</span><span><b>0</b> без контакта</span>
+                  </div>
+                  <div class="verification-results" id="verificationResults">
+                    <div class="dd-empty">
+                      Выберите базу и нажмите одну кнопку — дальше Talaria сам проверит все каналы и
+                      будет сохранять найденных пользователей.
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -3044,7 +3015,7 @@
               <div class="offer-side">
                 <!-- Логи в том же виде, что на поиске и рассылке — один терминал на весь сайт,
                  а не три разных вида журнала. -->
-                <div class="panel">
+                <div class="panel log-panel-uniform">
                   <div class="panel-head">
                     <h3>Логи процесса</h3>
                     <span
@@ -3395,16 +3366,13 @@
                 </div>
               </div>
 
-              <div class="log-panel terminal-panel campaign-log-panel">
-                <div class="log-panel-head">
-                  <span>Логи</span>
-                  <span class="log-scope">Рассылки</span>
+              <div class="panel log-panel-uniform campaign-log-panel">
+                <div class="panel-head" style="margin-bottom: 12px">
+                  <h3>Логи процесса</h3>
+                  <span class="link" data-act="clearCampaignLog">Очистить</span>
                 </div>
                 <div class="terminal" id="campaignLogs">
                   <div class="terminal-line terminal-info">Здесь появится ход отправки.</div>
-                </div>
-                <div class="log-panel-foot">
-                  <span class="link" data-act="clearCampaignLog">Очистить</span>
                 </div>
               </div>
             </div>
@@ -3565,91 +3533,6 @@
           <!-- Переписка Telegram. Две колонки: слева диалоги, справа лента.
            На телефоне колонки не помещаются рядом, поэтому раздел работает как
            сам Telegram — список, затем чат поверх него, назад по стрелке. -->
-          <section class="section" id="neuro">
-            <div class="topbar">
-              <div>
-                <div class="page-title">Нейрокомментинг</div>
-                <div class="page-sub">
-                  Живые комментарии под постами в чатах и каналах. Работает отдельно от рассылки.
-                </div>
-              </div>
-              <div class="topbar-right">
-                <button class="btn ghost" data-act="reloadNeuro">Обновить</button>
-                <button class="btn" id="neuroStartBtn" data-act="startNeuro">Запустить</button>
-              </div>
-            </div>
-
-            <!-- Замок пробного тарифа. Ставится из /api/subscription: пустой
-                 блок ничего не занимает, поэтому разметка одна на оба случая. -->
-            <div class="plan-lock" data-plan-lock hidden></div>
-
-            <!-- Общий дневной лимит аккаунта. Один счётчик, а не два: в Telegram
-                 репутация общая на аккаунт, и делить её по фичам значило бы
-                 показывать человеку неправду. -->
-            <div class="panel neuro-budget" id="neuroBudget"></div>
-
-            <div class="neuro-grid">
-              <div class="panel">
-                <h3 class="panel-title">Площадки</h3>
-                <p class="panel-sub">
-                  Комментируем только там, где аккаунт уже состоит участником. Вступление —
-                  отдельная кнопка: массовые вступления быстрее всего приводят к блокировке.
-                </p>
-                <div class="neuro-add">
-                  <input
-                    id="neuroTargetInput"
-                    placeholder="@имя_канала или @имя_чата"
-                    autocomplete="off"
-                  />
-                  <button class="btn ghost" data-act="addNeuroTarget">Добавить</button>
-                </div>
-                <div class="neuro-add">
-                  <input
-                    id="neuroSearchInput"
-                    placeholder="Поиск площадок по теме…"
-                    autocomplete="off"
-                  />
-                  <button class="btn ghost" data-act="searchNeuroTargets">Найти</button>
-                </div>
-                <div class="neuro-list" id="neuroSearchResults" hidden></div>
-                <div class="neuro-list" id="neuroTargets"></div>
-              </div>
-
-              <div class="panel">
-                <h3 class="panel-title">Настройка</h3>
-                <p class="panel-sub">
-                  Контекст идёт в подсказку модели, а не вставляется в текст дословно.
-                </p>
-                <label class="field">
-                  <span>Кто вы и о чём пишете</span>
-                  <textarea
-                    id="neuroPersona"
-                    rows="4"
-                    placeholder="Например: делаю сервис поиска клиентов через YouTube"
-                  ></textarea>
-                </label>
-                <label class="field">
-                  <span>Ссылка (необязательно)</span>
-                  <input id="neuroLink" placeholder="https://…" autocomplete="off" />
-                </label>
-                <label class="field">
-                  <span>Комментариев в день</span>
-                  <input id="neuroDailyLimit" type="number" min="1" max="40" value="8" />
-                </label>
-                <div class="neuro-actions">
-                  <button class="btn ghost" data-act="saveNeuroRun">Сохранить</button>
-                  <button class="btn ghost" data-act="previewNeuroComment">Предпросмотр</button>
-                </div>
-                <div class="neuro-preview" id="neuroPreview" hidden></div>
-              </div>
-            </div>
-
-            <div class="panel">
-              <h3 class="panel-title">Журнал</h3>
-              <div class="neuro-list" id="neuroLog"></div>
-            </div>
-          </section>
-
           <section class="section" id="messages">
             <div class="topbar">
               <div>

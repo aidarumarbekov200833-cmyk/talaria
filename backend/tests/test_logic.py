@@ -85,7 +85,6 @@ def test_public_plan_hides_internal_fields():
         "ai",
         "ai_offer",
         "sending",
-        "neuro_comment",
         "features",
     }
 

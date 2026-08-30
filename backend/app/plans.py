@@ -133,15 +133,6 @@ def ai_offer_allowed(db: Session, owner_id: int) -> bool:
     )
 
 
-def neuro_allowed(db: Session, owner_id: int) -> bool:
-    return _service_module().neuro_allowed(
-        db,
-        owner_id,
-        effective_plan_slug_fn=effective_plan_slug,
-        get_plan_fn=get_plan,
-    )
-
-
 def start_trial(db: Session, owner_id: int) -> bool:
     return _service_module().start_trial(
         db,

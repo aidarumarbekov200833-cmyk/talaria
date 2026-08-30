@@ -165,20 +165,6 @@ import {
   cancelTelegramVerification,
 } from './search.js?v=zephyr1';
 
-import {
-  initNeuro,
-  reloadNeuro,
-  addNeuroTarget,
-  addFoundNeuroTarget,
-  searchNeuroTargets,
-  joinNeuroTarget,
-  setNeuroTargetStatus,
-  deleteNeuroTarget,
-  saveNeuroRun,
-  previewNeuroComment,
-  startNeuro,
-} from './neuro.js?v=neuro1';
-
 /* Модалка оффера должна сбрасывать режим редактирования при открытии. */
 function openModalWithReset(id) {
   resetOfferModal(id);
@@ -186,17 +172,6 @@ function openModalWithReset(id) {
 }
 
 Object.assign(window, {
-  // Нейрокомментинг
-  reloadNeuro,
-  addNeuroTarget,
-  addFoundNeuroTarget,
-  searchNeuroTargets,
-  joinNeuroTarget,
-  setNeuroTargetStatus,
-  deleteNeuroTarget,
-  saveNeuroRun,
-  previewNeuroComment,
-  startNeuro,
   // UI
   // Переписка
   initChat,
@@ -349,7 +324,6 @@ function boot() {
   // Делегирование действий разметки включаем первым: до него ни одна кнопка
   // с data-act не работает.
   initActions();
-  initNeuro();
   initTheme();
   initDashboardDynamics();
   initPolish();

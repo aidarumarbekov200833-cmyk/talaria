@@ -33,7 +33,6 @@ from .routers import (
     chat,
     events,
     leads,
-    neuro,
     offers,
     search,
     stats,
@@ -456,7 +455,6 @@ app.include_router(stats.router)
 app.include_router(search.router)
 app.include_router(leads.router)
 app.include_router(warmup.router)
-app.include_router(neuro.router)
 app.include_router(ai.router)
 app.include_router(admin.router)
 app.include_router(metrics_router.router)

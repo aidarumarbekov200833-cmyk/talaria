@@ -154,51 +154,34 @@
     "tag": "body"
   },
   {
-    "classes": [
-      "toast-wrap"
-    ],
+    "classes": ["toast-wrap"],
     "id": "toastWrap",
     "tag": "div"
   },
   {
-    "classes": [
-      "overlay-soft"
-    ],
+    "classes": ["overlay-soft"],
     "id": "drawerOverlay",
     "tag": "div"
   },
   {
-    "classes": [
-      "login-screen"
-    ],
+    "classes": ["login-screen"],
     "id": "loginScreen",
     "tag": "div"
   },
   {
-    "classes": [
-      "login-page",
-      "zd-page"
-    ],
+    "classes": ["login-page", "zd-page"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lp-nav",
-      "zd-nav"
-    ],
+    "classes": ["lp-nav", "zd-nav"],
     "tag": "header"
   },
   {
-    "classes": [
-      "nav-in"
-    ],
+    "classes": ["nav-in"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-side",
-      "nav-left"
-    ],
+    "classes": ["nav-side", "nav-left"],
     "tag": "nav"
   },
   {
@@ -218,16 +201,11 @@
     "tag": "a"
   },
   {
-    "classes": [
-      "brand",
-      "landing-brand"
-    ],
+    "classes": ["brand", "landing-brand"],
     "tag": "a"
   },
   {
-    "classes": [
-      "tl-logo"
-    ],
+    "classes": ["tl-logo"],
     "tag": "svg"
   },
   {
@@ -264,48 +242,32 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "landing-brand-name"
-    ],
+    "classes": ["landing-brand-name"],
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-side",
-      "nav-right"
-    ],
+    "classes": ["nav-side", "nav-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tswitch",
-      "landing-theme-toggle"
-    ],
+    "classes": ["tswitch", "landing-theme-toggle"],
     "id": "tsw",
     "tag": "button"
   },
   {
-    "classes": [
-      "landing-theme-moon"
-    ],
+    "classes": ["landing-theme-moon"],
     "tag": "svg"
   },
   {
@@ -313,9 +275,7 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "landing-theme-sun"
-    ],
+    "classes": ["landing-theme-sun"],
     "tag": "svg"
   },
   {
@@ -327,10 +287,7 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "cta",
-      "lp-nav-cta"
-    ],
+    "classes": ["cta", "lp-nav-cta"],
     "data-telegram-login-trigger": {
       "present": true,
       "value": null
@@ -339,30 +296,22 @@
     "tag": "a"
   },
   {
-    "classes": [
-      "lp-nav-ava"
-    ],
+    "classes": ["lp-nav-ava"],
     "id": "navLoginAva",
     "tag": "span"
   },
   {
-    "classes": [
-      "lp-nav-cta-label"
-    ],
+    "classes": ["lp-nav-cta-label"],
     "id": "navLoginLabel",
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-main"
-    ],
+    "classes": ["zp-main"],
     "id": "zdTop",
     "tag": "main"
   },
   {
-    "classes": [
-      "zp-hero"
-    ],
+    "classes": ["zp-hero"],
     "id": "top",
     "tag": "section"
   },
@@ -376,11 +325,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "mono",
-      "rv",
-      "on"
-    ],
+    "classes": ["mono", "rv", "on"],
     "tag": "div"
   },
   {
@@ -388,9 +333,7 @@
     "tag": "h1"
   },
   {
-    "classes": [
-      "ln"
-    ],
+    "classes": ["ln"],
     "tag": "span"
   },
   {
@@ -398,9 +341,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "ln"
-    ],
+    "classes": ["ln"],
     "tag": "span"
   },
   {
@@ -408,9 +349,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "ln"
-    ],
+    "classes": ["ln"],
     "tag": "span"
   },
   {
@@ -418,30 +357,19 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "pinkt"
-    ],
+    "classes": ["pinkt"],
     "tag": "span"
   },
   {
-    "classes": [
-      "rv",
-      "on"
-    ],
+    "classes": ["rv", "on"],
     "tag": "p"
   },
   {
-    "classes": [
-      "hbtns",
-      "rv",
-      "on"
-    ],
+    "classes": ["hbtns", "rv", "on"],
     "tag": "div"
   },
   {
-    "classes": [
-      "cta"
-    ],
+    "classes": ["cta"],
     "data-telegram-login-trigger": {
       "present": true,
       "value": null
@@ -449,17 +377,11 @@
     "tag": "a"
   },
   {
-    "classes": [
-      "ghost"
-    ],
+    "classes": ["ghost"],
     "tag": "a"
   },
   {
-    "classes": [
-      "hero-free",
-      "rv",
-      "on"
-    ],
+    "classes": ["hero-free", "rv", "on"],
     "tag": "p"
   },
   {
@@ -467,49 +389,32 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "hero-snippet",
-      "rv",
-      "on"
-    ],
+    "classes": ["hero-snippet", "rv", "on"],
     "tag": "div"
   },
   {
-    "classes": [
-      "hero-snippet-head"
-    ],
+    "classes": ["hero-snippet-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "mono"
-    ],
+    "classes": ["mono"],
     "tag": "span"
   },
   {
-    "classes": [
-      "mono"
-    ],
+    "classes": ["mono"],
     "tag": "span"
   },
   {
-    "classes": [
-      "hero-snippet-body"
-    ],
+    "classes": ["hero-snippet-body"],
     "tag": "p"
   },
   {
-    "classes": [
-      "tg-login-slot",
-      "zd-legacy-login-slot"
-    ],
+    "classes": ["tg-login-slot", "zd-legacy-login-slot"],
     "id": "tg-widget-container",
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-btn"
-    ],
+    "classes": ["tg-btn"],
     "data-telegram-login-trigger": {
       "present": true,
       "value": null
@@ -518,628 +423,41 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "tg-btn"
-    ],
+    "classes": ["tg-btn"],
     "id": "demoLoginBtn",
     "tag": "button"
   },
   {
-    "classes": [
-      "login-hint"
-    ],
+    "classes": ["login-hint"],
     "id": "loginHint",
     "tag": "p"
   },
   {
-    "classes": [
-      "hero-login-fallback-end"
-    ],
+    "classes": ["hero-login-fallback-end"],
     "tag": "div"
   },
   {
-    "classes": [
-      "hero-art",
-      "rv",
-      "on"
-    ],
+    "classes": ["hero-art", "rv", "on"],
     "tag": "div"
   },
   {
-    "classes": [
-      "hero-plate"
-    ],
+    "classes": ["hero-plate"],
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-stats"
-    ],
-    "id": "pulse",
+    "classes": ["zp-control-grid"],
     "tag": "section"
   },
   {
-    "classes": [
-      "wrap"
-    ],
+    "classes": ["wrap"],
     "tag": "div"
   },
   {
-    "classes": [
-      "shead",
-      "rv"
-    ],
+    "classes": ["rv"],
     "tag": "div"
   },
   {
-    "classes": [
-      "mono"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h2"
-  },
-  {
-    "classes": [
-      "pulse-g"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "live-dot"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [
-      "bignum"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "bigsub"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "minirow"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "mini"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "mini"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "mini"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "pulse-note"
-    ],
-    "id": "publicStatsStatus",
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "pulse-note"
-    ],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "feed",
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "feed-h"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "live-dot"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [
-      "feed-b"
-    ],
-    "id": "feedB",
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fun"
-    ],
-    "id": "funList",
-    "tag": "ol"
-  },
-  {
-    "classes": [
-      "fun-row"
-    ],
-    "tag": "li"
-  },
-  {
-    "classes": [
-      "fun-k"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fun-bar"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [
-      "fun-v"
-    ],
-    "tag": "b"
-  },
-  {
-    "classes": [
-      "fun-row"
-    ],
-    "tag": "li"
-  },
-  {
-    "classes": [
-      "fun-k"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fun-bar"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [
-      "fun-v"
-    ],
-    "tag": "b"
-  },
-  {
-    "classes": [
-      "fun-row"
-    ],
-    "tag": "li"
-  },
-  {
-    "classes": [
-      "fun-k"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fun-bar"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [
-      "fun-v"
-    ],
-    "tag": "b"
-  },
-  {
-    "classes": [
-      "fun-row"
-    ],
-    "tag": "li"
-  },
-  {
-    "classes": [
-      "fun-k"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fun-bar"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [
-      "fun-v"
-    ],
-    "tag": "b"
-  },
-  {
-    "classes": [
-      "fun-note"
-    ],
-    "id": "funnelNote",
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "zp-capabilities"
-    ],
-    "id": "features",
-    "tag": "section"
-  },
-  {
-    "classes": [
-      "wrap"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "shead",
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "mono"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h2"
-  },
-  {
-    "classes": [
-      "fgrid"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fcard",
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fim"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fplate",
-      "fplate-art",
-      "fplate-score"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fb"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fn"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "fcard",
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fim"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fplate",
-      "fplate-art",
-      "fplate-context"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fb"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fn"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "fcard",
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fim"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fplate",
-      "fplate-art",
-      "fplate-intro"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fb"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fn"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "fcard",
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fim"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fplate",
-      "fplate-art",
-      "fplate-pace"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fb"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fn"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "fcard",
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fim"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fplate",
-      "fplate-art",
-      "fplate-ledger"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fb"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fn"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "fcard",
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fim"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fplate",
-      "fplate-art",
-      "fplate-funnel"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "fb"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "fn"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "zp-control-grid"
-    ],
-    "tag": "section"
-  },
-  {
-    "classes": [
-      "wrap"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "rv"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "mono"
-    ],
+    "classes": ["mono"],
     "tag": "span"
   },
   {
@@ -1151,9 +469,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "dlist"
-    ],
+    "classes": ["dlist"],
     "tag": "ul"
   },
   {
@@ -1161,9 +477,7 @@
     "tag": "li"
   },
   {
-    "classes": [
-      "dchk"
-    ],
+    "classes": ["dchk"],
     "tag": "span"
   },
   {
@@ -1179,9 +493,7 @@
     "tag": "li"
   },
   {
-    "classes": [
-      "dchk"
-    ],
+    "classes": ["dchk"],
     "tag": "span"
   },
   {
@@ -1197,9 +509,7 @@
     "tag": "li"
   },
   {
-    "classes": [
-      "dchk"
-    ],
+    "classes": ["dchk"],
     "tag": "span"
   },
   {
@@ -1215,74 +525,47 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "ghost"
-    ],
+    "classes": ["ghost"],
     "tag": "a"
   },
   {
-    "classes": [
-      "ph-stage",
-      "rv"
-    ],
+    "classes": ["ph-stage", "rv"],
     "tag": "div"
   },
   {
-    "classes": [
-      "phone"
-    ],
+    "classes": ["phone"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ph-key",
-      "ph-key-mute"
-    ],
+    "classes": ["ph-key", "ph-key-mute"],
     "tag": "span"
   },
   {
-    "classes": [
-      "ph-key",
-      "ph-key-up"
-    ],
+    "classes": ["ph-key", "ph-key-up"],
     "tag": "span"
   },
   {
-    "classes": [
-      "ph-key",
-      "ph-key-down"
-    ],
+    "classes": ["ph-key", "ph-key-down"],
     "tag": "span"
   },
   {
-    "classes": [
-      "ph-key",
-      "ph-key-power"
-    ],
+    "classes": ["ph-key", "ph-key-power"],
     "tag": "span"
   },
   {
-    "classes": [
-      "ph-scr"
-    ],
+    "classes": ["ph-scr"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ph-island"
-    ],
+    "classes": ["ph-island"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ph-cam"
-    ],
+    "classes": ["ph-cam"],
     "tag": "i"
   },
   {
-    "classes": [
-      "ph-status"
-    ],
+    "classes": ["ph-status"],
     "tag": "div"
   },
   {
@@ -1291,15 +574,11 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "ph-sig"
-    ],
+    "classes": ["ph-sig"],
     "tag": "span"
   },
   {
-    "classes": [
-      "ph-i"
-    ],
+    "classes": ["ph-i"],
     "tag": "svg"
   },
   {
@@ -1319,9 +598,7 @@
     "tag": "rect"
   },
   {
-    "classes": [
-      "ph-i"
-    ],
+    "classes": ["ph-i"],
     "tag": "svg"
   },
   {
@@ -1337,9 +614,7 @@
     "tag": "circle"
   },
   {
-    "classes": [
-      "ph-bat"
-    ],
+    "classes": ["ph-bat"],
     "tag": "span"
   },
   {
@@ -1347,16 +622,12 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "ph-notice"
-    ],
+    "classes": ["ph-notice"],
     "id": "phNotice",
     "tag": "div"
   },
   {
-    "classes": [
-      "ph-notice-mark"
-    ],
+    "classes": ["ph-notice-mark"],
     "tag": "span"
   },
   {
@@ -1376,9 +647,7 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "ph-notice-copy"
-    ],
+    "classes": ["ph-notice-copy"],
     "tag": "span"
   },
   {
@@ -1394,15 +663,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "tg-head"
-    ],
+    "classes": ["tg-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-back"
-    ],
+    "classes": ["tg-back"],
     "tag": "span"
   },
   {
@@ -1414,15 +679,11 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "tg-unread"
-    ],
+    "classes": ["tg-unread"],
     "tag": "i"
   },
   {
-    "classes": [
-      "tg-title"
-    ],
+    "classes": ["tg-title"],
     "tag": "div"
   },
   {
@@ -1435,28 +696,20 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "tg-ava"
-    ],
+    "classes": ["tg-ava"],
     "tag": "span"
   },
   {
-    "classes": [
-      "tg-body"
-    ],
+    "classes": ["tg-body"],
     "id": "chat",
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-input"
-    ],
+    "classes": ["tg-input"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-clip"
-    ],
+    "classes": ["tg-clip"],
     "tag": "span"
   },
   {
@@ -1468,15 +721,11 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "fld"
-    ],
+    "classes": ["fld"],
     "tag": "span"
   },
   {
-    "classes": [
-      "tg-sticker"
-    ],
+    "classes": ["tg-sticker"],
     "tag": "span"
   },
   {
@@ -1492,9 +741,7 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "tg-mic"
-    ],
+    "classes": ["tg-mic"],
     "tag": "span"
   },
   {
@@ -1510,35 +757,24 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "ph-home"
-    ],
+    "classes": ["ph-home"],
     "tag": "div"
   },
   {
-    "classes": [
-      "zp-workflow"
-    ],
-    "id": "how",
+    "classes": ["zp-capabilities"],
+    "id": "features",
     "tag": "section"
   },
   {
-    "classes": [
-      "wrap"
-    ],
+    "classes": ["wrap"],
     "tag": "div"
   },
   {
-    "classes": [
-      "shead",
-      "rv"
-    ],
+    "classes": ["shead", "rv"],
     "tag": "div"
   },
   {
-    "classes": [
-      "mono"
-    ],
+    "classes": ["mono"],
     "tag": "span"
   },
   {
@@ -1546,28 +782,212 @@
     "tag": "h2"
   },
   {
-    "classes": [
-      "aw-swipe-hint"
-    ],
+    "classes": ["fgrid"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fcard", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fim"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fplate", "fplate-art", "fplate-score"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fb"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fn"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
     "tag": "p"
   },
   {
-    "classes": [
-      "appwin-scale",
-      "rv"
-    ],
+    "classes": ["fcard", "rv"],
     "tag": "div"
   },
   {
-    "classes": [
-      "aw-frame"
-    ],
+    "classes": ["fim"],
     "tag": "div"
   },
   {
-    "classes": [
-      "aw-frame-tag"
-    ],
+    "classes": ["fplate", "fplate-art", "fplate-context"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fb"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fn"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["fcard", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fim"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fplate", "fplate-art", "fplate-intro"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fb"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fn"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["fcard", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fim"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fplate", "fplate-art", "fplate-pace"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fb"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fn"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["fcard", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fim"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fplate", "fplate-art", "fplate-ledger"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fb"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fn"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["fcard", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fim"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fplate", "fplate-art", "fplate-funnel"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fb"],
+    "tag": "div"
+  },
+  {
+    "classes": ["fn"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["zp-workflow"],
+    "id": "how",
+    "tag": "section"
+  },
+  {
+    "classes": ["wrap"],
+    "tag": "div"
+  },
+  {
+    "classes": ["shead", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["mono"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h2"
+  },
+  {
+    "classes": ["aw-swipe-hint"],
+    "tag": "p"
+  },
+  {
+    "classes": ["appwin-scale", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["aw-frame"],
+    "tag": "div"
+  },
+  {
+    "classes": ["aw-frame-tag"],
     "tag": "div"
   },
   {
@@ -1579,15 +999,11 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "appwin"
-    ],
+    "classes": ["appwin"],
     "tag": "div"
   },
   {
-    "classes": [
-      "aw-bar"
-    ],
+    "classes": ["aw-bar"],
     "tag": "div"
   },
   {
@@ -1603,15 +1019,11 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "aw-url"
-    ],
+    "classes": ["aw-url"],
     "tag": "span"
   },
   {
-    "classes": [
-      "awcur"
-    ],
+    "classes": ["awcur"],
     "id": "awCur",
     "tag": "div"
   },
@@ -1624,28 +1036,19 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "app",
-      "aw-app"
-    ],
+    "classes": ["app", "aw-app"],
     "tag": "div"
   },
   {
-    "classes": [
-      "sidebar"
-    ],
+    "classes": ["sidebar"],
     "tag": "aside"
   },
   {
-    "classes": [
-      "brand"
-    ],
+    "classes": ["brand"],
     "tag": "div"
   },
   {
-    "classes": [
-      "brand-mark"
-    ],
+    "classes": ["brand-mark"],
     "tag": "div"
   },
   {
@@ -1661,21 +1064,15 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
@@ -1683,39 +1080,27 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "brand-name"
-    ],
+    "classes": ["brand-name"],
     "tag": "div"
   },
   {
-    "classes": [
-      "brand-tag"
-    ],
+    "classes": ["brand-tag"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav"
-    ],
+    "classes": ["nav"],
     "tag": "nav"
   },
   {
-    "classes": [
-      "nav-group"
-    ],
+    "classes": ["nav-group"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-group-label"
-    ],
+    "classes": ["nav-group-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "tag": "div"
   },
   {
@@ -1743,10 +1128,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item",
-      "active"
-    ],
+    "classes": ["nav-item", "active"],
     "tag": "div"
   },
   {
@@ -1766,15 +1148,11 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-count"
-    ],
+    "classes": ["nav-count"],
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "tag": "div"
   },
   {
@@ -1798,27 +1176,19 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-count"
-    ],
+    "classes": ["nav-count"],
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-group"
-    ],
+    "classes": ["nav-group"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-group-label"
-    ],
+    "classes": ["nav-group-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "tag": "div"
   },
   {
@@ -1838,15 +1208,11 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-count"
-    ],
+    "classes": ["nav-count"],
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "tag": "div"
   },
   {
@@ -1866,27 +1232,19 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-count"
-    ],
+    "classes": ["nav-count"],
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-group"
-    ],
+    "classes": ["nav-group"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-group-label"
-    ],
+    "classes": ["nav-group-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "tag": "div"
   },
   {
@@ -1906,21 +1264,15 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "sidebar-foot"
-    ],
+    "classes": ["sidebar-foot"],
     "tag": "div"
   },
   {
-    "classes": [
-      "aw-quota"
-    ],
+    "classes": ["aw-quota"],
     "tag": "div"
   },
   {
-    "classes": [
-      "aw-quota-top"
-    ],
+    "classes": ["aw-quota-top"],
     "tag": "div"
   },
   {
@@ -1932,9 +1284,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "aw-quota-bar"
-    ],
+    "classes": ["aw-quota-bar"],
     "tag": "div"
   },
   {
@@ -1942,21 +1292,15 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "sidebar-session"
-    ],
+    "classes": ["sidebar-session"],
     "tag": "div"
   },
   {
-    "classes": [
-      "sidebar-ava"
-    ],
+    "classes": ["sidebar-ava"],
     "tag": "span"
   },
   {
-    "classes": [
-      "sidebar-session-copy"
-    ],
+    "classes": ["sidebar-session-copy"],
     "tag": "span"
   },
   {
@@ -1968,28 +1312,19 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "sidebar-live"
-    ],
+    "classes": ["sidebar-live"],
     "tag": "i"
   },
   {
-    "classes": [
-      "main"
-    ],
+    "classes": ["main"],
     "tag": "main"
   },
   {
-    "classes": [
-      "aw-scene",
-      "on"
-    ],
+    "classes": ["aw-scene", "on"],
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -1997,27 +1332,19 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "dashboard-clock"
-    ],
+    "classes": ["dashboard-clock"],
     "tag": "span"
   },
   {
@@ -2037,28 +1364,19 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "btn",
-      "header-primary"
-    ],
+    "classes": ["btn", "header-primary"],
     "tag": "span"
   },
   {
-    "classes": [
-      "content"
-    ],
+    "classes": ["content"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -2070,28 +1388,19 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "tag": "span"
   },
   {
-    "classes": [
-      "lead-filter-grid"
-    ],
+    "classes": ["lead-filter-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -2099,15 +1408,11 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "input-mock"
-    ],
+    "classes": ["input-mock"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -2115,15 +1420,11 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "input-mock"
-    ],
+    "classes": ["input-mock"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -2131,15 +1432,11 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "input-mock"
-    ],
+    "classes": ["input-mock"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -2147,15 +1444,11 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "input-mock"
-    ],
+    "classes": ["input-mock"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -2163,15 +1456,11 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "input-mock"
-    ],
+    "classes": ["input-mock"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -2179,108 +1468,71 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "input-mock"
-    ],
+    "classes": ["input-mock"],
     "tag": "span"
   },
   {
-    "classes": [
-      "chip-row"
-    ],
+    "classes": ["chip-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip",
-      "accent"
-    ],
+    "classes": ["chip", "accent"],
     "tag": "span"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "grid",
-      "grid-3",
-      "demo-kpis"
-    ],
+    "classes": ["grid", "grid-3", "demo-kpis"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-card"
-    ],
+    "classes": ["stat-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-card"
-    ],
+    "classes": ["stat-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-card"
-    ],
+    "classes": ["stat-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "tag": "span"
   },
   {
-    "classes": [
-      "table-wrap"
-    ],
+    "classes": ["table-wrap"],
     "tag": "div"
   },
   {
@@ -2328,15 +1580,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -2352,9 +1600,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "score"
-    ],
+    "classes": ["score"],
     "tag": "span"
   },
   {
@@ -2362,10 +1608,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge",
-      "hot"
-    ],
+    "classes": ["badge", "hot"],
     "tag": "span"
   },
   {
@@ -2377,15 +1620,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -2401,9 +1640,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "score"
-    ],
+    "classes": ["score"],
     "tag": "span"
   },
   {
@@ -2411,10 +1648,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge",
-      "hot"
-    ],
+    "classes": ["badge", "hot"],
     "tag": "span"
   },
   {
@@ -2426,15 +1660,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -2450,9 +1680,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "score"
-    ],
+    "classes": ["score"],
     "tag": "span"
   },
   {
@@ -2460,10 +1688,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge",
-      "warm"
-    ],
+    "classes": ["badge", "warm"],
     "tag": "span"
   },
   {
@@ -2475,15 +1700,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -2499,9 +1720,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "score"
-    ],
+    "classes": ["score"],
     "tag": "span"
   },
   {
@@ -2509,10 +1728,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge",
-      "warm"
-    ],
+    "classes": ["badge", "warm"],
     "tag": "span"
   },
   {
@@ -2524,15 +1740,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -2548,9 +1760,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "score"
-    ],
+    "classes": ["score"],
     "tag": "span"
   },
   {
@@ -2558,22 +1768,15 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge",
-      "cold"
-    ],
+    "classes": ["badge", "cold"],
     "tag": "span"
   },
   {
-    "classes": [
-      "aw-scene"
-    ],
+    "classes": ["aw-scene"],
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -2581,27 +1784,19 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "dashboard-clock"
-    ],
+    "classes": ["dashboard-clock"],
     "tag": "span"
   },
   {
@@ -2621,35 +1816,23 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "btn",
-      "header-primary"
-    ],
+    "classes": ["btn", "header-primary"],
     "tag": "span"
   },
   {
-    "classes": [
-      "content"
-    ],
+    "classes": ["content"],
     "tag": "div"
   },
   {
-    "classes": [
-      "offer-grid"
-    ],
+    "classes": ["offer-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "offer-card"
-    ],
+    "classes": ["panel", "offer-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -2661,60 +1844,39 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "badge",
-      "success"
-    ],
+    "classes": ["badge", "success"],
     "tag": "span"
   },
   {
-    "classes": [
-      "offer-preview"
-    ],
+    "classes": ["offer-preview"],
     "tag": "p"
   },
   {
-    "classes": [
-      "offer-foot"
-    ],
+    "classes": ["offer-foot"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "tag": "span"
   },
   {
-    "classes": [
-      "panel",
-      "offer-card"
-    ],
+    "classes": ["panel", "offer-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -2726,60 +1888,39 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "badge",
-      "success"
-    ],
+    "classes": ["badge", "success"],
     "tag": "span"
   },
   {
-    "classes": [
-      "offer-preview"
-    ],
+    "classes": ["offer-preview"],
     "tag": "p"
   },
   {
-    "classes": [
-      "offer-foot"
-    ],
+    "classes": ["offer-foot"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "tag": "span"
   },
   {
-    "classes": [
-      "panel",
-      "offer-card"
-    ],
+    "classes": ["panel", "offer-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -2791,58 +1932,39 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "badge"
-    ],
+    "classes": ["badge"],
     "tag": "span"
   },
   {
-    "classes": [
-      "offer-preview"
-    ],
+    "classes": ["offer-preview"],
     "tag": "p"
   },
   {
-    "classes": [
-      "offer-foot"
-    ],
+    "classes": ["offer-foot"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "span"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "tag": "span"
   },
   {
-    "classes": [
-      "aw-scene"
-    ],
+    "classes": ["aw-scene"],
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -2850,27 +1972,19 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "dashboard-clock"
-    ],
+    "classes": ["dashboard-clock"],
     "tag": "span"
   },
   {
@@ -2890,90 +2004,59 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "btn",
-      "header-primary"
-    ],
+    "classes": ["btn", "header-primary"],
     "tag": "span"
   },
   {
-    "classes": [
-      "content"
-    ],
+    "classes": ["content"],
     "tag": "div"
   },
   {
-    "classes": [
-      "grid",
-      "grid-3",
-      "demo-kpis"
-    ],
+    "classes": ["grid", "grid-3", "demo-kpis"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-card"
-    ],
+    "classes": ["stat-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-card"
-    ],
+    "classes": ["stat-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-card"
-    ],
+    "classes": ["stat-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "tag": "span"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -2985,22 +2068,15 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "badge",
-      "success"
-    ],
+    "classes": ["badge", "success"],
     "tag": "span"
   },
   {
-    "classes": [
-      "run-bar"
-    ],
+    "classes": ["run-bar"],
     "tag": "div"
   },
   {
@@ -3008,9 +2084,7 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "run-legend"
-    ],
+    "classes": ["run-legend"],
     "tag": "div"
   },
   {
@@ -3022,9 +2096,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "table-wrap"
-    ],
+    "classes": ["table-wrap"],
     "tag": "div"
   },
   {
@@ -3068,15 +2140,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -3092,10 +2160,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge",
-      "success"
-    ],
+    "classes": ["badge", "success"],
     "tag": "span"
   },
   {
@@ -3107,15 +2172,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -3131,10 +2192,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge",
-      "success"
-    ],
+    "classes": ["badge", "success"],
     "tag": "span"
   },
   {
@@ -3146,15 +2204,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -3170,9 +2224,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge"
-    ],
+    "classes": ["badge"],
     "tag": "span"
   },
   {
@@ -3184,15 +2236,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -3208,9 +2256,7 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge"
-    ],
+    "classes": ["badge"],
     "tag": "span"
   },
   {
@@ -3222,15 +2268,11 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "cell-lead"
-    ],
+    "classes": ["cell-lead"],
     "tag": "span"
   },
   {
-    "classes": [
-      "cell-ava"
-    ],
+    "classes": ["cell-ava"],
     "tag": "i"
   },
   {
@@ -3246,22 +2288,15 @@
     "tag": "td"
   },
   {
-    "classes": [
-      "badge"
-    ],
+    "classes": ["badge"],
     "tag": "span"
   },
   {
-    "classes": [
-      "aw-track"
-    ],
+    "classes": ["aw-track"],
     "tag": "ul"
   },
   {
-    "classes": [
-      "aw-seg",
-      "on"
-    ],
+    "classes": ["aw-seg", "on"],
     "tag": "li"
   },
   {
@@ -3273,9 +2308,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "aw-seg"
-    ],
+    "classes": ["aw-seg"],
     "tag": "li"
   },
   {
@@ -3287,9 +2320,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "aw-seg"
-    ],
+    "classes": ["aw-seg"],
     "tag": "li"
   },
   {
@@ -3301,34 +2332,232 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-account-band"
-    ],
+    "classes": ["zp-stats"],
+    "id": "pulse",
     "tag": "section"
   },
   {
-    "classes": [
-      "wrap"
-    ],
+    "classes": ["wrap"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ab-in",
-      "rv"
-    ],
+    "classes": ["shead", "rv"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ab-copy"
-    ],
+    "classes": ["mono"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "h2"
+  },
+  {
+    "classes": ["pulse-g"],
     "tag": "div"
   },
   {
-    "classes": [
-      "mono"
-    ],
+    "classes": ["rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["live-dot"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["bignum"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["bigsub"],
+    "tag": "div"
+  },
+  {
+    "classes": ["minirow"],
+    "tag": "div"
+  },
+  {
+    "classes": ["mini"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["mini"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["mini"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["pulse-note"],
+    "id": "publicStatsStatus",
+    "tag": "p"
+  },
+  {
+    "classes": ["pulse-note"],
+    "tag": "p"
+  },
+  {
+    "classes": ["feed", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["feed-h"],
+    "tag": "div"
+  },
+  {
+    "classes": ["live-dot"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["feed-b"],
+    "id": "feedB",
+    "tag": "div"
+  },
+  {
+    "classes": ["fun"],
+    "id": "funList",
+    "tag": "ol"
+  },
+  {
+    "classes": ["fun-row"],
+    "tag": "li"
+  },
+  {
+    "classes": ["fun-k"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fun-bar"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["fun-v"],
+    "tag": "b"
+  },
+  {
+    "classes": ["fun-row"],
+    "tag": "li"
+  },
+  {
+    "classes": ["fun-k"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fun-bar"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["fun-v"],
+    "tag": "b"
+  },
+  {
+    "classes": ["fun-row"],
+    "tag": "li"
+  },
+  {
+    "classes": ["fun-k"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fun-bar"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["fun-v"],
+    "tag": "b"
+  },
+  {
+    "classes": ["fun-row"],
+    "tag": "li"
+  },
+  {
+    "classes": ["fun-k"],
+    "tag": "span"
+  },
+  {
+    "classes": ["fun-bar"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["fun-v"],
+    "tag": "b"
+  },
+  {
+    "classes": ["fun-note"],
+    "id": "funnelNote",
+    "tag": "p"
+  },
+  {
+    "classes": ["zp-account-band"],
+    "tag": "section"
+  },
+  {
+    "classes": ["wrap"],
+    "tag": "div"
+  },
+  {
+    "classes": ["ab-in", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["ab-copy"],
+    "tag": "div"
+  },
+  {
+    "classes": ["mono"],
     "tag": "span"
   },
   {
@@ -3341,9 +2570,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "ab-list"
-    ],
+    "classes": ["ab-list"],
     "tag": "ul"
   },
   {
@@ -3383,29 +2610,20 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-pricing"
-    ],
+    "classes": ["zp-pricing"],
     "id": "pricing",
     "tag": "section"
   },
   {
-    "classes": [
-      "wrap"
-    ],
+    "classes": ["wrap"],
     "tag": "div"
   },
   {
-    "classes": [
-      "shead",
-      "rv"
-    ],
+    "classes": ["shead", "rv"],
     "tag": "div"
   },
   {
-    "classes": [
-      "mono"
-    ],
+    "classes": ["mono"],
     "tag": "span"
   },
   {
@@ -3413,167 +2631,156 @@
     "tag": "h2"
   },
   {
-    "classes": [],
+    "classes": ["pricing-lede"],
     "tag": "p"
   },
   {
-    "classes": [
-      "pgrid"
-    ],
+    "classes": ["pgrid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "pcard",
-      "rv"
-    ],
+    "classes": ["pcard", "rv"],
     "tag": "div"
   },
   {
-    "classes": [
-      "grid-4-tariff",
-      "landing-tariffs"
-    ],
+    "classes": ["grid-4-tariff", "landing-tariffs"],
     "id": "landingTariffGrid",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ptariff-note"
-    ],
+    "classes": ["ptariff-note"],
     "id": "landingTariffNote",
     "tag": "p"
   },
   {
-    "classes": [
-      "landing-tariff-foot"
-    ],
+    "classes": ["landing-tariff-foot"],
     "id": "landingTariffFoot",
     "tag": "div"
   },
   {
-    "classes": [
-      "pplate",
-      "rv"
-    ],
+    "classes": ["pplate", "rv"],
     "tag": "figure"
   },
   {
-    "classes": [
-      "pplate-art"
-    ],
+    "classes": ["pplate-art"],
     "tag": "span"
   },
   {
-    "classes": [
-      "pplate-cap"
-    ],
+    "classes": ["pplate-cap"],
     "tag": "figcaption"
   },
   {
-    "classes": [
-      "mono"
-    ],
+    "classes": ["mono"],
     "tag": "span"
   },
   {
-    "classes": [
-      "pplate-cap-line"
-    ],
+    "classes": ["pplate-cap-line"],
     "tag": "span"
   },
   {
-    "classes": [
-      "pplate-cap-note"
-    ],
+    "classes": ["pplate-cap-note"],
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-final"
-    ],
+    "classes": ["pmark-track"],
+    "tag": "div"
+  },
+  {
+    "classes": ["pmark-stick"],
+    "tag": "div"
+  },
+  {
+    "classes": ["pmark"],
+    "tag": "div"
+  },
+  {
+    "classes": ["pmark-word"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["zp-final"],
     "id": "zephyrFinale",
     "tag": "section"
   },
   {
-    "classes": [
-      "zp-final-sticky"
-    ],
+    "classes": ["zp-final-sticky"],
     "tag": "div"
   },
   {
-    "classes": [
-      "fin-stage"
-    ],
+    "classes": ["fin-stage"],
     "tag": "div"
   },
   {
-    "classes": [
-      "fin-mark"
-    ],
+    "classes": ["fin-mark"],
     "tag": "div"
   },
   {
-    "classes": [
-      "fin-word",
-      "zp-final-word"
-    ],
+    "classes": ["fin-word", "zp-final-word"],
     "id": "finWord",
     "tag": "div"
   },
   {
-    "classes": [
-      "zp-final-letter-char"
-    ],
+    "classes": ["zp-final-letter-char"],
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-final-letter-char"
-    ],
+    "classes": ["zp-final-letter-char"],
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-final-letter-char"
-    ],
+    "classes": ["zp-final-letter-char"],
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-final-letter-char"
-    ],
+    "classes": ["zp-final-letter-char"],
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-final-letter-char"
-    ],
+    "classes": ["zp-final-letter-char"],
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-final-letter-char"
-    ],
+    "classes": ["zp-final-letter-char"],
     "tag": "span"
   },
   {
-    "classes": [
-      "zp-final-letter-char"
-    ],
+    "classes": ["zp-final-letter-char"],
     "tag": "span"
   },
   {
-    "classes": [
-      "fin-hand",
-      "zp-final-hand"
-    ],
+    "classes": ["fin-hand", "zp-final-hand"],
     "id": "zpFinalHand",
     "tag": "div"
   },
@@ -3586,15 +2793,11 @@
     "tag": "source"
   },
   {
-    "classes": [
-      "fin-palm"
-    ],
+    "classes": ["fin-palm"],
     "tag": "img"
   },
   {
-    "classes": [
-      "fin-letter-orbit"
-    ],
+    "classes": ["fin-letter-orbit"],
     "tag": "span"
   },
   {
@@ -3606,35 +2809,23 @@
     "tag": "source"
   },
   {
-    "classes": [
-      "fin-letter-float",
-      "zp-final-letter"
-    ],
+    "classes": ["fin-letter-float", "zp-final-letter"],
     "tag": "img"
   },
   {
-    "classes": [
-      "fin-cta",
-      "zp-final-login"
-    ],
+    "classes": ["fin-cta", "zp-final-login"],
     "tag": "div"
   },
   {
-    "classes": [
-      "fin-kicker"
-    ],
+    "classes": ["fin-kicker"],
     "tag": "p"
   },
   {
-    "classes": [
-      "fin-btns"
-    ],
+    "classes": ["fin-btns"],
     "tag": "div"
   },
   {
-    "classes": [
-      "fin-btn"
-    ],
+    "classes": ["fin-btn"],
     "data-telegram-login-trigger": {
       "present": true,
       "value": null
@@ -3642,28 +2833,19 @@
     "tag": "a"
   },
   {
-    "classes": [
-      "fin-btn",
-      "ghost"
-    ],
+    "classes": ["fin-btn", "ghost"],
     "tag": "a"
   },
   {
-    "classes": [
-      "fin-foot"
-    ],
+    "classes": ["fin-foot"],
     "tag": "div"
   },
   {
-    "classes": [
-      "fin-foot-brand"
-    ],
+    "classes": ["fin-foot-brand"],
     "tag": "span"
   },
   {
-    "classes": [
-      "fin-foot-logo"
-    ],
+    "classes": ["fin-foot-logo"],
     "tag": "svg"
   },
   {
@@ -3675,27 +2857,19 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "fin-foot-copy"
-    ],
+    "classes": ["fin-foot-copy"],
     "tag": "span"
   },
   {
@@ -3707,15 +2881,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "fin-foot-name"
-    ],
+    "classes": ["fin-foot-name"],
     "tag": "span"
   },
   {
-    "classes": [
-      "telegram-login-dialog"
-    ],
+    "classes": ["telegram-login-dialog"],
     "id": "telegramLoginDialog",
     "tag": "dialog"
   },
@@ -3724,15 +2894,11 @@
     "tag": "form"
   },
   {
-    "classes": [
-      "telegram-login-close"
-    ],
+    "classes": ["telegram-login-close"],
     "tag": "button"
   },
   {
-    "classes": [
-      "telegram-login-mark"
-    ],
+    "classes": ["telegram-login-mark"],
     "tag": "div"
   },
   {
@@ -3744,9 +2910,7 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "lp-card-tag"
-    ],
+    "classes": ["lp-card-tag"],
     "tag": "span"
   },
   {
@@ -3759,16 +2923,12 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "tg-login-cta"
-    ],
+    "classes": ["tg-login-cta"],
     "id": "tgLoginCta",
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-login-face"
-    ],
+    "classes": ["tg-login-face"],
     "tag": "span"
   },
   {
@@ -3784,30 +2944,22 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "tg-login-slot"
-    ],
+    "classes": ["tg-login-slot"],
     "id": "tg-widget-dialog-container",
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-btn"
-    ],
+    "classes": ["tg-btn"],
     "id": "demoDialogLoginBtn",
     "tag": "button"
   },
   {
-    "classes": [
-      "login-hint"
-    ],
+    "classes": ["login-hint"],
     "id": "dialogLoginHint",
     "tag": "p"
   },
   {
-    "classes": [
-      "lp-card-list"
-    ],
+    "classes": ["lp-card-list"],
     "tag": "ul"
   },
   {
@@ -3819,34 +2971,24 @@
     "tag": "li"
   },
   {
-    "classes": [
-      "app-wrapper"
-    ],
+    "classes": ["app-wrapper"],
     "id": "appWrapper",
     "tag": "div"
   },
   {
-    "classes": [
-      "app"
-    ],
+    "classes": ["app"],
     "tag": "div"
   },
   {
-    "classes": [
-      "sidebar"
-    ],
+    "classes": ["sidebar"],
     "tag": "aside"
   },
   {
-    "classes": [
-      "brand"
-    ],
+    "classes": ["brand"],
     "tag": "div"
   },
   {
-    "classes": [
-      "brand-mark"
-    ],
+    "classes": ["brand-mark"],
     "tag": "div"
   },
   {
@@ -3862,21 +3004,15 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
-    "classes": [
-      "tl-f"
-    ],
+    "classes": ["tl-f"],
     "tag": "path"
   },
   {
@@ -3884,40 +3020,44 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "brand-name"
-    ],
+    "classes": ["brand-name"],
     "tag": "div"
   },
   {
-    "classes": [
-      "brand-tag"
-    ],
+    "classes": ["brand-tag"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav"
-    ],
+    "classes": ["sidebar-collapse"],
+    "data-act": "toggleSidebar",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "rect"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": ["nav"],
     "tag": "nav"
   },
   {
-    "classes": [
-      "nav-group"
-    ],
+    "classes": ["nav-group"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-group-label"
-    ],
+    "classes": ["nav-group-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-item",
-      "active"
-    ],
+    "classes": ["nav-item", "active"],
     "data-target": "dashboard",
     "tag": "div"
   },
@@ -3946,9 +3086,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "search",
     "tag": "div"
   },
@@ -3969,9 +3107,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "databases",
     "tag": "div"
   },
@@ -3996,21 +3132,15 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-group"
-    ],
+    "classes": ["nav-group"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-group-label"
-    ],
+    "classes": ["nav-group-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "offer",
     "tag": "div"
   },
@@ -4031,9 +3161,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "mailing",
     "tag": "div"
   },
@@ -4054,40 +3182,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
-    "data-target": "neuro",
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "messages",
     "tag": "div"
   },
@@ -4104,15 +3199,11 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "usage"
-    ],
+    "classes": ["usage"],
     "tag": "div"
   },
   {
-    "classes": [
-      "usage-top"
-    ],
+    "classes": ["usage-top"],
     "tag": "div"
   },
   {
@@ -4125,9 +3216,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "usage-bar"
-    ],
+    "classes": ["usage-bar"],
     "tag": "div"
   },
   {
@@ -4136,16 +3225,12 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "usage-hint"
-    ],
+    "classes": ["usage-hint"],
     "id": "usageHint",
     "tag": "div"
   },
   {
-    "classes": [
-      "tariff-btn"
-    ],
+    "classes": ["tariff-btn"],
     "data-target": "tariffs",
     "tag": "div"
   },
@@ -4158,37 +3243,26 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "t-label"
-    ],
+    "classes": ["t-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "sidebar-bottom"
-    ],
+    "classes": ["sidebar-bottom"],
     "tag": "div"
   },
   {
-    "classes": [
-      "nav-item",
-      "sidebar-session"
-    ],
+    "classes": ["nav-item", "sidebar-session"],
     "data-target": "settings",
     "id": "sessionUserCard",
     "tag": "div"
   },
   {
-    "classes": [
-      "sidebar-session-avatar"
-    ],
+    "classes": ["sidebar-session-avatar"],
     "id": "sessionUserAvatar",
     "tag": "span"
   },
   {
-    "classes": [
-      "sidebar-session-copy"
-    ],
+    "classes": ["sidebar-session-copy"],
     "tag": "span"
   },
   {
@@ -4202,15 +3276,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "sidebar-session-live"
-    ],
+    "classes": ["sidebar-session-live"],
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "admin",
     "tag": "div"
   },
@@ -4231,9 +3301,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "settings",
     "tag": "div"
   },
@@ -4254,16 +3322,11 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "bottom-nav"
-    ],
+    "classes": ["bottom-nav"],
     "tag": "nav"
   },
   {
-    "classes": [
-      "nav-item",
-      "active"
-    ],
+    "classes": ["nav-item", "active"],
     "data-target": "dashboard",
     "tag": "div"
   },
@@ -4292,9 +3355,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "search",
     "tag": "div"
   },
@@ -4315,9 +3376,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "databases",
     "tag": "div"
   },
@@ -4342,9 +3401,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "offer",
     "tag": "div"
   },
@@ -4365,9 +3422,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "mailing",
     "tag": "div"
   },
@@ -4388,40 +3443,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
-    "data-target": "neuro",
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "messages",
     "tag": "div"
   },
@@ -4438,9 +3460,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "nav-item"
-    ],
+    "classes": ["nav-item"],
     "data-target": "settings",
     "tag": "div"
   },
@@ -4461,16 +3481,11 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "global-actions"
-    ],
+    "classes": ["global-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "icon-btn",
-      "ai"
-    ],
+    "classes": ["icon-btn", "ai"],
     "data-act": "openDrawer",
     "tag": "div"
   },
@@ -4487,15 +3502,11 @@
     "tag": "circle"
   },
   {
-    "classes": [
-      "rel"
-    ],
+    "classes": ["rel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "icon-btn"
-    ],
+    "classes": ["icon-btn"],
     "data-act": "toggleDropdown",
     "data-args": "[\"ddNotif\"]",
     "tag": "div"
@@ -4513,23 +3524,31 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "ping"
-    ],
+    "classes": ["ping"],
     "id": "notifPing",
     "tag": "span"
   },
   {
-    "classes": [
-      "dropdown"
-    ],
+    "classes": ["dropdown"],
     "id": "ddNotif",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-title"
-    ],
+    "classes": ["dd-head"],
+    "tag": "div"
+  },
+  {
+    "classes": ["dd-title"],
+    "tag": "div"
+  },
+  {
+    "classes": ["dd-count"],
+    "id": "notifCount",
+    "tag": "span"
+  },
+  {
+    "classes": ["dd-setup"],
+    "id": "notifSetup",
     "tag": "div"
   },
   {
@@ -4538,44 +3557,31 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "setup-notices"
-    ],
+    "classes": ["setup-notices"],
     "id": "setupNotices",
     "tag": "div"
   },
   {
-    "classes": [
-      "main"
-    ],
+    "classes": ["main"],
     "id": "main",
     "tag": "main"
   },
   {
-    "classes": [
-      "trial-bar"
-    ],
+    "classes": ["trial-bar"],
     "id": "trialBar",
     "tag": "div"
   },
   {
-    "classes": [
-      "section",
-      "active"
-    ],
+    "classes": ["section", "active"],
     "id": "dashboard",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -4583,30 +3589,21 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "id": "dashGreeting",
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "id": "dashSub",
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right",
-      "dashboard-top-actions"
-    ],
+    "classes": ["topbar-right", "dashboard-top-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "dashboard-clock"
-    ],
+    "classes": ["dashboard-clock"],
     "tag": "span"
   },
   {
@@ -4627,25 +3624,18 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "btn",
-      "header-primary"
-    ],
+    "classes": ["btn", "header-primary"],
     "data-act": "goTo",
     "data-args": "[\"search\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "quick-start"
-    ],
+    "classes": ["quick-start"],
     "id": "quickStart",
     "tag": "section"
   },
   {
-    "classes": [
-      "quick-start-head"
-    ],
+    "classes": ["quick-start-head"],
     "tag": "div"
   },
   {
@@ -4653,48 +3643,33 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "quick-start-title"
-    ],
+    "classes": ["quick-start-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "quick-start-sub"
-    ],
+    "classes": ["quick-start-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "quickStartHide",
     "tag": "button"
   },
   {
-    "classes": [
-      "quick-start-grid"
-    ],
+    "classes": ["quick-start-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "qs-cube"
-    ],
+    "classes": ["qs-cube"],
     "data-act": "openKeyGuide",
     "tag": "button"
   },
   {
-    "classes": [
-      "qs-cube-top"
-    ],
+    "classes": ["qs-cube-top"],
     "tag": "div"
   },
   {
-    "classes": [
-      "qs-cube-ico"
-    ],
+    "classes": ["qs-cube-ico"],
     "tag": "span"
   },
   {
@@ -4710,9 +3685,7 @@
     "tag": "circle"
   },
   {
-    "classes": [
-      "qs-cube-num"
-    ],
+    "classes": ["qs-cube-num"],
     "tag": "span"
   },
   {
@@ -4724,29 +3697,21 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "qs-cube-state"
-    ],
+    "classes": ["qs-cube-state"],
     "tag": "em"
   },
   {
-    "classes": [
-      "qs-cube"
-    ],
+    "classes": ["qs-cube"],
     "data-act": "goTo",
     "data-args": "[\"settings\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "qs-cube-top"
-    ],
+    "classes": ["qs-cube-top"],
     "tag": "div"
   },
   {
-    "classes": [
-      "qs-cube-ico"
-    ],
+    "classes": ["qs-cube-ico"],
     "tag": "span"
   },
   {
@@ -4762,9 +3727,7 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "qs-cube-num"
-    ],
+    "classes": ["qs-cube-num"],
     "tag": "span"
   },
   {
@@ -4776,29 +3739,21 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "qs-cube-state"
-    ],
+    "classes": ["qs-cube-state"],
     "tag": "em"
   },
   {
-    "classes": [
-      "qs-cube"
-    ],
+    "classes": ["qs-cube"],
     "data-act": "goTo",
     "data-args": "[\"search\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "qs-cube-top"
-    ],
+    "classes": ["qs-cube-top"],
     "tag": "div"
   },
   {
-    "classes": [
-      "qs-cube-ico"
-    ],
+    "classes": ["qs-cube-ico"],
     "tag": "span"
   },
   {
@@ -4814,9 +3769,7 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "qs-cube-num"
-    ],
+    "classes": ["qs-cube-num"],
     "tag": "span"
   },
   {
@@ -4828,29 +3781,21 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "qs-cube-state"
-    ],
+    "classes": ["qs-cube-state"],
     "tag": "em"
   },
   {
-    "classes": [
-      "qs-cube"
-    ],
+    "classes": ["qs-cube"],
     "data-act": "goTo",
     "data-args": "[\"offer\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "qs-cube-top"
-    ],
+    "classes": ["qs-cube-top"],
     "tag": "div"
   },
   {
-    "classes": [
-      "qs-cube-ico"
-    ],
+    "classes": ["qs-cube-ico"],
     "tag": "span"
   },
   {
@@ -4866,9 +3811,7 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "qs-cube-num"
-    ],
+    "classes": ["qs-cube-num"],
     "tag": "span"
   },
   {
@@ -4880,36 +3823,25 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "qs-cube-state"
-    ],
+    "classes": ["qs-cube-state"],
     "tag": "em"
   },
   {
-    "classes": [
-      "grid-4"
-    ],
+    "classes": ["grid-4"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-card",
-      "go"
-    ],
+    "classes": ["stat-card", "go"],
     "data-act": "goTo",
     "data-args": "[\"databases\"]",
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-top"
-    ],
+    "classes": ["stat-top"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-icon"
-    ],
+    "classes": ["stat-icon"],
     "tag": "div"
   },
   {
@@ -4929,43 +3861,30 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "stat-go"
-    ],
+    "classes": ["stat-go"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "id": "statLeads",
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-card",
-      "go"
-    ],
+    "classes": ["stat-card", "go"],
     "data-act": "goTo",
     "data-args": "[\"databases\"]",
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-top"
-    ],
+    "classes": ["stat-top"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-icon"
-    ],
+    "classes": ["stat-icon"],
     "tag": "div"
   },
   {
@@ -4977,43 +3896,30 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "stat-go"
-    ],
+    "classes": ["stat-go"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "id": "statDatabases",
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-card",
-      "go"
-    ],
+    "classes": ["stat-card", "go"],
     "data-act": "goTo",
     "data-args": "[\"offer\"]",
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-top"
-    ],
+    "classes": ["stat-top"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-icon"
-    ],
+    "classes": ["stat-icon"],
     "tag": "div"
   },
   {
@@ -5025,43 +3931,30 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "stat-go"
-    ],
+    "classes": ["stat-go"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "id": "statOffers",
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-card",
-      "go"
-    ],
+    "classes": ["stat-card", "go"],
     "data-act": "goTo",
     "data-args": "[\"mailing\"]",
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-top"
-    ],
+    "classes": ["stat-top"],
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-icon"
-    ],
+    "classes": ["stat-icon"],
     "tag": "div"
   },
   {
@@ -5077,28 +3970,20 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "stat-go"
-    ],
+    "classes": ["stat-go"],
     "tag": "span"
   },
   {
-    "classes": [
-      "stat-value"
-    ],
+    "classes": ["stat-value"],
     "id": "statCampaigns",
     "tag": "div"
   },
   {
-    "classes": [
-      "stat-label"
-    ],
+    "classes": ["stat-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "pipeline-strip"
-    ],
+    "classes": ["pipeline-strip"],
     "tag": "div"
   },
   {
@@ -5171,21 +4056,15 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "panel-row"
-    ],
+    "classes": ["panel-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chart-wrap"
-    ],
+    "classes": ["chart-wrap"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -5193,68 +4072,48 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "chart-range"
-    ],
+    "classes": ["chart-range"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chart-range-btn"
-    ],
+    "classes": ["chart-range-btn"],
     "data-act": "setChartDays",
     "data-args": "[7]",
     "tag": "button"
   },
   {
-    "classes": [
-      "chart-range-btn",
-      "active"
-    ],
+    "classes": ["chart-range-btn", "active"],
     "data-act": "setChartDays",
     "data-args": "[14]",
     "tag": "button"
   },
   {
-    "classes": [
-      "chart-range-btn"
-    ],
+    "classes": ["chart-range-btn"],
     "data-act": "setChartDays",
     "data-args": "[30]",
     "tag": "button"
   },
   {
-    "classes": [
-      "chart-note"
-    ],
+    "classes": ["chart-note"],
     "id": "chartTotal",
     "tag": "span"
   },
   {
-    "classes": [
-      "chart-bars"
-    ],
+    "classes": ["chart-bars"],
     "id": "chartBars",
     "tag": "div"
   },
   {
-    "classes": [
-      "chart-compare"
-    ],
+    "classes": ["chart-compare"],
     "id": "chartCompare",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "dashboard-signal-panel"
-    ],
+    "classes": ["panel", "dashboard-signal-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -5262,9 +4121,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dashboard-kicker"
-    ],
+    "classes": ["dashboard-kicker"],
     "tag": "span"
   },
   {
@@ -5272,9 +4129,7 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "dashboard-live"
-    ],
+    "classes": ["dashboard-live"],
     "tag": "span"
   },
   {
@@ -5282,9 +4137,7 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "dashboard-signal-map"
-    ],
+    "classes": ["dashboard-signal-map"],
     "tag": "div"
   },
   {
@@ -5344,15 +4197,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "dashboard-signal-copy"
-    ],
+    "classes": ["dashboard-signal-copy"],
     "tag": "p"
   },
   {
-    "classes": [
-      "dash-limit"
-    ],
+    "classes": ["dash-limit"],
     "id": "dashLimit",
     "tag": "div"
   },
@@ -5367,21 +4216,15 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "grid-2"
-    ],
+    "classes": ["grid-2"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -5389,9 +4232,7 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "chart-note"
-    ],
+    "classes": ["chart-note"],
     "id": "funnelTotal",
     "tag": "span"
   },
@@ -5401,22 +4242,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "activity-panel"
-    ],
+    "classes": ["panel", "activity-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -5424,32 +4258,22 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "link-button"
-    ],
+    "classes": ["link-button"],
     "id": "activityShowAll",
     "tag": "button"
   },
   {
-    "classes": [
-      "activity-list"
-    ],
+    "classes": ["activity-list"],
     "id": "activityFeed",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "dashboard-offer-stats"
-    ],
+    "classes": ["panel", "dashboard-offer-stats"],
     "id": "offerStatsPanel",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head",
-      "offer-main-head"
-    ],
+    "classes": ["panel-head", "offer-main-head"],
     "tag": "div"
   },
   {
@@ -5457,9 +4281,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dashboard-kicker"
-    ],
+    "classes": ["dashboard-kicker"],
     "tag": "span"
   },
   {
@@ -5471,21 +4293,15 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "dashboard-offer-tools"
-    ],
+    "classes": ["dashboard-offer-tools"],
     "tag": "div"
   },
   {
-    "classes": [
-      "dashboard-offer-filter"
-    ],
+    "classes": ["dashboard-offer-filter"],
     "tag": "div"
   },
   {
-    "classes": [
-      "active"
-    ],
+    "classes": ["active"],
     "tag": "button"
   },
   {
@@ -5497,17 +4313,13 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "link-button"
-    ],
+    "classes": ["link-button"],
     "data-act": "goTo",
     "data-args": "[\"offer\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "offer-main-summary"
-    ],
+    "classes": ["offer-main-summary"],
     "tag": "div"
   },
   {
@@ -5516,9 +4328,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "dashboard-live"
-    ],
+    "classes": ["dashboard-live"],
     "tag": "span"
   },
   {
@@ -5526,10 +4336,7 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "grid-2",
-      "offer-kind-cards"
-    ],
+    "classes": ["grid-2", "offer-kind-cards"],
     "id": "offerKindCards",
     "tag": "div"
   },
@@ -5539,21 +4346,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "reply-heat-panel"
-    ],
+    "classes": ["reply-heat-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "reply-heat-head"
-    ],
+    "classes": ["reply-heat-head"],
     "tag": "div"
   },
   {
@@ -5569,36 +4370,26 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "best-send-times"
-    ],
+    "classes": ["best-send-times"],
     "id": "bestSendTimes",
     "tag": "div"
   },
   {
-    "classes": [
-      "reply-heat-scroll"
-    ],
+    "classes": ["reply-heat-scroll"],
     "tag": "div"
   },
   {
-    "classes": [
-      "reply-heatmap"
-    ],
+    "classes": ["reply-heatmap"],
     "id": "replyHeatmap",
     "tag": "div"
   },
   {
-    "classes": [
-      "section"
-    ],
+    "classes": ["section"],
     "id": "search",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -5606,28 +4397,19 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "search-filter-panel"
-    ],
+    "classes": ["panel", "search-filter-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -5639,29 +4421,20 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "resetLeadFilters",
     "tag": "button"
   },
   {
-    "classes": [
-      "lead-filter-grid"
-    ],
+    "classes": ["lead-filter-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5674,9 +4447,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5689,9 +4460,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5704,9 +4473,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5719,15 +4486,11 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5740,15 +4503,11 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5761,9 +4520,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5776,9 +4533,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5791,15 +4546,11 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "filter-switches"
-    ],
+    "classes": ["filter-switches"],
     "tag": "div"
   },
   {
-    "classes": [
-      "check-row"
-    ],
+    "classes": ["check-row"],
     "tag": "label"
   },
   {
@@ -5808,9 +4559,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "check-row"
-    ],
+    "classes": ["check-row"],
     "tag": "label"
   },
   {
@@ -5819,15 +4568,11 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "search-preset-bar"
-    ],
+    "classes": ["search-preset-bar"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5844,9 +4589,7 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -5859,10 +4602,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "action-menu",
-      "preset-actions"
-    ],
+    "classes": ["action-menu", "preset-actions"],
     "tag": "details"
   },
   {
@@ -5870,40 +4610,25 @@
     "tag": "summary"
   },
   {
-    "classes": [
-      "action-menu-pop"
-    ],
+    "classes": ["action-menu-pop"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost",
-      "menu-action"
-    ],
+    "classes": ["btn", "ghost", "menu-action"],
     "data-act": "saveSearchPreset",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost",
-      "menu-action",
-      "danger"
-    ],
+    "classes": ["btn", "ghost", "menu-action", "danger"],
     "data-act": "deleteSearchPreset",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-row"
-    ],
+    "classes": ["panel-row"],
     "tag": "div"
   },
   {
@@ -5911,68 +4636,47 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "search-tabs"
-    ],
+    "classes": ["search-tabs"],
     "tag": "div"
   },
   {
-    "classes": [
-      "search-tab",
-      "active"
-    ],
+    "classes": ["search-tab", "active"],
     "data-act": "switchSearchTab",
     "data-args": "[1]",
     "tag": "div"
   },
   {
-    "classes": [
-      "search-tab"
-    ],
+    "classes": ["search-tab"],
     "data-act": "switchSearchTab",
     "data-args": "[2]",
     "tag": "div"
   },
   {
-    "classes": [
-      "search-tab"
-    ],
+    "classes": ["search-tab"],
     "data-act": "switchSearchTab",
     "data-args": "[3]",
     "tag": "div"
   },
   {
-    "classes": [
-      "search-tab-content",
-      "active"
-    ],
+    "classes": ["search-tab-content", "active"],
     "id": "searchTab1",
     "tag": "div"
   },
   {
-    "classes": [
-      "step",
-      "active"
-    ],
+    "classes": ["step", "active"],
     "id": "trendsStep1",
     "tag": "div"
   },
   {
-    "classes": [
-      "step-head"
-    ],
+    "classes": ["step-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-num"
-    ],
+    "classes": ["step-num"],
     "tag": "div"
   },
   {
@@ -5980,39 +4684,27 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step-title"
-    ],
+    "classes": ["step-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-sub"
-    ],
+    "classes": ["step-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-body"
-    ],
+    "classes": ["step-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-row"
-    ],
+    "classes": ["counter-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-label"
-    ],
+    "classes": ["counter-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "counter"
-    ],
+    "classes": ["counter"],
     "tag": "div"
   },
   {
@@ -6034,21 +4726,15 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "counter-hint"
-    ],
+    "classes": ["counter-hint"],
     "tag": "span"
   },
   {
-    "classes": [
-      "counter-row"
-    ],
+    "classes": ["counter-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-label"
-    ],
+    "classes": ["counter-label"],
     "tag": "span"
   },
   {
@@ -6061,25 +4747,7 @@
     "tag": "option"
   },
   {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "generateTrends",
     "id": "trendsGenBtn",
     "tag": "button"
@@ -6098,23 +4766,16 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step",
-      "locked"
-    ],
+    "classes": ["step", "locked"],
     "id": "trendsStep2",
     "tag": "div"
   },
   {
-    "classes": [
-      "step-head"
-    ],
+    "classes": ["step-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-num"
-    ],
+    "classes": ["step-num"],
     "tag": "div"
   },
   {
@@ -6122,34 +4783,24 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step-title"
-    ],
+    "classes": ["step-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-sub"
-    ],
+    "classes": ["step-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-body"
-    ],
+    "classes": ["step-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "review-list"
-    ],
+    "classes": ["review-list"],
     "id": "trendsReview",
     "tag": "div"
   },
   {
-    "classes": [
-      "review-summary"
-    ],
+    "classes": ["review-summary"],
     "tag": "div"
   },
   {
@@ -6167,45 +4818,32 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "review-actions"
-    ],
+    "classes": ["review-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "link"
-    ],
+    "classes": ["link"],
     "data-act": "searchSelectAll",
     "data-args": "[\"trendsReview\", true]",
     "tag": "span"
   },
   {
-    "classes": [
-      "link"
-    ],
+    "classes": ["link"],
     "data-act": "searchSelectAll",
     "data-args": "[\"trendsReview\", false]",
     "tag": "span"
   },
   {
-    "classes": [
-      "step",
-      "locked"
-    ],
+    "classes": ["step", "locked"],
     "id": "trendsStep3",
     "tag": "div"
   },
   {
-    "classes": [
-      "step-head"
-    ],
+    "classes": ["step-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-num"
-    ],
+    "classes": ["step-num"],
     "tag": "div"
   },
   {
@@ -6213,39 +4851,27 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step-title"
-    ],
+    "classes": ["step-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-sub"
-    ],
+    "classes": ["step-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-body"
-    ],
+    "classes": ["step-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-row"
-    ],
+    "classes": ["counter-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-label"
-    ],
+    "classes": ["counter-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "counter"
-    ],
+    "classes": ["counter"],
     "tag": "div"
   },
   {
@@ -6267,15 +4893,11 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "counter-hint"
-    ],
+    "classes": ["counter-hint"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -6293,9 +4915,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "runTrendsSearch",
     "id": "trendsSearchBtn",
     "tag": "button"
@@ -6318,30 +4938,21 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "search-tab-content"
-    ],
+    "classes": ["search-tab-content"],
     "id": "searchTab2",
     "tag": "div"
   },
   {
-    "classes": [
-      "step",
-      "active"
-    ],
+    "classes": ["step", "active"],
     "id": "nichesStep1",
     "tag": "div"
   },
   {
-    "classes": [
-      "step-head"
-    ],
+    "classes": ["step-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-num"
-    ],
+    "classes": ["step-num"],
     "tag": "div"
   },
   {
@@ -6349,34 +4960,24 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step-title"
-    ],
+    "classes": ["step-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-sub"
-    ],
+    "classes": ["step-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-body"
-    ],
+    "classes": ["step-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "niche-grid"
-    ],
+    "classes": ["niche-grid"],
     "id": "nicheGrid",
     "tag": "div"
   },
   {
-    "classes": [
-      "niche-count"
-    ],
+    "classes": ["niche-count"],
     "tag": "div"
   },
   {
@@ -6385,21 +4986,15 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "counter-row"
-    ],
+    "classes": ["counter-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-label"
-    ],
+    "classes": ["counter-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "counter"
-    ],
+    "classes": ["counter"],
     "tag": "div"
   },
   {
@@ -6421,15 +5016,11 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "counter-hint"
-    ],
+    "classes": ["counter-hint"],
     "tag": "span"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "generateNicheKeywords",
     "id": "nichesGenKwBtn",
     "tag": "button"
@@ -6451,23 +5042,16 @@
     "tag": "line"
   },
   {
-    "classes": [
-      "step",
-      "locked"
-    ],
+    "classes": ["step", "locked"],
     "id": "nichesStep2",
     "tag": "div"
   },
   {
-    "classes": [
-      "step-head"
-    ],
+    "classes": ["step-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-num"
-    ],
+    "classes": ["step-num"],
     "tag": "div"
   },
   {
@@ -6475,35 +5059,25 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step-title"
-    ],
+    "classes": ["step-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-sub"
-    ],
+    "classes": ["step-sub"],
     "id": "kwSourceNote",
     "tag": "div"
   },
   {
-    "classes": [
-      "step-body"
-    ],
+    "classes": ["step-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "review-list"
-    ],
+    "classes": ["review-list"],
     "id": "nicheKwReview",
     "tag": "div"
   },
   {
-    "classes": [
-      "review-summary"
-    ],
+    "classes": ["review-summary"],
     "tag": "div"
   },
   {
@@ -6516,31 +5090,23 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "review-actions"
-    ],
+    "classes": ["review-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "link"
-    ],
+    "classes": ["link"],
     "data-act": "searchSelectAll",
     "data-args": "[\"nicheKwReview\", true]",
     "tag": "span"
   },
   {
-    "classes": [
-      "link"
-    ],
+    "classes": ["link"],
     "data-act": "searchSelectAll",
     "data-args": "[\"nicheKwReview\", false]",
     "tag": "span"
   },
   {
-    "classes": [
-      "kw-input-wrap"
-    ],
+    "classes": ["kw-input-wrap"],
     "tag": "div"
   },
   {
@@ -6549,23 +5115,16 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "step",
-      "locked"
-    ],
+    "classes": ["step", "locked"],
     "id": "nichesStep3",
     "tag": "div"
   },
   {
-    "classes": [
-      "step-head"
-    ],
+    "classes": ["step-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-num"
-    ],
+    "classes": ["step-num"],
     "tag": "div"
   },
   {
@@ -6573,33 +5132,23 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step-title"
-    ],
+    "classes": ["step-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-body"
-    ],
+    "classes": ["step-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-row"
-    ],
+    "classes": ["counter-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-label"
-    ],
+    "classes": ["counter-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "counter"
-    ],
+    "classes": ["counter"],
     "tag": "div"
   },
   {
@@ -6621,9 +5170,7 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -6641,9 +5188,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "runNicheSearch",
     "id": "nicheSearchBtn",
     "tag": "button"
@@ -6666,29 +5211,20 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "search-tab-content"
-    ],
+    "classes": ["search-tab-content"],
     "id": "searchTab3",
     "tag": "div"
   },
   {
-    "classes": [
-      "step",
-      "active"
-    ],
+    "classes": ["step", "active"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-head"
-    ],
+    "classes": ["step-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-num"
-    ],
+    "classes": ["step-num"],
     "tag": "div"
   },
   {
@@ -6696,34 +5232,24 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step-title"
-    ],
+    "classes": ["step-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-sub"
-    ],
+    "classes": ["step-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-body"
-    ],
+    "classes": ["step-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chips"
-    ],
+    "classes": ["chips"],
     "id": "customKeywordsChips",
     "tag": "div"
   },
   {
-    "classes": [
-      "kw-input-wrap"
-    ],
+    "classes": ["kw-input-wrap"],
     "tag": "div"
   },
   {
@@ -6732,23 +5258,16 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "step",
-      "locked"
-    ],
+    "classes": ["step", "locked"],
     "id": "customStep2",
     "tag": "div"
   },
   {
-    "classes": [
-      "step-head"
-    ],
+    "classes": ["step-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-num"
-    ],
+    "classes": ["step-num"],
     "tag": "div"
   },
   {
@@ -6756,33 +5275,23 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "step-title"
-    ],
+    "classes": ["step-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "step-body"
-    ],
+    "classes": ["step-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-row"
-    ],
+    "classes": ["counter-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "counter-label"
-    ],
+    "classes": ["counter-label"],
     "tag": "span"
   },
   {
-    "classes": [
-      "counter"
-    ],
+    "classes": ["counter"],
     "tag": "div"
   },
   {
@@ -6804,9 +5313,7 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -6824,9 +5331,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "runCustomSearch",
     "id": "customSearchBtn",
     "tag": "button"
@@ -6849,19 +5354,15 @@
     "tag": "div"
   },
   {
-    "classes": [],
+    "classes": ["side-stack"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel", "log-panel-uniform"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -6869,37 +5370,26 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "link"
-    ],
+    "classes": ["link"],
     "data-act": "clearParseLogs",
     "tag": "span"
   },
   {
-    "classes": [
-      "terminal"
-    ],
+    "classes": ["terminal"],
     "id": "parseLogs",
     "tag": "div"
   },
   {
-    "classes": [
-      "terminal-line"
-    ],
+    "classes": ["terminal-line"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "verification-panel"
-    ],
+    "classes": ["panel", "verification-panel"],
     "id": "telegramVerificationPanel",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -6911,28 +5401,20 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "pipeline-badge"
-    ],
+    "classes": ["pipeline-badge"],
     "id": "verificationStatus",
     "tag": "span"
   },
   {
-    "classes": [
-      "verify-toolbar"
-    ],
+    "classes": ["verify-toolbar"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -6949,20 +5431,16 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "verify-live"
-    ],
+    "classes": ["verify-live"],
     "id": "verificationCurrent",
     "tag": "div"
   },
   {
-    "classes": [
-      "verify-live-dot"
-    ],
+    "classes": ["verify-live-dot"],
     "tag": "span"
   },
   {
-    "classes": [],
+    "classes": ["verify-live-copy"],
     "tag": "div"
   },
   {
@@ -6974,32 +5452,23 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "verify-actions"
-    ],
+    "classes": ["verify-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "cancelTelegramVerification",
     "id": "verificationCancelBtn",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "runTelegramVerification",
     "id": "verificationRunBtn",
     "tag": "button"
   },
   {
-    "classes": [
-      "verify-progress"
-    ],
+    "classes": ["verify-progress"],
     "tag": "div"
   },
   {
@@ -7008,9 +5477,7 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "verify-kpis"
-    ],
+    "classes": ["verify-kpis"],
     "id": "verificationKpis",
     "tag": "div"
   },
@@ -7047,29 +5514,21 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "verification-results"
-    ],
+    "classes": ["verification-results"],
     "id": "verificationResults",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "section"
-    ],
+    "classes": ["section"],
     "id": "databases",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -7077,21 +5536,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
@@ -7100,18 +5553,12 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "leadImportBtn",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "leadExportBtn",
     "tag": "button"
   },
@@ -7121,9 +5568,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "db-search"
-    ],
+    "classes": ["db-search"],
     "tag": "div"
   },
   {
@@ -7144,16 +5589,12 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "db-total"
-    ],
+    "classes": ["db-total"],
     "id": "dbTotals",
     "tag": "div"
   },
   {
-    "classes": [
-      "db-grid"
-    ],
+    "classes": ["db-grid"],
     "id": "databasesGrid",
     "tag": "div"
   },
@@ -7163,9 +5604,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "db-back"
-    ],
+    "classes": ["db-back"],
     "data-act": "backToDatabases",
     "tag": "div"
   },
@@ -7187,9 +5626,7 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "db-search"
-    ],
+    "classes": ["db-search"],
     "tag": "div"
   },
   {
@@ -7210,59 +5647,40 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "lead-toolbar"
-    ],
+    "classes": ["lead-toolbar"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chips"
-    ],
+    "classes": ["chips"],
     "id": "leadChips",
     "tag": "div"
   },
   {
-    "classes": [
-      "chip",
-      "active"
-    ],
+    "classes": ["chip", "active"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chip"
-    ],
+    "classes": ["chip"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-sort"
-    ],
+    "classes": ["lead-sort"],
     "id": "leadSort",
     "tag": "select"
   },
@@ -7283,31 +5701,22 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "resolveLeadNames",
     "tag": "button"
   },
   {
-    "classes": [
-      "bulk-bar"
-    ],
+    "classes": ["bulk-bar"],
     "id": "leadBulkBar",
     "tag": "div"
   },
   {
-    "classes": [
-      "bulk-count"
-    ],
+    "classes": ["bulk-count"],
     "id": "leadBulkCount",
     "tag": "span"
   },
   {
-    "classes": [
-      "lead-sort"
-    ],
+    "classes": ["lead-sort"],
     "id": "leadBulkStatus",
     "tag": "select"
   },
@@ -7332,34 +5741,22 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "leadBulkApply",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost",
-      "danger"
-    ],
+    "classes": ["btn", "ghost", "danger"],
     "id": "leadBulkDelete",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "leadBulkClear",
     "tag": "button"
   },
   {
-    "classes": [
-      "list-card"
-    ],
+    "classes": ["list-card"],
     "tag": "div"
   },
   {
@@ -7368,16 +5765,12 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "empty-state"
-    ],
+    "classes": ["empty-state"],
     "id": "leadsEmpty",
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-pager"
-    ],
+    "classes": ["lead-pager"],
     "tag": "div"
   },
   {
@@ -7390,36 +5783,26 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "leadPage",
     "data-args": "[-1]",
     "id": "leadPrev",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "leadPage",
     "data-args": "[1]",
     "id": "leadNext",
     "tag": "button"
   },
   {
-    "classes": [
-      "section"
-    ],
+    "classes": ["section"],
     "id": "offer",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -7427,46 +5810,31 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "offer-tabs"
-    ],
+    "classes": ["offer-tabs", "seg"],
     "tag": "div"
   },
   {
-    "classes": [
-      "offer-tab",
-      "active"
-    ],
+    "classes": ["offer-tab", "active"],
     "tag": "button"
   },
   {
-    "classes": [
-      "offer-tab"
-    ],
+    "classes": ["offer-tab"],
     "tag": "button"
   },
   {
-    "classes": [
-      "creator-with-log"
-    ],
+    "classes": ["creator-with-log", "offer-layout"],
     "tag": "div"
   },
   {
@@ -7474,18 +5842,12 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "offer-pane",
-      "active"
-    ],
+    "classes": ["panel", "offer-pane", "active"],
     "id": "offerPaneManual",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -7493,15 +5855,11 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "grid-2"
-    ],
+    "classes": ["grid-2", "offer-create-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -7514,10 +5872,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field",
-      "offer-media-field"
-    ],
+    "classes": ["field", "offer-media-field"],
     "tag": "div"
   },
   {
@@ -7525,9 +5880,7 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "offer-upload"
-    ],
+    "classes": ["offer-upload"],
     "tag": "label"
   },
   {
@@ -7536,9 +5889,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "offer-upload-icon"
-    ],
+    "classes": ["offer-upload-icon"],
     "tag": "span"
   },
   {
@@ -7558,9 +5909,7 @@
     "tag": "circle"
   },
   {
-    "classes": [
-      "offer-upload-copy"
-    ],
+    "classes": ["offer-upload-copy"],
     "tag": "span"
   },
   {
@@ -7572,9 +5921,7 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "offer-upload-action"
-    ],
+    "classes": ["offer-upload-action"],
     "tag": "span"
   },
   {
@@ -7583,9 +5930,7 @@
     "tag": "img"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -7598,34 +5943,24 @@
     "tag": "textarea"
   },
   {
-    "classes": [
-      "ph-wrap"
-    ],
+    "classes": ["ph-wrap"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ph-label"
-    ],
+    "classes": ["ph-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ph-hint"
-    ],
+    "classes": ["ph-hint"],
     "tag": "span"
   },
   {
-    "classes": [
-      "ph-chips"
-    ],
+    "classes": ["ph-chips"],
     "id": "placeholderChips",
     "tag": "div"
   },
   {
-    "classes": [
-      "ph-note"
-    ],
+    "classes": ["ph-note"],
     "id": "placeholderNote",
     "tag": "div"
   },
@@ -7634,32 +5969,22 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "createOfferFromPage",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "clearOfferForm",
     "tag": "button"
   },
   {
-    "classes": [
-      "panel",
-      "offer-pane"
-    ],
+    "classes": ["panel", "offer-pane"],
     "id": "offerPaneAi",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -7667,22 +5992,16 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "badge"
-    ],
+    "classes": ["badge"],
     "id": "aiOfferPlanBadge",
     "tag": "span"
   },
   {
-    "classes": [
-      "offer-ai-lead"
-    ],
+    "classes": ["offer-ai-lead"],
     "tag": "p"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -7695,21 +6014,15 @@
     "tag": "textarea"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "grid-2"
-    ],
+    "classes": ["grid-2"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -7738,15 +6051,11 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -7754,9 +6063,7 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "aiOfferStatus",
     "tag": "div"
   },
@@ -7765,37 +6072,30 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "saveAiOfferSettings",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "generateAiOffer",
     "tag": "button"
   },
   {
-    "classes": [
-      "ai-offer-result"
-    ],
+    "classes": ["ai-offer-result"],
     "id": "aiOfferResult",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["offer-side"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel", "log-panel-uniform"],
+    "tag": "div"
+  },
+  {
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -7803,61 +6103,43 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "link"
-    ],
+    "classes": ["link"],
     "data-act": "clearOfferLog",
     "tag": "span"
   },
   {
-    "classes": [
-      "terminal"
-    ],
+    "classes": ["terminal"],
     "id": "offerLogs",
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-preview"
-    ],
+    "classes": ["tg-preview"],
     "id": "offerTgPreview",
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-preview-head"
-    ],
+    "classes": ["tg-preview-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-preview-title"
-    ],
+    "classes": ["tg-preview-title"],
     "tag": "span"
   },
   {
-    "classes": [
-      "tg-preview-sub"
-    ],
+    "classes": ["tg-preview-sub"],
     "id": "tgPreviewLead",
     "tag": "span"
   },
   {
-    "classes": [
-      "tg-window"
-    ],
+    "classes": ["tg-window"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-bar"
-    ],
+    "classes": ["tg-bar"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-ava"
-    ],
+    "classes": ["tg-ava"],
     "id": "tgPreviewAva",
     "tag": "div"
   },
@@ -7866,61 +6148,42 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-name"
-    ],
+    "classes": ["tg-name"],
     "id": "tgPreviewName",
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-status"
-    ],
+    "classes": ["tg-status"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-chat"
-    ],
+    "classes": ["tg-chat"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-day"
-    ],
+    "classes": ["tg-day"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-row",
-      "out"
-    ],
+    "classes": ["tg-row", "out"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-bubble"
-    ],
+    "classes": ["tg-bubble"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-bubble-img"
-    ],
+    "classes": ["tg-bubble-img"],
     "id": "tgPreviewImg",
     "tag": "img"
   },
   {
-    "classes": [
-      "tg-bubble-text"
-    ],
+    "classes": ["tg-bubble-text"],
     "id": "tgPreviewText",
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-bubble-meta"
-    ],
+    "classes": ["tg-bubble-meta"],
     "tag": "div"
   },
   {
@@ -7929,21 +6192,15 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "tg-ticks"
-    ],
+    "classes": ["tg-ticks"],
     "tag": "span"
   },
   {
-    "classes": [
-      "tg-compose"
-    ],
+    "classes": ["tg-compose"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tg-c-ico"
-    ],
+    "classes": ["tg-c-ico"],
     "tag": "span"
   },
   {
@@ -7955,15 +6212,11 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "tg-c-ph"
-    ],
+    "classes": ["tg-c-ph"],
     "tag": "span"
   },
   {
-    "classes": [
-      "tg-c-ico"
-    ],
+    "classes": ["tg-c-ico"],
     "tag": "span"
   },
   {
@@ -7987,9 +6240,7 @@
     "tag": "circle"
   },
   {
-    "classes": [
-      "tg-c-ico"
-    ],
+    "classes": ["tg-c-ico"],
     "tag": "span"
   },
   {
@@ -8005,30 +6256,22 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "tg-preview-warn"
-    ],
+    "classes": ["tg-preview-warn"],
     "id": "tgPreviewWarn",
     "tag": "div"
   },
   {
-    "classes": [
-      "grid-3"
-    ],
+    "classes": ["grid-3"],
     "id": "offerGrid",
     "tag": "div"
   },
   {
-    "classes": [
-      "section"
-    ],
+    "classes": ["section"],
     "id": "mailing",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -8036,49 +6279,33 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "danger"
-    ],
+    "classes": ["btn", "danger"],
     "data-act": "stopAllCampaigns",
     "id": "campaignStopAllBtn",
     "tag": "button"
   },
   {
-    "classes": [
-      "plan-lock"
-    ],
+    "classes": ["plan-lock"],
     "tag": "div"
   },
   {
-    "classes": [
-      "mailing-flow"
-    ],
+    "classes": ["mailing-flow"],
     "tag": "div"
   },
   {
-    "classes": [
-      "mailing-flow-step",
-      "active"
-    ],
+    "classes": ["mailing-flow-step", "active"],
     "tag": "div"
   },
   {
@@ -8098,9 +6325,7 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "mailing-flow-step"
-    ],
+    "classes": ["mailing-flow-step"],
     "tag": "div"
   },
   {
@@ -8120,9 +6345,7 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "mailing-flow-step"
-    ],
+    "classes": ["mailing-flow-step"],
     "tag": "div"
   },
   {
@@ -8142,24 +6365,15 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "creator-with-log",
-      "mailing-workspace"
-    ],
+    "classes": ["creator-with-log", "mailing-workspace"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "campaign-builder"
-    ],
+    "classes": ["panel", "campaign-builder"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head",
-      "campaign-builder-head"
-    ],
+    "classes": ["panel-head", "campaign-builder-head"],
     "tag": "div"
   },
   {
@@ -8167,9 +6381,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "campaign-kicker"
-    ],
+    "classes": ["campaign-kicker"],
     "tag": "span"
   },
   {
@@ -8177,9 +6389,7 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "campaign-draft-state"
-    ],
+    "classes": ["campaign-draft-state"],
     "tag": "span"
   },
   {
@@ -8187,9 +6397,7 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "campaign-section-label"
-    ],
+    "classes": ["campaign-section-label"],
     "tag": "div"
   },
   {
@@ -8209,16 +6417,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "grid-2",
-      "campaign-basics"
-    ],
+    "classes": ["grid-2", "campaign-basics"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -8231,9 +6434,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -8250,9 +6451,7 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "campaign-section-label"
-    ],
+    "classes": ["campaign-section-label"],
     "tag": "div"
   },
   {
@@ -8272,10 +6471,7 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "mode-row",
-      "campaign-mode-row"
-    ],
+    "classes": ["mode-row", "campaign-mode-row"],
     "tag": "div"
   },
   {
@@ -8283,37 +6479,26 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "row-title"
-    ],
+    "classes": ["row-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "id": "aiModeSub",
     "tag": "div"
   },
   {
-    "classes": [
-      "switch"
-    ],
+    "classes": ["switch"],
     "data-act": "toggleCampaignAi",
     "id": "campaignAiToggle",
     "tag": "button"
   },
   {
-    "classes": [
-      "switch-k"
-    ],
+    "classes": ["switch-k"],
     "tag": "span"
   },
   {
-    "classes": [
-      "notice",
-      "warn"
-    ],
+    "classes": ["notice", "warn"],
     "id": "aiPlanNotice",
     "tag": "div"
   },
@@ -8323,16 +6508,12 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "campaignOffersHint",
     "tag": "div"
   },
   {
-    "classes": [
-      "mode-row"
-    ],
+    "classes": ["mode-row"],
     "tag": "div"
   },
   {
@@ -8340,29 +6521,21 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "row-title"
-    ],
+    "classes": ["row-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "switch"
-    ],
+    "classes": ["switch"],
     "data-act": "toggleCampaignSpintax",
     "id": "campaignSpintaxToggle",
     "tag": "button"
   },
   {
-    "classes": [
-      "switch-k"
-    ],
+    "classes": ["switch-k"],
     "tag": "span"
   },
   {
@@ -8371,9 +6544,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -8381,31 +6552,22 @@
     "tag": "label"
   },
   {
-    "classes": [
-      "ai-tpl-preview"
-    ],
+    "classes": ["ai-tpl-preview"],
     "id": "campaignAiTemplatePreview",
     "tag": "div"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "goTo",
     "data-args": "[\"offer\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "campaign-section-label"
-    ],
+    "classes": ["campaign-section-label"],
     "tag": "div"
   },
   {
@@ -8425,16 +6587,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "grid-2",
-      "campaign-targeting"
-    ],
+    "classes": ["grid-2", "campaign-targeting"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -8447,24 +6604,17 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "link"
-    ],
+    "classes": ["link"],
     "data-act": "openModal",
     "data-args": "[\"modalScoreInfo\"]",
     "tag": "span"
   },
   {
-    "classes": [
-      "field",
-      "campaign-account-auto"
-    ],
+    "classes": ["field", "campaign-account-auto"],
     "tag": "div"
   },
   {
@@ -8477,15 +6627,11 @@
     "tag": "select"
   },
   {
-    "classes": [
-      "campaign-auto-pool"
-    ],
+    "classes": ["campaign-auto-pool"],
     "tag": "div"
   },
   {
-    "classes": [
-      "campaign-auto-shield"
-    ],
+    "classes": ["campaign-auto-shield"],
     "tag": "span"
   },
   {
@@ -8514,9 +6660,7 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "campaign-auto-live"
-    ],
+    "classes": ["campaign-auto-live"],
     "tag": "span"
   },
   {
@@ -8524,9 +6668,7 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "campaign-pool-chips"
-    ],
+    "classes": ["campaign-pool-chips"],
     "id": "campaignAccountPoolList",
     "tag": "div"
   },
@@ -8545,9 +6687,7 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -8560,15 +6700,11 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "check-row"
-    ],
+    "classes": ["check-row"],
     "tag": "label"
   },
   {
@@ -8577,117 +6713,72 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "campaign-actions"
-    ],
+    "classes": ["campaign-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "launchCampaign",
     "id": "campaignLaunchBtn",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "previewCampaign",
     "id": "campaignPreviewBtn",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "clearCampaignForm",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "campaignRecipientsHint",
     "tag": "div"
   },
   {
-    "classes": [
-      "campaign-preview"
-    ],
+    "classes": ["campaign-preview"],
     "id": "campaignPreviewBox",
     "tag": "div"
   },
   {
-    "classes": [
-      "send-note"
-    ],
+    "classes": ["send-note"],
     "tag": "div"
   },
   {
-    "classes": [
-      "log-panel",
-      "terminal-panel",
-      "campaign-log-panel"
-    ],
+    "classes": ["panel", "log-panel-uniform", "campaign-log-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "log-panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
     "classes": [],
-    "tag": "span"
+    "tag": "h3"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
-    "tag": "span"
-  },
-  {
-    "classes": [
-      "terminal"
-    ],
-    "id": "campaignLogs",
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "terminal-line",
-      "terminal-info"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "log-panel-foot"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "link"
-    ],
+    "classes": ["link"],
     "data-act": "clearCampaignLog",
     "tag": "span"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["terminal"],
+    "id": "campaignLogs",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["terminal-line", "terminal-info"],
+    "tag": "div"
+  },
+  {
+    "classes": ["panel"],
+    "tag": "div"
+  },
+  {
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -8699,27 +6790,19 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
-    "classes": [
-      "test-send"
-    ],
+    "classes": ["test-send"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -8732,15 +6815,11 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -8757,15 +6836,11 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -8782,9 +6857,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "sendTestMessage",
     "id": "testSendBtn",
     "tag": "button"
@@ -8802,30 +6875,22 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "testSendStatus",
     "tag": "span"
   },
   {
-    "classes": [
-      "test-send-receipt"
-    ],
+    "classes": ["test-send-receipt"],
     "id": "testSendReceipt",
     "tag": "div"
   },
   {
-    "classes": [
-      "test-reply-watch"
-    ],
+    "classes": ["test-reply-watch"],
     "id": "testReplyWatch",
     "tag": "div"
   },
   {
-    "classes": [
-      "test-reply-indicator"
-    ],
+    "classes": ["test-reply-indicator"],
     "tag": "span"
   },
   {
@@ -8852,23 +6917,17 @@
     "tag": "time"
   },
   {
-    "classes": [
-      "list-card"
-    ],
+    "classes": ["list-card"],
     "id": "campaignList",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "id": "campaignRecipientsPanel",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -8876,52 +6935,37 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "id": "campaignRecipientsFor",
     "tag": "span"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "campaignRecipientsClose",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "campaignRecipientsSummary",
     "tag": "div"
   },
   {
-    "classes": [
-      "bulk-bar"
-    ],
+    "classes": ["bulk-bar"],
     "id": "campaignSendBar",
     "tag": "div"
   },
   {
-    "classes": [
-      "bulk-count"
-    ],
+    "classes": ["bulk-count"],
     "id": "campaignSendCount",
     "tag": "span"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "id": "campaignMarkSent",
     "tag": "button"
   },
   {
-    "classes": [
-      "action-menu"
-    ],
+    "classes": ["action-menu"],
     "tag": "details"
   },
   {
@@ -8929,27 +6973,16 @@
     "tag": "summary"
   },
   {
-    "classes": [
-      "action-menu-pop"
-    ],
+    "classes": ["action-menu-pop"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost",
-      "menu-action",
-      "danger"
-    ],
+    "classes": ["btn", "ghost", "menu-action", "danger"],
     "id": "campaignMarkFailed",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost",
-      "menu-action"
-    ],
+    "classes": ["btn", "ghost", "menu-action"],
     "id": "campaignSelClear",
     "tag": "button"
   },
@@ -8959,9 +6992,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-pager"
-    ],
+    "classes": ["lead-pager"],
     "id": "campaignRecipientsPager",
     "tag": "div"
   },
@@ -8975,32 +7006,22 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "campaignRecipientsPrev",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "campaignRecipientsNext",
     "tag": "button"
   },
   {
-    "classes": [
-      "section"
-    ],
+    "classes": ["section"],
     "id": "tariffs",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -9008,54 +7029,38 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "notice"
-    ],
+    "classes": ["notice"],
     "id": "tariffsNotice",
     "tag": "div"
   },
   {
-    "classes": [
-      "grid-4-tariff"
-    ],
+    "classes": ["grid-4-tariff"],
     "id": "tariffGrid",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "id": "myPlanPanel",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -9063,9 +7068,7 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "badge"
-    ],
+    "classes": ["badge"],
     "id": "myPlanBadge",
     "tag": "span"
   },
@@ -9075,16 +7078,12 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "myPlanUntil",
     "tag": "div"
   },
   {
-    "classes": [
-      "plan-limit-cols"
-    ],
+    "classes": ["plan-limit-cols"],
     "id": "myPlanUsage",
     "tag": "div"
   },
@@ -9094,268 +7093,12 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "section"
-    ],
-    "id": "neuro",
-    "tag": "section"
-  },
-  {
-    "classes": [
-      "topbar"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "page-title"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "page-sub"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "topbar-right"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
-    "data-act": "reloadNeuro",
-    "tag": "button"
-  },
-  {
-    "classes": [
-      "btn"
-    ],
-    "data-act": "startNeuro",
-    "id": "neuroStartBtn",
-    "tag": "button"
-  },
-  {
-    "classes": [
-      "plan-lock"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "panel",
-      "neuro-budget"
-    ],
-    "id": "neuroBudget",
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "neuro-grid"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "panel"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "panel-title"
-    ],
-    "tag": "h3"
-  },
-  {
-    "classes": [
-      "panel-sub"
-    ],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "neuro-add"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "id": "neuroTargetInput",
-    "tag": "input"
-  },
-  {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
-    "data-act": "addNeuroTarget",
-    "tag": "button"
-  },
-  {
-    "classes": [
-      "neuro-add"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "id": "neuroSearchInput",
-    "tag": "input"
-  },
-  {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
-    "data-act": "searchNeuroTargets",
-    "tag": "button"
-  },
-  {
-    "classes": [
-      "neuro-list"
-    ],
-    "id": "neuroSearchResults",
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "neuro-list"
-    ],
-    "id": "neuroTargets",
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "panel"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "panel-title"
-    ],
-    "tag": "h3"
-  },
-  {
-    "classes": [
-      "panel-sub"
-    ],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "field"
-    ],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "id": "neuroPersona",
-    "tag": "textarea"
-  },
-  {
-    "classes": [
-      "field"
-    ],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "id": "neuroLink",
-    "tag": "input"
-  },
-  {
-    "classes": [
-      "field"
-    ],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "id": "neuroDailyLimit",
-    "tag": "input"
-  },
-  {
-    "classes": [
-      "neuro-actions"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
-    "data-act": "saveNeuroRun",
-    "tag": "button"
-  },
-  {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
-    "data-act": "previewNeuroComment",
-    "tag": "button"
-  },
-  {
-    "classes": [
-      "neuro-preview"
-    ],
-    "id": "neuroPreview",
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "panel"
-    ],
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "panel-title"
-    ],
-    "tag": "h3"
-  },
-  {
-    "classes": [
-      "neuro-list"
-    ],
-    "id": "neuroLog",
-    "tag": "div"
-  },
-  {
-    "classes": [
-      "section"
-    ],
+    "classes": ["section"],
     "id": "messages",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -9363,56 +7106,44 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-account"
-    ],
+    "classes": ["chat-acc-box"],
+    "id": "chatAccountBox",
+    "tag": "div"
+  },
+  {
+    "classes": ["chat-account"],
     "id": "chatAccount",
     "tag": "select"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "reloadChat",
     "tag": "button"
   },
   {
-    "classes": [
-      "chat-wrap"
-    ],
+    "classes": ["chat-wrap"],
     "id": "chatWrap",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-list"
-    ],
+    "classes": ["chat-list"],
     "id": "chatList",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-search"
-    ],
+    "classes": ["chat-search"],
     "tag": "div"
   },
   {
@@ -9433,23 +7164,17 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "chat-dialogs"
-    ],
+    "classes": ["chat-dialogs"],
     "id": "chatDialogs",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-pane"
-    ],
+    "classes": ["chat-pane"],
     "id": "chatPane",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-empty"
-    ],
+    "classes": ["chat-empty"],
     "id": "chatEmpty",
     "tag": "div"
   },
@@ -9462,34 +7187,24 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "ce-title"
-    ],
+    "classes": ["ce-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ce-sub"
-    ],
+    "classes": ["ce-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-room"
-    ],
+    "classes": ["chat-room"],
     "id": "chatRoom",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-head"
-    ],
+    "classes": ["chat-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-back"
-    ],
+    "classes": ["chat-back"],
     "data-act": "closeChatRoom",
     "tag": "button"
   },
@@ -9502,51 +7217,91 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "chat-ava"
-    ],
+    "classes": ["chat-ava"],
     "id": "chatHeadAva",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-head-text"
-    ],
+    "classes": ["chat-head-text"],
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-head-title"
-    ],
+    "classes": ["chat-head-title"],
     "id": "chatHeadTitle",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-head-sub"
-    ],
+    "classes": ["chat-head-sub"],
     "id": "chatHeadSub",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-head-lead"
-    ],
+    "classes": ["chat-head-lead"],
     "data-act": "openChatLead",
     "id": "chatHeadLead",
     "tag": "button"
   },
   {
-    "classes": [
-      "chat-feed"
-    ],
+    "classes": ["chat-feed"],
     "id": "chatFeed",
     "tag": "div"
   },
   {
-    "classes": [
-      "chat-compose"
-    ],
+    "classes": ["chat-to-bottom"],
+    "data-act": "scrollChatToBottom",
+    "id": "chatToBottom",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": ["chat-reply-bar"],
+    "id": "chatReplyBar",
+    "tag": "div"
+  },
+  {
+    "classes": ["chat-reply-ico"],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": ["chat-reply-text"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "chatReplyWho",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "chatReplyText",
+    "tag": "span"
+  },
+  {
+    "classes": ["chat-reply-x"],
+    "data-act": "cancelChatReply",
+    "tag": "button"
+  },
+  {
+    "classes": ["chat-compose"],
     "id": "chatCompose",
     "tag": "div"
   },
@@ -9556,9 +7311,7 @@
     "tag": "textarea"
   },
   {
-    "classes": [
-      "chat-send"
-    ],
+    "classes": ["chat-send"],
     "data-act": "sendChatMessage",
     "tag": "button"
   },
@@ -9571,23 +7324,17 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "chat-readonly"
-    ],
+    "classes": ["chat-readonly"],
     "id": "chatReadonly",
     "tag": "div"
   },
   {
-    "classes": [
-      "section"
-    ],
+    "classes": ["section"],
     "id": "settings",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -9595,33 +7342,23 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "section-kicker"
-    ],
+    "classes": ["section-kicker"],
     "tag": "span"
   },
   {
@@ -9633,9 +7370,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "mode-row"
-    ],
+    "classes": ["mode-row"],
     "tag": "div"
   },
   {
@@ -9643,48 +7378,34 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "row-title"
-    ],
+    "classes": ["row-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "id": "replyNotifySub",
     "tag": "div"
   },
   {
-    "classes": [
-      "switch"
-    ],
+    "classes": ["switch"],
     "data-act": "toggleReplyNotify",
     "id": "replyNotifyToggle",
     "tag": "button"
   },
   {
-    "classes": [
-      "switch-k"
-    ],
+    "classes": ["switch-k"],
     "tag": "span"
   },
   {
-    "classes": [
-      "notify-target"
-    ],
+    "classes": ["notify-target"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field-label"
-    ],
+    "classes": ["field-label"],
     "tag": "label"
   },
   {
-    "classes": [
-      "notify-target-row"
-    ],
+    "classes": ["notify-target-row"],
     "tag": "div"
   },
   {
@@ -9693,31 +7414,22 @@
     "tag": "select"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "testNotifyTarget",
     "id": "notifyTargetTest",
     "tag": "button"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "id": "notifyTargetHint",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "section-kicker"
-    ],
+    "classes": ["section-kicker"],
     "tag": "span"
   },
   {
@@ -9729,9 +7441,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "mode-row"
-    ],
+    "classes": ["mode-row"],
     "tag": "div"
   },
   {
@@ -9739,42 +7449,30 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "row-title"
-    ],
+    "classes": ["row-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "id": "sendWindowSub",
     "tag": "div"
   },
   {
-    "classes": [
-      "switch"
-    ],
+    "classes": ["switch"],
     "data-act": "toggleSendWindow",
     "id": "sendWindowToggle",
     "tag": "button"
   },
   {
-    "classes": [
-      "switch-k"
-    ],
+    "classes": ["switch-k"],
     "tag": "span"
   },
   {
-    "classes": [
-      "send-window-row"
-    ],
+    "classes": ["send-window-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -9787,9 +7485,7 @@
     "tag": "select"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -9802,23 +7498,17 @@
     "tag": "select"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "id": "sendWindowHint",
     "tag": "div"
   },
   {
-    "classes": [
-      "reply-hours"
-    ],
+    "classes": ["reply-hours"],
     "id": "replyHours",
     "tag": "div"
   },
   {
-    "classes": [
-      "reply-hours-head"
-    ],
+    "classes": ["reply-hours-head"],
     "tag": "div"
   },
   {
@@ -9831,22 +7521,16 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "reply-hours-bars"
-    ],
+    "classes": ["reply-hours-bars"],
     "id": "replyHoursBars",
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "section-kicker"
-    ],
+    "classes": ["section-kicker"],
     "tag": "span"
   },
   {
@@ -9858,42 +7542,29 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "sessions-list"
-    ],
+    "classes": ["sessions-list"],
     "id": "sessionsList",
     "tag": "div"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "sessions-foot"
-    ],
+    "classes": ["sessions-foot"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "revokeOtherSessions",
     "tag": "button"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "section-kicker"
-    ],
+    "classes": ["section-kicker"],
     "tag": "span"
   },
   {
@@ -9905,30 +7576,21 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "risk-list"
-    ],
+    "classes": ["risk-list"],
     "id": "accountRiskList",
     "tag": "div"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "account-health-center"
-    ],
+    "classes": ["panel", "account-health-center"],
     "id": "accountHealthCenter",
     "tag": "div"
   },
   {
-    "classes": [
-      "health-center-head"
-    ],
+    "classes": ["health-center-head"],
     "tag": "div"
   },
   {
@@ -9936,9 +7598,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "section-kicker"
-    ],
+    "classes": ["section-kicker"],
     "tag": "span"
   },
   {
@@ -9950,15 +7610,11 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "health-head-actions"
-    ],
+    "classes": ["health-head-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-sync"
-    ],
+    "classes": ["health-sync"],
     "id": "healthSyncState",
     "tag": "span"
   },
@@ -9967,28 +7623,19 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "tag": "button"
   },
   {
-    "classes": [
-      "health-overview-grid"
-    ],
+    "classes": ["health-overview-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-score-card"
-    ],
+    "classes": ["health-score-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-ring"
-    ],
+    "classes": ["health-ring"],
     "id": "healthScoreRing",
     "tag": "div"
   },
@@ -10010,9 +7657,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "health-eyebrow"
-    ],
+    "classes": ["health-eyebrow"],
     "tag": "span"
   },
   {
@@ -10026,16 +7671,11 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "health-kpi"
-    ],
+    "classes": ["health-kpi"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-kpi-icon",
-      "ready"
-    ],
+    "classes": ["health-kpi-icon", "ready"],
     "tag": "span"
   },
   {
@@ -10065,15 +7705,11 @@
     "tag": "em"
   },
   {
-    "classes": [
-      "health-kpi"
-    ],
+    "classes": ["health-kpi"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-kpi-icon"
-    ],
+    "classes": ["health-kpi-icon"],
     "tag": "span"
   },
   {
@@ -10103,15 +7739,11 @@
     "tag": "em"
   },
   {
-    "classes": [
-      "health-kpi"
-    ],
+    "classes": ["health-kpi"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-kpi-icon"
-    ],
+    "classes": ["health-kpi-icon"],
     "tag": "span"
   },
   {
@@ -10145,21 +7777,15 @@
     "tag": "em"
   },
   {
-    "classes": [
-      "health-main-grid"
-    ],
+    "classes": ["health-main-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-accounts-panel"
-    ],
+    "classes": ["health-accounts-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-section-head"
-    ],
+    "classes": ["health-section-head"],
     "tag": "div"
   },
   {
@@ -10175,15 +7801,11 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "health-filters"
-    ],
+    "classes": ["health-filters"],
     "tag": "div"
   },
   {
-    "classes": [
-      "active"
-    ],
+    "classes": ["active"],
     "tag": "button"
   },
   {
@@ -10195,28 +7817,20 @@
     "tag": "button"
   },
   {
-    "classes": [
-      "health-account-list"
-    ],
+    "classes": ["health-account-list"],
     "id": "healthAccountList",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-recommendations"
-    ],
+    "classes": ["health-recommendations"],
     "tag": "aside"
   },
   {
-    "classes": [
-      "health-section-head"
-    ],
+    "classes": ["health-section-head"],
     "tag": "div"
   },
   {
@@ -10232,9 +7846,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "recommend-count"
-    ],
+    "classes": ["recommend-count"],
     "id": "healthRecommendationCount",
     "tag": "span"
   },
@@ -10244,21 +7856,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-trend-row"
-    ],
+    "classes": ["health-trend-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-trend-copy"
-    ],
+    "classes": ["health-trend-copy"],
     "tag": "div"
   },
   {
@@ -10276,22 +7882,16 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "health-mini-chart"
-    ],
+    "classes": ["health-mini-chart"],
     "id": "healthLoadChart",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "health-details-pop"
-    ],
+    "classes": ["health-details-pop"],
     "id": "healthDetailsPop",
     "tag": "div"
   },
@@ -10314,9 +7914,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "health-account-management"
-    ],
+    "classes": ["health-account-management"],
     "id": "healthAccountManagement",
     "tag": "details"
   },
@@ -10325,9 +7923,7 @@
     "tag": "summary"
   },
   {
-    "classes": [
-      "health-management-icon"
-    ],
+    "classes": ["health-management-icon"],
     "tag": "span"
   },
   {
@@ -10359,21 +7955,15 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "health-management-count"
-    ],
+    "classes": ["health-management-count"],
     "tag": "span"
   },
   {
-    "classes": [
-      "health-management-chevron"
-    ],
+    "classes": ["health-management-chevron"],
     "tag": "i"
   },
   {
-    "classes": [
-      "health-management-body"
-    ],
+    "classes": ["health-management-body"],
     "tag": "div"
   },
   {
@@ -10382,41 +7972,29 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "acc-add-row"
-    ],
+    "classes": ["acc-add-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "addWarmupAccount",
     "tag": "button"
   },
   {
-    "classes": [
-      "acc-add-hint"
-    ],
+    "classes": ["acc-add-hint"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "warmupDisclaimer",
     "tag": "div"
   },
   {
-    "classes": [
-      "grid-2"
-    ],
+    "classes": ["grid-2"],
     "tag": "div"
   },
   {
@@ -10424,17 +8002,11 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "list-card",
-      "appearance-card"
-    ],
+    "classes": ["list-card", "appearance-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head",
-      "appearance-head"
-    ],
+    "classes": ["panel-head", "appearance-head"],
     "tag": "div"
   },
   {
@@ -10446,15 +8018,11 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "appearance-pickers"
-    ],
+    "classes": ["appearance-pickers"],
     "tag": "div"
   },
   {
@@ -10462,22 +8030,16 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "theme-grid"
-    ],
+    "classes": ["theme-grid"],
     "id": "themeGrid",
     "tag": "div"
   },
   {
-    "classes": [
-      "list-card"
-    ],
+    "classes": ["list-card"],
     "tag": "div"
   },
   {
-    "classes": [
-      "appearance-row"
-    ],
+    "classes": ["appearance-row"],
     "tag": "div"
   },
   {
@@ -10485,23 +8047,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "row-title"
-    ],
+    "classes": ["row-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "row-sub"
-    ],
+    "classes": ["row-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost",
-      "danger"
-    ],
+    "classes": ["btn", "ghost", "danger"],
     "data-act": "logout",
     "tag": "button"
   },
@@ -10510,15 +8064,11 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -10526,17 +8076,11 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost",
-      "tut-open"
-    ],
+    "classes": ["btn", "ghost", "tut-open"],
     "data-act": "openModal",
     "data-args": "[\"modalKeyTutorial\"]",
     "tag": "button"
@@ -10563,21 +8107,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "key-add"
-    ],
+    "classes": ["key-add"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -10590,15 +8128,11 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "row-2"
-    ],
+    "classes": ["row-2"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -10611,9 +8145,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -10626,37 +8158,27 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "addKey",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "keysQuota",
     "tag": "div"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "keysNote",
     "tag": "div"
   },
   {
-    "classes": [
-      "section"
-    ],
+    "classes": ["section"],
     "id": "admin",
     "tag": "section"
   },
   {
-    "classes": [
-      "topbar"
-    ],
+    "classes": ["topbar"],
     "tag": "div"
   },
   {
@@ -10664,54 +8186,37 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "page-title"
-    ],
+    "classes": ["page-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "page-sub"
-    ],
+    "classes": ["page-sub"],
     "tag": "div"
   },
   {
-    "classes": [
-      "topbar-right"
-    ],
+    "classes": ["topbar-right"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "adminSummary",
     "tag": "div"
   },
   {
-    "classes": [
-      "adm-cards"
-    ],
+    "classes": ["adm-cards"],
     "id": "adminOverview",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "admin-health-panel"
-    ],
+    "classes": ["panel", "admin-health-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -10723,15 +8228,11 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "admin-health-up"
-    ],
+    "classes": ["admin-health-up"],
     "tag": "span"
   },
   {
@@ -10739,21 +8240,15 @@
     "tag": "i"
   },
   {
-    "classes": [
-      "admin-health-grid"
-    ],
+    "classes": ["admin-health-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "admin-health-item"
-    ],
+    "classes": ["admin-health-item"],
     "tag": "div"
   },
   {
-    "classes": [
-      "admin-health-icon"
-    ],
+    "classes": ["admin-health-icon"],
     "tag": "span"
   },
   {
@@ -10778,15 +8273,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "admin-health-item"
-    ],
+    "classes": ["admin-health-item"],
     "tag": "div"
   },
   {
-    "classes": [
-      "admin-health-icon"
-    ],
+    "classes": ["admin-health-icon"],
     "tag": "span"
   },
   {
@@ -10815,15 +8306,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "admin-health-item"
-    ],
+    "classes": ["admin-health-item"],
     "tag": "div"
   },
   {
-    "classes": [
-      "admin-health-icon"
-    ],
+    "classes": ["admin-health-icon"],
     "tag": "span"
   },
   {
@@ -10852,15 +8339,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "admin-health-item"
-    ],
+    "classes": ["admin-health-item"],
     "tag": "div"
   },
   {
-    "classes": [
-      "admin-health-icon"
-    ],
+    "classes": ["admin-health-icon"],
     "tag": "span"
   },
   {
@@ -10889,16 +8372,11 @@
     "tag": "small"
   },
   {
-    "classes": [
-      "panel",
-      "admin-notice-panel"
-    ],
+    "classes": ["panel", "admin-notice-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -10910,21 +8388,15 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "admin-notice-grid"
-    ],
+    "classes": ["admin-notice-grid"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -10949,9 +8421,7 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -10964,9 +8434,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -10995,9 +8463,7 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -11010,15 +8476,11 @@
     "tag": "textarea"
   },
   {
-    "classes": [
-      "btn-row"
-    ],
+    "classes": ["btn-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "check-row"
-    ],
+    "classes": ["check-row"],
     "tag": "label"
   },
   {
@@ -11027,29 +8489,21 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "sendAdminNotification",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "adminNoticeResult",
     "tag": "span"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11057,34 +8511,24 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
-    "classes": [
-      "adm-revenue"
-    ],
+    "classes": ["adm-revenue"],
     "id": "adminRevenue",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "pay-form"
-    ],
+    "classes": ["pay-form"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -11097,9 +8541,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -11112,9 +8554,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -11143,9 +8583,7 @@
     "tag": "option"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -11158,9 +8596,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "addPayment",
     "tag": "button"
   },
@@ -11170,21 +8606,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11192,9 +8622,7 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
@@ -11203,22 +8631,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "adm-chart-panel"
-    ],
+    "classes": ["panel", "adm-chart-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11226,40 +8647,28 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
-    "classes": [
-      "adm-chart"
-    ],
+    "classes": ["adm-chart"],
     "id": "adminChart",
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "adm-live"
-    ],
+    "classes": ["adm-live"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11267,9 +8676,7 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
@@ -11278,22 +8685,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel",
-      "admin-activity-panel"
-    ],
+    "classes": ["panel", "admin-activity-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11301,21 +8701,15 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "panel-tools"
-    ],
+    "classes": ["panel-tools"],
     "tag": "div"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
-    "classes": [
-      "link-button"
-    ],
+    "classes": ["link-button"],
     "id": "adminRecentToggle",
     "tag": "button"
   },
@@ -11325,15 +8719,11 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11341,15 +8731,11 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
-    "classes": [
-      "db-search"
-    ],
+    "classes": ["db-search"],
     "tag": "div"
   },
   {
@@ -11370,9 +8756,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "adm-scopes"
-    ],
+    "classes": ["adm-scopes"],
     "id": "adminScopes",
     "tag": "div"
   },
@@ -11382,15 +8766,11 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-pager"
-    ],
+    "classes": ["lead-pager"],
     "id": "adminPager",
     "tag": "div"
   },
@@ -11404,36 +8784,25 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "adminPage",
     "data-args": "[-1]",
     "id": "adminPrev",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "adminPage",
     "data-args": "[1]",
     "id": "adminNext",
     "tag": "button"
   },
   {
-    "classes": [
-      "panel",
-      "admin-maintenance-panel"
-    ],
+    "classes": ["panel", "admin-maintenance-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11445,27 +8814,19 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
-    "classes": [
-      "admin-maintenance-row"
-    ],
+    "classes": ["admin-maintenance-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "admin-maintenance-icon"
-    ],
+    "classes": ["admin-maintenance-icon"],
     "tag": "span"
   },
   {
@@ -11497,23 +8858,16 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "recomputeLeadScores",
     "tag": "button"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11521,21 +8875,15 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "p"
   },
   {
-    "classes": [
-      "promo-form"
-    ],
+    "classes": ["promo-form"],
     "tag": "div"
   },
   {
-    "classes": [
-      "promo-wide"
-    ],
+    "classes": ["promo-wide"],
     "tag": "div"
   },
   {
@@ -11574,9 +8922,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "promo-wide"
-    ],
+    "classes": ["promo-wide"],
     "tag": "div"
   },
   {
@@ -11589,9 +8935,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "createPromoCode",
     "tag": "button"
   },
@@ -11601,21 +8945,15 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11623,15 +8961,11 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "p"
   },
   {
-    "classes": [
-      "grant-days-form"
-    ],
+    "classes": ["grant-days-form"],
     "tag": "div"
   },
   {
@@ -11639,9 +8973,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "field-label"
-    ],
+    "classes": ["field-label"],
     "tag": "label"
   },
   {
@@ -11650,15 +8982,11 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "grant-note"
-    ],
+    "classes": ["grant-note"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field-label"
-    ],
+    "classes": ["field-label"],
     "tag": "label"
   },
   {
@@ -11667,9 +8995,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "label"
   },
   {
@@ -11678,22 +9004,16 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "grantDaysToAll",
     "tag": "button"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11701,15 +9021,11 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "span"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
@@ -11718,27 +9034,19 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "key-add"
-    ],
+    "classes": ["key-add"],
     "tag": "div"
   },
   {
-    "classes": [
-      "row-2"
-    ],
+    "classes": ["row-2"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -11751,9 +9059,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -11766,9 +9072,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -11781,22 +9085,16 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "addWhitelist",
     "tag": "button"
   },
   {
-    "classes": [
-      "panel"
-    ],
+    "classes": ["panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11808,9 +9106,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "label"
   },
   {
@@ -11819,29 +9115,20 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "exportLoginAttempts",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "log-filters"
-    ],
+    "classes": ["log-filters"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-sort"
-    ],
+    "classes": ["lead-sort"],
     "id": "loginReasonFilter",
     "tag": "select"
   },
@@ -11893,15 +9180,11 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-pager"
-    ],
+    "classes": ["lead-pager"],
     "id": "loginPager",
     "tag": "div"
   },
@@ -11915,32 +9198,21 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "loginPrev",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "loginNext",
     "tag": "button"
   },
   {
-    "classes": [
-      "panel",
-      "admin-journal-panel"
-    ],
+    "classes": ["panel", "admin-journal-panel"],
     "tag": "div"
   },
   {
-    "classes": [
-      "panel-head"
-    ],
+    "classes": ["panel-head"],
     "tag": "div"
   },
   {
@@ -11952,9 +9224,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "log-scope"
-    ],
+    "classes": ["log-scope"],
     "tag": "label"
   },
   {
@@ -11963,38 +9233,43 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "exportActivity",
     "tag": "button"
   },
   {
-    "classes": [
-      "link-button"
-    ],
+    "classes": ["link-button"],
     "id": "adminActivityToggle",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "log-filters"
-    ],
+    "classes": ["log-filters"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-sort"
-    ],
+    "classes": ["lead-sort"],
     "id": "activityScopeFilter",
     "tag": "select"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
+  },
+  {
+    "classes": [],
+    "tag": "option"
   },
   {
     "classes": [],
@@ -12028,15 +9303,11 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-pager"
-    ],
+    "classes": ["lead-pager"],
     "id": "activityPager",
     "tag": "div"
   },
@@ -12050,39 +9321,26 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "activityPrev",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "activityNext",
     "tag": "button"
   },
   {
-    "classes": [
-      "plan-confirm-dialog"
-    ],
+    "classes": ["plan-confirm-dialog"],
     "id": "modalPlanTelegram",
     "tag": "dialog"
   },
   {
-    "classes": [
-      "modal",
-      "plan-confirm-modal"
-    ],
+    "classes": ["modal", "plan-confirm-modal"],
     "tag": "form"
   },
   {
-    "classes": [
-      "modal-head"
-    ],
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -12091,21 +9349,15 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "modal-close"
-    ],
+    "classes": ["modal-close"],
     "tag": "button"
   },
   {
-    "classes": [
-      "plan-confirm-hero"
-    ],
+    "classes": ["plan-confirm-hero"],
     "tag": "div"
   },
   {
-    "classes": [
-      "plan-confirm-icon"
-    ],
+    "classes": ["plan-confirm-icon"],
     "tag": "div"
   },
   {
@@ -12125,22 +9377,16 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "plan-confirm-label"
-    ],
+    "classes": ["plan-confirm-label"],
     "tag": "div"
   },
   {
-    "classes": [
-      "plan-confirm-name"
-    ],
+    "classes": ["plan-confirm-name"],
     "id": "planConfirmName",
     "tag": "div"
   },
   {
-    "classes": [
-      "plan-confirm-info"
-    ],
+    "classes": ["plan-confirm-info"],
     "tag": "div"
   },
   {
@@ -12162,50 +9408,33 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "plan-confirm-safe"
-    ],
+    "classes": ["plan-confirm-safe"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-actions"
-    ],
+    "classes": ["modal-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "plan-confirm-continue"
-    ],
+    "classes": ["btn", "plan-confirm-continue"],
     "id": "planConfirmContinue",
     "tag": "a"
   },
   {
-    "classes": [
-      "modal-overlay"
-    ],
+    "classes": ["modal-overlay"],
     "id": "modalKeyTutorial",
     "tag": "div"
   },
   {
-    "classes": [
-      "modal",
-      "modal-lg"
-    ],
+    "classes": ["modal", "modal-lg"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-head"
-    ],
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -12213,66 +9442,45 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "modal-close"
-    ],
+    "classes": ["modal-close"],
     "data-act": "closeModal",
     "data-args": "[\"modalKeyTutorial\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "p"
   },
   {
-    "classes": [
-      "tut-links"
-    ],
+    "classes": ["tut-links"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "tut-cta"
-    ],
+    "classes": ["btn", "tut-cta"],
     "tag": "a"
   },
   {
-    "classes": [
-      "tut-doc"
-    ],
+    "classes": ["tut-doc"],
     "tag": "a"
   },
   {
-    "classes": [
-      "tut-step"
-    ],
+    "classes": ["tut-step"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-num"
-    ],
+    "classes": ["tut-num"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-body"
-    ],
+    "classes": ["tut-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-title"
-    ],
+    "classes": ["tut-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-text"
-    ],
+    "classes": ["tut-text"],
     "tag": "div"
   },
   {
@@ -12280,129 +9488,87 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "tut-open"
-    ],
+    "classes": ["tut-open"],
     "tag": "a"
   },
   {
-    "classes": [
-      "tut-svg"
-    ],
+    "classes": ["tut-svg"],
     "tag": "svg"
   },
   {
-    "classes": [
-      "t-win"
-    ],
+    "classes": ["t-win"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-bar"
-    ],
+    "classes": ["t-bar"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-field"
-    ],
+    "classes": ["t-field"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-text"
-    ],
+    "classes": ["t-text"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-chip"
-    ],
+    "classes": ["t-chip"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-text"
-    ],
+    "classes": ["t-text"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-pop"
-    ],
+    "classes": ["t-pop"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-line"
-    ],
+    "classes": ["t-line"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-accent"
-    ],
+    "classes": ["t-accent"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-btntext"
-    ],
+    "classes": ["t-btntext"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-ring"
-    ],
+    "classes": ["t-ring"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "tut-step"
-    ],
+    "classes": ["tut-step"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-num"
-    ],
+    "classes": ["tut-num"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-body"
-    ],
+    "classes": ["tut-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-title"
-    ],
+    "classes": ["tut-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-text"
-    ],
+    "classes": ["tut-text"],
     "tag": "div"
   },
   {
@@ -12414,135 +9580,91 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "tut-open"
-    ],
+    "classes": ["tut-open"],
     "tag": "a"
   },
   {
-    "classes": [
-      "tut-svg"
-    ],
+    "classes": ["tut-svg"],
     "tag": "svg"
   },
   {
-    "classes": [
-      "t-win"
-    ],
+    "classes": ["t-win"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-bar"
-    ],
+    "classes": ["t-bar"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-text"
-    ],
+    "classes": ["t-text"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-field"
-    ],
+    "classes": ["t-field"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-text"
-    ],
+    "classes": ["t-text"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-pop"
-    ],
+    "classes": ["t-pop"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-logo"
-    ],
+    "classes": ["t-logo"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-play"
-    ],
+    "classes": ["t-play"],
     "tag": "path"
   },
   {
-    "classes": [
-      "t-title2"
-    ],
+    "classes": ["t-title2"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-accent"
-    ],
+    "classes": ["t-accent"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-btntext"
-    ],
+    "classes": ["t-btntext"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-ring"
-    ],
+    "classes": ["t-ring"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "tut-step"
-    ],
+    "classes": ["tut-step"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-num"
-    ],
+    "classes": ["tut-num"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-body"
-    ],
+    "classes": ["tut-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-title"
-    ],
+    "classes": ["tut-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-text"
-    ],
+    "classes": ["tut-text"],
     "tag": "div"
   },
   {
@@ -12558,129 +9680,87 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "tut-open"
-    ],
+    "classes": ["tut-open"],
     "tag": "a"
   },
   {
-    "classes": [
-      "tut-svg"
-    ],
+    "classes": ["tut-svg"],
     "tag": "svg"
   },
   {
-    "classes": [
-      "t-win"
-    ],
+    "classes": ["t-win"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-bar"
-    ],
+    "classes": ["t-bar"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-dot"
-    ],
+    "classes": ["t-dot"],
     "tag": "circle"
   },
   {
-    "classes": [
-      "t-text"
-    ],
+    "classes": ["t-text"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-chip"
-    ],
+    "classes": ["t-chip"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-text"
-    ],
+    "classes": ["t-text"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-pop"
-    ],
+    "classes": ["t-pop"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-accent"
-    ],
+    "classes": ["t-accent"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-btntext"
-    ],
+    "classes": ["t-btntext"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-ring"
-    ],
+    "classes": ["t-ring"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-line"
-    ],
+    "classes": ["t-line"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-line"
-    ],
+    "classes": ["t-line"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "tut-step"
-    ],
+    "classes": ["tut-step"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-num"
-    ],
+    "classes": ["tut-num"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-body"
-    ],
+    "classes": ["tut-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-title"
-    ],
+    "classes": ["tut-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-text"
-    ],
+    "classes": ["tut-text"],
     "tag": "div"
   },
   {
@@ -12688,93 +9768,63 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "tut-svg"
-    ],
+    "classes": ["tut-svg"],
     "tag": "svg"
   },
   {
-    "classes": [
-      "t-win"
-    ],
+    "classes": ["t-win"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-pop"
-    ],
+    "classes": ["t-pop"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-title2"
-    ],
+    "classes": ["t-title2"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-field"
-    ],
+    "classes": ["t-field"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-mono"
-    ],
+    "classes": ["t-mono"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-accent"
-    ],
+    "classes": ["t-accent"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-copy"
-    ],
+    "classes": ["t-copy"],
     "tag": "path"
   },
   {
-    "classes": [
-      "t-ring"
-    ],
+    "classes": ["t-ring"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-line"
-    ],
+    "classes": ["t-line"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "tut-step"
-    ],
+    "classes": ["tut-step"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-num"
-    ],
+    "classes": ["tut-num"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-body"
-    ],
+    "classes": ["tut-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-title"
-    ],
+    "classes": ["tut-title"],
     "tag": "div"
   },
   {
-    "classes": [
-      "tut-text"
-    ],
+    "classes": ["tut-text"],
     "tag": "div"
   },
   {
@@ -12782,109 +9832,74 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "tut-svg"
-    ],
+    "classes": ["tut-svg"],
     "tag": "svg"
   },
   {
-    "classes": [
-      "t-win"
-    ],
+    "classes": ["t-win"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-title2"
-    ],
+    "classes": ["t-title2"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-field"
-    ],
+    "classes": ["t-field"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-mono"
-    ],
+    "classes": ["t-mono"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-field"
-    ],
+    "classes": ["t-field"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-text"
-    ],
+    "classes": ["t-text"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-field"
-    ],
+    "classes": ["t-field"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-text"
-    ],
+    "classes": ["t-text"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-accent"
-    ],
+    "classes": ["t-accent"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "t-btntext"
-    ],
+    "classes": ["t-btntext"],
     "tag": "text"
   },
   {
-    "classes": [
-      "t-ring"
-    ],
+    "classes": ["t-ring"],
     "tag": "rect"
   },
   {
-    "classes": [
-      "modal-actions"
-    ],
+    "classes": ["modal-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "closeModal",
     "data-args": "[\"modalKeyTutorial\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "modal-overlay"
-    ],
+    "classes": ["modal-overlay"],
     "id": "modalConfirm",
     "tag": "div"
   },
   {
-    "classes": [
-      "modal",
-      "modal-narrow"
-    ],
+    "classes": ["modal", "modal-narrow"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-head"
-    ],
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -12893,61 +9908,43 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "modal-close"
-    ],
+    "classes": ["modal-close"],
     "data-act": "closeModal",
     "data-args": "[\"modalConfirm\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "id": "confirmText",
     "tag": "p"
   },
   {
-    "classes": [
-      "modal-actions"
-    ],
+    "classes": ["modal-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "danger"
-    ],
+    "classes": ["btn", "danger"],
     "data-act": "confirmAccept",
     "id": "confirmOk",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "closeModal",
     "data-args": "[\"modalConfirm\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "modal-overlay"
-    ],
+    "classes": ["modal-overlay"],
     "id": "modalLeadNote",
     "tag": "div"
   },
   {
-    "classes": [
-      "modal"
-    ],
+    "classes": ["modal"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-head"
-    ],
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -12955,17 +9952,13 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "modal-close"
-    ],
+    "classes": ["modal-close"],
     "data-act": "closeModal",
     "data-args": "[\"modalLeadNote\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -12979,51 +9972,36 @@
     "tag": "textarea"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-actions"
-    ],
+    "classes": ["modal-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "saveLeadNote",
     "id": "leadNoteSave",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "closeModal",
     "data-args": "[\"modalLeadNote\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "modal-overlay"
-    ],
+    "classes": ["modal-overlay"],
     "id": "modalScoreInfo",
     "tag": "div"
   },
   {
-    "classes": [
-      "modal"
-    ],
+    "classes": ["modal"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-head"
-    ],
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -13031,36 +10009,25 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "modal-close"
-    ],
+    "classes": ["modal-close"],
     "data-act": "closeModal",
     "data-args": "[\"modalScoreInfo\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
+    "classes": ["field-hint"],
     "tag": "p"
   },
   {
-    "classes": [
-      "score-legend"
-    ],
+    "classes": ["score-legend"],
     "tag": "div"
   },
   {
-    "classes": [
-      "score-legend-row"
-    ],
+    "classes": ["score-legend-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-score",
-      "hot"
-    ],
+    "classes": ["lead-score", "hot"],
     "tag": "span"
   },
   {
@@ -13072,16 +10039,11 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "score-legend-row"
-    ],
+    "classes": ["score-legend-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-score",
-      "warm"
-    ],
+    "classes": ["lead-score", "warm"],
     "tag": "span"
   },
   {
@@ -13093,16 +10055,11 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "score-legend-row"
-    ],
+    "classes": ["score-legend-row"],
     "tag": "div"
   },
   {
-    "classes": [
-      "lead-score",
-      "cold"
-    ],
+    "classes": ["lead-score", "cold"],
     "tag": "span"
   },
   {
@@ -13114,15 +10071,11 @@
     "tag": "b"
   },
   {
-    "classes": [
-      "score-parts"
-    ],
+    "classes": ["score-parts"],
     "tag": "div"
   },
   {
-    "classes": [
-      "score-part"
-    ],
+    "classes": ["score-part"],
     "tag": "div"
   },
   {
@@ -13134,9 +10087,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "score-part"
-    ],
+    "classes": ["score-part"],
     "tag": "div"
   },
   {
@@ -13148,9 +10099,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "score-part"
-    ],
+    "classes": ["score-part"],
     "tag": "div"
   },
   {
@@ -13162,9 +10111,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "score-part"
-    ],
+    "classes": ["score-part"],
     "tag": "div"
   },
   {
@@ -13176,37 +10123,26 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "modal-actions"
-    ],
+    "classes": ["modal-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "closeModal",
     "data-args": "[\"modalScoreInfo\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "modal-overlay"
-    ],
+    "classes": ["modal-overlay"],
     "id": "modalTgConnect",
     "tag": "div"
   },
   {
-    "classes": [
-      "modal",
-      "wide"
-    ],
+    "classes": ["modal", "wide"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-head"
-    ],
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -13214,62 +10150,43 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "icon-btn"
-    ],
+    "classes": ["icon-btn"],
     "data-act": "cancelTgConnect",
     "tag": "button"
   },
   {
-    "classes": [
-      "modal-body"
-    ],
+    "classes": ["modal-body"],
     "tag": "div"
   },
   {
-    "classes": [
-      "field-hint"
-    ],
-    "tag": "p"
-  },
-  {
-    "classes": [
-      "tg-connect-wrap"
-    ],
+    "classes": ["tg-connect-wrap"],
     "id": "tgConnectWrap",
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-foot"
-    ],
+    "classes": ["field-hint", "tg-connect-note"],
+    "tag": "p"
+  },
+  {
+    "classes": ["modal-foot"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "cancelTgConnect",
     "tag": "button"
   },
   {
-    "classes": [
-      "modal-overlay"
-    ],
+    "classes": ["modal-overlay"],
     "id": "modalOffer",
     "tag": "div"
   },
   {
-    "classes": [
-      "modal"
-    ],
+    "classes": ["modal"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-head"
-    ],
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -13277,17 +10194,13 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "modal-close"
-    ],
+    "classes": ["modal-close"],
     "data-act": "closeModal",
     "data-args": "[\"modalOffer\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -13300,9 +10213,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -13316,16 +10227,12 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "offer-img-preview"
-    ],
+    "classes": ["offer-img-preview"],
     "id": "modalImgPreview",
     "tag": "img"
   },
   {
-    "classes": [
-      "field"
-    ],
+    "classes": ["field"],
     "tag": "div"
   },
   {
@@ -13338,45 +10245,31 @@
     "tag": "textarea"
   },
   {
-    "classes": [
-      "modal-actions"
-    ],
+    "classes": ["modal-actions"],
     "tag": "div"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "data-act": "closeModal",
     "data-args": "[\"modalOffer\"]",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "data-act": "createOffer",
     "tag": "button"
   },
   {
-    "classes": [
-      "modal-overlay"
-    ],
+    "classes": ["modal-overlay"],
     "id": "adminUserModal",
     "tag": "div"
   },
   {
-    "classes": [
-      "modal",
-      "modal-lg"
-    ],
+    "classes": ["modal", "modal-lg"],
     "tag": "div"
   },
   {
-    "classes": [
-      "modal-head"
-    ],
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -13384,9 +10277,7 @@
     "tag": "h3"
   },
   {
-    "classes": [
-      "modal-close"
-    ],
+    "classes": ["modal-close"],
     "data-act": "closeModal",
     "data-args": "[\"adminUserModal\"]",
     "tag": "button"
@@ -13397,22 +10288,16 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "dd-empty"
-    ],
+    "classes": ["dd-empty"],
     "tag": "div"
   },
   {
-    "classes": [
-      "onb-overlay"
-    ],
+    "classes": ["onb-overlay"],
     "id": "onbOverlay",
     "tag": "div"
   },
   {
-    "classes": [
-      "onb-modal"
-    ],
+    "classes": ["onb-modal"],
     "id": "onbModal",
     "tag": "div"
   },
@@ -13421,9 +10306,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "onb-icon"
-    ],
+    "classes": ["onb-icon"],
     "tag": "div"
   },
   {
@@ -13447,9 +10330,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "onb-list"
-    ],
+    "classes": ["onb-list"],
     "tag": "ul"
   },
   {
@@ -13465,9 +10346,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "onb-icon"
-    ],
+    "classes": ["onb-icon"],
     "tag": "div"
   },
   {
@@ -13491,9 +10370,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "onb-list"
-    ],
+    "classes": ["onb-list"],
     "tag": "ul"
   },
   {
@@ -13509,9 +10386,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "onb-icon"
-    ],
+    "classes": ["onb-icon"],
     "tag": "div"
   },
   {
@@ -13535,9 +10410,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "onb-list"
-    ],
+    "classes": ["onb-list"],
     "tag": "ul"
   },
   {
@@ -13553,9 +10426,7 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "onb-icon"
-    ],
+    "classes": ["onb-icon"],
     "tag": "div"
   },
   {
@@ -13579,9 +10450,7 @@
     "tag": "p"
   },
   {
-    "classes": [
-      "onb-list"
-    ],
+    "classes": ["onb-list"],
     "tag": "ul"
   },
   {
@@ -13593,9 +10462,7 @@
     "tag": "li"
   },
   {
-    "classes": [
-      "onb-foot"
-    ],
+    "classes": ["onb-foot"],
     "tag": "div"
   },
   {
@@ -13604,34 +10471,23 @@
     "tag": "div"
   },
   {
-    "classes": [
-      "onb-dot",
-      "active"
-    ],
+    "classes": ["onb-dot", "active"],
     "tag": "span"
   },
   {
-    "classes": [
-      "onb-dot"
-    ],
+    "classes": ["onb-dot"],
     "tag": "span"
   },
   {
-    "classes": [
-      "onb-dot"
-    ],
+    "classes": ["onb-dot"],
     "tag": "span"
   },
   {
-    "classes": [
-      "onb-dot"
-    ],
+    "classes": ["onb-dot"],
     "tag": "span"
   },
   {
-    "classes": [
-      "onb-skip-confirm"
-    ],
+    "classes": ["onb-skip-confirm"],
     "id": "onbSkipConfirm",
     "tag": "div"
   },
@@ -13640,66 +10496,45 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "onbSkipYes",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "id": "onbSkipNo",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "onbSkip",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn",
-      "ghost"
-    ],
+    "classes": ["btn", "ghost"],
     "id": "onbBack",
     "tag": "button"
   },
   {
-    "classes": [
-      "btn"
-    ],
+    "classes": ["btn"],
     "id": "onbNext",
     "tag": "button"
   },
   {
-    "classes": [
-      "drawer"
-    ],
+    "classes": ["drawer"],
     "id": "aiDrawer",
     "tag": "div"
   },
   {
-    "classes": [
-      "drawer-head"
-    ],
+    "classes": ["drawer-head"],
     "tag": "div"
   },
   {
-    "classes": [
-      "t"
-    ],
+    "classes": ["t"],
     "tag": "div"
   },
   {
-    "classes": [
-      "ai-dot"
-    ],
+    "classes": ["ai-dot"],
     "tag": "div"
   },
   {
@@ -13715,23 +10550,17 @@
     "tag": "path"
   },
   {
-    "classes": [
-      "modal-close"
-    ],
+    "classes": ["modal-close"],
     "data-act": "closeDrawer",
     "tag": "button"
   },
   {
-    "classes": [
-      "drawer-body"
-    ],
+    "classes": ["drawer-body"],
     "id": "aiBody",
     "tag": "div"
   },
   {
-    "classes": [
-      "ai-intro"
-    ],
+    "classes": ["ai-intro"],
     "tag": "div"
   },
   {
@@ -13747,9 +10576,7 @@
     "tag": "span"
   },
   {
-    "classes": [
-      "drawer-input"
-    ],
+    "classes": ["drawer-input"],
     "tag": "div"
   },
   {
@@ -13758,9 +10585,7 @@
     "tag": "input"
   },
   {
-    "classes": [
-      "send-btn"
-    ],
+    "classes": ["send-btn"],
     "data-act": "sendAi",
     "tag": "button"
   },
