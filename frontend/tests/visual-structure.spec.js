@@ -639,3 +639,59 @@ test('v41: админка — тариф бинарный, деньги из а�
   await expect(page.locator('#modalActivityJournal')).toHaveClass(/show/);
   await expect(page.locator('#activityScopeFilter')).toBeVisible();
 });
+
+test('v42: переписка — меню диалога, закрепление и «без звука»', async ({ page }) => {
+  await mockApi(page);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    sessionStorage.removeItem('talaria_in_app');
+  });
+  await page.goto('/index.html');
+  await page.locator('[data-telegram-login-trigger]').first().click();
+  await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+  await page.locator('#loginScreen').evaluate((element) => {
+    element.style.display = 'none';
+  });
+  await page.locator('#appWrapper').evaluate((element) => {
+    element.style.display = 'block';
+  });
+  await hideOnboardingOnly(page);
+
+  await page.evaluate(() => {
+    window.goTo('messages');
+  });
+  await expect(page.locator('#messages')).toHaveClass(/\bactive\b/);
+  await expect(page.locator('.chat-dialog')).toHaveCount(2);
+
+  // Закреплённый диалог стоит первым — как в Telegram.
+  await expect(page.locator('.chat-dialog').first()).toContainText('Пётр Партнёр');
+
+  // Правый клик по строке открывает меню; «Закрепить» поднимает диалог наверх.
+  await page.locator('.chat-dialog', { hasText: 'Иван Клиент' }).click({ button: 'right' });
+  await expect(page.locator('#chatCtxMenu')).toBeVisible();
+  await expect(page.locator('#chatCtxMenu')).toContainText('Закрепить');
+  await expect(page.locator('#chatCtxMenu')).toContainText('Без звука');
+  await expect(page.locator('#chatCtxMenu')).toContainText('Прочитано');
+  await page.locator('#chatCtxMenu .chat-ctx-item', { hasText: 'Закрепить' }).click();
+  await expect(page.locator('#chatCtxMenu')).toHaveCount(0);
+  await expect(page.locator('.chat-dialog').first()).toContainText('Иван Клиент');
+  await expect(page.locator('.chat-dialog').first().locator('.cd-pin')).toBeVisible();
+
+  // Кнопка «⋯» в шапке открытого диалога даёт то же меню; mute виден в шапке.
+  await page.locator('.chat-dialog', { hasText: 'Иван Клиент' }).click();
+  await expect(page.locator('#chatRoom')).toBeVisible();
+  await page.locator('#chatHeadMenu').click();
+  await expect(page.locator('#chatCtxMenu')).toBeVisible();
+  await page.locator('#chatCtxMenu .chat-ctx-item', { hasText: 'Без звука' }).click();
+  await expect(page.locator('#chatHeadSub')).toContainText('без звука');
+  await expect(
+    page.locator('.chat-dialog', { hasText: 'Иван Клиент' }).locator('.cd-mute'),
+  ).toBeVisible();
+
+  // Esc закрывает меню, не трогая диалог.
+  await page.locator('#chatHeadMenu').click();
+  await page.keyboard.press('Escape');
+  await expect(page.locator('#chatCtxMenu')).toHaveCount(0);
+  await expect(page.locator('#chatRoom')).toBeVisible();
+});

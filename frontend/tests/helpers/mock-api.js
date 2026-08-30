@@ -45,6 +45,40 @@ export async function mockApi(page) {
   // Переписка с поддержкой живёт между запросами одного теста: отправили —
   // значит, следующая загрузка диалога обязана показать это сообщение.
   const supportThread = [];
+  const chatDialogs = [
+    {
+      peer_id: '777',
+      kind: 'user',
+      title: 'Иван Клиент',
+      username: 'ivan',
+      can_send: true,
+      verified: false,
+      is_self: false,
+      unread: 2,
+      muted: false,
+      pinned: false,
+      last_message: 'Привет!',
+      last_out: false,
+      last_date: Date.now() - 60000,
+      has_photo: false,
+    },
+    {
+      peer_id: '888',
+      kind: 'user',
+      title: 'Пётр Партнёр',
+      username: 'petr',
+      can_send: true,
+      verified: false,
+      is_self: false,
+      unread: 0,
+      muted: false,
+      pinned: true,
+      last_message: 'До связи',
+      last_out: true,
+      last_date: Date.now() - 7200000,
+      has_photo: false,
+    },
+  ];
   await page.route('**/api/**', async (route) => {
     const url = new URL(route.request().url());
     if (url.pathname === '/api/support/messages') {
@@ -67,6 +101,37 @@ export async function mockApi(page) {
         contentType: 'application/json',
         status: 200,
         body: JSON.stringify({ messages: supportThread, unread: 0, can_write: true }),
+      });
+    }
+    if (url.pathname.startsWith('/api/chat/')) {
+      // Переписка: два диалога, один закреплён. Состояние pin/mute живёт между
+      // запросами теста — иначе не проверить, что список перерисовался честно.
+      const chatBody =
+        url.pathname === '/api/chat/accounts'
+          ? [{ id: 1, label: 'Основной', username: 'sender', connected: true, is_primary: true }]
+          : url.pathname === '/api/chat/dialogs'
+            ? { account_id: 1, items: chatDialogs, next: null }
+            : url.pathname === '/api/chat/history'
+              ? {
+                  items: [
+                    { id: 1, date: Date.now() - 60000, text: 'Привет!', out: false },
+                    { id: 2, date: Date.now() - 30000, text: 'Здравствуйте', out: true },
+                  ],
+                  next_offset_id: 0,
+                }
+              : url.pathname === '/api/chat/pin' || url.pathname === '/api/chat/mute'
+                ? (() => {
+                    const sent = JSON.parse(route.request().postData() || '{}');
+                    const dialog = chatDialogs.find((item) => item.peer_id === sent.peer_id);
+                    if (dialog && url.pathname === '/api/chat/pin') dialog.pinned = !!sent.pinned;
+                    if (dialog && url.pathname === '/api/chat/mute') dialog.muted = !!sent.muted;
+                    return { ok: true };
+                  })()
+                : { ok: true, image: '' };
+      return route.fulfill({
+        contentType: 'application/json',
+        status: 200,
+        body: JSON.stringify(chatBody),
       });
     }
     if (url.pathname.startsWith('/api/admin/')) {

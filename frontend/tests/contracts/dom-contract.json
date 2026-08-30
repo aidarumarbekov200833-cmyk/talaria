@@ -7428,6 +7428,28 @@
     "tag": "button"
   },
   {
+    "classes": ["chat-head-menu"],
+    "data-act": "openChatHeadMenu",
+    "id": "chatHeadMenu",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
     "classes": ["chat-feed"],
     "id": "chatFeed",
     "tag": "div"

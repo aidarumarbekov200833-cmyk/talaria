@@ -3298,6 +3298,60 @@
         "title": "ChatMessageOut",
         "type": "object"
       },
+      "ChatMuteIn": {
+        "properties": {
+          "account_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Account Id"
+          },
+          "muted": {
+            "default": true,
+            "title": "Muted",
+            "type": "boolean"
+          },
+          "peer_id": {
+            "title": "Peer Id",
+            "type": "string"
+          }
+        },
+        "required": ["peer_id"],
+        "title": "ChatMuteIn",
+        "type": "object"
+      },
+      "ChatPinIn": {
+        "properties": {
+          "account_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Account Id"
+          },
+          "peer_id": {
+            "title": "Peer Id",
+            "type": "string"
+          },
+          "pinned": {
+            "default": true,
+            "title": "Pinned",
+            "type": "boolean"
+          }
+        },
+        "required": ["peer_id"],
+        "title": "ChatPinIn",
+        "type": "object"
+      },
       "ChatReadIn": {
         "properties": {
           "account_id": {
@@ -10947,6 +11001,108 @@
           }
         },
         "summary": "Chat Media",
+        "tags": ["chat"]
+      }
+    },
+    "/api/chat/mute": {
+      "post": {
+        "description": "Выключить или включить уведомления диалога.\n\nДействие двойное: сам mute уходит в Telegram через шлюз, а его факт\nзеркалится в свою таблицу — по ней рассылка решает, слать ли владельцу\n«лид ответил». Зеркало пишется только после успешного ответа шлюза, чтобы\nкабинет и Telegram не разошлись.",
+        "operationId": "chat_mute_api_chat_mute_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatMuteIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Chat Mute",
+        "tags": ["chat"]
+      }
+    },
+    "/api/chat/pin": {
+      "post": {
+        "description": "Закрепить или открепить диалог — в самом Telegram, как в телефоне.",
+        "operationId": "chat_pin_api_chat_pin_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ChatPinIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/OkOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Chat Pin",
         "tags": ["chat"]
       }
     },

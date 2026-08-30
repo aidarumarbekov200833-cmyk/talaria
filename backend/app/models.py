@@ -966,6 +966,46 @@ class TestReplyWatch(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
+class ChatDialogPref(Base):
+    """Локальное зеркало «без звука» для диалогов переписки.
+
+    Сам mute живёт в Telegram (шлюз ставит его через MTProto), но Talaria шлёт
+    и собственное уведомление «лид ответил» — в личку бота. Спрашивать Telegram
+    «замьючен ли диалог» на каждый ответ лида нельзя: это лишний MTProto-вызов
+    в горячем пути. Поэтому факт mute дублируется сюда, и рассылка проверяет
+    его одним запросом к своей базе.
+
+    Храним только замьюченные: снятие mute удаляет строку, и таблица не растёт
+    от каждого открытого диалога.
+    """
+
+    __tablename__ = "chat_dialog_prefs"
+    __table_args__ = (
+        # Один диалог — одна строка; поиск при ответе лида идёт ровно по этой
+        # тройке, поэтому уникальный индекс закрывает и целостность, и скорость.
+        Index(
+            "ix_chat_dialog_prefs_owner_account_peer",
+            "owner_id",
+            "account_id",
+            "peer_id",
+            unique=True,
+        ),
+    )
+
+    id = Column(Integer, primary_key=True)
+    owner_id = Column(
+        Integer, ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    # id слота WarmupAccount: mute в Telegram — свойство конкретного аккаунта,
+    # с другого аккаунта тот же собеседник может быть и не замьючен.
+    account_id = Column(Integer, nullable=False)
+    # Идентификатор собеседника как его отдаёт шлюз (у людей — положительный
+    # telegram id, у групп и каналов — со знаком минус).
+    peer_id = Column(String(32), nullable=False)
+    muted = Column(Boolean, nullable=False, default=True, server_default=text("true"))
+    updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
+
+
 class SupportMessage(Base):
     """Переписка клиента с владельцем сервиса («поддержка»).
 

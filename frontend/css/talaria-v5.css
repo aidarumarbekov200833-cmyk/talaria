@@ -4945,6 +4945,72 @@ html {
   cursor: pointer;
   font-size: 12px;
 }
+/* Кнопка «⋯» в шапке диалога: тот же набор действий, что по правому клику в
+   списке, — на телефоне правого клика нет, и это единственный путь к меню. */
+.chat-head-menu {
+  display: flex;
+  width: 32px;
+  height: 32px;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+  transition: var(--motion-fast);
+}
+.chat-head-menu:hover {
+  background: var(--cab-fill);
+  color: var(--ink);
+}
+.chat-head-menu svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* Меню диалога — плавающее, у точки клика; позицию считает скрипт. */
+.chat-ctx {
+  position: fixed;
+  z-index: 90;
+  min-width: 196px;
+  padding: 6px;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--cab-radius);
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+  display: grid;
+  gap: 2px;
+}
+.chat-ctx-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 10px;
+  border: 0;
+  border-radius: var(--cab-radius-small);
+  background: none;
+  color: var(--ink);
+  cursor: pointer;
+  font-size: 13.5px;
+  text-align: left;
+  transition: var(--motion-fast);
+}
+.chat-ctx-item:hover {
+  background: var(--cab-fill);
+}
+.chat-ctx-item i {
+  display: flex;
+  width: 18px;
+  height: 18px;
+  color: var(--muted);
+}
+.chat-ctx-item i svg {
+  width: 100%;
+  height: 100%;
+}
+
 /* Кнопка «назад» нужна только на телефоне: на широком экране список никуда
    не пропадает и уходить с него некуда. */
 .chat-back {

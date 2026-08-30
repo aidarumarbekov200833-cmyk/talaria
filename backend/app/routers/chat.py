@@ -22,7 +22,7 @@ from sqlalchemy.orm import Session
 
 from ..database import get_db
 from ..dependencies import get_current_user
-from ..models import Lead, LeadDatabase, User, WarmupAccount
+from ..models import ChatDialogPref, Lead, LeadDatabase, User, WarmupAccount
 from ..ratelimit import limiter
 from ..schemas import (
     ChatAccountOut,
@@ -32,6 +32,8 @@ from ..schemas import (
     ChatHistoryOut,
     ChatImageOut,
     ChatMessageOut,
+    ChatMuteIn,
+    ChatPinIn,
     ChatReadIn,
     ChatSendIn,
     ChatSendOut,
@@ -246,6 +248,54 @@ def chat_read(
         gateway.chat_read(user.id, account.id, _peer(payload.peer_id))
     except TelegramGatewayError as exc:
         raise _fail(exc) from exc
+    return OkOut()
+
+
+@router.post("/pin", response_model=OkOut)
+def chat_pin(
+    payload: ChatPinIn,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> OkOut:
+    """Закрепить или открепить диалог — в самом Telegram, как в телефоне."""
+    account = _account(db, user, payload.account_id)
+    try:
+        gateway.chat_pin(user.id, account.id, _peer(payload.peer_id), bool(payload.pinned))
+    except TelegramGatewayError as exc:
+        raise _fail(exc) from exc
+    return OkOut()
+
+
+@router.post("/mute", response_model=OkOut)
+def chat_mute(
+    payload: ChatMuteIn,
+    db: Session = Depends(get_db),
+    user: User = Depends(get_current_user),
+) -> OkOut:
+    """Выключить или включить уведомления диалога.
+
+    Действие двойное: сам mute уходит в Telegram через шлюз, а его факт
+    зеркалится в свою таблицу — по ней рассылка решает, слать ли владельцу
+    «лид ответил». Зеркало пишется только после успешного ответа шлюза, чтобы
+    кабинет и Telegram не разошлись.
+    """
+    account = _account(db, user, payload.account_id)
+    peer = _peer(payload.peer_id)
+    try:
+        gateway.chat_mute(user.id, account.id, peer, bool(payload.muted))
+    except TelegramGatewayError as exc:
+        raise _fail(exc) from exc
+    row = (
+        db.query(ChatDialogPref)
+        .filter_by(owner_id=user.id, account_id=account.id, peer_id=peer)
+        .one_or_none()
+    )
+    if payload.muted and row is None:
+        db.add(ChatDialogPref(owner_id=user.id, account_id=account.id, peer_id=peer, muted=True))
+    elif not payload.muted and row is not None:
+        # Храним только замьюченные: строка со снятым mute — мусор в таблице.
+        db.delete(row)
+    db.commit()
     return OkOut()
 
 
