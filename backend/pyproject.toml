@@ -33,6 +33,5 @@ ignore_missing_imports = true
 # Проверяем только свой код, не alembic-миграции
 exclude = "alembic"
 
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-addopts = "-q --tb=short"
+# Конфигурация pytest живёт в pytest.ini (он имеет приоритет над pyproject),
+# чтобы не держать две расходящиеся копии настроек.
