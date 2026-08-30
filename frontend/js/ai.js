@@ -10,6 +10,7 @@ import { api, getToken } from './api.js';
 import { goTo } from './nav.js?v=zephyr4';
 import { setTheme } from './theme.js?v=zephyr3';
 import { loadOffers } from './offers.js?v=aioffer1';
+import { applyAiSearchPrefill } from './search.js?v=talaria13';
 
 // История для контекста. Системный промпт добавляет сервер — здесь только диалог.
 const history = [];
@@ -93,17 +94,10 @@ function applyUiAction(call) {
 
   if (action.action === 'prefill_search') {
     goTo('search');
-    setFieldValue('leadMinSubs', action.min_subs);
-    setFieldValue('leadMaxSubs', action.max_subs);
-    setFieldValue('leadCountry', action.country);
-    if (typeof action.require_telegram === 'boolean') {
-      const checkbox = document.getElementById('leadRequireTelegram');
-      if (checkbox) checkbox.checked = action.require_telegram;
-    }
-    if (typeof action.include_hidden === 'boolean') {
-      const checkbox = document.getElementById('leadIncludeHidden');
-      if (checkbox) checkbox.checked = action.include_hidden;
-    }
+    // Фильтры поиска с v38 живут в двух режимах, а страна — в мультиселекте,
+    // поэтому запись в поля напрямую больше не работает: переключение режима и
+    // отрисовку берёт на себя сам раздел.
+    applyAiSearchPrefill(action);
     return;
   }
 

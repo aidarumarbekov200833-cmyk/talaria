@@ -43,9 +43,9 @@ async function expectNoHorizontalOverflow(page) {
         // (overflow:hidden): рука выезжает из-за правого края экрана. Реальную
         // ширину документа это не меняет, поэтому клипованный слой пропускаем.
         if (element.closest('.zp-final-sticky')) return false;
-        // Демо кабинета на узком экране не ужимается до нечитаемого, а
-        // листается вбок: контейнер обрезает содержимое (overflow-x: auto),
-        // поэтому ширину документа его дети тоже не меняют.
+        // v39. Демо кабинета на узком экране больше не листается вбок — оно
+        // вписано целиком. Исключение оставлено только на случай очень узких
+        // экранов, где масштаб дошёл бы до нечитаемого.
         if (element.closest('.appwin-scale.is-scrollable')) return false;
         const rect = element.getBoundingClientRect();
         return rect.right > viewport + 1 || rect.left < -1;
@@ -353,4 +353,79 @@ test('ai chat keeps the composer on screen and scrolls its message feed', async 
       scrolledToBottom: true,
     });
   }
+});
+
+test('v39: демо кабинета видно целиком и в палитре кабинета, а не лендинга', async ({ page }) => {
+  await page.addInitScript(() => {
+    sessionStorage.removeItem('talaria_in_app');
+  });
+  for (const [width, height] of [
+    [390, 844],
+    [1440, 1000],
+  ]) {
+    await page.setViewportSize({ width, height });
+    await page.goto('/index.html');
+    await page.locator('.appwin-scale').scrollIntoViewIfNeeded();
+    const demo = await page.evaluate(() => {
+      const wrap = document.querySelector('.appwin-scale');
+      const frame = document.querySelector('.aw-frame');
+      const cta = document.querySelector('#loginScreen .aw-app .chip.accent');
+      const styles = getComputedStyle(frame);
+      const asRgb = (value) => {
+        const probe = document.createElement('span');
+        probe.style.color = value.trim();
+        document.body.appendChild(probe);
+        const rgb = getComputedStyle(probe).color;
+        probe.remove();
+        return rgb;
+      };
+      return {
+        // Окно вписано в свой контейнер: листать вбок не нужно.
+        overflowRight: Math.round(frame.getBoundingClientRect().width - wrap.clientWidth),
+        scrollable: wrap.classList.contains('is-scrollable'),
+        // Кнопка в демо покрашена акцентом кабинета, а не розовым лендинга.
+        ctaBackground: getComputedStyle(cta).backgroundColor,
+        cabinetAccent: asRgb(styles.getPropertyValue('--cabp-accent')),
+        landingAccent: asRgb(styles.getPropertyValue('--pink-ink')),
+        cabinetAccentInk: asRgb(styles.getPropertyValue('--cabp-accent-ink')),
+        // Названия этапов под окном не обрезаны полоской прогресса.
+        stageLabel: document.querySelector('#loginScreen .aw-seg span')?.getBoundingClientRect()
+          .height,
+      };
+    });
+    expect(demo.scrollable).toBe(false);
+    expect(demo.overflowRight).toBeLessThanOrEqual(1);
+    expect(demo.ctaBackground).toBe(demo.cabinetAccent);
+    // Розовые токены лендинга внутри демо переведены на акцент кабинета.
+    expect(demo.landingAccent).toBe(demo.cabinetAccentInk);
+    expect(demo.stageLabel).toBeGreaterThan(8);
+  }
+});
+
+test('v39: выбранные снаружи страны видны на кнопке фильтра', async ({ page }) => {
+  await mockApi(page);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    sessionStorage.removeItem('talaria_in_app');
+    // Сохранённый фильтр с двумя странами: ровно то, что кладёт кабинет сам
+    // при уходе со страницы.
+    localStorage.setItem(
+      'talaria.search-filters.v1',
+      JSON.stringify({ mode: 'manual', values: { leadMinSubs: '2000' }, countries: ['KZ', 'RU'] }),
+    );
+  });
+  await page.goto('/index.html');
+  await page.locator('[data-telegram-login-trigger]').first().click();
+  await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+  await page.locator('#loginScreen').evaluate((element) => {
+    element.style.display = 'none';
+  });
+  await page.locator('#appWrapper').evaluate((element) => {
+    element.style.display = 'block';
+  });
+  await activateCaptureSection(page, 'search');
+  const picker = page.locator('.region-picker[data-for="leadCountry"] .region-picker-btn');
+  await expect(picker).toContainText('Казахстан');
+  await expect(picker).toContainText('Россия');
 });

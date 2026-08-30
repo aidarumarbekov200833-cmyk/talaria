@@ -16,6 +16,9 @@
    документа, поэтому переопределение токенов на #appWrapper их не задевало —
    кабинет был серым, а его же диалоги оставались розовыми и с прежним
    шрифтом. Один список селекторов на все слои кабинета. */
+/* v39. Демо-окно кабинета на лендинге входит в этот же список: владелец просил,
+   чтобы демо показывало настоящий текущий кабинет, а не розовую версию из v33.
+   Токены и шрифт кабинета — единственный источник его вида. */
 #appWrapper,
 .modal-overlay,
 .plan-confirm-dialog,
@@ -23,7 +26,9 @@
 .onb-skip-confirm,
 .drawer,
 #toastWrap,
-.toast-wrap {
+.toast-wrap,
+#loginScreen .aw-frame,
+#loginScreen .appwin {
   /* v34. Кабинет полностью переведён на нейтральную палитру (--cabp-* в
      tokens.css). Правка Samat: «весь дизайн как виктор, он профессиональный,
      а не розовый». Переопределяем БРЕНДОВЫЕ токены на уровне контейнера —
@@ -2170,4 +2175,155 @@ body > .toast-wrap {
   color: var(--on-accent);
   background-color: color-mix(in srgb, var(--accent) 88%, var(--surface));
   font-weight: 700;
+}
+
+/* ==========================================================================
+   15. v39. Демо-окно кабинета на лендинге = снимок ТЕКУЩЕГО кабинета
+   ==========================================================================
+   Владелец: «поменяй деморежим на телефон и на ПК, чтобы настоящий текущий
+   профиль показывался, а не вот этот вот розовый». Кабинет с v34 живёт на
+   нейтральной палитре --cabp-*, а демо на лендинге осталось на розовых
+   токенах лендинга (--pink, --grad, --accent) и выглядело записью старой
+   версии продукта. Переводим окно на те же значения, что видит вошедший
+   пользователь: одна точка правки — токены на рамке и на самом окне. */
+#loginScreen .aw-frame,
+#loginScreen .appwin {
+  /* Имена, которых нет в кабинете: ими пользуются только правила демо-окна. */
+  --bg: var(--cabp-fog);
+  --bg2: var(--cabp-surface);
+  --card: var(--cabp-surface);
+  --mut: var(--cabp-muted);
+  --pink: var(--cabp-accent);
+  --pink-ink: var(--cabp-accent-ink);
+  --grad: var(--cabp-accent);
+}
+/* Текст на акцентной заливке: акцент теперь светлый, и белым по нему не
+   прочитать. Берём ту же пару «светлая плашка → тёмный текст», что в кабинете. */
+#loginScreen .aw-ava,
+#loginScreen .aw-pp,
+#loginScreen .aw-tariff,
+#loginScreen .aw-cta {
+  color: var(--cabp-on-accent);
+}
+/* Типографика демо = типографика кабинета. В демо остались следы лендинга:
+   капслок в заголовке раздела и кнопках, Playfair в заголовках панелей и
+   цифрах, брендовое имя не тем шрифтом. Из-за них окно читалось как «другой
+   продукт», хотя цвета уже совпали. */
+#loginScreen .aw-app .page-title {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+#loginScreen .aw-app :is(.btn, .aw-cta, .header-primary) {
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0;
+  text-transform: none;
+}
+#loginScreen .aw-app :is(.panel h3, .stat-value, .brand-name, h1, h2, h3, h4) {
+  font-family: var(--cabp-font-ui);
+}
+#loginScreen .aw-app .brand-name {
+  font-family: var(--cabp-font-brand);
+  font-size: 16px;
+  font-weight: 800;
+  letter-spacing: -0.035em;
+  text-transform: lowercase;
+}
+#loginScreen .aw-app .field label {
+  color: var(--muted);
+  font-weight: 600;
+}
+#loginScreen .aw-app .chip {
+  color: var(--muted);
+  background: var(--cab-fill-strong);
+}
+#loginScreen .aw-app .chip.accent {
+  color: var(--on-accent);
+  background: var(--accent);
+}
+/* Активный пункт меню: тихая заливка, как в кабинете, без розовой рамки,
+   вертикальной засечки и внутренней тени. */
+#loginScreen .aw-app .nav-item.active {
+  border-color: transparent;
+  color: var(--ink);
+  background: var(--cab-fill-strong);
+  box-shadow: none;
+}
+#loginScreen .aw-app .nav-item.active::before {
+  display: none;
+}
+
+/* Демо на телефоне: окно целиком, без листания вбок.
+   Владелец: «вживую полностью не втыкается» — раньше композиция на 1066px
+   ужималась только до 0.58 и справа оставалось 284px за экраном, которые
+   надо было проматывать. Берём узкую композицию (как настоящий кабинет на
+   телефоне: меню внизу, одна колонка) и вписываем её целиком. */
+@media (max-width: 780px) {
+  #loginScreen .appwin-scale .appwin {
+    width: 392px;
+    height: 620px;
+  }
+  #loginScreen .appwin-scale {
+    height: auto;
+    overflow: visible;
+  }
+  #loginScreen .aw-swipe-hint {
+    display: none;
+  }
+  /* Как в кабинете на телефоне: бокового меню нет, контент на всю ширину. */
+  #loginScreen .appwin .app {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  #loginScreen .appwin .sidebar {
+    display: none;
+  }
+  #loginScreen .appwin .main {
+    padding-bottom: 14px;
+  }
+  #loginScreen .appwin .topbar {
+    padding: 12px 14px;
+  }
+  #loginScreen .appwin .lead-filter-grid,
+  #loginScreen .appwin .grid-3 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  /* Заголовок раздела и кнопка в одну колонку: в 392px они не встают рядом,
+     и название разваливалось на три строки. */
+  #loginScreen .appwin .topbar {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+  #loginScreen .appwin .topbar-right {
+    justify-content: flex-start;
+  }
+  /* Пять колонок в 392px не встают: как и в кабинете на телефоне, оставляем
+     канал, балл и статус — остальное в узком окне всё равно не прочитать. */
+  #loginScreen .appwin table :is(th, td):nth-child(2),
+  #loginScreen .appwin table :is(th, td):nth-child(3) {
+    display: none;
+  }
+}
+
+/* Названия этапов под окном демо были обрезаны: у .aw-seg осталась высота 5px
+   и overflow: hidden от прежней версии дорожки, поэтому от подписи «Поиск
+   лидов» видно было только полоску прогресса. */
+#loginScreen .aw-seg {
+  height: auto;
+  overflow: visible;
+  background: none;
+}
+/* Знак бренда в демо: тот же перьевой глиф без подложки, как в кабинете —
+   на светлой заливке он был не виден. Подпись под вордмарком в кабинете
+   убрана ещё в v34, в демо она осталась. */
+#loginScreen .aw-app .brand-mark {
+  border: 0;
+  border-radius: 0;
+  color: var(--ink);
+  background: none;
+  box-shadow: none;
+}
+#loginScreen .aw-app .brand-tag {
+  display: none;
 }

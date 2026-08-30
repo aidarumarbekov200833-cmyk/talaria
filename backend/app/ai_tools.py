@@ -203,7 +203,6 @@ TOOLS: list[dict] = [
                     "min_subs": {"type": "integer", "minimum": 0, "maximum": 1000000000},
                     "max_subs": {"type": "integer", "minimum": 0, "maximum": 1000000000},
                     "country": {"type": "string", "maxLength": 8},
-                    "require_telegram": {"type": "boolean"},
                     "include_hidden": {"type": "boolean"},
                     "offer_name": {"type": "string", "maxLength": 200},
                     "offer_text": {"type": "string", "maxLength": 5000},
@@ -593,8 +592,6 @@ def run_tool(db: Session, owner_id: int, name: str, args: dict) -> dict:
             country = str(args.get("country") or "").strip().upper()
             if country and re.fullmatch(r"[A-ZА-ЯЁ0-9_-]{1,8}", country):
                 ui_action["country"] = country
-            if isinstance(args.get("require_telegram"), bool):
-                ui_action["require_telegram"] = args["require_telegram"]
             if isinstance(args.get("include_hidden"), bool):
                 ui_action["include_hidden"] = args["include_hidden"]
             return {"ui_action": ui_action, "saved": False, "requires_user_action": "Запустить поиск"}
