@@ -9270,7 +9270,7 @@ select optgroup {
   flex: 1 1 auto;
   overscroll-behavior: contain;
 }
-#appWrapper .sidebar :is(.usage, .tariff-btn, .sidebar-bottom) {
+#appWrapper .sidebar .sidebar-bottom {
   flex: none;
 }
 .sidebar .nav::-webkit-scrollbar {

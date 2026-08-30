@@ -3199,39 +3199,12 @@
     "tag": "span"
   },
   {
-    "classes": ["usage"],
+    "classes": ["sidebar-bottom"],
     "tag": "div"
   },
   {
-    "classes": ["usage-top"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "id": "usageText",
-    "tag": "span"
-  },
-  {
-    "classes": ["usage-bar"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "id": "usageBar",
-    "tag": "i"
-  },
-  {
-    "classes": ["usage-hint"],
-    "id": "usageHint",
-    "tag": "div"
-  },
-  {
-    "classes": ["tariff-btn"],
-    "data-target": "tariffs",
+    "classes": ["nav-item"],
+    "data-target": "admin",
     "tag": "div"
   },
   {
@@ -3243,18 +3216,18 @@
     "tag": "path"
   },
   {
-    "classes": ["t-label"],
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
     "tag": "span"
   },
   {
-    "classes": ["sidebar-bottom"],
-    "tag": "div"
-  },
-  {
     "classes": ["nav-item", "sidebar-session"],
-    "data-target": "settings",
+    "data-act": "toggleAccountMenu",
     "id": "sessionUserCard",
-    "tag": "div"
+    "tag": "button"
   },
   {
     "classes": ["sidebar-session-avatar"],
@@ -3280,13 +3253,213 @@
     "tag": "span"
   },
   {
-    "classes": ["nav-item"],
-    "data-target": "admin",
+    "classes": ["sidebar-session-alert"],
+    "id": "sessionSupportDot",
+    "tag": "span"
+  },
+  {
+    "classes": ["sidebar-session-chev"],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": ["acc-menu"],
+    "id": "accountMenu",
+    "tag": "div"
+  },
+  {
+    "classes": ["acc-head"],
+    "tag": "div"
+  },
+  {
+    "classes": ["acc-ava"],
+    "id": "accMenuAvatar",
+    "tag": "span"
+  },
+  {
+    "classes": ["acc-id"],
     "tag": "div"
   },
   {
     "classes": [],
+    "id": "accMenuName",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "accMenuUsername",
+    "tag": "small"
+  },
+  {
+    "classes": ["acc-close"],
+    "data-act": "closeAccountMenu",
+    "tag": "button"
+  },
+  {
+    "classes": ["acc-plan"],
+    "data-act": "accountGoTo",
+    "data-args": "[\"tariffs\"]",
+    "data-target": "tariffs",
+    "tag": "button"
+  },
+  {
+    "classes": ["acc-plan-dot"],
+    "id": "accMenuPlanBadge",
+    "tag": "span"
+  },
+  {
+    "classes": ["acc-plan-copy"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "accMenuPlan",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "accMenuPlanSub",
+    "tag": "small"
+  },
+  {
+    "classes": [],
     "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": ["acc-block"],
+    "tag": "div"
+  },
+  {
+    "classes": ["acc-block-label"],
+    "tag": "div"
+  },
+  {
+    "classes": ["acc-limit"],
+    "tag": "div"
+  },
+  {
+    "classes": ["acc-limit-top"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "usageText",
+    "tag": "b"
+  },
+  {
+    "classes": ["acc-limit-bar"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "usageBar",
+    "tag": "i"
+  },
+  {
+    "classes": ["acc-limit-hint"],
+    "id": "usageHint",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "accMenuLimits",
+    "tag": "div"
+  },
+  {
+    "classes": ["acc-block"],
+    "tag": "div"
+  },
+  {
+    "classes": ["acc-block-label"],
+    "tag": "div"
+  },
+  {
+    "classes": ["acc-theme"],
+    "id": "accMenuTheme",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "data-act": "setAccountTheme",
+    "data-args": "[\"light\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "data-act": "setAccountTheme",
+    "data-args": "[\"dark\"]",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": ["acc-links"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "data-act": "accountGoTo",
+    "data-args": "[\"settings\"]",
+    "data-target": "settings",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "data-act": "openHelpCenter",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
   },
   {
     "classes": [],
@@ -3301,9 +3474,9 @@
     "tag": "span"
   },
   {
-    "classes": ["nav-item"],
-    "data-target": "settings",
-    "tag": "div"
+    "classes": [],
+    "data-act": "openSupport",
+    "tag": "button"
   },
   {
     "classes": [],
@@ -3311,7 +3484,33 @@
   },
   {
     "classes": [],
-    "tag": "circle"
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["acc-count"],
+    "id": "accMenuSupportCount",
+    "tag": "span"
+  },
+  {
+    "classes": ["acc-danger"],
+    "data-act": "logout",
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
   },
   {
     "classes": [],
@@ -3461,8 +3660,8 @@
   },
   {
     "classes": ["nav-item"],
-    "data-target": "settings",
-    "tag": "div"
+    "data-act": "toggleAccountMenu",
+    "tag": "button"
   },
   {
     "classes": [],
@@ -3478,6 +3677,11 @@
   },
   {
     "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["bottom-nav-alert"],
+    "id": "sessionSupportDotMobile",
     "tag": "span"
   },
   {
@@ -8362,6 +8566,72 @@
     "tag": "small"
   },
   {
+    "classes": ["panel", "admin-support-panel"],
+    "tag": "div"
+  },
+  {
+    "classes": ["panel-head"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": ["field-hint"],
+    "tag": "div"
+  },
+  {
+    "classes": ["badge"],
+    "id": "adminSupportUnread",
+    "tag": "span"
+  },
+  {
+    "classes": ["admin-support-grid"],
+    "tag": "div"
+  },
+  {
+    "classes": ["admin-support-list"],
+    "id": "adminSupportList",
+    "tag": "div"
+  },
+  {
+    "classes": ["dd-empty"],
+    "tag": "div"
+  },
+  {
+    "classes": ["admin-support-room"],
+    "tag": "div"
+  },
+  {
+    "classes": ["sup-thread"],
+    "id": "adminSupportThread",
+    "tag": "div"
+  },
+  {
+    "classes": ["sup-empty"],
+    "tag": "div"
+  },
+  {
+    "classes": ["sup-form"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "adminSupportReply",
+    "tag": "textarea"
+  },
+  {
+    "classes": ["btn"],
+    "data-act": "replySupportThread",
+    "id": "adminSupportSend",
+    "tag": "button"
+  },
+  {
     "classes": ["panel", "admin-notice-panel"],
     "tag": "div"
   },
@@ -9877,6 +10147,115 @@
     "classes": ["btn"],
     "data-act": "closeModal",
     "data-args": "[\"modalKeyTutorial\"]",
+    "tag": "button"
+  },
+  {
+    "classes": ["modal-overlay"],
+    "id": "modalHelp",
+    "tag": "div"
+  },
+  {
+    "classes": ["modal", "modal-wide"],
+    "tag": "div"
+  },
+  {
+    "classes": ["modal-head"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": ["modal-close"],
+    "data-act": "closeModal",
+    "data-args": "[\"modalHelp\"]",
+    "tag": "button"
+  },
+  {
+    "classes": ["help-search"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "helpSearch",
+    "tag": "input"
+  },
+  {
+    "classes": ["help-list"],
+    "id": "helpList",
+    "tag": "div"
+  },
+  {
+    "classes": ["help-foot"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["btn"],
+    "data-act": "helpToSupport",
+    "tag": "button"
+  },
+  {
+    "classes": ["modal-overlay"],
+    "id": "modalSupport",
+    "tag": "div"
+  },
+  {
+    "classes": ["modal"],
+    "tag": "div"
+  },
+  {
+    "classes": ["modal-head"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": ["modal-close"],
+    "data-act": "closeModal",
+    "data-args": "[\"modalSupport\"]",
+    "tag": "button"
+  },
+  {
+    "classes": ["field-hint"],
+    "tag": "p"
+  },
+  {
+    "classes": ["sup-thread"],
+    "id": "supportThread",
+    "tag": "div"
+  },
+  {
+    "classes": ["sup-form"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "id": "supportInput",
+    "tag": "textarea"
+  },
+  {
+    "classes": ["btn"],
+    "data-act": "sendSupportMessage",
+    "id": "supportSend",
     "tag": "button"
   },
   {

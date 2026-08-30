@@ -95,8 +95,11 @@ test('workspace shell and mobile navigation retain deliberate visual coverage', 
     '.global-actions',
     '.brand-mark',
     '.nav-group',
-    '.usage',
-    '.tariff-btn',
+    // v40: квота и плитка тарифа переехали в меню аккаунта — теперь покрытие
+    // проверяем на нём, а не на удалённых блоках сайдбара.
+    '.acc-menu',
+    '.acc-links',
+    '.acc-limit-bar',
     '.page-sub',
     '.sidebar-bottom',
     '.drawer-input',

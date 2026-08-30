@@ -6,11 +6,12 @@ const ACTIVE_SECTION_KEY = 'zephyr_active_section';
 export function goTo(target, options = {}) {
   const section = document.getElementById(target);
   if (!section?.classList.contains('section')) return;
-  const items = document.querySelectorAll('.nav-item,.tariff-btn');
-  items.forEach((i) => {
-    if (!i.classList.contains('nav-item')) return;
-    i.classList.toggle('active', i.dataset.target === target);
-  });
+  // Подсветка идёт по всем элементам с data-target, а не только по .nav-item:
+  // «Настройки» и «Тариф» с v40 живут в меню аккаунта, и без этого ни один
+  // пункт навигации не отмечался бы как открытый.
+  document
+    .querySelectorAll('[data-target]')
+    .forEach((item) => item.classList.toggle('active', item.dataset.target === target));
   document
     .querySelectorAll('.section')
     .forEach((s) => s.classList.toggle('active', s.id === target));
@@ -38,6 +39,6 @@ export function restoreLastSection() {
 
 export function initNav() {
   document
-    .querySelectorAll('.nav-item,.tariff-btn')
+    .querySelectorAll('.nav-item')
     .forEach((item) => item.addEventListener('click', () => goTo(item.dataset.target)));
 }

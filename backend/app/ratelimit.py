@@ -31,6 +31,7 @@ def _limit_for(group: str) -> int:
         "search": settings.rate_limit_search,
         "test_send": settings.rate_limit_test_send,
         "chat": settings.rate_limit_chat,
+        "support": settings.rate_limit_support,
     }.get(group, 0)
 
 

@@ -271,8 +271,7 @@ th {
 }
 .brand-tag,
 .nav-group-label,
-.page-sub,
-.usage-hint {
+.page-sub {
   color: var(--muted);
   font-size: 12px;
 }
@@ -305,42 +304,6 @@ th {
   border-radius: 50%;
   color: var(--surface);
   background: var(--ink-surface);
-}
-.usage {
-  display: grid;
-  gap: 8px;
-  padding: 12px 10px;
-  border-radius: var(--radius-small);
-  background: var(--surface-raised);
-}
-.usage-top {
-  display: flex;
-  justify-content: space-between;
-  gap: 8px;
-  font-size: 12px;
-}
-.usage-bar {
-  height: 6px;
-  overflow: hidden;
-  border-radius: 99px;
-  background: var(--line);
-}
-.usage-bar i {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  background: var(--accent);
-}
-.tariff-btn {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  min-height: 44px;
-  padding: 10px;
-  border-radius: var(--radius-small);
-  color: var(--on-accent);
-  background: var(--ink-surface);
-  font-weight: 700;
 }
 .global-actions,
 .topbar-right,
@@ -500,8 +463,7 @@ th {
 .stat-icon svg,
 .stat-go svg,
 .icon-btn svg,
-.brand-mark svg,
-.tariff-btn svg {
+.brand-mark svg {
   width: 20px;
   height: 20px;
   flex: 0 0 auto;
@@ -2905,13 +2867,6 @@ th {
   color: var(--muted);
   font-size: 11.5px;
 }
-/* Подпись лежит на ярком градиенте кнопки, поэтому берёт цвет кнопки,
-   а не приглушённый --muted: серое на розовом читается плохо. */
-.t-label {
-  color: inherit;
-  font-size: 12.5px;
-  letter-spacing: 0.02em;
-}
 .dashboard-offer-tools,
 .dashboard-offer-filter {
   display: flex;
@@ -3422,4 +3377,586 @@ a.tut-open {
 }
 .chat-none-cta .btn {
   margin-top: 2px;
+}
+
+/* ── v40. Меню аккаунта, центр помощи, поддержка ───────────────────────────
+   Тариф, квота, тема, настройки и выход лежали в пяти разных местах, из-за
+   чего боковое меню не вмещалось в экран. Теперь всё про аккаунт — в одной
+   выезжающей панели под карточкой профиля (на телефоне — снизу экрана). */
+
+.sidebar-session {
+  position: relative;
+  width: 100%;
+  border: 1px solid var(--line);
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+.sidebar-session-chev {
+  width: 16px;
+  height: 16px;
+  flex: none;
+  color: var(--muted);
+  transition: transform var(--motion-fast) var(--motion-ease);
+}
+.sidebar-session[aria-expanded='true'] .sidebar-session-chev {
+  transform: rotate(180deg);
+}
+/* Точка «есть ответ поддержки». Живёт на карточке аккаунта, а не в
+   колокольчике: ответ адресован лично, и искать его в общей ленте неудобно. */
+.sidebar-session-alert,
+.bottom-nav-alert {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent-ink);
+  animation: acc-blink var(--motion-blink) infinite;
+}
+.bottom-nav-alert {
+  top: 6px;
+  right: calc(50% - 16px);
+}
+@keyframes acc-blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.35;
+  }
+}
+
+.acc-menu {
+  position: fixed;
+  z-index: 1650;
+  bottom: 14px;
+  left: 12px;
+  display: grid;
+  width: 292px;
+  max-height: calc(100vh - 28px);
+  overflow: auto;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  background: var(--surface);
+  gap: 10px;
+  box-shadow: var(--shadow);
+  opacity: 0;
+  transform: translateY(10px) scale(0.98);
+  transform-origin: bottom left;
+  transition:
+    opacity var(--motion-fast) var(--motion-ease),
+    transform var(--motion-fast) var(--motion-ease);
+}
+.acc-menu.show {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+.acc-head {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: center;
+  gap: 10px;
+}
+.acc-ava {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--on-accent);
+  background: var(--accent);
+  background-position: center;
+  background-size: cover;
+  font-size: 16px;
+  font-weight: 700;
+}
+.acc-ava.has-photo {
+  background-color: var(--surface-raised);
+}
+.acc-id {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+.acc-id b {
+  overflow: hidden;
+  font-size: 14px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.acc-id small {
+  overflow: hidden;
+  color: var(--muted);
+  font-size: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.acc-close {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  place-items: center;
+  border: 0;
+  border-radius: var(--radius-small);
+  color: var(--muted);
+  background: none;
+  cursor: pointer;
+}
+.acc-close:hover {
+  color: var(--ink);
+  background: var(--cab-fill);
+}
+
+.acc-plan {
+  display: grid;
+  grid-template-columns: 10px 1fr 16px;
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  color: inherit;
+  background: var(--surface-raised);
+  gap: 10px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--motion-ease);
+}
+.acc-plan:hover {
+  border-color: var(--accent);
+}
+.acc-plan svg {
+  width: 16px;
+  height: 16px;
+  color: var(--muted);
+}
+.acc-plan-copy {
+  display: grid;
+  min-width: 0;
+  gap: 2px;
+}
+.acc-plan-copy b {
+  font-size: 13.5px;
+}
+.acc-plan-copy small {
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.acc-plan-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--muted);
+}
+.acc-plan-dot.on {
+  background: var(--success);
+}
+.acc-plan-dot.warn {
+  background: var(--warning);
+}
+.acc-plan-dot.err {
+  background: var(--danger);
+}
+
+.acc-block {
+  display: grid;
+  gap: 8px;
+}
+.acc-block-label {
+  color: var(--muted);
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+.acc-limit {
+  display: grid;
+  gap: 5px;
+}
+.acc-limit + .acc-limit {
+  margin-top: 8px;
+}
+.acc-limit-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 8px;
+  font-size: 12px;
+}
+.acc-limit-top b {
+  color: var(--muted);
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+.acc-limit-bar {
+  height: 5px;
+  overflow: hidden;
+  border-radius: 99px;
+  background: var(--cab-fill-strong);
+}
+.acc-limit-bar i {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--accent);
+  transition: width var(--motion-base) var(--motion-ease);
+}
+.acc-limit-bar i.is-full {
+  background: var(--danger);
+}
+.acc-limit-hint,
+.acc-limit-empty {
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.45;
+}
+.acc-link-inline {
+  border: 0;
+  padding: 0;
+  color: var(--accent-ink);
+  background: none;
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.acc-theme {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+  gap: 3px;
+}
+.acc-theme button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  border: 0;
+  border-radius: calc(var(--radius-small) - 3px);
+  color: var(--muted);
+  background: none;
+  gap: 6px;
+  font: inherit;
+  font-size: 12.5px;
+  cursor: pointer;
+  transition:
+    color var(--motion-fast) var(--motion-ease),
+    background var(--motion-fast) var(--motion-ease);
+}
+.acc-theme button svg {
+  width: 15px;
+  height: 15px;
+}
+.acc-theme button:hover {
+  color: var(--ink);
+}
+.acc-theme button.active {
+  color: var(--ink);
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+  font-weight: 600;
+}
+
+.acc-links {
+  display: grid;
+  padding-top: 8px;
+  border-top: 1px solid var(--line);
+  gap: 2px;
+}
+.acc-links button {
+  display: grid;
+  grid-template-columns: 18px 1fr auto;
+  align-items: center;
+  min-height: 36px;
+  padding: 7px 8px;
+  border: 0;
+  border-radius: var(--radius-small);
+  color: var(--ink);
+  background: none;
+  gap: 10px;
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  cursor: pointer;
+  transition: background var(--motion-fast) var(--motion-ease);
+}
+.acc-links button svg {
+  width: 17px;
+  height: 17px;
+  color: var(--muted);
+}
+.acc-links button:hover {
+  background: var(--cab-fill);
+}
+.acc-links .acc-danger {
+  color: var(--danger);
+}
+.acc-links .acc-danger svg {
+  color: var(--danger);
+}
+.acc-count {
+  min-width: 18px;
+  padding: 1px 6px;
+  border-radius: 99px;
+  color: var(--on-accent);
+  background: var(--accent);
+  font-size: 11px;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* --- Центр помощи ----------------------------------------------------- */
+
+.modal-wide {
+  width: min(760px, 100%);
+}
+.help-search {
+  display: grid;
+  grid-template-columns: 18px 1fr;
+  align-items: center;
+  margin: 14px 0 10px;
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+  gap: 8px;
+}
+.help-search svg {
+  width: 17px;
+  height: 17px;
+  color: var(--muted);
+}
+.help-search input {
+  border: 0;
+  padding: 11px 0;
+  background: none;
+}
+.help-search input:focus {
+  outline: none;
+}
+.help-list {
+  display: grid;
+  max-height: 52vh;
+  overflow: auto;
+  gap: 6px;
+}
+.help-item {
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  padding: 10px 12px;
+  background: var(--surface-raised);
+}
+.help-item summary {
+  font-size: 13.5px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+}
+.help-item summary::-webkit-details-marker {
+  display: none;
+}
+.help-item summary::before {
+  content: '+';
+  display: inline-block;
+  width: 14px;
+  color: var(--muted);
+}
+.help-item[open] summary::before {
+  content: '–';
+}
+.help-steps {
+  display: grid;
+  margin: 8px 0 0;
+  padding-left: 22px;
+  gap: 6px;
+  font-size: 12.5px;
+  line-height: 1.55;
+}
+.help-note {
+  margin: 8px 0 0;
+  padding: 8px 10px;
+  border-radius: var(--radius-small);
+  color: var(--muted);
+  background: var(--cab-fill);
+  font-size: 12px;
+  line-height: 1.5;
+}
+.help-open {
+  margin-top: 10px;
+}
+.help-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  gap: 12px;
+  color: var(--muted);
+  font-size: 12.5px;
+  flex-wrap: wrap;
+}
+
+/* --- Поддержка -------------------------------------------------------- */
+
+.sup-thread {
+  display: grid;
+  min-height: 180px;
+  max-height: 44vh;
+  overflow: auto;
+  margin: 12px 0;
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  background: var(--surface-raised);
+  gap: 10px;
+  align-content: start;
+}
+.sup-msg {
+  display: grid;
+  max-width: 86%;
+  gap: 3px;
+}
+.sup-msg.out {
+  justify-self: end;
+  justify-items: end;
+}
+.sup-text {
+  padding: 9px 12px;
+  border-radius: var(--radius-small);
+  background: var(--cab-fill);
+  font-size: 13px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+.sup-msg.out .sup-text {
+  color: var(--on-accent);
+  background: var(--accent);
+}
+.sup-meta {
+  display: flex;
+  gap: 8px;
+  color: var(--muted);
+  font-size: 10.5px;
+}
+.sup-empty {
+  color: var(--muted);
+  font-size: 12.5px;
+  line-height: 1.5;
+  text-align: center;
+}
+.sup-form {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: end;
+  gap: 10px;
+}
+.sup-form textarea {
+  min-height: 76px;
+}
+
+@media (max-width: 900px) {
+  /* Телефон: панель аккаунта — лист снизу, над нижней навигацией. */
+  .acc-menu {
+    right: 8px;
+    bottom: 74px;
+    left: 8px;
+    width: auto;
+    max-height: calc(100vh - 100px);
+    transform-origin: bottom center;
+  }
+  .sup-form {
+    grid-template-columns: 1fr;
+  }
+  .sup-form .btn {
+    width: 100%;
+  }
+}
+
+/* --- Админка: обращения в поддержку (v40) ----------------------------- */
+
+.admin-support-grid {
+  display: grid;
+  grid-template-columns: minmax(220px, 280px) minmax(0, 1fr);
+  margin-top: 14px;
+  gap: 14px;
+  align-items: start;
+}
+.admin-support-list {
+  display: grid;
+  max-height: 340px;
+  overflow: auto;
+  gap: 6px;
+  align-content: start;
+}
+.admin-support-item {
+  display: grid;
+  padding: 9px 11px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-small);
+  color: inherit;
+  background: var(--surface-raised);
+  gap: 3px;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color var(--motion-fast) var(--motion-ease);
+}
+.admin-support-item:hover {
+  border-color: var(--accent);
+}
+.admin-support-item.active {
+  border-color: var(--accent);
+  background: var(--cab-fill);
+}
+.admin-support-item-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+.admin-support-item-top b {
+  overflow: hidden;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-support-item-top time,
+.admin-support-item small {
+  color: var(--muted);
+  font-size: 11px;
+}
+/* Непрочитанное обращение помечено акцентной полосой слева: список читают
+   по диагонали, и «есть новое» должно быть видно без чтения подписей. */
+.admin-support-item.is-unread {
+  border-left: 3px solid var(--accent);
+}
+.admin-support-item.is-unread small {
+  color: var(--accent-ink);
+}
+.admin-support-room {
+  display: grid;
+  gap: 10px;
+}
+.admin-support-room .sup-thread {
+  min-height: 220px;
+  max-height: 340px;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  .admin-support-grid {
+    grid-template-columns: 1fr;
+  }
+  .admin-support-list {
+    max-height: 220px;
+  }
 }

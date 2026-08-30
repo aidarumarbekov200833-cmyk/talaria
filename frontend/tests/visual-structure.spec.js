@@ -78,6 +78,16 @@ async function hideNonCaptureLayers(page) {
     });
 }
 
+/** Погасить только тур и подсказки: модалки в тестах v40 нужны рабочими. */
+async function hideOnboardingOnly(page) {
+  await page.locator('.onb-overlay, .toast-wrap, .drawer').evaluateAll((elements) => {
+    for (const element of elements) {
+      element.classList.remove('show');
+      element.style.display = 'none';
+    }
+  });
+}
+
 async function prepareFullPageLandingCapture(page) {
   await page.evaluate(() => {
     document.documentElement.style.overflow = 'visible';
@@ -428,4 +438,150 @@ test('v39: выбранные снаружи страны видны на кно
   const picker = page.locator('.region-picker[data-for="leadCountry"] .region-picker-btn');
   await expect(picker).toContainText('Казахстан');
   await expect(picker).toContainText('Россия');
+});
+
+test('v40: меню аккаунта собирает тариф, лимиты, тему, помощь, поддержку и выход', async ({
+  page,
+}) => {
+  await mockApi(page);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    sessionStorage.removeItem('talaria_in_app');
+  });
+  await page.goto('/index.html');
+  await page.locator('[data-telegram-login-trigger]').first().click();
+  await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+  await page.locator('#loginScreen').evaluate((element) => {
+    element.style.display = 'none';
+  });
+  await page.locator('#appWrapper').evaluate((element) => {
+    element.style.display = 'block';
+  });
+  await hideOnboardingOnly(page);
+
+  // Боковое меню обязано вмещаться в экран: из-за квоты и плитки тарифа его
+  // приходилось скроллить («сделай сайдбар без скролла»).
+  const sidebar = await page.locator('#appWrapper .sidebar').evaluate((element) => ({
+    scroll: element.scrollHeight - element.clientHeight,
+    navScroll: (() => {
+      const nav = element.querySelector('.nav');
+      return nav.scrollHeight - nav.clientHeight;
+    })(),
+  }));
+  expect(sidebar.scroll).toBeLessThanOrEqual(1);
+  expect(sidebar.navScroll).toBeLessThanOrEqual(1);
+
+  const menu = page.locator('#accountMenu');
+  await expect(menu).toBeHidden();
+  await page.locator('#sessionUserCard').click();
+  await expect(menu).toBeVisible();
+  // Тариф и остаток лимитов — то, за чем в меню и приходят.
+  await expect(page.locator('#accMenuPlan')).toHaveText('Talaria');
+  await expect(page.locator('#usageText')).toHaveText(/осталось/);
+  await expect(page.locator('#accMenuLimits .acc-limit')).toHaveCount(2);
+  // Курсор на нажимаемых элементах: отдельная просьба владельца.
+  await expect(page.locator('#sessionUserCard')).toHaveCSS('cursor', 'pointer');
+  await expect(page.locator('.acc-links button').first()).toHaveCSS('cursor', 'pointer');
+
+  // Тема переключается прямо из меню и сразу применяется ко всей странице.
+  await page.locator('#accMenuTheme [data-theme-choice="dark"]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'dark');
+  await expect(page.locator('#accMenuTheme [data-theme-choice="dark"]')).toHaveClass(/active/);
+  await page.locator('#accMenuTheme [data-theme-choice="light"]').click();
+  await expect(page.locator('html')).toHaveAttribute('data-theme', 'light');
+
+  // Escape закрывает меню, а «Настройки» из него открывают раздел и отмечают его.
+  await page.keyboard.press('Escape');
+  await expect(menu).toBeHidden();
+  await page.locator('#sessionUserCard').click();
+  await page.locator('.acc-links [data-target="settings"]').click();
+  await expect(page.locator('#settings')).toHaveClass(/\bactive\b/);
+  await expect(page.locator('[data-target="settings"]')).toHaveClass(/\bactive\b/);
+  await expect(menu).toBeHidden();
+});
+
+test('v40: центр помощи ищет по разделам и ведёт в поддержку', async ({ page }) => {
+  await mockApi(page);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    sessionStorage.removeItem('talaria_in_app');
+  });
+  await page.goto('/index.html');
+  await page.locator('[data-telegram-login-trigger]').first().click();
+  await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+  await page.locator('#loginScreen').evaluate((element) => {
+    element.style.display = 'none';
+  });
+  await page.locator('#appWrapper').evaluate((element) => {
+    element.style.display = 'block';
+  });
+  await hideOnboardingOnly(page);
+
+  await page.locator('#sessionUserCard').click();
+  await page.locator('.acc-links [data-act="openHelpCenter"]').click();
+  await expect(page.locator('#modalHelp')).toHaveClass(/show/);
+  const items = page.locator('#helpList .help-item');
+  const total = await items.count();
+  expect(total).toBeGreaterThan(5);
+
+  // Поиск идёт по тексту статьи, а не по заголовку: «промокод» есть только в
+  // шагах про тариф, и статья открывается сразу.
+  await page.locator('#helpSearch').fill('промокод');
+  await expect(items).toHaveCount(1);
+  await expect(items.first()).toHaveAttribute('data-help-id', 'tariff');
+  await expect(items.first()).toHaveAttribute('open', '');
+  // Слово из другой главы поднимает свою статью, а не ту же самую.
+  await page.locator('#helpSearch').fill('Google Cloud Console');
+  await expect(items.first()).toHaveAttribute('data-help-id', 'quota');
+
+  await page.locator('#helpSearch').fill('такого слова нет нигде');
+  await expect(page.locator('#helpList .dd-empty')).toBeVisible();
+
+  // Из справки можно написать в поддержку: справка закрывается, диалог открыт.
+  await page.locator('[data-act="helpToSupport"]').click();
+  await expect(page.locator('#modalHelp')).not.toHaveClass(/show/);
+  await expect(page.locator('#modalSupport')).toHaveClass(/show/);
+});
+
+test('v40: обращение в поддержку появляется в переписке', async ({ page }) => {
+  await mockApi(page);
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    sessionStorage.removeItem('talaria_in_app');
+  });
+  await page.goto('/index.html');
+  await page.locator('[data-telegram-login-trigger]').first().click();
+  await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+  await page.locator('#loginScreen').evaluate((element) => {
+    element.style.display = 'none';
+  });
+  await page.locator('#appWrapper').evaluate((element) => {
+    element.style.display = 'block';
+  });
+  await hideOnboardingOnly(page);
+
+  // На телефоне бокового меню нет — аккаунт открывается из нижней навигации.
+  await page.locator('.bottom-nav [data-act="toggleAccountMenu"]').click();
+  const menu = page.locator('#accountMenu');
+  // Пауза не для анимации: раньше тот же клик успевал закрыть панель через
+  // обработчик «клик снаружи», и проверка ловила её в момент закрытия.
+  await page.waitForTimeout(400);
+  await expect(menu).toBeVisible();
+  // Непрочитанный ответ поддержки виден до открытия диалога.
+  await expect(page.locator('#accMenuSupportCount')).toHaveText('2');
+
+  await page.locator('.acc-links [data-act="openSupport"]').click();
+  await expect(page.locator('#modalSupport')).toHaveClass(/show/);
+  await expect(page.locator('#supportThread .sup-empty')).toBeVisible();
+
+  await page.locator('#supportInput').fill('Не приходит проверка Telegram');
+  await page.locator('#supportSend').click();
+  const bubble = page.locator('#supportThread .sup-msg');
+  await expect(bubble).toHaveCount(1);
+  await expect(bubble.first()).toHaveClass(/out/);
+  await expect(bubble.first().locator('.sup-text')).toHaveText('Не приходит проверка Telegram');
+  await expect(page.locator('#supportInput')).toHaveValue('');
 });

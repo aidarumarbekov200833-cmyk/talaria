@@ -42,8 +42,33 @@ export async function mockApi(page) {
     promo_valid: false,
     promo_message: '',
   };
-  await page.route('**/api/**', (route) => {
+  // Переписка с поддержкой живёт между запросами одного теста: отправили —
+  // значит, следующая загрузка диалога обязана показать это сообщение.
+  const supportThread = [];
+  await page.route('**/api/**', async (route) => {
     const url = new URL(route.request().url());
+    if (url.pathname === '/api/support/messages') {
+      if (route.request().method() === 'POST') {
+        const sent = JSON.parse(route.request().postData() || '{}');
+        supportThread.push({
+          id: supportThread.length + 1,
+          author: 'user',
+          text: sent.text || '',
+          created_at: new Date().toISOString(),
+          read: false,
+        });
+        return route.fulfill({
+          contentType: 'application/json',
+          status: 200,
+          body: JSON.stringify(supportThread.at(-1)),
+        });
+      }
+      return route.fulfill({
+        contentType: 'application/json',
+        status: 200,
+        body: JSON.stringify({ messages: supportThread, unread: 0, can_write: true }),
+      });
+    }
     const body =
       url.pathname === '/api/subscription'
         ? {
@@ -58,21 +83,43 @@ export async function mockApi(page) {
             ai_offer: true,
             note: '',
             admin_contact: 'zephyr_admin',
-            usage: {},
+            // Единый тариф Talaria без продуктовых лимитов: -1 = «без лимита».
+            usage: {
+              leads_used: 1214,
+              leads_limit: -1,
+              messages_used: 312,
+              messages_limit: -1,
+              databases: 4,
+              databases_limit: -1,
+              offers: 12,
+              offers_limit: -1,
+            },
             plans: [plan],
             first_purchase: true,
             first_purchase_discount_pct: 0,
           }
-        : url.pathname === '/api/plans'
+        : url.pathname === '/api/quota'
           ? {
-              plans: [plan],
-              currencies: ['RUB', 'KZT'],
-              admin_contact: 'zephyr_admin',
-              first_purchase_discount_pct: 0,
+              used_today: 3800,
+              total_daily: 10000,
+              left_today: 6200,
+              keys_enabled: 1,
+              keys_total: 1,
+              projects: 1,
+              source_note: '',
             }
-          : url.pathname === '/api/plans/quote'
-            ? quote
-            : {};
+          : url.pathname === '/api/support/unread'
+            ? { unread: 2 }
+            : url.pathname === '/api/plans'
+              ? {
+                  plans: [plan],
+                  currencies: ['RUB', 'KZT'],
+                  admin_contact: 'zephyr_admin',
+                  first_purchase_discount_pct: 0,
+                }
+              : url.pathname === '/api/plans/quote'
+                ? quote
+                : {};
     return route.fulfill({
       contentType: 'application/json',
       status: 200,

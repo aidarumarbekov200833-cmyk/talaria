@@ -96,6 +96,20 @@ import {
   switchChatAccount,
 } from './chat.js?v=tal33';
 import { initSidebar, toggleSidebar } from './sidebar.js?v=tal33';
+import {
+  initAccountMenu,
+  toggleAccountMenu,
+  closeAccountMenu,
+  accountGoTo,
+  setAccountTheme,
+} from './account.js?v=talaria14';
+import { initSupport, openSupport, sendSupportMessage } from './support.js?v=talaria14';
+import {
+  openHelpCenter,
+  openHelpForCurrentSection,
+  helpToSupport,
+  filterHelp,
+} from './help.js?v=talaria14';
 import { sendAi } from './ai.js?v=talaria13';
 import { initOnboarding, openKeyGuide, startOnboarding } from './onboarding.js?v=zephyr4';
 import { initActions, clearParseLogs } from './actions.js';
@@ -136,7 +150,10 @@ import {
   grantDaysToAll,
   adminViewAs,
   exitViewAs,
-} from './admin.js?v=viewas1';
+  loadSupportThreads,
+  openSupportThread,
+  replySupportThread,
+} from './admin.js?v=talaria14';
 import {
   handlePlanAction,
   initPlans,
@@ -189,6 +206,17 @@ Object.assign(window, {
   toggleChatAccounts,
   switchChatAccount,
   toggleSidebar,
+  // Меню аккаунта, помощь и поддержка (v40)
+  toggleAccountMenu,
+  closeAccountMenu,
+  accountGoTo,
+  setAccountTheme,
+  openHelpCenter,
+  openHelpForCurrentSection,
+  helpToSupport,
+  filterHelp,
+  openSupport,
+  sendSupportMessage,
   toast,
   openModal: openModalWithReset,
   closeModal,
@@ -280,6 +308,10 @@ Object.assign(window, {
   grantDaysToAll,
   adminViewAs,
   exitViewAs,
+  // Поддержка в админке (v40)
+  loadSupportThreads,
+  openSupportThread,
+  replySupportThread,
   // Настройки — ключи YouTube / Telegram-аккаунты / прогрев
   addKey,
   addWarmupAccount,
@@ -329,6 +361,8 @@ function boot() {
   initPolish();
   initUi();
   initSidebar();
+  initAccountMenu();
+  initSupport();
   initNav();
   initSettings();
   initAdmin();
