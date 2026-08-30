@@ -1002,7 +1002,15 @@ function renderAccountHealth(accounts) {
     if (node) node.textContent = value;
   };
   const ring = document.getElementById('healthScoreRing');
-  if (ring) ring.style.setProperty('--score', String(score));
+  if (ring) {
+    ring.style.setProperty('--score', String(score));
+    // Цвет круга дублирует вывод словами: зелёный — пул готов, жёлтый — есть
+    // что поправить, красный — пул не настроен или всё плохо.
+    ring.classList.remove('is-ok', 'is-warn', 'is-bad');
+    ring.classList.add(
+      !accounts.length || score < 40 ? 'is-bad' : score < 75 ? 'is-warn' : 'is-ok',
+    );
+  }
   put('healthScoreValue', String(score));
   put(
     'healthScoreTitle',

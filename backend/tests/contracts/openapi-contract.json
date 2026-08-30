@@ -76,15 +76,23 @@
             "type": "string"
           }
         },
-        "required": [
-          "account_id"
-        ],
+        "required": ["account_id"],
         "title": "AccountRiskOut",
         "type": "object"
       },
       "AdminActivateIn": {
         "description": "Ручная активация купленного плана после оплаты в личку.",
         "properties": {
+          "amount": {
+            "default": 0.0,
+            "title": "Amount",
+            "type": "number"
+          },
+          "currency": {
+            "default": "RUB",
+            "title": "Currency",
+            "type": "string"
+          },
           "months": {
             "default": 1,
             "title": "Months",
@@ -100,9 +108,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "plan"
-        ],
+        "required": ["plan"],
         "title": "AdminActivateIn",
         "type": "object"
       },
@@ -229,10 +235,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id",
-          "message"
-        ],
+        "required": ["id", "message"],
         "title": "AdminAuditOut",
         "type": "object"
       },
@@ -248,63 +251,8 @@
             "type": "string"
           }
         },
-        "required": [
-          "blocked"
-        ],
+        "required": ["blocked"],
         "title": "AdminBlockIn",
-        "type": "object"
-      },
-      "AdminChurnOut": {
-        "description": "Пользователь с оплаченным тарифом, который перестал заходить.",
-        "properties": {
-          "days_silent": {
-            "default": 0,
-            "title": "Days Silent",
-            "type": "integer"
-          },
-          "label": {
-            "title": "Label",
-            "type": "string"
-          },
-          "last_seen": {
-            "anyOf": [
-              {
-                "format": "date-time",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Last Seen"
-          },
-          "paid_until": {
-            "anyOf": [
-              {
-                "format": "date-time",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Paid Until"
-          },
-          "plan": {
-            "default": "",
-            "title": "Plan",
-            "type": "string"
-          },
-          "user_id": {
-            "title": "User Id",
-            "type": "integer"
-          }
-        },
-        "required": [
-          "label",
-          "user_id"
-        ],
-        "title": "AdminChurnOut",
         "type": "object"
       },
       "AdminDatabaseOut": {
@@ -357,13 +305,7 @@
             "title": "Source"
           }
         },
-        "required": [
-          "created_at",
-          "id",
-          "mode",
-          "name",
-          "source"
-        ],
+        "required": ["created_at", "id", "mode", "name", "source"],
         "title": "AdminDatabaseOut",
         "type": "object"
       },
@@ -385,14 +327,12 @@
             "type": "integer"
           }
         },
-        "required": [
-          "day"
-        ],
+        "required": ["day"],
         "title": "AdminDayPointOut",
         "type": "object"
       },
       "AdminGrantDaysAllIn": {
-        "description": "То же, но всем сразу.\n\nПо умолчанию только действующим клиентам: раздать платный доступ вообще\nвсем, кто когда-либо заходил, — это не «акция», а потеря денег.",
+        "description": "То же, но всем сразу.\n\nВсегда только действующим клиентам: раздать платный доступ вообще всем,\nкто когда-либо заходил, — это не «акция», а потеря денег. Выбора здесь\nсознательно нет — галочку «всем подряд» однажды нажали бы случайно.",
         "properties": {
           "days": {
             "maximum": 3650.0,
@@ -404,16 +344,9 @@
             "default": "",
             "title": "Note",
             "type": "string"
-          },
-          "only_with_plan": {
-            "default": true,
-            "title": "Only With Plan",
-            "type": "boolean"
           }
         },
-        "required": [
-          "days"
-        ],
+        "required": ["days"],
         "title": "AdminGrantDaysAllIn",
         "type": "object"
       },
@@ -432,9 +365,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "days"
-        ],
+        "required": ["days"],
         "title": "AdminGrantDaysIn",
         "type": "object"
       },
@@ -453,11 +384,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "affected",
-          "days",
-          "message"
-        ],
+        "required": ["affected", "days", "message"],
         "title": "AdminGrantDaysResultOut",
         "type": "object"
       },
@@ -522,9 +449,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "title": "AdminLoginAttemptOut",
         "type": "object"
       },
@@ -532,12 +457,7 @@
         "properties": {
           "level": {
             "default": "info",
-            "enum": [
-              "error",
-              "info",
-              "success",
-              "warn"
-            ],
+            "enum": ["error", "info", "success", "warn"],
             "title": "Level",
             "type": "string"
           },
@@ -549,11 +469,7 @@
           },
           "target": {
             "default": "all",
-            "enum": [
-              "active",
-              "all",
-              "user"
-            ],
+            "enum": ["active", "all", "user"],
             "title": "Target",
             "type": "string"
           },
@@ -575,9 +491,7 @@
             "title": "User Id"
           }
         },
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "title": "AdminNotificationIn",
         "type": "object"
       },
@@ -627,14 +541,6 @@
             "default": 0,
             "title": "Campaigns Total",
             "type": "integer"
-          },
-          "churn_risk": {
-            "default": [],
-            "items": {
-              "$ref": "#/components/schemas/AdminChurnOut"
-            },
-            "title": "Churn Risk",
-            "type": "array"
           },
           "connected_accounts": {
             "default": 0,
@@ -712,6 +618,11 @@
             "title": "Running Campaigns",
             "type": "integer"
           },
+          "trial_subs": {
+            "default": 0,
+            "title": "Trial Subs",
+            "type": "integer"
+          },
           "users_new_7d": {
             "default": 0,
             "title": "Users New 7D",
@@ -773,9 +684,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "amount"
-        ],
+        "required": ["amount"],
         "title": "AdminPaymentIn",
         "type": "object"
       },
@@ -864,12 +773,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "amount",
-          "currency",
-          "id",
-          "owner_id"
-        ],
+        "required": ["amount", "currency", "id", "owner_id"],
         "title": "AdminPaymentOut",
         "type": "object"
       },
@@ -911,10 +815,7 @@
             "title": "Valid Until"
           }
         },
-        "required": [
-          "code",
-          "discount_pct"
-        ],
+        "required": ["code", "discount_pct"],
         "title": "AdminPromoIn",
         "type": "object"
       },
@@ -981,12 +882,7 @@
             "title": "Valid Until"
           }
         },
-        "required": [
-          "active",
-          "code",
-          "discount_pct",
-          "id"
-        ],
+        "required": ["active", "code", "discount_pct", "id"],
         "title": "AdminPromoOut",
         "type": "object"
       },
@@ -1080,9 +976,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "open"
-        ],
+        "required": ["open"],
         "title": "AdminRegistrationIn",
         "type": "object"
       },
@@ -1127,6 +1021,48 @@
         "title": "AdminRevenueOut",
         "type": "object"
       },
+      "AdminSeriesOut": {
+        "description": "График активности под выбранный период («сегодня» — по часам,\nнедели и месяц — по дням, «год» — по месяцам).",
+        "properties": {
+          "period": {
+            "title": "Period",
+            "type": "string"
+          },
+          "points": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/AdminSeriesPointOut"
+            },
+            "title": "Points",
+            "type": "array"
+          }
+        },
+        "required": ["period"],
+        "title": "AdminSeriesOut",
+        "type": "object"
+      },
+      "AdminSeriesPointOut": {
+        "description": "Точка графика активности: готовая подпись и два счётчика.",
+        "properties": {
+          "events": {
+            "default": 0,
+            "title": "Events",
+            "type": "integer"
+          },
+          "label": {
+            "title": "Label",
+            "type": "string"
+          },
+          "logins": {
+            "default": 0,
+            "title": "Logins",
+            "type": "integer"
+          }
+        },
+        "required": ["label"],
+        "title": "AdminSeriesPointOut",
+        "type": "object"
+      },
       "AdminSupportListOut": {
         "properties": {
           "threads": {
@@ -1155,9 +1091,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "text"
-        ],
+        "required": ["text"],
         "title": "AdminSupportReplyIn",
         "type": "object"
       },
@@ -1212,9 +1146,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "user_id"
-        ],
+        "required": ["user_id"],
         "title": "AdminSupportThreadOut",
         "type": "object"
       },
@@ -1335,9 +1267,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "user"
-        ],
+        "required": ["user"],
         "title": "AdminUserDetailOut",
         "type": "object"
       },
@@ -1573,10 +1503,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "access_token",
-          "expires_in"
-        ],
+        "required": ["access_token", "expires_in"],
         "title": "AdminViewAsOut",
         "type": "object"
       },
@@ -1728,9 +1655,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "title": "AdminWhitelistOut",
         "type": "object"
       },
@@ -1746,9 +1671,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "messages"
-        ],
+        "required": ["messages"],
         "title": "AiChatIn",
         "type": "object"
       },
@@ -1771,9 +1694,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "reply"
-        ],
+        "required": ["reply"],
         "title": "AiChatOut",
         "type": "object"
       },
@@ -1786,17 +1707,12 @@
             "type": "string"
           },
           "role": {
-            "enum": [
-              "assistant",
-              "user"
-            ],
+            "enum": ["assistant", "user"],
             "title": "Role",
             "type": "string"
           }
         },
-        "required": [
-          "role"
-        ],
+        "required": ["role"],
         "title": "AiMessage",
         "type": "object"
       },
@@ -1856,9 +1772,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "text"
-        ],
+        "required": ["text"],
         "title": "AiOfferOut",
         "type": "object"
       },
@@ -1953,9 +1867,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "title": "AiToolCallOut",
         "type": "object"
       },
@@ -1981,9 +1893,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "key"
-        ],
+        "required": ["key"],
         "title": "ApiKeyIn",
         "type": "object"
       },
@@ -2000,10 +1910,7 @@
             "$ref": "#/components/schemas/QuotaOut"
           }
         },
-        "required": [
-          "keys",
-          "quota"
-        ],
+        "required": ["keys", "quota"],
         "title": "ApiKeyListOut",
         "type": "object"
       },
@@ -2191,10 +2098,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "hour",
-          "weekday"
-        ],
+        "required": ["hour", "weekday"],
         "title": "BestSendTime",
         "type": "object"
       },
@@ -2225,9 +2129,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "file"
-        ],
+        "required": ["file"],
         "title": "Body_import_leads_api_leads_import_post",
         "type": "object"
       },
@@ -2260,10 +2162,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "database_name",
-          "name"
-        ],
+        "required": ["database_name", "name"],
         "title": "CampaignIn",
         "type": "object"
       },
@@ -2318,10 +2217,7 @@
           },
           "offer_mode": {
             "default": "regular",
-            "enum": [
-              "ai",
-              "regular"
-            ],
+            "enum": ["ai", "regular"],
             "title": "Offer Mode",
             "type": "string"
           },
@@ -2341,9 +2237,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "database_id"
-        ],
+        "required": ["database_id"],
         "title": "CampaignLaunchIn",
         "type": "object"
       },
@@ -2421,9 +2315,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "campaign_id"
-        ],
+        "required": ["campaign_id"],
         "title": "CampaignLaunchOut",
         "type": "object"
       },
@@ -2452,9 +2344,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "campaigns"
-        ],
+        "required": ["campaigns"],
         "title": "CampaignListOut",
         "type": "object"
       },
@@ -2470,9 +2360,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "message"
-        ],
+        "required": ["message"],
         "title": "CampaignLogIn",
         "type": "object"
       },
@@ -2501,9 +2389,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "logs"
-        ],
+        "required": ["logs"],
         "title": "CampaignLogListOut",
         "type": "object"
       },
@@ -2545,13 +2431,7 @@
             "title": "Timestamp"
           }
         },
-        "required": [
-          "campaign_id",
-          "id",
-          "level",
-          "message",
-          "timestamp"
-        ],
+        "required": ["campaign_id", "id", "level", "message", "timestamp"],
         "title": "CampaignLogOut",
         "type": "object"
       },
@@ -2808,9 +2688,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "lead_id"
-        ],
+        "required": ["lead_id"],
         "title": "CampaignPreviewSampleOut",
         "type": "object"
       },
@@ -2835,11 +2713,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "account_id",
-          "max_message_id",
-          "owner_id"
-        ],
+        "required": ["account_id", "max_message_id", "owner_id"],
         "title": "CampaignReadIn",
         "type": "object"
       },
@@ -2898,9 +2772,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "owner_id"
-        ],
+        "required": ["owner_id"],
         "title": "CampaignReplyIn",
         "type": "object"
       },
@@ -2967,9 +2839,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "lead_ids"
-        ],
+        "required": ["lead_ids"],
         "title": "CampaignSendIn",
         "type": "object"
       },
@@ -2995,12 +2865,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "limit",
-          "offset",
-          "sends",
-          "total"
-        ],
+        "required": ["limit", "offset", "sends", "total"],
         "title": "CampaignSendListOut",
         "type": "object"
       },
@@ -3042,13 +2907,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "error",
-          "id",
-          "lead_id",
-          "sent_at",
-          "status"
-        ],
+        "required": ["error", "id", "lead_id", "sent_at", "status"],
         "title": "CampaignSendOut",
         "type": "object"
       },
@@ -3067,11 +2926,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "duplicates",
-          "recorded",
-          "unknown_leads"
-        ],
+        "required": ["duplicates", "recorded", "unknown_leads"],
         "title": "CampaignSendResultOut",
         "type": "object"
       },
@@ -3166,9 +3021,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "id"
-        ],
+        "required": ["id"],
         "title": "ChatAccountOut",
         "type": "object"
       },
@@ -3463,9 +3316,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "peer_id"
-        ],
+        "required": ["peer_id"],
         "title": "ChatReadIn",
         "type": "object"
       },
@@ -3496,10 +3347,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "peer_id",
-          "text"
-        ],
+        "required": ["peer_id", "text"],
         "title": "ChatSendIn",
         "type": "object"
       },
@@ -3548,10 +3396,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "bot_username",
-          "demo_mode"
-        ],
+        "required": ["bot_username", "demo_mode"],
         "title": "ConfigOut",
         "type": "object"
       },
@@ -3565,9 +3410,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "events"
-        ],
+        "required": ["events"],
         "title": "EventLogListOut",
         "type": "object"
       },
@@ -3670,9 +3513,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "title": "HealthOut",
         "type": "object"
       },
@@ -3718,10 +3559,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "keywords",
-          "source_note"
-        ],
+        "required": ["keywords", "source_note"],
         "title": "KeywordsOut",
         "type": "object"
       },
@@ -3735,9 +3573,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "lead_ids"
-        ],
+        "required": ["lead_ids"],
         "title": "LeadBulkDeleteIn",
         "type": "object"
       },
@@ -3752,10 +3588,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "affected",
-          "skipped"
-        ],
+        "required": ["affected", "skipped"],
         "title": "LeadBulkResultOut",
         "type": "object"
       },
@@ -3773,10 +3606,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "lead_ids",
-          "status"
-        ],
+        "required": ["lead_ids", "status"],
         "title": "LeadBulkStatusIn",
         "type": "object"
       },
@@ -3794,10 +3624,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "databases",
-          "total_leads"
-        ],
+        "required": ["databases", "total_leads"],
         "title": "LeadDatabaseListOut",
         "type": "object"
       },
@@ -3902,9 +3729,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "title": "LeadDatabaseRename",
         "type": "object"
       },
@@ -3971,12 +3796,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "leads",
-          "limit",
-          "offset",
-          "total"
-        ],
+        "required": ["leads", "limit", "offset", "total"],
         "title": "LeadListOut",
         "type": "object"
       },
@@ -4386,9 +4206,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "lead_id"
-        ],
+        "required": ["lead_id"],
         "title": "LeadTelegramOut",
         "type": "object"
       },
@@ -4410,9 +4228,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "database_id"
-        ],
+        "required": ["database_id"],
         "title": "LeadTelegramResolveIn",
         "type": "object"
       },
@@ -4517,9 +4333,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "database_id"
-        ],
+        "required": ["database_id"],
         "title": "LeadTelegramSummaryOut",
         "type": "object"
       },
@@ -4648,10 +4462,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "database_id",
-          "id"
-        ],
+        "required": ["database_id", "id"],
         "title": "LeadVerificationJobOut",
         "type": "object"
       },
@@ -4682,9 +4493,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "niches"
-        ],
+        "required": ["niches"],
         "title": "NicheListOut",
         "type": "object"
       },
@@ -4703,11 +4512,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "icon",
-          "slug",
-          "title"
-        ],
+        "required": ["icon", "slug", "title"],
         "title": "NicheOut",
         "type": "object"
       },
@@ -4731,12 +4536,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "kind",
-          "label",
-          "selected",
-          "tg_id"
-        ],
+        "required": ["kind", "label", "selected", "tg_id"],
         "title": "NotifyTargetOut",
         "type": "object"
       },
@@ -4752,10 +4552,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "delivered",
-          "detail"
-        ],
+        "required": ["delivered", "detail"],
         "title": "NotifyTargetTestOut",
         "type": "object"
       },
@@ -4784,9 +4581,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "name"
-        ],
+        "required": ["name"],
         "title": "OfferIn",
         "type": "object"
       },
@@ -4866,9 +4661,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "offers"
-        ],
+        "required": ["offers"],
         "title": "OfferListOut",
         "type": "object"
       },
@@ -4930,13 +4723,7 @@
             "title": "Text"
           }
         },
-        "required": [
-          "created_at",
-          "id",
-          "image",
-          "name",
-          "text"
-        ],
+        "required": ["created_at", "id", "image", "name", "text"],
         "title": "OfferOut",
         "type": "object"
       },
@@ -5123,9 +4910,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "placeholders"
-        ],
+        "required": ["placeholders"],
         "title": "PlaceholderListOut",
         "type": "object"
       },
@@ -5160,11 +4945,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "example",
-          "title",
-          "token"
-        ],
+        "required": ["example", "title", "token"],
         "title": "PlaceholderOut",
         "type": "object"
       },
@@ -5274,19 +5055,13 @@
         "properties": {
           "currency": {
             "default": "RUB",
-            "enum": [
-              "KZT",
-              "RUB"
-            ],
+            "enum": ["KZT", "RUB"],
             "title": "Currency",
             "type": "string"
           },
           "period_months": {
             "default": 1,
-            "enum": [
-              1,
-              3
-            ],
+            "enum": [1, 3],
             "title": "Period Months",
             "type": "integer"
           },
@@ -5327,18 +5102,12 @@
           },
           "currency": {
             "default": "RUB",
-            "enum": [
-              "KZT",
-              "RUB"
-            ],
+            "enum": ["KZT", "RUB"],
             "title": "Currency",
             "type": "string"
           },
           "period_months": {
-            "enum": [
-              1,
-              3
-            ],
+            "enum": [1, 3],
             "title": "Period Months",
             "type": "integer"
           },
@@ -5404,10 +5173,7 @@
             "type": "string"
           },
           "currencies": {
-            "default": [
-              "KZT",
-              "RUB"
-            ],
+            "default": ["KZT", "RUB"],
             "items": {
               "type": "string"
             },
@@ -5449,9 +5215,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "text"
-        ],
+        "required": ["text"],
         "title": "PreviewIn",
         "type": "object"
       },
@@ -5475,9 +5239,7 @@
             "type": "array"
           }
         },
-        "required": [
-          "text"
-        ],
+        "required": ["text"],
         "title": "PreviewOut",
         "type": "object"
       },
@@ -5621,9 +5383,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "database_id"
-        ],
+        "required": ["database_id"],
         "title": "RecipientsIn",
         "type": "object"
       },
@@ -5653,13 +5413,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "leads",
-          "limit",
-          "offset",
-          "skipped_contacted",
-          "total"
-        ],
+        "required": ["leads", "limit", "offset", "skipped_contacted", "total"],
         "title": "RecipientsOut",
         "type": "object"
       },
@@ -5683,10 +5437,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "hour",
-          "weekday"
-        ],
+        "required": ["hour", "weekday"],
         "title": "ReplyHeatmapCell",
         "type": "object"
       },
@@ -5710,12 +5461,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "hour",
-          "rate",
-          "replied",
-          "sent"
-        ],
+        "required": ["hour", "rate", "replied", "sent"],
         "title": "ReplyHourOut",
         "type": "object"
       },
@@ -5915,11 +5661,7 @@
           },
           "mode": {
             "default": "custom",
-            "enum": [
-              "custom",
-              "niches",
-              "trends"
-            ],
+            "enum": ["custom", "niches", "trends"],
             "title": "Mode",
             "type": "string"
           },
@@ -5936,9 +5678,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "keywords"
-        ],
+        "required": ["keywords"],
         "title": "SearchIn",
         "type": "object"
       },
@@ -6000,9 +5740,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "jti"
-        ],
+        "required": ["jti"],
         "title": "SessionRevokeIn",
         "type": "object"
       },
@@ -6201,9 +5939,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "status"
-        ],
+        "required": ["status"],
         "title": "SpamBotOut",
         "type": "object"
       },
@@ -6219,9 +5955,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "day"
-        ],
+        "required": ["day"],
         "title": "StatsDayOut",
         "type": "object"
       },
@@ -6410,13 +6144,7 @@
             "$ref": "#/components/schemas/UsageOut"
           }
         },
-        "required": [
-          "plan",
-          "plan_name",
-          "status",
-          "stored_plan",
-          "usage"
-        ],
+        "required": ["plan", "plan_name", "status", "stored_plan", "usage"],
         "title": "SubscriptionOut",
         "type": "object"
       },
@@ -6424,10 +6152,7 @@
         "description": "Одно сообщение переписки с поддержкой.",
         "properties": {
           "author": {
-            "enum": [
-              "admin",
-              "user"
-            ],
+            "enum": ["admin", "user"],
             "title": "Author",
             "type": "string"
           },
@@ -6457,11 +6182,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "author",
-          "id",
-          "text"
-        ],
+        "required": ["author", "id", "text"],
         "title": "SupportMessageOut",
         "type": "object"
       },
@@ -6474,9 +6195,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "text"
-        ],
+        "required": ["text"],
         "title": "SupportSendIn",
         "type": "object"
       },
@@ -6597,9 +6316,7 @@
             "type": "integer"
           }
         },
-        "required": [
-          "telegram_id"
-        ],
+        "required": ["telegram_id"],
         "title": "TelegramAccountOut",
         "type": "object"
       },
@@ -6626,10 +6343,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "expires_in",
-          "ticket"
-        ],
+        "required": ["expires_in", "ticket"],
         "title": "TelegramAccountTicketOut",
         "type": "object"
       },
@@ -6694,11 +6408,7 @@
             "title": "Username"
           }
         },
-        "required": [
-          "auth_date",
-          "hash",
-          "id"
-        ],
+        "required": ["auth_date", "hash", "id"],
         "title": "TelegramAuthPayload",
         "type": "object"
       },
@@ -6732,9 +6442,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "username"
-        ],
+        "required": ["username"],
         "title": "TestSendIn",
         "type": "object"
       },
@@ -6801,10 +6509,7 @@
             "$ref": "#/components/schemas/UserOut"
           }
         },
-        "required": [
-          "access_token",
-          "user"
-        ],
+        "required": ["access_token", "user"],
         "title": "TokenOut",
         "type": "object"
       },
@@ -6841,10 +6546,7 @@
             "title": "Views"
           }
         },
-        "required": [
-          "source",
-          "topic"
-        ],
+        "required": ["source", "topic"],
         "title": "TopicItem",
         "type": "object"
       },
@@ -7068,11 +6770,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "name",
-          "photo_url",
-          "username"
-        ],
+        "required": ["name", "photo_url", "username"],
         "title": "UserOut",
         "type": "object"
       },
@@ -7108,11 +6806,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "loc",
-          "msg",
-          "type"
-        ],
+        "required": ["loc", "msg", "type"],
         "title": "ValidationError",
         "type": "object"
       },
@@ -7720,10 +7414,7 @@
             "title": "Username"
           }
         },
-        "required": [
-          "account_id",
-          "owner_id"
-        ],
+        "required": ["account_id", "owner_id"],
         "title": "WarmupIdentityIn",
         "type": "object"
       },
@@ -7741,10 +7432,7 @@
             "type": "string"
           }
         },
-        "required": [
-          "accounts",
-          "disclaimer"
-        ],
+        "required": ["accounts", "disclaimer"],
         "title": "WarmupListOut",
         "type": "object"
       },
@@ -7856,9 +7544,7 @@
             "type": "boolean"
           }
         },
-        "required": [
-          "on"
-        ],
+        "required": ["on"],
         "title": "WarmupToggleIn",
         "type": "object"
       }
@@ -7985,9 +7671,60 @@
           }
         },
         "summary": "List Activity",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
+      }
+    },
+    "/api/admin/activity-series": {
+      "get": {
+        "description": "График активности под выбранный период.\n\n«Сегодня» — по часам, «14 дней» и «месяц» — по дням, «год» — по месяцам.\nПо дням группирует база; по часам считаем на строках сегодняшнего дня —\nих немного, а GROUP BY по часу, работающего и в SQLite, и в Postgres, нет.",
+        "operationId": "activity_series_api_admin_activity_series_get",
+        "parameters": [
+          {
+            "description": "today | 14d | month | year",
+            "in": "query",
+            "name": "period",
+            "required": false,
+            "schema": {
+              "default": "14d",
+              "description": "today | 14d | month | year",
+              "title": "Period",
+              "type": "string"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminSeriesOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Activity Series",
+        "tags": ["admin"]
       }
     },
     "/api/admin/activity/export": {
@@ -8072,9 +7809,7 @@
           }
         },
         "summary": "Export Activity",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/grant-days": {
@@ -8125,9 +7860,7 @@
           }
         },
         "summary": "Grant Days To All",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/leads/recompute-score": {
@@ -8168,9 +7901,7 @@
           }
         },
         "summary": "Recompute Lead Scores",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/login-attempts": {
@@ -8286,9 +8017,7 @@
           }
         },
         "summary": "List Login Attempts",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/login-attempts/export": {
@@ -8367,9 +8096,7 @@
           }
         },
         "summary": "Export Login Attempts",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/notifications": {
@@ -8420,9 +8147,7 @@
           }
         },
         "summary": "Send Admin Notification",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/overview": {
@@ -8463,9 +8188,7 @@
           }
         },
         "summary": "Admin Overview",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/payments": {
@@ -8545,9 +8268,7 @@
           }
         },
         "summary": "List Payments",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/payments/{payment_id}": {
@@ -8597,9 +8318,7 @@
           }
         },
         "summary": "Remove Payment",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/promo-codes": {
@@ -8643,9 +8362,7 @@
           }
         },
         "summary": "List Promo Codes",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       },
       "post": {
         "description": "Завести промокод. Раньше для этого требовался деплой.",
@@ -8694,9 +8411,7 @@
           }
         },
         "summary": "Create Promo Code",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/promo-codes/{code_id}": {
@@ -8745,9 +8460,7 @@
           }
         },
         "summary": "Delete Promo Code",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       },
       "patch": {
         "operationId": "update_promo_code_api_admin_promo_codes__code_id__patch",
@@ -8804,9 +8517,7 @@
           }
         },
         "summary": "Update Promo Code",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/registration": {
@@ -8857,9 +8568,7 @@
           }
         },
         "summary": "Toggle Registration",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/support": {
@@ -8912,9 +8621,7 @@
           }
         },
         "summary": "List Support Threads",
-        "tags": [
-          "support"
-        ]
+        "tags": ["support"]
       }
     },
     "/api/admin/support/{user_id}": {
@@ -8968,9 +8675,7 @@
           }
         },
         "summary": "Read Support Thread As Admin",
-        "tags": [
-          "support"
-        ]
+        "tags": ["support"]
       },
       "post": {
         "description": "Ответ клиенту: виден в его кабинете и приходит ему в Telegram.",
@@ -9028,9 +8733,7 @@
           }
         },
         "summary": "Reply Support Thread",
-        "tags": [
-          "support"
-        ]
+        "tags": ["support"]
       }
     },
     "/api/admin/users": {
@@ -9117,9 +8820,7 @@
           }
         },
         "summary": "List Users",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/users/{user_id}": {
@@ -9168,9 +8869,7 @@
           }
         },
         "summary": "User Detail",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/users/{user_id}/block": {
@@ -9230,9 +8929,7 @@
           }
         },
         "summary": "Set Block",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/users/{user_id}/grant-days": {
@@ -9292,9 +8989,7 @@
           }
         },
         "summary": "Grant Days To User",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/users/{user_id}/payments": {
@@ -9354,9 +9049,7 @@
           }
         },
         "summary": "Add Payment",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/users/{user_id}/subscription": {
@@ -9416,9 +9109,7 @@
           }
         },
         "summary": "Activate Subscription",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/users/{user_id}/view-as": {
@@ -9468,9 +9159,7 @@
           }
         },
         "summary": "View As User",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/whitelist": {
@@ -9510,9 +9199,7 @@
           }
         },
         "summary": "List Whitelist",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       },
       "post": {
         "description": "Добавить доступ по telegram_id и/или username.\n\nХотя бы одно поле обязательно. По username удобно пускать того, кто ещё ни\nразу не входил (id неизвестен); telegram_id надёжнее — его нельзя сменить.",
@@ -9561,9 +9248,7 @@
           }
         },
         "summary": "Add Whitelist",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/admin/whitelist/{entry_id}": {
@@ -9613,9 +9298,7 @@
           }
         },
         "summary": "Remove Whitelist",
-        "tags": [
-          "admin"
-        ]
+        "tags": ["admin"]
       }
     },
     "/api/ai/chat": {
@@ -9666,9 +9349,7 @@
           }
         },
         "summary": "Chat",
-        "tags": [
-          "ai"
-        ]
+        "tags": ["ai"]
       }
     },
     "/api/auth/logout": {
@@ -9709,9 +9390,7 @@
           }
         },
         "summary": "Logout",
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/auth/sessions": {
@@ -9752,9 +9431,7 @@
           }
         },
         "summary": "List Sessions",
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/auth/sessions/revoke": {
@@ -9805,9 +9482,7 @@
           }
         },
         "summary": "Revoke Session",
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/auth/sessions/revoke-others": {
@@ -9848,9 +9523,7 @@
           }
         },
         "summary": "Revoke Other Sessions",
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/auth/telegram": {
@@ -9889,9 +9562,7 @@
           }
         },
         "summary": "Auth Telegram",
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/campaigns": {
@@ -9955,9 +9626,7 @@
           }
         },
         "summary": "List Campaigns",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       },
       "post": {
         "operationId": "create_campaign_api_campaigns_post",
@@ -10005,9 +9674,7 @@
           }
         },
         "summary": "Create Campaign",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/launch": {
@@ -10058,9 +9725,7 @@
           }
         },
         "summary": "Launch Campaign",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/launch-preview": {
@@ -10111,9 +9776,7 @@
           }
         },
         "summary": "Launch Preview",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/offer-stats": {
@@ -10154,9 +9817,7 @@
           }
         },
         "summary": "Offer Stats",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/read": {
@@ -10208,9 +9869,7 @@
           }
         },
         "summary": "Lead Read",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/reply": {
@@ -10262,9 +9921,7 @@
           }
         },
         "summary": "Lead Replied",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/reply-hours": {
@@ -10305,9 +9962,7 @@
           }
         },
         "summary": "Reply Hours",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/stop-all": {
@@ -10348,9 +10003,7 @@
           }
         },
         "summary": "Stop All Campaigns",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/test-send": {
@@ -10401,9 +10054,7 @@
           }
         },
         "summary": "Test Send",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/{campaign_id}": {
@@ -10452,9 +10103,7 @@
           }
         },
         "summary": "Delete Campaign",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       },
       "get": {
         "operationId": "get_campaign_api_campaigns__campaign_id__get",
@@ -10501,9 +10150,7 @@
           }
         },
         "summary": "Get Campaign",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       },
       "patch": {
         "operationId": "update_campaign_api_campaigns__campaign_id__patch",
@@ -10560,9 +10207,7 @@
           }
         },
         "summary": "Update Campaign",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/{campaign_id}/cancel": {
@@ -10612,9 +10257,7 @@
           }
         },
         "summary": "Cancel Campaign",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/{campaign_id}/logs": {
@@ -10687,9 +10330,7 @@
           }
         },
         "summary": "Get Campaign Logs",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       },
       "post": {
         "operationId": "add_campaign_log_api_campaigns__campaign_id__logs_post",
@@ -10746,9 +10387,7 @@
           }
         },
         "summary": "Add Campaign Log",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/{campaign_id}/recipients": {
@@ -10808,9 +10447,7 @@
           }
         },
         "summary": "Campaign Recipients",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/campaigns/{campaign_id}/sends": {
@@ -10883,9 +10520,7 @@
           }
         },
         "summary": "List Sends",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       },
       "post": {
         "description": "Отметить, что лидам отправили (или не смогли отправить).\n\nВызов идемпотентен: повторная отметка тех же лидов не создаёт дублей\nи не накручивает счётчики. Это важно именно здесь: отправка идёт снаружи,\nсеть может оборваться после записи, но до ответа, и клиент повторит запрос.",
@@ -10943,9 +10578,7 @@
           }
         },
         "summary": "Record Sends",
-        "tags": [
-          "campaigns"
-        ]
+        "tags": ["campaigns"]
       }
     },
     "/api/chat/accounts": {
@@ -10990,9 +10623,7 @@
           }
         },
         "summary": "Chat Accounts",
-        "tags": [
-          "chat"
-        ]
+        "tags": ["chat"]
       }
     },
     "/api/chat/avatar": {
@@ -11057,9 +10688,7 @@
           }
         },
         "summary": "Chat Avatar",
-        "tags": [
-          "chat"
-        ]
+        "tags": ["chat"]
       }
     },
     "/api/chat/dialogs": {
@@ -11157,9 +10786,7 @@
           }
         },
         "summary": "Chat Dialogs",
-        "tags": [
-          "chat"
-        ]
+        "tags": ["chat"]
       }
     },
     "/api/chat/history": {
@@ -11246,9 +10873,7 @@
           }
         },
         "summary": "Chat History",
-        "tags": [
-          "chat"
-        ]
+        "tags": ["chat"]
       }
     },
     "/api/chat/media": {
@@ -11322,9 +10947,7 @@
           }
         },
         "summary": "Chat Media",
-        "tags": [
-          "chat"
-        ]
+        "tags": ["chat"]
       }
     },
     "/api/chat/read": {
@@ -11374,9 +10997,7 @@
           }
         },
         "summary": "Chat Read",
-        "tags": [
-          "chat"
-        ]
+        "tags": ["chat"]
       }
     },
     "/api/chat/send": {
@@ -11426,9 +11047,7 @@
           }
         },
         "summary": "Chat Send",
-        "tags": [
-          "chat"
-        ]
+        "tags": ["chat"]
       }
     },
     "/api/config": {
@@ -11448,9 +11067,7 @@
           }
         },
         "summary": "Config",
-        "tags": [
-          "system"
-        ]
+        "tags": ["system"]
       }
     },
     "/api/events": {
@@ -11515,9 +11132,7 @@
           }
         },
         "summary": "List Events",
-        "tags": [
-          "events"
-        ]
+        "tags": ["events"]
       }
     },
     "/api/health": {
@@ -11536,9 +11151,7 @@
           }
         },
         "summary": "Health",
-        "tags": [
-          "system"
-        ]
+        "tags": ["system"]
       }
     },
     "/api/keys": {
@@ -11578,9 +11191,7 @@
           }
         },
         "summary": "List Keys",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       },
       "post": {
         "operationId": "create_key_api_keys_post",
@@ -11628,9 +11239,7 @@
           }
         },
         "summary": "Create Key",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/keys/{key_id}": {
@@ -11679,9 +11288,7 @@
           }
         },
         "summary": "Delete Key",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       },
       "patch": {
         "operationId": "update_key_api_keys__key_id__patch",
@@ -11738,9 +11345,7 @@
           }
         },
         "summary": "Update Key",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/keys/{key_id}/check": {
@@ -11789,9 +11394,7 @@
           }
         },
         "summary": "Check Key",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/keywords": {
@@ -11831,9 +11434,7 @@
           }
         },
         "summary": "Generate Keywords",
-        "tags": [
-          "search"
-        ]
+        "tags": ["search"]
       }
     },
     "/api/leads": {
@@ -11991,9 +11592,7 @@
           }
         },
         "summary": "List Leads",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/bulk/delete": {
@@ -12044,9 +11643,7 @@
           }
         },
         "summary": "Bulk Delete Leads",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/bulk/status": {
@@ -12097,9 +11694,7 @@
           }
         },
         "summary": "Bulk Update Status",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/databases": {
@@ -12151,9 +11746,7 @@
           }
         },
         "summary": "List Databases",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/databases/{database_id}": {
@@ -12202,9 +11795,7 @@
           }
         },
         "summary": "Delete Database",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       },
       "patch": {
         "operationId": "rename_database_api_leads_databases__database_id__patch",
@@ -12261,9 +11852,7 @@
           }
         },
         "summary": "Rename Database",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/databases/{database_id}/telegram-summary": {
@@ -12312,9 +11901,7 @@
           }
         },
         "summary": "Telegram Summary",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/databases/{database_id}/verification": {
@@ -12363,9 +11950,7 @@
           }
         },
         "summary": "Get Verification Job",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/databases/{database_id}/verification/cancel": {
@@ -12414,9 +11999,7 @@
           }
         },
         "summary": "Cancel Verification Job",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/databases/{database_id}/verification/start": {
@@ -12476,9 +12059,7 @@
           }
         },
         "summary": "Start Verification Job",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/export": {
@@ -12563,9 +12144,7 @@
           }
         },
         "summary": "Export Leads",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/import": {
@@ -12616,9 +12195,7 @@
           }
         },
         "summary": "Import Leads",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/resolve-telegram": {
@@ -12669,9 +12246,7 @@
           }
         },
         "summary": "Resolve Leads Telegram",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/{lead_id}": {
@@ -12731,9 +12306,7 @@
           }
         },
         "summary": "Update Lead Status",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/{lead_id}/note": {
@@ -12793,9 +12366,7 @@
           }
         },
         "summary": "Update Lead Note",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/leads/{lead_id}/telegram": {
@@ -12855,9 +12426,7 @@
           }
         },
         "summary": "Resolve Lead Telegram",
-        "tags": [
-          "leads"
-        ]
+        "tags": ["leads"]
       }
     },
     "/api/me": {
@@ -12897,9 +12466,7 @@
           }
         },
         "summary": "Me",
-        "tags": [
-          "auth"
-        ]
+        "tags": ["auth"]
       }
     },
     "/api/niches": {
@@ -12919,9 +12486,7 @@
           }
         },
         "summary": "List Niches",
-        "tags": [
-          "search"
-        ]
+        "tags": ["search"]
       }
     },
     "/api/offers": {
@@ -12961,9 +12526,7 @@
           }
         },
         "summary": "List Offers",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       },
       "post": {
         "operationId": "create_offer_api_offers_post",
@@ -13011,9 +12574,7 @@
           }
         },
         "summary": "Create Offer",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       }
     },
     "/api/offers/ai-generate": {
@@ -13064,9 +12625,7 @@
           }
         },
         "summary": "Ai Generate Offer",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       }
     },
     "/api/offers/ai-settings": {
@@ -13107,9 +12666,7 @@
           }
         },
         "summary": "Get Ai Offer Settings",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       },
       "put": {
         "description": "Сохранить скелет. Проверку тарифа делаем на запуске рассылки, не здесь:\nнастроить оффер заранее полезно и на дешёвом тарифе — это часть решения\nкупить дорогой, а не то, за что надо наказывать ошибкой 403.",
@@ -13158,9 +12715,7 @@
           }
         },
         "summary": "Save Ai Offer Settings",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       }
     },
     "/api/offers/placeholders": {
@@ -13180,9 +12735,7 @@
           }
         },
         "summary": "List Placeholders",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       }
     },
     "/api/offers/preview": {
@@ -13233,9 +12786,7 @@
           }
         },
         "summary": "Preview Offer",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       }
     },
     "/api/offers/{offer_id}": {
@@ -13284,9 +12835,7 @@
           }
         },
         "summary": "Delete Offer",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       },
       "patch": {
         "operationId": "update_offer_api_offers__offer_id__patch",
@@ -13343,9 +12892,7 @@
           }
         },
         "summary": "Update Offer",
-        "tags": [
-          "offers"
-        ]
+        "tags": ["offers"]
       }
     },
     "/api/plans": {
@@ -13365,9 +12912,7 @@
           }
         },
         "summary": "Public Plans",
-        "tags": [
-          "subscription"
-        ]
+        "tags": ["subscription"]
       }
     },
     "/api/plans/quote": {
@@ -13407,9 +12952,7 @@
           }
         },
         "summary": "Plan Quote",
-        "tags": [
-          "subscription"
-        ]
+        "tags": ["subscription"]
       }
     },
     "/api/public/stats": {
@@ -13429,9 +12972,7 @@
           }
         },
         "summary": "Public Stats",
-        "tags": [
-          "system"
-        ]
+        "tags": ["system"]
       }
     },
     "/api/quota": {
@@ -13472,9 +13013,7 @@
           }
         },
         "summary": "Read Quota",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/search": {
@@ -13525,9 +13064,7 @@
           }
         },
         "summary": "Run Search",
-        "tags": [
-          "search"
-        ]
+        "tags": ["search"]
       }
     },
     "/api/search/estimate": {
@@ -13578,9 +13115,7 @@
           }
         },
         "summary": "Estimate Search",
-        "tags": [
-          "search"
-        ]
+        "tags": ["search"]
       }
     },
     "/api/settings": {
@@ -13621,9 +13156,7 @@
           }
         },
         "summary": "Read Settings",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       },
       "patch": {
         "description": "Изменить то немногое, что пользователь вправе менять сам.\n\nСейчас это только уведомление об ответе лида. Лимиты и ИИ остаются\nread-only: их задаёт админ и владелец сервиса.",
@@ -13672,9 +13205,7 @@
           }
         },
         "summary": "Patch Settings",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/settings/notify-target/test": {
@@ -13715,9 +13246,7 @@
           }
         },
         "summary": "Check Notify Target",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/settings/notify-targets": {
@@ -13762,9 +13291,7 @@
           }
         },
         "summary": "Read Notify Targets",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/stats": {
@@ -13814,9 +13341,7 @@
           }
         },
         "summary": "Get Stats",
-        "tags": [
-          "stats"
-        ]
+        "tags": ["stats"]
       }
     },
     "/api/subscription": {
@@ -13857,9 +13382,7 @@
           }
         },
         "summary": "My Subscription",
-        "tags": [
-          "subscription"
-        ]
+        "tags": ["subscription"]
       }
     },
     "/api/support/messages": {
@@ -13900,9 +13423,7 @@
           }
         },
         "summary": "Read Support Thread",
-        "tags": [
-          "support"
-        ]
+        "tags": ["support"]
       },
       "post": {
         "description": "Написать владельцу сервиса. Уведомление ему уходит в Telegram.",
@@ -13951,9 +13472,7 @@
           }
         },
         "summary": "Send Support Message",
-        "tags": [
-          "support"
-        ]
+        "tags": ["support"]
       }
     },
     "/api/support/unread": {
@@ -13994,9 +13513,7 @@
           }
         },
         "summary": "Read Support Unread",
-        "tags": [
-          "support"
-        ]
+        "tags": ["support"]
       }
     },
     "/api/telegram-accounts": {
@@ -14037,9 +13554,7 @@
           }
         },
         "summary": "Read Telegram Account",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/telegram-accounts/ticket": {
@@ -14098,9 +13613,7 @@
           }
         },
         "summary": "Telegram Account Ticket",
-        "tags": [
-          "settings"
-        ]
+        "tags": ["settings"]
       }
     },
     "/api/topics": {
@@ -14151,9 +13664,7 @@
           }
         },
         "summary": "Generate Topics",
-        "tags": [
-          "search"
-        ]
+        "tags": ["search"]
       }
     },
     "/api/warmup": {
@@ -14194,9 +13705,7 @@
           }
         },
         "summary": "List Accounts",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       },
       "post": {
         "description": "Создать план прогрева. Дней по умолчанию 14.",
@@ -14245,9 +13754,7 @@
           }
         },
         "summary": "Create Account",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/identity": {
@@ -14299,9 +13806,7 @@
           }
         },
         "summary": "Report Identity",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/quick": {
@@ -14359,9 +13864,7 @@
           }
         },
         "summary": "Create Quick",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/risk": {
@@ -14402,9 +13905,7 @@
           }
         },
         "summary": "Account Risk",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/{account_id}": {
@@ -14454,9 +13955,7 @@
           }
         },
         "summary": "Delete Account",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       },
       "patch": {
         "description": "Переименовать, сменить статус, записать заметку.",
@@ -14514,9 +14013,7 @@
           }
         },
         "summary": "Update Account",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/{account_id}/days/{day}": {
@@ -14585,9 +14082,7 @@
           }
         },
         "summary": "Update Warmup Day",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/{account_id}/pending": {
@@ -14637,9 +14132,7 @@
           }
         },
         "summary": "Discard Pending Account",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/{account_id}/spambot/appeal": {
@@ -14689,9 +14182,7 @@
           }
         },
         "summary": "Appeal Spambot",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/{account_id}/spambot/check": {
@@ -14741,9 +14232,7 @@
           }
         },
         "summary": "Check Spambot",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     },
     "/api/warmup/{account_id}/toggle": {
@@ -14803,9 +14292,7 @@
           }
         },
         "summary": "Toggle Account",
-        "tags": [
-          "warmup"
-        ]
+        "tags": ["warmup"]
       }
     }
   }

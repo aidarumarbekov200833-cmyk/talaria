@@ -58,7 +58,6 @@ from ..schemas import (
     AdminAuditListOut,
     AdminAuditOut,
     AdminBlockIn,
-    AdminChurnOut,
     AdminDatabaseOut,
     AdminDayPointOut,
     AdminGrantDaysAllIn,
@@ -77,6 +76,8 @@ from ..schemas import (
     AdminRecomputeScoreOut,
     AdminRegistrationIn,
     AdminRevenueOut,
+    AdminSeriesOut,
+    AdminSeriesPointOut,
     AdminUserDetailOut,
     AdminUserOut,
     AdminUsersOut,
@@ -135,7 +136,11 @@ def send_admin_notification(
     query = db.query(User)
     if payload.target == "user":
         query = query.filter(User.id == payload.user_id)
-    elif payload.target == "active":
+    else:
+        # Себе объявление не шлём: отправитель и так знает его текст, а его
+        # колокольчик и журналы засорялись бы собственными сообщениями.
+        query = query.filter(User.id != admin.id)
+    if payload.target == "active":
         active_from = datetime.now(UTC) - timedelta(days=30)
         active_ids = db.query(EventLog.owner_id).filter(EventLog.created_at >= active_from)
         query = query.filter(User.id.in_(active_ids))
@@ -636,6 +641,26 @@ def activate_subscription(
         get_plan_fn=get_plan,
         log_event_fn=log_event,
     )
+    # Деньги пишутся вместе с активацией: отдельная форма «записать платёж»
+    # жила своей жизнью, и выручка расходилась с реально выданными тарифами.
+    if payload.amount and payload.plan != "none":
+        payment = payments_service.add_payment(
+            db,
+            user_id,
+            amount_minor=round(payload.amount * 100),
+            currency=payload.currency,
+            admin_id=admin.id,
+            plan=payload.plan,
+            months=payload.months,
+            note=payload.note,
+        )
+        log_event(
+            db,
+            admin.id,
+            "admin",
+            f"Активация тарифа с оплатой {payment.amount} {payment.currency} — пользователь {user_id}",
+            "success",
+        )
     return user_detail(user_id, admin, db)
 
 
@@ -680,16 +705,18 @@ def grant_days_to_all(
     db: Session = Depends(get_db),
 ) -> AdminGrantDaysResultOut:
     """Выдать дни всем сразу — компенсация за простой и подобное."""
+    # Только действующим клиентам — всегда. Галочка «всем подряд» существовала,
+    # но одна случайная отправка раздала бы платный доступ всем заходившим.
     touched = grant_days_to_everyone(
         db,
         payload.days,
         admin.id,
         payload.note,
-        only_with_plan=payload.only_with_plan,
+        only_with_plan=True,
         get_settings_fn=get_settings,
         log_event_fn=log_event,
     )
-    scope = "клиентам с тарифом" if payload.only_with_plan else "всем пользователям"
+    scope = "клиентам с тарифом"
     return AdminGrantDaysResultOut(
         affected=len(touched),
         days=payload.days,
@@ -1341,60 +1368,6 @@ def remove_payment(
     return OkOut()
 
 
-# Сколько дней молчания считать тревожным. Две недели: недельная пауза бывает
-# у любого (отпуск, занятость), а две у человека с оплаченным тарифом — уже
-# сигнал, что сервисом перестали пользоваться.
-CHURN_SILENT_DAYS = 14
-
-
-def _churn_risk(db: Session, now: datetime, limit: int = 20) -> list[AdminChurnOut]:
-    """Кто оплатил, но перестал заходить.
-
-    Считаем по последнему событию в журнале, а не по последнему входу: сессия
-    живёт долго, и человек может неделями работать, ни разу не логинясь заново.
-    Отсутствие событий — единственный честный признак, что сервисом не
-    пользуются.
-    """
-    silent_before = now - timedelta(days=CHURN_SILENT_DAYS)
-    last_seen = (
-        db.query(EventLog.owner_id, func.max(EventLog.created_at).label("seen"))
-        .group_by(EventLog.owner_id)
-        .subquery()
-    )
-    rows = (
-        db.query(User, Subscription, last_seen.c.seen)
-        .join(Subscription, Subscription.owner_id == User.id)
-        .outerjoin(last_seen, last_seen.c.owner_id == User.id)
-        .filter(
-            Subscription.paid_until.isnot(None),
-            Subscription.paid_until > now,
-            Subscription.blocked.is_(False),
-            # Никогда не заходивший тоже попадает сюда: оплатил и не начал —
-            # случай, требующий звонка ничуть не меньше.
-            or_(last_seen.c.seen.is_(None), last_seen.c.seen < silent_before),
-        )
-        .order_by(last_seen.c.seen.asc().nullsfirst())
-        .limit(limit)
-        .all()
-    )
-
-    out: list[AdminChurnOut] = []
-    for user, subscription, seen in rows:
-        moment = seen.replace(tzinfo=UTC) if seen is not None and seen.tzinfo is None else seen
-        days = int((now - moment).days) if moment is not None else -1
-        out.append(
-            AdminChurnOut(
-                user_id=user.id,
-                label=user.display_name or f"id {user.id}",
-                plan=subscription.plan or "",
-                paid_until=subscription.paid_until,
-                last_seen=moment,
-                days_silent=days,
-            )
-        )
-    return out
-
-
 @router.get("/overview", response_model=AdminOverviewOut)
 def admin_overview(
     _: User = Depends(require_admin),
@@ -1444,10 +1417,21 @@ def admin_overview(
     blocked_users = (
         db.query(func.count(Subscription.id)).filter(Subscription.blocked.is_(True)).scalar() or 0
     )
+    # Платные и пробные считаем раздельно: «платных подписок 3», когда одна
+    # из них пробная, — это враньё в самом важном месте админки.
     active_subs = (
         db.query(func.count(Subscription.id))
         .filter(
-            Subscription.plan.notin_(["none", "free", ""]),
+            Subscription.plan.notin_(["none", "free", "trial", ""]),
+            or_(Subscription.paid_until.is_(None), Subscription.paid_until >= now),
+        )
+        .scalar()
+        or 0
+    )
+    trial_subs = (
+        db.query(func.count(Subscription.id))
+        .filter(
+            Subscription.plan == "trial",
             or_(Subscription.paid_until.is_(None), Subscription.paid_until >= now),
         )
         .scalar()
@@ -1472,6 +1456,9 @@ def admin_overview(
     rows = (
         db.query(EventLog, User)
         .outerjoin(User, User.id == EventLog.owner_id)
+        # Служебные уведомления (в том числе объявления самого админа) — не
+        # «действия пользователей», в этой ленте они только шум.
+        .filter(EventLog.scope != "notification")
         .order_by(EventLog.created_at.desc())
         .limit(15)
         .all()
@@ -1531,6 +1518,7 @@ def admin_overview(
         users_total=users_total,
         users_new_7d=users_new,
         active_subs=active_subs,
+        trial_subs=trial_subs,
         blocked_users=blocked_users,
         leads_total=db.query(func.count(Lead.id)).scalar() or 0,
         offers_total=db.query(func.count(Offer.id)).scalar() or 0,
@@ -1560,5 +1548,102 @@ def admin_overview(
         recent_actions=actions,
         by_day=by_day,
         revenue=_revenue_out(payments_service.revenue_summary(db, now=now)),
-        churn_risk=_churn_risk(db, now),
     )
+
+
+# Месяцы для подписей годового графика: короткие, как в календарях.
+_SERIES_MONTHS = ("янв", "фев", "мар", "апр", "май", "июн", "июл", "авг", "сен", "окт", "ноя", "дек")
+
+
+@router.get("/activity-series", response_model=AdminSeriesOut)
+def activity_series(
+    period: str = Query("14d", description="today | 14d | month | year"),
+    _: User = Depends(require_admin),
+    db: Session = Depends(get_db),
+) -> AdminSeriesOut:
+    """График активности под выбранный период.
+
+    «Сегодня» — по часам, «14 дней» и «месяц» — по дням, «год» — по месяцам.
+    По дням группирует база; по часам считаем на строках сегодняшнего дня —
+    их немного, а GROUP BY по часу, работающего и в SQLite, и в Postgres, нет.
+    """
+    now = datetime.now(UTC)
+    day_start = now.replace(hour=0, minute=0, second=0, microsecond=0)
+
+    if period == "today":
+        logins = [
+            ts
+            for (ts,) in db.query(LoginAttempt.created_at)
+            .filter(LoginAttempt.created_at >= day_start, LoginAttempt.ok.is_(True))
+            .all()
+        ]
+        events = [
+            ts
+            for (ts,) in db.query(EventLog.created_at)
+            .filter(EventLog.created_at >= day_start)
+            .all()
+        ]
+        points = [
+            AdminSeriesPointOut(
+                label=f"{hour:02d}",
+                logins=sum(1 for ts in logins if ts.hour == hour),
+                events=sum(1 for ts in events if ts.hour == hour),
+            )
+            # Будущие часы не рисуем: пустой хвост до полуночи выглядит как
+            # «активность умерла», хотя день просто ещё не прошёл.
+            for hour in range(now.hour + 1)
+        ]
+        return AdminSeriesOut(period=period, points=points)
+
+    window_days = {"14d": 14, "month": 30, "year": 366}.get(period)
+    if window_days is None:
+        raise HTTPException(400, "period: today | 14d | month | year")
+    start = day_start - timedelta(days=window_days - 1)
+
+    def _key(value) -> str:
+        return value.isoformat() if hasattr(value, "isoformat") else str(value)
+
+    logins_map = {
+        _key(day): int(count)
+        for day, count in db.query(func.date(LoginAttempt.created_at), func.count(LoginAttempt.id))
+        .filter(LoginAttempt.created_at >= start, LoginAttempt.ok.is_(True))
+        .group_by(func.date(LoginAttempt.created_at))
+        .all()
+    }
+    events_map = {
+        _key(day): int(count)
+        for day, count in db.query(func.date(EventLog.created_at), func.count(EventLog.id))
+        .filter(EventLog.created_at >= start)
+        .group_by(func.date(EventLog.created_at))
+        .all()
+    }
+
+    if period == "year":
+        buckets: dict[str, AdminSeriesPointOut] = {}
+        for i in range(window_days):
+            day = (start + timedelta(days=i)).date()
+            if day > now.date():
+                break
+            key = f"{day.year}-{day.month:02d}"
+            point = buckets.get(key)
+            if point is None:
+                point = buckets[key] = AdminSeriesPointOut(
+                    label=f"{_SERIES_MONTHS[day.month - 1]} {day.year % 100:02d}"
+                )
+            iso = day.isoformat()
+            point.logins += logins_map.get(iso, 0)
+            point.events += events_map.get(iso, 0)
+        return AdminSeriesOut(period=period, points=list(buckets.values()))
+
+    points = []
+    for i in range(window_days):
+        day = (start + timedelta(days=i)).date()
+        iso = day.isoformat()
+        points.append(
+            AdminSeriesPointOut(
+                label=f"{day.day:02d}.{day.month:02d}",
+                logins=logins_map.get(iso, 0),
+                events=events_map.get(iso, 0),
+            )
+        )
+    return AdminSeriesOut(period=period, points=points)

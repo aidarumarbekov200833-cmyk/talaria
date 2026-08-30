@@ -48,8 +48,6 @@ export function initPolish() {
   if (ready) return;
   ready = true;
   bindExpander('activityShowAll', '#dashboard .activity-panel');
-  bindExpander('adminRecentToggle', '#admin .admin-activity-panel');
-  bindExpander('adminActivityToggle', '#admin .admin-journal-panel');
   initLoadingSkeletons();
   initLanding();
   initFaq();

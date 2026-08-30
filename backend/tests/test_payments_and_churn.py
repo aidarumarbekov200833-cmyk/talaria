@@ -1,4 +1,4 @@
-"""Учёт денег и список тех, кто перестал заходить.
+"""Учёт денег: платежи пишутся при активации тарифа, выручка сходится.
 
 Деньги — единственная часть системы, где расхождение нельзя объяснить
 округлением, поэтому здесь проверяется арифметика, а не только маршруты.
@@ -105,93 +105,90 @@ def test_ошибочный_платёж_удаляется(db, user):
         payments_service.delete_payment(db, payment.id)
 
 
-def test_отток_ловит_молчащих_с_оплаченным_тарифом(db, user):
-    from app.routers.admin import _churn_risk
+def _admin(db) -> tuple:
+    """Админ с токеном (в тестах админ — username admin_user из conftest)."""
+    from app import models
+    from app.security import create_jwt
 
-    now = datetime.now(UTC)
-    silent = models.User(telegram_id=771_001, username="silent", first_name="Тихий")
-    active = models.User(telegram_id=771_002, username="active", first_name="活")
-    db.add_all([silent, active])
+    admin = models.User(telegram_id=772_000, username="admin_user", first_name="Админ")
+    db.add(admin)
+    db.add(models.AccessWhitelist(username="admin_user", note="test"))
+    db.flush()
+    db.add(models.Subscription(owner_id=admin.id, plan="ultra", status="active"))
     db.commit()
-    for person in (silent, active):
-        db.add(
-            models.Subscription(
-                owner_id=person.id,
-                plan="zephyr",
-                status="active",
-                paid_until=now + timedelta(days=20),
-            )
-        )
-    db.commit()
-    # У одного последнее событие месяц назад, у другого — сегодня.
-    db.add(
-        models.EventLog(
-            owner_id=silent.id, scope="auth", message="вход", created_at=now - timedelta(days=30)
-        )
+    token, _ = create_jwt(admin.id)
+    return admin, {"Authorization": f"Bearer {token}"}
+
+
+def test_активация_тарифа_с_суммой_пишет_платёж(client, db, user):
+    """Деньги записываются вместе с выдачей тарифа: отдельной формы больше нет."""
+    _, headers = _admin(db)
+    r = client.post(
+        f"/api/admin/users/{user.id}/subscription",
+        json={"plan": "pro", "months": 2, "note": "перевод", "amount": 25_000, "currency": "KZT"},
+        headers=headers,
     )
-    db.add(models.EventLog(owner_id=active.id, scope="auth", message="вход", created_at=now))
-    db.commit()
-
-    ids = {row.user_id for row in _churn_risk(db, now)}
-    assert silent.id in ids
-    assert active.id not in ids
+    assert r.status_code == 200, r.text
+    summary = payments_service.revenue_summary(db)
+    assert summary["all_time"] == {"KZT": 2_500_000}
+    assert summary["payments_total"] == 1
 
 
-def test_оплативший_и_ни_разу_не_зашедший_тоже_в_списке(db):
-    """Такому звонить нужно не меньше, чем ушедшему: он даже не начал."""
-    from app.routers.admin import _churn_risk
-
-    now = datetime.now(UTC)
-    newcomer = models.User(telegram_id=771_003, username="newcomer")
-    db.add(newcomer)
-    db.commit()
-    db.add(
-        models.Subscription(
-            owner_id=newcomer.id,
-            plan="zephyr",
-            status="active",
-            paid_until=now + timedelta(days=25),
-        )
+def test_активация_без_суммы_не_выдумывает_платёж(client, db, user):
+    _, headers = _admin(db)
+    r = client.post(
+        f"/api/admin/users/{user.id}/subscription",
+        json={"plan": "pro", "months": 1, "note": "подарок"},
+        headers=headers,
     )
-    db.commit()
-
-    rows = _churn_risk(db, now)
-    row = next(r for r in rows if r.user_id == newcomer.id)
-    # Дней молчания посчитать не от чего — честнее показать это, чем выдумать 0.
-    assert row.days_silent == -1
-    assert row.last_seen is None
+    assert r.status_code == 200, r.text
+    assert payments_service.revenue_summary(db)["payments_total"] == 0
 
 
-def test_заблокированный_и_просроченный_в_отток_не_попадают(db):
-    from app.routers.admin import _churn_risk
+def test_объявление_не_приходит_самому_админу(client, db, user):
+    admin, headers = _admin(db)
+    r = client.post(
+        "/api/admin/notifications",
+        json={"target": "all", "message": "плановые работы", "level": "info", "telegram": False},
+        headers=headers,
+    )
+    assert r.status_code == 200, r.text
+    notices = (
+        db.query(models.EventLog).filter(models.EventLog.scope == "notification").all()
+    )
+    assert {n.owner_id for n in notices} != set()
+    assert admin.id not in {n.owner_id for n in notices}
+    assert user.id in {n.owner_id for n in notices}
 
-    now = datetime.now(UTC)
-    blocked = models.User(telegram_id=771_004, username="blocked")
-    expired = models.User(telegram_id=771_005, username="expired")
-    db.add_all([blocked, expired])
-    db.commit()
+
+def test_пробный_тариф_не_считается_платной_подпиской(client, db, user):
+    from datetime import UTC, datetime, timedelta
+
     db.add(
         models.Subscription(
-            owner_id=blocked.id,
-            plan="zephyr",
+            owner_id=user.id,
+            plan="trial",
             status="active",
-            blocked=True,
-            paid_until=now + timedelta(days=20),
-        )
-    )
-    db.add(
-        models.Subscription(
-            owner_id=expired.id,
-            plan="zephyr",
-            status="active",
-            paid_until=now - timedelta(days=3),
+            paid_until=datetime.now(UTC) + timedelta(days=3),
         )
     )
     db.commit()
+    _, headers = _admin(db)
+    data = client.get("/api/admin/overview", headers=headers).json()
+    # Платная здесь одна — у самого админа (_admin ставит ultra); пробная — отдельно.
+    assert data["active_subs"] == 1
+    assert data["trial_subs"] == 1
 
-    ids = {row.user_id for row in _churn_risk(db, now)}
-    assert blocked.id not in ids
-    assert expired.id not in ids
+
+def test_лента_действий_не_показывает_служебные_уведомления(client, db, user):
+    db.add(models.EventLog(owner_id=user.id, scope="notification", message="Сообщение администратора: тест"))
+    db.add(models.EventLog(owner_id=user.id, scope="search", message="Поиск каналов"))
+    db.commit()
+    _, headers = _admin(db)
+    data = client.get("/api/admin/overview", headers=headers).json()
+    messages = [a["message"] for a in data["recent_actions"]]
+    assert "Поиск каналов" in messages
+    assert all("Сообщение администратора" not in m for m in messages)
 
 
 def test_платежи_доступны_только_админу(client, auth_headers):

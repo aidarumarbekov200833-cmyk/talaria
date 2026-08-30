@@ -8776,110 +8776,12 @@
     "tag": "div"
   },
   {
-    "classes": ["pay-form"],
+    "classes": ["field-hint"],
     "tag": "div"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "payUserId",
-    "tag": "input"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "payAmount",
-    "tag": "input"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "payCurrency",
-    "tag": "select"
-  },
-  {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": [],
-    "tag": "option"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "payNote",
-    "tag": "input"
-  },
-  {
-    "classes": ["btn"],
-    "data-act": "addPayment",
-    "tag": "button"
   },
   {
     "classes": [],
     "id": "adminPayments",
-    "tag": "div"
-  },
-  {
-    "classes": ["dd-empty"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel-head"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["log-scope"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "id": "adminChurn",
     "tag": "div"
   },
   {
@@ -8899,8 +8801,24 @@
     "tag": "h3"
   },
   {
-    "classes": ["log-scope"],
-    "tag": "span"
+    "classes": ["adm-chart-periods"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": ["is-active"],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
   },
   {
     "classes": ["adm-chart"],
@@ -8928,8 +8846,17 @@
     "tag": "h3"
   },
   {
+    "classes": ["panel-tools"],
+    "tag": "div"
+  },
+  {
     "classes": ["log-scope"],
     "tag": "span"
+  },
+  {
+    "classes": ["link-button"],
+    "data-act": "openLoginJournal",
+    "tag": "button"
   },
   {
     "classes": [],
@@ -8962,7 +8889,7 @@
   },
   {
     "classes": ["link-button"],
-    "id": "adminRecentToggle",
+    "data-act": "openActivityJournal",
     "tag": "button"
   },
   {
@@ -9247,15 +9174,6 @@
     "tag": "input"
   },
   {
-    "classes": ["log-scope"],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "grantAllOnlyPaid",
-    "tag": "input"
-  },
-  {
     "classes": ["btn"],
     "data-act": "grantDaysToAll",
     "tag": "button"
@@ -9342,16 +9260,39 @@
     "tag": "button"
   },
   {
-    "classes": ["panel"],
+    "classes": ["modal-overlay"],
+    "id": "modalLoginJournal",
     "tag": "div"
   },
   {
-    "classes": ["panel-head"],
+    "classes": ["modal", "modal-wide"],
+    "tag": "div"
+  },
+  {
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
     "classes": [],
     "tag": "h3"
+  },
+  {
+    "classes": ["modal-close"],
+    "data-act": "closeModal",
+    "data-args": "[\"modalLoginJournal\"]",
+    "tag": "button"
+  },
+  {
+    "classes": ["modal-body"],
+    "tag": "div"
+  },
+  {
+    "classes": ["journal-block"],
+    "tag": "div"
+  },
+  {
+    "classes": ["panel-head"],
+    "tag": "div"
   },
   {
     "classes": [],
@@ -9460,16 +9401,39 @@
     "tag": "button"
   },
   {
-    "classes": ["panel", "admin-journal-panel"],
+    "classes": ["modal-overlay"],
+    "id": "modalActivityJournal",
     "tag": "div"
   },
   {
-    "classes": ["panel-head"],
+    "classes": ["modal", "modal-wide"],
+    "tag": "div"
+  },
+  {
+    "classes": ["modal-head"],
     "tag": "div"
   },
   {
     "classes": [],
     "tag": "h3"
+  },
+  {
+    "classes": ["modal-close"],
+    "data-act": "closeModal",
+    "data-args": "[\"modalActivityJournal\"]",
+    "tag": "button"
+  },
+  {
+    "classes": ["modal-body"],
+    "tag": "div"
+  },
+  {
+    "classes": ["journal-block", "admin-journal-panel"],
+    "tag": "div"
+  },
+  {
+    "classes": ["panel-head"],
+    "tag": "div"
   },
   {
     "classes": [],
@@ -9487,11 +9451,6 @@
   {
     "classes": ["btn", "ghost"],
     "data-act": "exportActivity",
-    "tag": "button"
-  },
-  {
-    "classes": ["link-button"],
-    "id": "adminActivityToggle",
     "tag": "button"
   },
   {

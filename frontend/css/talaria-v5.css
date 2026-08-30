@@ -4652,36 +4652,19 @@ html {
   gap: 10px;
   margin-bottom: 16px;
 }
-.pay-form {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  align-items: flex-end;
-  padding: 14px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 12px;
-}
-.pay-form .field {
-  flex: 1 1 140px;
-  min-width: 0;
-}
-.pay-row,
-.churn-row {
+.pay-row {
   display: flex;
   align-items: center;
   gap: 12px;
   padding: 10px 0;
   border-bottom: 1px solid var(--line);
 }
-.pay-row > div:first-child,
-.churn-row > div:first-child {
+.pay-row > div:first-child {
   display: flex;
   flex-direction: column;
   min-width: 0;
 }
-.pay-row span,
-.churn-row span:not(.badge) {
+.pay-row span {
   color: var(--muted);
   font-size: 13px;
 }
@@ -4694,13 +4677,7 @@ html {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.churn-row {
-  justify-content: space-between;
-}
 @media (max-width: 640px) {
-  .pay-form .field {
-    flex: 1 1 100%;
-  }
   .pay-note {
     display: none;
   }
