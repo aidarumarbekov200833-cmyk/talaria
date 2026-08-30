@@ -348,7 +348,7 @@ def _save_offer(db: Session, owner_id: int, args: dict) -> dict:
             ),
         }
 
-    def _log_ai_offer(session, uid, area, _message, _level, kind, ref):
+    def _log_ai_offer(session, uid, area, _message, _level, kind, ref) -> EventLog:
         # Уровень warn, а не success: запись сделана не руками владельца и в
         # ленте событий должна бросаться в глаза.
         return log_event(
