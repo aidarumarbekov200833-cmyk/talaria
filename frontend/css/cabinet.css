@@ -11,7 +11,19 @@
    tokens.css, это проверяет юнит-тест.
    ========================================================================== */
 
-#appWrapper {
+/* v35. Слои, которые лежат ВНЕ #appWrapper, но принадлежат кабинету: модальные
+   окна, обучающий тур, подтверждение тарифа и шторка ИИ. Они рендерятся в конце
+   документа, поэтому переопределение токенов на #appWrapper их не задевало —
+   кабинет был серым, а его же диалоги оставались розовыми и с прежним
+   шрифтом. Один список селекторов на все слои кабинета. */
+#appWrapper,
+.modal-overlay,
+.plan-confirm-dialog,
+.onb-overlay,
+.onb-skip-confirm,
+.drawer,
+#toastWrap,
+.toast-wrap {
   /* v34. Кабинет полностью переведён на нейтральную палитру (--cabp-* в
      tokens.css). Правка Samat: «весь дизайн как виктор, он профессиональный,
      а не розовый». Переопределяем БРЕНДОВЫЕ токены на уровне контейнера —
@@ -671,8 +683,8 @@
   border-bottom: 1px solid var(--cab-line-soft);
 }
 #messages .chat-search input {
-  min-height: 34px;
-  padding: 6px 10px;
+  min-height: var(--cab-control);
+  padding: 0 12px;
   border: 1px solid var(--cab-line-soft);
   border-radius: 99px;
   background: var(--cab-fill);
@@ -1165,8 +1177,17 @@
 
 /* Плитки иконок: градиент + свечение на каждой карточке превращали кабинет в
    витрину. Оставляем тихую подложку и акцент штрихом. */
-#appWrapper
-  :is(.stat-icon, .qs-cube-ico, .offer-upload-icon, .offer-kind-mark, .step-num, .tut-num) {
+:is(#appWrapper, .modal-overlay, .plan-confirm-dialog, .onb-overlay, .drawer)
+  :is(
+    .stat-icon,
+    .qs-cube-ico,
+    .offer-upload-icon,
+    .offer-kind-mark,
+    .step-num,
+    .tut-num,
+    .onb-icon,
+    .plan-confirm-icon
+  ) {
   border-radius: 10px;
   color: var(--accent-ink);
   background: color-mix(in srgb, var(--accent) 15%, transparent);
@@ -1313,4 +1334,215 @@
   #appWrapper .chat-acc {
     flex: 1;
   }
+}
+
+/* =========================================================================
+   v35. Ровный кабинет (Samat: «неровно, я перфекционист»).
+   Правки не на глаз: скрипт обошёл все десять разделов в двух темах и на двух
+   ширинах и напечатал разброс — высоты полей 34/38/39/41/42 px в одной строке,
+   пятнадцать разных шагов сетки, рваные строки переносов и правая колонка
+   офферов, которая заканчивалась на 90 px выше левой.
+   ========================================================================= */
+
+/* ── 12.1 Одна высота у всех органов управления ────────────────────────────
+   Кнопка рядом с полем была на 3 px выше, и строка «поле + кнопка» выглядела
+   ступенькой. Высоту задаёт --cab-control, вертикальные отступы обнулены:
+   одна строка текста даёт ровно 38 px, а если подпись перенеслась — кнопка
+   вырастет сама, а не обрежет текст. */
+#appWrapper :is(.btn, .mini-btn) {
+  padding-block: 0;
+}
+#appWrapper
+  :is(
+    input[type='text'],
+    input[type='number'],
+    input[type='tel'],
+    input[type='email'],
+    input[type='search'],
+    input[type='password'],
+    input[type='url'],
+    input:not([type]),
+    select
+  ) {
+  padding-block: 0;
+}
+
+/* ── 12.2 Два шага сетки вместо пятнадцати ─────────────────────────────────
+   Между карточками — 16 px, внутри строки управления — 10 px. Раньше рядом
+   встречались 8, 9, 10, 12, 14, 16 и 18 px, и колонки не попадали в одну
+   вертикаль. */
+#appWrapper
+  :is(
+    .grid-2,
+    .grid-3,
+    .grid-4,
+    .panel-row,
+    .creator-with-log,
+    .quick-start-grid,
+    .lead-filter-grid,
+    .review-summary,
+    .tariff-body-grid,
+    .health-overview-grid,
+    .health-main-grid,
+    .admin-health-grid,
+    .admin-notice-grid,
+    .neuro-grid,
+    .db-grid,
+    .theme-grid,
+    .offer-side
+  ) {
+  gap: 16px;
+}
+#appWrapper
+  :is(.panel-head, .panel-tools, .topbar-right, .btn-row, .log-filters, .dashboard-top-actions) {
+  gap: 10px;
+}
+#appWrapper .health-score-card {
+  gap: 16px;
+}
+@media (max-width: 900px) {
+  #appWrapper
+    :is(
+      .grid-2,
+      .grid-3,
+      .grid-4,
+      .panel-row,
+      .creator-with-log,
+      .quick-start-grid,
+      .lead-filter-grid,
+      .review-summary,
+      .tariff-body-grid,
+      .health-overview-grid,
+      .health-main-grid,
+      .admin-health-grid,
+      .admin-notice-grid,
+      .neuro-grid,
+      .db-grid,
+      .theme-grid,
+      .offer-side
+    ) {
+    gap: 12px;
+  }
+}
+
+/* ── 12.3 Подстановки: ровная сетка вместо рваных строк ────────────────────
+   Чипы шли потоком: 3 штуки в первой строке, 2 во второй, 3 в третьей и 1 в
+   последней — правый край рвался на 400 px. Теперь колонки одинаковой ширины
+   и стоят в одну вертикаль. */
+#appWrapper .ph-chips {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+  gap: 8px;
+}
+#appWrapper .ph-chip {
+  justify-content: flex-start;
+  min-height: 30px;
+}
+
+/* ── 12.4 Формы «поля + кнопка»: колонки, а не поток ───────────────────────
+   Добавление ключа, ручной платёж и выдача дней разъезжались на три ступеньки
+   разной ширины. Поля встают равными колонками, кнопка — отдельной строкой
+   слева: так у формы один левый край. */
+#appWrapper :is(.key-add, .pay-form, .grant-days-form) {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  align-items: end;
+  gap: 12px;
+}
+#appWrapper :is(.key-add, .pay-form, .grant-days-form) > :is(button, .btn) {
+  grid-column: 1 / -1;
+  justify-self: start;
+}
+#appWrapper .grant-days-form .grant-note {
+  grid-column: 1 / -1;
+}
+
+/* ── 12.5 Правая колонка офферов достаёт до низа левой ─────────────────────
+   Журнал был ограничен по высоте, поэтому под предпросмотром оставалась
+   пустота, а низ двух колонок не совпадал. Журнал тянется, предпросмотр
+   сохраняет свой размер. */
+#appWrapper .offer-side {
+  align-content: stretch;
+  grid-template-rows: minmax(180px, 1fr) auto;
+}
+#appWrapper #offer .terminal {
+  min-height: 160px;
+  max-height: none;
+  flex: 1 1 auto;
+}
+
+/* ── 12.6 Остатки шага: 14 и 9 px рядом с 16 и 8 ───────────────────────────
+   Строка заголовка страницы и полоса метрик проверки шли с шагом 14 px, кубики
+   быстрого старта — с 9 px. Приводим к тем же 16 и 8. */
+#appWrapper :is(.topbar, .verify-kpis) {
+  gap: 16px;
+}
+#appWrapper .qs-cube {
+  gap: 8px;
+}
+/* Несимметричные шаги (4/10 и 10/12) читались как перекос строки. */
+#appWrapper :is(.mode-row, .tariff-checkout, .account-health-center) {
+  gap: 12px;
+}
+#appWrapper .mailing-flow-step {
+  gap: 8px;
+}
+#appWrapper .reply-hours-head,
+#appWrapper .campaign-auto-pool {
+  gap: 10px;
+}
+
+/* ── 12.7 Обе колонки офферов заканчиваются на одной линии ─────────────────
+   Левая колонка — одна карточка конструктора, правая — журнал и предпросмотр.
+   Кто окажется выше, зависит от содержимого, поэтому низ не совпадал ни в одну
+   сторону. Конструктор растягивается на высоту колонки: у страницы появляется
+   одна нижняя линия вместо двух. */
+#appWrapper .offer-layout > div:first-child {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+#appWrapper .offer-layout > div:first-child > .offer-pane.active {
+  flex: 1 1 auto;
+}
+
+/* ── 12.8 Контраст на акцентной заливке ────────────────────────────────────
+   В нейтральной палитре акцент на тёмной теме светлый, а глифы внутри него
+   остались от розового времени светлыми: цифры шагов, иконка тура, аватары и
+   значки просто исчезали. Пара «заливка --accent → цвет --on-accent» задаётся
+   один раз для всех таких мест. Синий пузырь Telegram не в списке: там белый
+   текст — это его собственный цвет. */
+#appWrapper,
+.modal-overlay,
+.plan-confirm-dialog,
+.onb-overlay,
+.drawer,
+.toast-wrap {
+  --on-ink: var(--cabp-on-accent);
+}
+:is(#appWrapper, .modal-overlay, .plan-confirm-dialog, .onb-overlay, .drawer, .toast-wrap)
+  :is(
+    .ai-dot,
+    .msg.user,
+    .toast.info .toast-ic,
+    .niche-tile.selected .niche-check,
+    .db-icon,
+    .offer-performance-name > span,
+    .row-ic,
+    .test-receipt-bubble,
+    .acc-av,
+    .health-avatar
+  ) {
+  color: var(--on-accent);
+}
+#appWrapper #tariffs :is(.plan-period, .plan-currency) button.active,
+#appWrapper .health-row-menu:hover,
+#appWrapper .mini-btn:hover,
+#appWrapper .global-actions .icon-btn.ai:hover {
+  color: var(--on-accent);
+}
+/* Терминал и пузырь Telegram живут на своей тёмной подложке — им светлый
+   текст нужен, поэтому --on-ink для них возвращается на место. */
+#appWrapper :is(.terminal, .tg-chat, .tg-row.out .tg-bubble, .ink-surface) {
+  --on-ink: var(--cabp-on-well);
 }
