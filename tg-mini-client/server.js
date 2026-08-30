@@ -1118,6 +1118,48 @@ app.post("/chat/read", async (req, res) => {
  * Отдаём отдельным запросом, а не внутри списка: аватары есть не у всех, весят
  * заметно больше самого списка и нужны только для видимой части экрана.
  */
+app.post("/chat/pin", async (req, res) => {
+  const ctx = serverContext(req, res);
+  if (!ctx) return;
+  const body = req.body || {};
+  try {
+    await withClient(
+      ctx.ownerId,
+      ctx.accountId,
+      async (client) => {
+        const peer = await chatPeer(client, body.peer_id);
+        await chat.setDialogPin(client, peer, Boolean(body.pinned));
+      },
+      { requireSession: true }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("chat-pin:", err && err.message);
+    res.status(502).json(errorPayload(err));
+  }
+});
+
+app.post("/chat/mute", async (req, res) => {
+  const ctx = serverContext(req, res);
+  if (!ctx) return;
+  const body = req.body || {};
+  try {
+    await withClient(
+      ctx.ownerId,
+      ctx.accountId,
+      async (client) => {
+        const peer = await chatPeer(client, body.peer_id);
+        await chat.setDialogMute(client, peer, Boolean(body.muted));
+      },
+      { requireSession: true }
+    );
+    res.json({ ok: true });
+  } catch (err) {
+    console.error("chat-mute:", err && err.message);
+    res.status(502).json(errorPayload(err));
+  }
+});
+
 app.post("/chat/avatar", async (req, res) => {
   const ctx = serverContext(req, res);
   if (!ctx) return;

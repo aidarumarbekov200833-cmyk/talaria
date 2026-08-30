@@ -1922,6 +1922,18 @@ class ChatReadIn(BaseModel):
     peer_id: str
 
 
+class ChatPinIn(BaseModel):
+    account_id: int | None = None
+    peer_id: str
+    pinned: bool = True
+
+
+class ChatMuteIn(BaseModel):
+    account_id: int | None = None
+    peer_id: str
+    muted: bool = True
+
+
 class ChatImageOut(BaseModel):
     """Картинка одним data:URL.
 

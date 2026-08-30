@@ -421,6 +421,20 @@ class TelegramGateway:
             30.0,
         )
 
+    def chat_pin(self, owner_id: int, account_id: int, peer_id: str, pinned: bool) -> dict[str, Any]:
+        return self._post(
+            "/chat/pin",
+            {"owner_id": owner_id, "account_id": account_id, "peer_id": peer_id, "pinned": pinned},
+            30.0,
+        )
+
+    def chat_mute(self, owner_id: int, account_id: int, peer_id: str, muted: bool) -> dict[str, Any]:
+        return self._post(
+            "/chat/mute",
+            {"owner_id": owner_id, "account_id": account_id, "peer_id": peer_id, "muted": muted},
+            30.0,
+        )
+
     def chat_avatar(self, owner_id: int, account_id: int, peer_id: str) -> str:
         body = self._post(
             "/chat/avatar",

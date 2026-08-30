@@ -94,7 +94,11 @@ import {
   scrollChatToBottom,
   toggleChatAccounts,
   switchChatAccount,
-} from './chat.js?v=tal33';
+  openChatHeadMenu,
+  toggleChatPin,
+  toggleChatMute,
+  markChatDialogRead,
+} from './chat.js?v=tal34';
 import { initSidebar, toggleSidebar } from './sidebar.js?v=tal33';
 import {
   initAccountMenu,
@@ -208,6 +212,10 @@ Object.assign(window, {
   scrollChatToBottom,
   toggleChatAccounts,
   switchChatAccount,
+  openChatHeadMenu,
+  toggleChatPin,
+  toggleChatMute,
+  markChatDialogRead,
   toggleSidebar,
   // Меню аккаунта, помощь и поддержка (v40)
   toggleAccountMenu,

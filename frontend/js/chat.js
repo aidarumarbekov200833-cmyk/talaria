@@ -142,6 +142,11 @@ const SVG = {
   sent: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5l4.5 4.5L19 6.5"/></svg>',
   reply:
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 8H6l4-4"/><path d="M6 8h8a4 4 0 0 1 4 4v6"/></svg>',
+  unmute:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 10a4 4 0 0 1 8 0v3l1.5 2.5h-11L8 13z"/><path d="M10.5 18.5a1.8 1.8 0 0 0 3 0"/></svg>',
+  unpin:
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4h6l-1 6 3 3H7l3-3z"/><path d="M12 13v7"/><path d="M4 4l16 16"/></svg>',
+  read: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 12.5l4 4L15 8"/><path d="M11 15.5l2 2L21.5 9"/></svg>',
 };
 
 // --- Загрузка данных -------------------------------------------------------
@@ -680,6 +685,7 @@ function renderHead() {
     const bits = [];
     if (dialog.username) bits.push(`@${dialog.username}`);
     if (KIND_LABEL[dialog.kind]) bits.push(KIND_LABEL[dialog.kind]);
+    if (dialog.muted) bits.push('без звука');
     sub.textContent = bits.join(' · ');
   }
   if (ava) {
@@ -696,6 +702,127 @@ function renderHead() {
   // отправки — худший из возможных порядков.
   if (compose) compose.hidden = !dialog.can_send;
   if (readonly) readonly.hidden = dialog.can_send;
+}
+
+// --- Меню диалога ------------------------------------------------------------
+//
+// Как в Telegram: правый клик по строке списка (на телефоне — долгое нажатие,
+// его браузер сам превращает в contextmenu) или кнопка «⋯» в шапке открытого
+// диалога. Пункты — закрепить, без звука, прочитано. И pin, и mute уходят в
+// настоящий Telegram через шлюз, поэтому телефон и кабинет показывают одно.
+
+function dialogByPeer(peerId) {
+  return state.dialogs.find((item) => item.peer_id === String(peerId));
+}
+
+function closeChatCtx() {
+  document.getElementById('chatCtxMenu')?.remove();
+}
+
+function openChatCtx(peerId, x, y) {
+  closeChatCtx();
+  const dialog = dialogByPeer(peerId);
+  if (!dialog) return;
+  const menu = document.createElement('div');
+  menu.className = 'chat-ctx';
+  menu.id = 'chatCtxMenu';
+  const items = [
+    {
+      act: 'toggleChatPin',
+      icon: dialog.pinned ? SVG.unpin : SVG.pin,
+      label: dialog.pinned ? 'Открепить' : 'Закрепить',
+    },
+    {
+      act: 'toggleChatMute',
+      icon: dialog.muted ? SVG.unmute : SVG.mute,
+      label: dialog.muted ? 'Включить звук' : 'Без звука',
+    },
+  ];
+  if (dialog.unread) items.push({ act: 'markChatDialogRead', icon: SVG.read, label: 'Прочитано' });
+  // Обработчики вешаются напрямую, без data-act: меню живёт вне разметки
+  // страницы, и контракту действий нечего проверять в динамическом HTML.
+  items.forEach((item) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'chat-ctx-item';
+    button.innerHTML = `<i>${item.icon}</i>${item.label}`;
+    button.addEventListener('click', () => window[item.act]?.(dialog.peer_id));
+    menu.appendChild(button);
+  });
+  // В кабинет, а не в body: цветовые токены кабинета объявлены на #appWrapper,
+  // и меню на body красилось бы в цвета лендинга (тёмные на светлой теме).
+  (document.getElementById('appWrapper') || document.body).appendChild(menu);
+  // Меню не должно вылезать за экран: прижимаем к краю, если клик у границы.
+  const rect = menu.getBoundingClientRect();
+  const left = Math.min(x, window.innerWidth - rect.width - 8);
+  const top = Math.min(y, window.innerHeight - rect.height - 8);
+  menu.style.left = `${Math.max(8, left)}px`;
+  menu.style.top = `${Math.max(8, top)}px`;
+}
+
+export function openChatHeadMenu() {
+  if (!state.peerId) return;
+  const existing = document.getElementById('chatCtxMenu');
+  if (existing) {
+    existing.remove();
+    return;
+  }
+  const button = el('chatHeadMenu');
+  const rect = button ? button.getBoundingClientRect() : { right: 0, bottom: 0 };
+  // Меню шириной ~200px выравниваем по правому краю кнопки.
+  openChatCtx(state.peerId, Math.max(8, rect.right - 200), rect.bottom + 6);
+}
+
+export async function toggleChatPin(peerId) {
+  const dialog = dialogByPeer(peerId);
+  if (!dialog) return;
+  closeChatCtx();
+  const next = !dialog.pinned;
+  // Список меняется сразу, а не после ответа сервера: закрепление в Telegram
+  // занимает секунду-две, и без мгновенной реакции кажется, что клик не понят.
+  dialog.pinned = next;
+  renderDialogs();
+  try {
+    await api('POST', '/api/chat/pin', {
+      peer_id: dialog.peer_id,
+      account_id: state.accountId,
+      pinned: next,
+    });
+  } catch (error) {
+    dialog.pinned = !next;
+    renderDialogs();
+    toast(error && error.message ? error.message : 'Не удалось закрепить', 'err');
+  }
+}
+
+export async function toggleChatMute(peerId) {
+  const dialog = dialogByPeer(peerId);
+  if (!dialog) return;
+  closeChatCtx();
+  const next = !dialog.muted;
+  dialog.muted = next;
+  renderDialogs();
+  if (state.peerId === dialog.peer_id) renderHead();
+  try {
+    await api('POST', '/api/chat/mute', {
+      peer_id: dialog.peer_id,
+      account_id: state.accountId,
+      muted: next,
+    });
+    toast(next ? 'Диалог без звука: Telegram и Talaria молчат' : 'Уведомления включены', 'info');
+  } catch (error) {
+    dialog.muted = !next;
+    renderDialogs();
+    if (state.peerId === dialog.peer_id) renderHead();
+    toast(error && error.message ? error.message : 'Не удалось изменить уведомления', 'err');
+  }
+}
+
+export async function markChatDialogRead(peerId) {
+  const dialog = dialogByPeer(peerId);
+  closeChatCtx();
+  if (!dialog || !dialog.unread) return;
+  await markRead(dialog);
 }
 
 // --- Действия --------------------------------------------------------------
@@ -998,6 +1125,30 @@ export async function initChat() {
     if (!box || !menu || menu.hidden) return;
     if (!box.contains(event.target)) menu.hidden = true;
   });
+
+  // Правый клик (на телефоне — долгое нажатие) по строке диалога открывает
+  // меню «закрепить / без звука / прочитано» — как в настольном Telegram.
+  const dialogsBox = el('chatDialogs');
+  if (dialogsBox) {
+    dialogsBox.addEventListener('contextmenu', (event) => {
+      const row = event.target.closest('.chat-dialog');
+      if (!row) return;
+      event.preventDefault();
+      openChatCtx(row.dataset.peer, event.clientX, event.clientY);
+    });
+  }
+
+  // Меню диалога закрывается кликом мимо, прокруткой и клавишей Esc: висящее
+  // после прокрутки меню указывало бы на строку, которой уже нет на экране.
+  document.addEventListener('click', (event) => {
+    const menu = document.getElementById('chatCtxMenu');
+    if (!menu) return;
+    if (!menu.contains(event.target) && !event.target.closest('#chatHeadMenu')) closeChatCtx();
+  });
+  document.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeChatCtx();
+  });
+  document.addEventListener('scroll', closeChatCtx, { capture: true, passive: true });
 
   const input = el('chatInput');
   if (input) {

@@ -320,9 +320,45 @@ async function loadHistory(client, peer, { limit, offsetId = 0 } = {}) {
   };
 }
 
+/**
+ * Закрепить или открепить диалог — по-настоящему, в самом Telegram.
+ *
+ * Порядок диалогов кабинет берёт у Telegram как есть, поэтому и закрепление
+ * должно жить там же: локальная пометка разошлась бы с телефоном при первом
+ * открытии приложения.
+ */
+async function setDialogPin(client, peer, pinned) {
+  const { Api } = require("telegram");
+  await client.invoke(
+    new Api.messages.ToggleDialogPin({
+      peer: new Api.InputDialogPeer({ peer }),
+      pinned: pinned ? true : undefined,
+    })
+  );
+}
+
+// «Навсегда» в терминах Telegram: максимальный int32. Точно это же значение
+// ставит официальный клиент при «Отключить уведомления → Навсегда».
+const MUTE_FOREVER = 2147483647;
+
+/** Выключить или включить уведомления диалога в самом Telegram. */
+async function setDialogMute(client, peer, muted) {
+  const { Api } = require("telegram");
+  await client.invoke(
+    new Api.account.UpdateNotifySettings({
+      peer: new Api.InputNotifyPeer({ peer }),
+      settings: new Api.InputPeerNotifySettings({
+        muteUntil: muted ? MUTE_FOREVER : 0,
+      }),
+    })
+  );
+}
+
 module.exports = {
   listDialogs,
   loadHistory,
+  setDialogPin,
+  setDialogMute,
   canSend,
   DIALOG_PAGE,
   HISTORY_PAGE,

@@ -24,6 +24,7 @@ from ..models import (
     Campaign,
     CampaignLog,
     CampaignSend,
+    ChatDialogPref,
     Lead,
     LeadDatabase,
     Offer,
@@ -295,16 +296,30 @@ def lead_replied(
     # Админам выше уходит своё сообщение, поэтому владельца-админа не дублируем.
     # Одним запросом берём и адресата, и его выключатель: раздельные обращения
     # к users и app_settings стоили бы двух round-trip на каждый ответ лида.
+    # Третьим соединением сюда же подшит mute из переписки: диалог «без звука»
+    # глушит и это уведомление, а отдельный запрос не влез бы в бюджет
+    # обработчика (см. гейт на число запросов).
     owner_row = (
         db.query(
             User.telegram_id,
             AppSettings.reply_notify,
             AppSettings.notify_target_tg_id,
+            ChatDialogPref.id,
         )
         .outerjoin(AppSettings, AppSettings.owner_id == User.id)
+        .outerjoin(
+            ChatDialogPref,
+            and_(
+                ChatDialogPref.owner_id == User.id,
+                ChatDialogPref.account_id == payload.account_id,
+                ChatDialogPref.peer_id == str(tg_id or ""),
+                ChatDialogPref.muted.is_(True),
+            ),
+        )
         .filter(User.id == payload.owner_id)
         .one_or_none()
     )
+    peer_muted = bool(owner_row and owner_row[3])
     login_tg_id = owner_row[0] if owner_row else None
     # Строки настроек может ещё не быть — считаем, что уведомления включены:
     # человек их не выключал.
@@ -314,6 +329,7 @@ def lead_replied(
     if (
         owner_tg_id
         and reply_notify
+        and not peer_muted
         and str(owner_tg_id) not in {str(a) for a in settings.admin_ids}
     ):
         alerts.notify_user(
