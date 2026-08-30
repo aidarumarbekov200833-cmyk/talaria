@@ -12,7 +12,9 @@ from app import models
 from app.services import notices
 
 
-def _subscription(db, owner_id: int, days: float, *, status="active", blocked=False):
+def _subscription(
+    db, owner_id: int, days: float, *, status="active", blocked=False
+) -> models.Subscription:
     row = models.Subscription(
         owner_id=owner_id,
         plan="zephyr",

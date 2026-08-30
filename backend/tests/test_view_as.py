@@ -12,14 +12,12 @@ from datetime import UTC, datetime, timedelta
 
 import jwt
 import pytest
-
 from fastapi import Depends
 
 from app import models
-from app.dependencies import get_current_user
 from app.config import settings
+from app.dependencies import get_current_user
 from app.security import create_jwt, create_view_token
-
 
 ADMIN_TG_ID = 555001
 
@@ -46,7 +44,7 @@ def admin_headers(admin):
     return {"Authorization": f"Bearer {token}"}
 
 
-def _view_headers(admin_id: int, target_id: int, minutes: int = 30):
+def _view_headers(admin_id: int, target_id: int, minutes: int = 30) -> dict[str, str]:
     token, _jti = create_view_token(admin_id, target_id, ttl_minutes=minutes)
     return {"Authorization": f"Bearer {token}"}
 

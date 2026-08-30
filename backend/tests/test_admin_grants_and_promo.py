@@ -138,7 +138,7 @@ def test_код_перестаёт_работать_по_каждой_из_тр�
     promo_service.update_code(db, old.id, valid_until=datetime.now(UTC) - timedelta(days=1))
     assert promo_service.discount_for(db, "OLD") == ("", 0)
 
-    spent = promo_service.create_code(db, code="SPENT", discount_pct=10, max_uses=1)
+    promo_service.create_code(db, code="SPENT", discount_pct=10, max_uses=1)
     promo_service.mark_used(db, "SPENT")
     assert promo_service.discount_for(db, "SPENT") == ("", 0)
 

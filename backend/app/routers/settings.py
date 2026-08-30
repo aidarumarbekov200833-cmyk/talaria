@@ -45,22 +45,22 @@ from ..services.api_keys import (
     update_api_key as update_api_key_service,
 )
 from ..services.settings import (
-    read_settings as read_settings_service,
-)
-from ..services.settings import (
     list_notify_targets as list_notify_targets_service,
 )
 from ..services.settings import (
-    test_notify_target as test_notify_target_service,
-)
-from ..services.settings import (
-    update_settings as update_settings_service,
+    read_settings as read_settings_service,
 )
 from ..services.settings import (
     read_telegram_account as read_telegram_account_service,
 )
 from ..services.settings import (
     telegram_account_ticket as telegram_account_ticket_service,
+)
+from ..services.settings import (
+    test_notify_target as test_notify_target_service,
+)
+from ..services.settings import (
+    update_settings as update_settings_service,
 )
 
 router = APIRouter(prefix="/api", tags=["settings"])
