@@ -89,11 +89,6 @@ def test_все_входы_в_отправку_отвечают_объяснен
     assert launched.status_code == 402
     assert "пробном тарифе" in launched.json()["detail"]
 
-    # Нейрокомментинг — отдельная возможность, но отказ тоже с причиной.
-    neuro = client.put("/api/neuro/run", json={"enabled": True}, headers=headers)
-    assert neuro.status_code == 402
-    assert "нейрокомментинг недоступен" in neuro.json()["detail"]
-
 
 # ----------------------------- открытая регистрация -----------------------------
 

@@ -45,10 +45,6 @@ _TRIAL_NO_SEND = (
     "рассылка в Telegram включается после оплаты тарифа Talaria. "
     "Так мы отвечаем за то, что уходит с ваших аккаунтов в чужие личные сообщения."
 )
-_TRIAL_NO_NEURO = (
-    "На пробном тарифе нейрокомментинг недоступен: он тоже пишет от вашего имени "
-    "в чужих чатах. Откроется после оплаты тарифа Talaria."
-)
 _TRIAL_NO_AI = (
     "ИИ-помощник доступен на платном тарифе. На пробном работают поиск лидов, "
     "проверка контактов и офферы."
@@ -341,20 +337,6 @@ def ai_offer_allowed(
         from ..plan_catalog import get_plan as get_plan_fn
 
     return bool(get_plan_fn(effective_plan_slug_fn(db, owner_id))["ai_offer"])
-
-
-def neuro_allowed(
-    db: Session,
-    owner_id: int,
-    *,
-    effective_plan_slug_fn: Callable[[Session, int], str] = effective_plan_slug,
-    get_plan_fn: Callable[[str | None], dict] | None = None,
-) -> bool:
-    """Доступен ли нейрокомментинг. Отдельная возможность, не часть рассылки."""
-    if get_plan_fn is None:
-        from ..plan_catalog import get_plan as get_plan_fn
-
-    return bool(get_plan_fn(effective_plan_slug_fn(db, owner_id)).get("neuro_comment"))
 
 
 def ai_offer_plan_names() -> str:
@@ -734,7 +716,6 @@ __all__ = [
     "is_first_purchase",
     "ai_allowed",
     "ai_offer_allowed",
-    "neuro_allowed",
     "ai_offer_plan_names",
     "campaign_limits",
     "check_campaign_budget",

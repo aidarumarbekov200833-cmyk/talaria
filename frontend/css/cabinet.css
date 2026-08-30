@@ -353,7 +353,6 @@
     .verification-panel,
     .campaign-builder,
     .log-panel,
-    .terminal-panel,
     .activity-panel,
     .admin-health-panel,
     .admin-notice-panel,
@@ -373,7 +372,7 @@
   margin-bottom: 12px;
   gap: 10px;
 }
-#appWrapper :is(.panel-head h3, .panel-title, .panel h3) {
+#appWrapper :is(.panel-head h3, .panel h3) {
   font-size: 15px;
   font-weight: 600;
   letter-spacing: -0.005em;
@@ -1221,32 +1220,13 @@
   text-transform: none;
 }
 
-/* Журнал рассылки: подпись «Логи» и ссылка «Очистить» стояли по разным углам
-   панели, кнопка очистки болталась под чёрным окном. */
-#appWrapper .log-panel-head {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  gap: 10px;
-}
-#appWrapper .log-panel-head > span:first-child {
-  font-size: 15px;
-  font-weight: 600;
-}
+/* Журнал рассылки жил по своим правилам (подпись «Логи», ссылка «Очистить» в
+   подвале). Разметка приведена к общему виду, эти правила удалены — журнал на
+   всех страницах описывает один блок 13.2. Подпись области ещё используется. */
 #appWrapper .log-scope {
   margin-left: auto;
   color: var(--muted);
   font-size: 11.5px;
-}
-#appWrapper .log-panel-foot {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 8px;
-}
-#appWrapper .log-panel-foot .link {
-  color: var(--muted);
-  font-size: 11.5px;
-  font-weight: 600;
 }
 
 /* Шаги («Сколько тем собрать?», «Проверьте темы») — одинаковая плотность и
@@ -1386,7 +1366,6 @@
     .health-main-grid,
     .admin-health-grid,
     .admin-notice-grid,
-    .neuro-grid,
     .db-grid,
     .theme-grid,
     .offer-side
@@ -1416,7 +1395,6 @@
       .health-main-grid,
       .admin-health-grid,
       .admin-notice-grid,
-      .neuro-grid,
       .db-grid,
       .theme-grid,
       .offer-side
@@ -1545,4 +1523,220 @@
    текст нужен, поэтому --on-ink для них возвращается на место. */
 #appWrapper :is(.terminal, .tg-chat, .tg-row.out .tg-bubble, .ink-surface) {
   --on-ink: var(--cabp-on-well);
+}
+
+/* =========================================================================
+   v36. Правки Samat: курсор на всём, что нажимается; журнал одинаковый на всех
+   страницах; проверка базы — в правой колонке под журналом; воздух там, где
+   строки слиплись.
+   ========================================================================= */
+
+/* ── 13.1 Курсор ───────────────────────────────────────────────────────────
+   Скрипт нашёл 19 элементов, которые нажимаются, но курсор не менялся:
+   карточки-ссылки на главной, вкладки поиска, галочки, списки, «Очистить»,
+   раскрывающееся меню набора фильтров. Ставим один раз для всех слоёв. */
+:is(#appWrapper, .modal-overlay, .plan-confirm-dialog, .onb-overlay, .drawer, .toast-wrap)
+  :is(
+    a[href],
+    button,
+    summary,
+    select,
+    label.check-row,
+    label.lead-check,
+    input[type='checkbox'],
+    input[type='radio'],
+    [data-act],
+    [data-change-act],
+    [data-target],
+    [data-offer-tab],
+    [role='button'],
+    [role='tab'],
+    .link,
+    .chip,
+    .ph-chip,
+    .nav-item,
+    .theme-card,
+    .offer-tab,
+    .search-tab,
+    .tab,
+    .mini-btn,
+    .icon-btn,
+    .stat-card.go,
+    .seg button
+  ) {
+  cursor: pointer;
+}
+/* Поля ввода — не кнопки: там курсор текста, иначе непонятно, что можно писать. */
+:is(#appWrapper, .modal-overlay, .plan-confirm-dialog, .onb-overlay, .drawer)
+  :is(input:not([type='checkbox']):not([type='radio']):not([type='file']), textarea) {
+  cursor: text;
+}
+/* Недоступное действие честно показывает, что нажатие ничего не даст. */
+:is(#appWrapper, .modal-overlay, .plan-confirm-dialog, .onb-overlay, .drawer)
+  :is(button:disabled, .btn:disabled, select:disabled, [aria-disabled='true']) {
+  cursor: not-allowed;
+}
+/* Стрелка ▶ у <details> вылезала рядом с «⋯» в наборе фильтров. */
+:is(#appWrapper, .modal-overlay, .onb-overlay, .drawer) summary {
+  list-style: none;
+}
+:is(#appWrapper, .modal-overlay, .onb-overlay, .drawer) summary::-webkit-details-marker,
+:is(#appWrapper, .modal-overlay, .onb-overlay, .drawer) summary::marker {
+  display: none;
+  content: '';
+}
+
+/* ── 13.2 Журнал процесса одинаков на всех страницах ───────────────────────
+   На поиске и в офферах это была карточка с заголовком и «Очистить» в шапке, а
+   в рассылке — другой блок с подписью «Рассылки» и ссылкой в подвале. Теперь
+   один вид: шапка, чёрное поле журнала на всю свободную высоту. */
+#appWrapper .log-panel-uniform {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+}
+#appWrapper .log-panel-uniform .terminal {
+  min-height: 200px;
+  max-height: none;
+  flex: 1 1 auto;
+}
+
+/* ── 13.3 Правая колонка поиска: журнал сверху, проверка базы под ним ──────
+   Проверка стояла отдельной полосой во всю ширину под сеткой — до неё нужно
+   было скроллить мимо всего поиска. */
+#appWrapper .side-stack {
+  display: grid;
+  min-width: 0;
+  align-content: stretch;
+  grid-template-rows: minmax(220px, 1fr) auto;
+  gap: 16px;
+}
+#appWrapper .side-stack > .panel {
+  margin: 0;
+}
+/* В половине ширины строка «поле + состояние + две кнопки» не помещалась. */
+#appWrapper .side-stack .verify-toolbar {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 12px;
+}
+#appWrapper .side-stack .verify-actions {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+#appWrapper .side-stack .verify-kpis {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+/* ── 13.4 «Готово к запускуПроверка продолжится в фоне» ────────────────────
+   Заголовок и подпись шли inline и склеивались в одно слово. */
+#appWrapper .verify-live-copy {
+  display: grid;
+  gap: 2px;
+  min-width: 0;
+}
+#appWrapper .verify-live-copy small {
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.45;
+}
+
+/* ── 13.5 Воздух в фильтрах поиска ────────────────────────────────────────
+   Подпись под полем упиралась в следующую строку, а галочки шли вплотную к
+   тексту. Строки фильтров разведены, подсказка получила отбивку, галочки —
+   свою рамку с нормальной областью нажатия. */
+#appWrapper .lead-filter-grid {
+  align-items: start;
+  row-gap: 16px;
+}
+#appWrapper .field .field-hint {
+  margin-top: 6px;
+  line-height: 1.45;
+}
+#appWrapper .filter-switches {
+  display: grid;
+  gap: 10px;
+  margin-top: 16px;
+}
+#appWrapper .filter-switches .check-row {
+  align-items: center;
+  padding: 10px 12px;
+  border: 1px solid var(--cab-line-soft);
+  border-radius: var(--cab-radius-small);
+  background: var(--cab-fill);
+  gap: 10px;
+  font-size: 13px;
+  line-height: 1.4;
+}
+#appWrapper .filter-switches .check-row:hover {
+  border-color: var(--cab-line);
+}
+#appWrapper .search-preset-bar {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  align-items: end;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+/* ── 13.6 Доводка после осмотра скриншотов ────────────────────────────────
+   В половине ширины бейдж состояния «Выберите базу» вжимался в угол и рвался
+   на две строки, а меню «⋯» висело без формы и области нажатия. */
+#appWrapper .side-stack .panel-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 10px;
+  justify-items: start;
+}
+#appWrapper .side-stack .panel-head .pipeline-badge {
+  white-space: nowrap;
+}
+#appWrapper .action-menu > summary {
+  display: grid;
+  min-width: var(--cab-control);
+  min-height: var(--cab-control);
+  padding: 0 10px;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--cab-radius-small);
+  background: var(--cab-fill);
+  place-items: center;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1;
+}
+#appWrapper .action-menu > summary:hover {
+  border-color: var(--accent);
+  color: var(--ink);
+}
+/* Журнал не растягивается в пустую чёрную простыню на всю высоту страницы:
+   высота одна и та же на поиске, офферах и рассылке. */
+#appWrapper .log-panel-uniform .terminal {
+  min-height: 260px;
+  max-height: 520px;
+}
+#appWrapper .creator-with-log > .side-stack,
+#appWrapper .campaign-grid > .log-panel-uniform,
+#appWrapper .offer-layout .log-panel-uniform {
+  align-self: start;
+}
+
+/* ── 13.7 Пустая полоса прогресса выглядела как заполненная ────────────────
+   У заполнения не было стартовой ширины (её ставит JS по ходу проверки), а
+   блок по умолчанию занимает всю строку: до запуска полоса читалась как 100 %. */
+#appWrapper .verify-progress {
+  margin: 14px 0;
+  background: var(--cab-fill-strong);
+}
+#appWrapper .verify-progress > * {
+  width: 0;
+}
+
+/* ── 13.8 Закрытое меню «⋯» занимало место на странице ─────────────────────
+   У поп-апа стоял display: grid, и это перебивало служебное скрытие закрытого
+   <details>: невидимый блок выезжал за левый край экрана (замер на 390 px:
+   left −111 px) и попадал в проверку переполнения. Закрытое меню — display: none. */
+details.action-menu:not([open]) > .action-menu-pop {
+  display: none;
 }

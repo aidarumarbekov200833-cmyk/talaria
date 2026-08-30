@@ -8916,20 +8916,6 @@ html[data-theme='light'] #loginScreen .fcard .fim::after {
   font-size: 10px;
   font-style: italic;
 }
-.neuro-preview-post,
-.neuro-preview-comment {
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: var(--radius-small);
-  margin-bottom: 8px;
-  background: var(--surface-raised);
-  font-size: 12.5px;
-  line-height: 1.5;
-}
-.neuro-preview-comment {
-  border-color: color-mix(in srgb, var(--accent) 40%, var(--line));
-  background: color-mix(in srgb, var(--accent) 8%, var(--surface-raised));
-}
 
 /* ── Админка ────────────────────────────────────────────────────────────── */
 .adm-card {

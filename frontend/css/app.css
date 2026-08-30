@@ -2118,7 +2118,6 @@ th {
 .verification-panel,
 .campaign-builder,
 .log-panel,
-.terminal-panel,
 .activity-panel,
 .offer-pane,
 .admin-health-panel,
@@ -2138,8 +2137,6 @@ th {
 .review-actions,
 .campaign-actions,
 .lead-sort,
-.log-panel-head,
-.log-panel-foot,
 .offer-main-head,
 .campaign-builder-head,
 .log-scope,
@@ -2152,7 +2149,6 @@ th {
   gap: 10px;
   flex-wrap: wrap;
 }
-.log-panel-head,
 .offer-main-head,
 .campaign-builder-head {
   justify-content: space-between;
@@ -2297,7 +2293,6 @@ th {
 
 /* --- Логи процесса: моноширинная консоль вместо пустой чёрной полосы. - */
 .log-panel pre,
-.terminal-panel pre,
 .terminal-info {
   overflow: auto;
   max-height: 320px;
@@ -2308,11 +2303,6 @@ th {
   font-size: 11.5px;
   line-height: 1.6;
   background: var(--ink-surface);
-}
-.log-panel-foot {
-  margin-top: 12px;
-  color: var(--muted);
-  font-size: 11.5px;
 }
 .send-note,
 .chart-note,
@@ -3131,9 +3121,9 @@ a.tut-open {
    references/transitions/22-toast.md: вход 350ms, уход 250ms, без пружины.
    ───────────────────────────────────────────────────────────────────── */
 .toast-wrap {
-  top: auto;
+  top: 18px;
   right: 18px;
-  bottom: 18px;
+  bottom: auto;
   gap: 10px;
   width: min(360px, calc(100vw - 36px));
   pointer-events: none;
@@ -3153,7 +3143,7 @@ a.tut-open {
   line-height: 1.4;
   pointer-events: auto;
   opacity: 0;
-  transform: translateY(16px) scale(0.97);
+  transform: translateY(-16px) scale(0.97);
   transition:
     opacity var(--toast-open) var(--ease-smooth-out),
     transform var(--toast-open) var(--ease-smooth-out);
@@ -3164,7 +3154,7 @@ a.tut-open {
 }
 .toast.hide {
   opacity: 0;
-  transform: translateY(6px) scale(0.99);
+  transform: translateY(-6px) scale(0.99);
   transition:
     opacity var(--toast-close) var(--ease-smooth-out),
     transform var(--toast-close) var(--ease-smooth-out);
@@ -3210,159 +3200,12 @@ a.tut-open {
 }
 @media (max-width: 720px) {
   .toast-wrap {
+    top: 12px;
     right: 12px;
+    bottom: auto;
     left: 12px;
-    bottom: 84px;
     width: auto;
   }
-}
-
-/* ---------------------------- Нейрокомментинг ----------------------------
- *
- * Раздел переиспользует .panel и .btn кабинета: собственная типографика и
- * кнопки здесь означали бы второй визуальный язык внутри одного окна.
- */
-
-.neuro-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 16px;
-  margin: 16px 0;
-}
-
-@media (max-width: 900px) {
-  .neuro-grid {
-    grid-template-columns: 1fr;
-  }
-}
-
-.neuro-budget-main {
-  display: flex;
-  gap: 20px;
-  align-items: flex-start;
-}
-
-.neuro-budget-num {
-  font-size: 34px;
-  font-weight: 700;
-  line-height: 1;
-}
-
-.neuro-budget-cap,
-.neuro-budget-hint {
-  font-size: 12px;
-  opacity: 0.7;
-}
-
-.neuro-budget-note {
-  font-size: 13px;
-  display: grid;
-  gap: 6px;
-}
-
-.neuro-add {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 10px;
-}
-
-.neuro-add input {
-  flex: 1;
-}
-
-.neuro-list {
-  display: grid;
-  gap: 8px;
-  max-height: 420px;
-  overflow: auto;
-}
-
-.neuro-row {
-  display: flex;
-  gap: 12px;
-  justify-content: space-between;
-  align-items: flex-start;
-  padding: 10px 12px;
-  border-radius: 10px;
-  background: var(--tint-soft);
-}
-
-.neuro-row-main {
-  min-width: 0;
-}
-
-.neuro-row-title {
-  font-weight: 600;
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.neuro-row-sub {
-  font-size: 13px;
-  opacity: 0.85;
-  /* Комментарий может быть длинным — переносим, а не растягиваем строку. */
-  overflow-wrap: anywhere;
-}
-
-.neuro-row-meta {
-  font-size: 12px;
-  opacity: 0.6;
-}
-
-.neuro-row-err {
-  font-size: 12px;
-  color: var(--danger);
-  margin-top: 4px;
-}
-
-.neuro-row-actions {
-  display: flex;
-  gap: 6px;
-  flex-shrink: 0;
-  flex-wrap: wrap;
-}
-
-.neuro-tag {
-  font-size: 11px;
-  padding: 2px 8px;
-  border-radius: 999px;
-  background: var(--tint-strong);
-  font-weight: 500;
-}
-
-.neuro-tag.ok {
-  background: var(--success-soft);
-  color: var(--success);
-}
-
-.neuro-tag.warn {
-  background: var(--danger-soft);
-  color: var(--danger);
-}
-
-.neuro-empty,
-.neuro-note {
-  font-size: 13px;
-  opacity: 0.7;
-  padding: 10px 2px;
-}
-
-.neuro-actions {
-  display: flex;
-  gap: 8px;
-  margin-top: 10px;
-}
-
-.neuro-preview {
-  margin-top: 12px;
-  padding: 12px;
-  border-radius: 10px;
-  background: var(--tint-soft);
-  font-size: 13px;
-  display: grid;
-  gap: 8px;
 }
 
 .btn.sm {
