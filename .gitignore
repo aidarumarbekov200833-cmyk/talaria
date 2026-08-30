@@ -70,3 +70,6 @@ Thumbs.db
 
 # Симлинк локального venv.
 .venv
+frontend/test-results/
+frontend/playwright-report/
+frontend/blob-report/
