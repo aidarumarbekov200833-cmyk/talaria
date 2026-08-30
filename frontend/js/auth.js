@@ -36,7 +36,7 @@ import {
   refreshAiAvailability,
 } from './campaigns.js?v=zephyr3';
 import { loadSettings, loadKeys, loadWarmup } from './settings.js?v=sess1';
-import { applyAdminVisibility, loadAdmin } from './admin.js?v=viewas1';
+import { applyAdminVisibility, loadAdmin } from './admin.js?v=talaria14';
 // Тот же URL модуля, что и в main.js: разные query-string создают два
 // независимых state/слушателя, и тариф рисует одна копия, а клики ждёт другая.
 import { loadSubscription, loadPublicPlans } from './plans.js?v=phone3';

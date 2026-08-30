@@ -1127,6 +1127,97 @@
         "title": "AdminRevenueOut",
         "type": "object"
       },
+      "AdminSupportListOut": {
+        "properties": {
+          "threads": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/AdminSupportThreadOut"
+            },
+            "title": "Threads",
+            "type": "array"
+          },
+          "unread_total": {
+            "default": 0,
+            "title": "Unread Total",
+            "type": "integer"
+          }
+        },
+        "title": "AdminSupportListOut",
+        "type": "object"
+      },
+      "AdminSupportReplyIn": {
+        "properties": {
+          "text": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "AdminSupportReplyIn",
+        "type": "object"
+      },
+      "AdminSupportThreadOut": {
+        "description": "Строка списка обращений в админке.",
+        "properties": {
+          "last_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Last At"
+          },
+          "messages": {
+            "default": 0,
+            "title": "Messages",
+            "type": "integer"
+          },
+          "name": {
+            "default": "",
+            "title": "Name",
+            "type": "string"
+          },
+          "telegram_id": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Telegram Id"
+          },
+          "unread": {
+            "default": 0,
+            "title": "Unread",
+            "type": "integer"
+          },
+          "user_id": {
+            "title": "User Id",
+            "type": "integer"
+          },
+          "username": {
+            "default": "",
+            "title": "Username",
+            "type": "string"
+          }
+        },
+        "required": [
+          "user_id"
+        ],
+        "title": "AdminSupportThreadOut",
+        "type": "object"
+      },
       "AdminUserDetailOut": {
         "description": "Подробности по одному пользователю для админа.\n\nНастройки ИИ сюда не входят: провайдер задаётся окружением сервера.",
         "properties": {
@@ -6329,6 +6420,101 @@
         "title": "SubscriptionOut",
         "type": "object"
       },
+      "SupportMessageOut": {
+        "description": "Одно сообщение переписки с поддержкой.",
+        "properties": {
+          "author": {
+            "enum": [
+              "admin",
+              "user"
+            ],
+            "title": "Author",
+            "type": "string"
+          },
+          "created_at": {
+            "anyOf": [
+              {
+                "format": "date-time",
+                "type": "string"
+              },
+              {
+                "type": "null"
+              }
+            ],
+            "title": "Created At"
+          },
+          "id": {
+            "title": "Id",
+            "type": "integer"
+          },
+          "read": {
+            "default": false,
+            "title": "Read",
+            "type": "boolean"
+          },
+          "text": {
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "author",
+          "id",
+          "text"
+        ],
+        "title": "SupportMessageOut",
+        "type": "object"
+      },
+      "SupportSendIn": {
+        "properties": {
+          "text": {
+            "maxLength": 2000,
+            "minLength": 1,
+            "title": "Text",
+            "type": "string"
+          }
+        },
+        "required": [
+          "text"
+        ],
+        "title": "SupportSendIn",
+        "type": "object"
+      },
+      "SupportThreadOut": {
+        "properties": {
+          "can_write": {
+            "default": true,
+            "title": "Can Write",
+            "type": "boolean"
+          },
+          "messages": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/SupportMessageOut"
+            },
+            "title": "Messages",
+            "type": "array"
+          },
+          "unread": {
+            "default": 0,
+            "title": "Unread",
+            "type": "integer"
+          }
+        },
+        "title": "SupportThreadOut",
+        "type": "object"
+      },
+      "SupportUnreadOut": {
+        "properties": {
+          "unread": {
+            "default": 0,
+            "title": "Unread",
+            "type": "integer"
+          }
+        },
+        "title": "SupportUnreadOut",
+        "type": "object"
+      },
       "TelegramAccountOut": {
         "description": "Аккаунт, с которого человек вошёл в сервис.\n\nВсё, что здесь есть, берётся из данных Telegram-логина и из нашей же\nподписки. Сервер не ходит в Telegram за статусом аккаунта и не знает,\nесть ли на нём спам-блок: `blocked` — это блокировка внутри сервиса,\nкоторую ставит админ, а не бан в Telegram.",
         "properties": {
@@ -8673,6 +8859,177 @@
         "summary": "Toggle Registration",
         "tags": [
           "admin"
+        ]
+      }
+    },
+    "/api/admin/support": {
+      "get": {
+        "description": "Кто писал в поддержку, начиная с самых свежих обращений.",
+        "operationId": "list_support_threads_api_admin_support_get",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "limit",
+            "required": false,
+            "schema": {
+              "default": 50,
+              "maximum": 200,
+              "minimum": 1,
+              "title": "Limit",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/AdminSupportListOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "List Support Threads",
+        "tags": [
+          "support"
+        ]
+      }
+    },
+    "/api/admin/support/{user_id}": {
+      "get": {
+        "description": "Диалог одного клиента. Открытие помечает его обращения прочитанными.",
+        "operationId": "read_support_thread_as_admin_api_admin_support__user_id__get",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "title": "User Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "items": {
+                    "$ref": "#/components/schemas/SupportMessageOut"
+                  },
+                  "title": "Response Read Support Thread As Admin Api Admin Support  User Id  Get",
+                  "type": "array"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Support Thread As Admin",
+        "tags": [
+          "support"
+        ]
+      },
+      "post": {
+        "description": "Ответ клиенту: виден в его кабинете и приходит ему в Telegram.",
+        "operationId": "reply_support_thread_api_admin_support__user_id__post",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "user_id",
+            "required": true,
+            "schema": {
+              "title": "User Id",
+              "type": "integer"
+            }
+          },
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/AdminSupportReplyIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportMessageOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Reply Support Thread",
+        "tags": [
+          "support"
         ]
       }
     },
@@ -13502,6 +13859,143 @@
         "summary": "My Subscription",
         "tags": [
           "subscription"
+        ]
+      }
+    },
+    "/api/support/messages": {
+      "get": {
+        "description": "Переписка с поддержкой. Открытие гасит непрочитанные ответы.",
+        "operationId": "read_support_thread_api_support_messages_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportThreadOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Support Thread",
+        "tags": [
+          "support"
+        ]
+      },
+      "post": {
+        "description": "Написать владельцу сервиса. Уведомление ему уходит в Telegram.",
+        "operationId": "send_support_message_api_support_messages_post",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SupportSendIn"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportMessageOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Send Support Message",
+        "tags": [
+          "support"
+        ]
+      }
+    },
+    "/api/support/unread": {
+      "get": {
+        "description": "Сколько ответов ждёт прочтения. Отдельно от переписки: точку на аккаунте\nнадо показать, не открывая диалог и не гася при этом непрочитанное.",
+        "operationId": "read_support_unread_api_support_unread_get",
+        "parameters": [
+          {
+            "in": "header",
+            "name": "authorization",
+            "required": false,
+            "schema": {
+              "title": "Authorization",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupportUnreadOut"
+                }
+              }
+            },
+            "description": "Successful Response"
+          },
+          "422": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            },
+            "description": "Validation Error"
+          }
+        },
+        "summary": "Read Support Unread",
+        "tags": [
+          "support"
         ]
       }
     },

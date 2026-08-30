@@ -966,3 +966,37 @@ class TestReplyWatch(Base):
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
 
+class SupportMessage(Base):
+    """Переписка клиента с владельцем сервиса («поддержка»).
+
+    Отдельная таблица, а не журнал событий: у обращения два участника и два
+    признака прочтения, и его надо показывать диалогом в обе стороны. В
+    event_logs это была бы лента без адресата, из которой нельзя понять, ответили
+    человеку или нет.
+
+    Владелец сервиса читает обращения в админке, а уведомление о новом получает
+    в Telegram тем же ботом, что и вход, — отдельного канала для этого нет.
+    """
+
+    __tablename__ = "support_messages"
+    __table_args__ = (
+        # Диалог всегда читается как «сообщения одного клиента, новые снизу»,
+        # а список обращений в админке — как «у кого есть непрочитанное».
+        Index("ix_support_messages_owner_created", "owner_id", "created_at"),
+    )
+
+    id = Column(Integer, primary_key=True)
+    owner_id = Column(
+        Integer, ForeignKey("users.id", ondelete="CASCADE"), index=True, nullable=False
+    )
+    # Кто написал: сам клиент («user») или администратор («admin»). Строкой, а не
+    # ссылкой на автора: админ может смениться, а диалог должен остаться читаемым.
+    author = Column(String(10), nullable=False, default="user")
+    # id администратора, который ответил. Нужен для разбора «кто это писал», если
+    # админов станет несколько; у сообщений клиента пусто.
+    admin_id = Column(Integer)
+    text = Column(Text, nullable=False)
+    # Момент прочтения второй стороной. NULL = ещё не прочитано, поэтому в
+    # админке видно, на что не ответили, а у клиента мигает точка на ответе.
+    read_at = Column(DateTime(timezone=True))
+    created_at = Column(DateTime(timezone=True), server_default=func.now(), index=True)

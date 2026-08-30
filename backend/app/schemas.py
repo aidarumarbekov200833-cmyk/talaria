@@ -1999,3 +1999,53 @@ class AdminViewAsOut(BaseModel):
     user_name: str = ""
 
 
+
+
+# ---------- поддержка ----------
+
+
+class SupportMessageOut(BaseModel):
+    """Одно сообщение переписки с поддержкой."""
+
+    id: int
+    author: Literal["user", "admin"]
+    text: str
+    created_at: datetime | None = None
+    # Прочитано второй стороной. Клиенту показывает, что вопрос увидели.
+    read: bool = False
+
+
+class SupportThreadOut(BaseModel):
+    messages: list[SupportMessageOut] = []
+    # Сколько ответов владельца было непрочитанными на момент открытия.
+    unread: int = 0
+    can_write: bool = True
+
+
+class SupportUnreadOut(BaseModel):
+    unread: int = 0
+
+
+class SupportSendIn(BaseModel):
+    text: str = Field(min_length=1, max_length=2000)
+
+
+class AdminSupportThreadOut(BaseModel):
+    """Строка списка обращений в админке."""
+
+    user_id: int
+    name: str = ""
+    username: str = ""
+    telegram_id: int | None = None
+    messages: int = 0
+    unread: int = 0
+    last_at: datetime | None = None
+
+
+class AdminSupportListOut(BaseModel):
+    threads: list[AdminSupportThreadOut] = []
+    unread_total: int = 0
+
+
+class AdminSupportReplyIn(BaseModel):
+    text: str = Field(min_length=1, max_length=2000)

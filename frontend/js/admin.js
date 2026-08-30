@@ -102,6 +102,7 @@ export async function loadAdminOverview() {
     renderVisitors(d.recent_visitors || []);
     renderRecentActions(d.recent_actions || []);
     loadPayments();
+    loadSupportThreads();
   } catch (e) {
     box.innerHTML = `<div class="dd-empty">Не удалось загрузить сводку: ${esc(e.message)}</div>`;
   }
@@ -1269,4 +1270,140 @@ function renderChurn(rows) {
       );
     })
     .join('');
+}
+
+/* ------------------------ обращения в поддержку --------------------------- */
+
+// Какой диалог открыт. Ответ уходит именно ему, а не «последнему нажатому»:
+// иначе достаточно случайно кликнуть другую строку, и ответ уйдёт чужому человеку.
+let _supportUser = null;
+
+function supportBubble(message) {
+  const row = document.createElement('div');
+  // Ответ владельца — «out» (справа): админ смотрит на переписку своими глазами,
+  // поэтому справа его собственные слова, слева — клиента.
+  row.className = `sup-msg ${message.author === 'admin' ? 'out' : 'in'}`;
+  const text = document.createElement('div');
+  text.className = 'sup-text';
+  text.textContent = message.text;
+  const meta = document.createElement('div');
+  meta.className = 'sup-meta';
+  const who = document.createElement('span');
+  who.textContent = message.author === 'admin' ? 'Вы' : 'Клиент';
+  const time = document.createElement('time');
+  time.textContent = fmtDateTime(message.created_at);
+  meta.append(who, time);
+  row.append(text, meta);
+  return row;
+}
+
+function renderSupportThreads(data) {
+  const list = document.getElementById('adminSupportList');
+  const badge = document.getElementById('adminSupportUnread');
+  if (!list) return;
+  const threads = data.threads || [];
+  if (badge) {
+    badge.hidden = !data.unread_total;
+    badge.textContent = data.unread_total ? `${data.unread_total} без ответа` : '';
+  }
+  list.textContent = '';
+  if (!threads.length) {
+    const empty = document.createElement('div');
+    empty.className = 'dd-empty';
+    empty.textContent = 'Обращений пока нет.';
+    list.append(empty);
+    return;
+  }
+  threads.forEach((thread) => {
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = `admin-support-item${thread.unread ? ' is-unread' : ''}${
+      thread.user_id === _supportUser ? ' active' : ''
+    }`;
+    row.dataset.supportUser = String(thread.user_id);
+    const top = document.createElement('div');
+    top.className = 'admin-support-item-top';
+    const name = document.createElement('b');
+    name.textContent = thread.name || `id ${thread.user_id}`;
+    const when = document.createElement('time');
+    when.textContent = fmtDateTime(thread.last_at);
+    top.append(name, when);
+    const sub = document.createElement('small');
+    sub.textContent = thread.unread
+      ? `${thread.unread} новых · всего ${thread.messages}`
+      : `сообщений: ${thread.messages}`;
+    row.append(top, sub);
+    row.addEventListener('click', () => openSupportThread(thread.user_id));
+    list.append(row);
+  });
+}
+
+export async function loadSupportThreads() {
+  if (!window.__isAdmin || !getToken()) return;
+  try {
+    renderSupportThreads(await api('GET', '/api/admin/support'));
+  } catch (e) {
+    const list = document.getElementById('adminSupportList');
+    if (list)
+      list.innerHTML = `<div class="dd-empty">Не удалось загрузить: ${esc(e.message)}</div>`;
+  }
+}
+
+export async function openSupportThread(userId) {
+  const box = document.getElementById('adminSupportThread');
+  const field = document.getElementById('adminSupportReply');
+  const button = document.getElementById('adminSupportSend');
+  if (!box) return;
+  _supportUser = Number(userId) || null;
+  document.querySelectorAll('.admin-support-item').forEach((item) => {
+    item.classList.toggle('active', Number(item.dataset.supportUser) === _supportUser);
+  });
+  box.textContent = '';
+  try {
+    const messages = await api('GET', `/api/admin/support/${_supportUser}`);
+    if (!messages.length) {
+      const empty = document.createElement('div');
+      empty.className = 'sup-empty';
+      empty.textContent = 'Диалог пуст.';
+      box.append(empty);
+    } else {
+      messages.forEach((message) => box.append(supportBubble(message)));
+      box.scrollTop = box.scrollHeight;
+    }
+    if (field) field.disabled = false;
+    if (button) button.disabled = false;
+    // Открытый диалог помечен прочитанным на сервере — обновляем счётчики.
+    loadSupportThreads();
+  } catch (e) {
+    const error = document.createElement('div');
+    error.className = 'sup-empty';
+    error.textContent = `Не удалось открыть диалог: ${e.message}`;
+    box.append(error);
+  }
+}
+
+export async function replySupportThread() {
+  const field = document.getElementById('adminSupportReply');
+  const text = (field?.value || '').trim();
+  if (!_supportUser) {
+    toast('Выберите обращение', 'warn');
+    return;
+  }
+  if (!text) {
+    toast('Введите ответ', 'warn');
+    field?.focus();
+    return;
+  }
+  const button = document.getElementById('adminSupportSend');
+  if (button) button.disabled = true;
+  try {
+    await api('POST', `/api/admin/support/${_supportUser}`, { text });
+    if (field) field.value = '';
+    toast('Ответ отправлен — клиент получит его в Telegram', 'success');
+    await openSupportThread(_supportUser);
+  } catch (e) {
+    toast('Не удалось отправить ответ', 'error', e.message);
+  } finally {
+    if (button) button.disabled = false;
+  }
 }

@@ -159,6 +159,14 @@
 
 #appWrapper .nav {
   gap: 2px;
+  /* v40. Меню — растягивающийся блок (flex: 1), а внутри сетка. После того как
+     квота и плитка тарифа переехали в меню аккаунта, свободная высота стала
+     раздавать строки по всему сайдбару, и пункты разъезжались на сотню
+     пикселей друг от друга. Прижимаем их к верху. */
+  align-content: start;
+}
+#appWrapper .nav-group + .nav-group {
+  margin-top: 2px;
 }
 #appWrapper .nav-group {
   gap: 2px;
@@ -170,7 +178,7 @@
   font-weight: 700;
   letter-spacing: 0.1em;
 }
-#appWrapper :is(.nav-item, .tariff-btn) {
+#appWrapper .nav-item {
   min-height: 36px;
   padding: 8px 10px;
   border-radius: var(--cab-radius-small);
@@ -195,7 +203,7 @@
   box-shadow: none;
   font-weight: 600;
 }
-#appWrapper :is(.usage, .sidebar-session) {
+#appWrapper .sidebar-session {
   border: 1px solid var(--cab-line-soft);
   background: none;
 }
@@ -218,40 +226,6 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* Квота и тариф — внизу, компактно: это не пункты меню, а состояние счёта. */
-#appWrapper .usage {
-  padding: 10px;
-  border: 1px solid var(--cab-line-soft);
-  border-radius: var(--cab-radius-small);
-  background: none;
-  gap: 6px;
-}
-#appWrapper .usage-top {
-  font-size: 11.5px;
-  font-weight: 600;
-}
-#appWrapper .usage-bar {
-  height: 4px;
-  background: var(--cab-fill-strong);
-}
-#appWrapper .usage-hint {
-  font-size: 11px;
-  line-height: 1.45;
-}
-#appWrapper .tariff-btn {
-  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
-  color: var(--ink);
-  background: color-mix(in srgb, var(--accent) 10%, transparent);
-  font-weight: 600;
-}
-#appWrapper .tariff-btn:hover {
-  background: color-mix(in srgb, var(--accent) 16%, transparent);
-}
-#appWrapper .tariff-btn svg {
-  width: 17px;
-  height: 17px;
-  color: var(--accent);
-}
 #appWrapper .sidebar-bottom {
   gap: 4px;
   padding-top: 6px;
@@ -286,16 +260,14 @@
   flex-direction: column;
   gap: 10px;
 }
-#appWrapper
-  .app.sidebar-collapsed
-  :is(.nav-group-label, .nav-count, .usage, .sidebar-session-copy) {
+#appWrapper .app.sidebar-collapsed :is(.nav-group-label, .nav-count, .sidebar-session-copy) {
   display: none;
 }
-#appWrapper .app.sidebar-collapsed :is(.nav-item, .tariff-btn) {
+#appWrapper .app.sidebar-collapsed .nav-item {
   justify-content: center;
   padding: 8px;
 }
-#appWrapper .app.sidebar-collapsed :is(.nav-item span, .tariff-btn .t-label) {
+#appWrapper .app.sidebar-collapsed .nav-item span {
   display: none;
 }
 #appWrapper .app.sidebar-collapsed .sidebar-session {
@@ -1201,13 +1173,6 @@
 #appWrapper .sidebar-session-avatar {
   background-image: none;
   box-shadow: none;
-}
-#appWrapper .usage-bar i {
-  background-image: none;
-  background-color: var(--accent);
-}
-#appWrapper .tariff-btn {
-  background-image: none;
 }
 #appWrapper :is(.stat-icon svg, .qs-cube-ico svg) {
   width: 18px;

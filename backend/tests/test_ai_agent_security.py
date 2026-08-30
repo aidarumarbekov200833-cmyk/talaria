@@ -127,10 +127,14 @@ def test_неизвестный_инструмент_не_роняет_обра�
 
 def test_управление_интерфейсом_ограничено_белым_списком(db, two_users):
     mine, _ = two_users
-    unknown = run_tool(db, mine.id, "control_interface", {"action": "open_section", "section": "../etc/passwd"})
+    unknown = run_tool(
+        db, mine.id, "control_interface", {"action": "open_section", "section": "../etc/passwd"}
+    )
     assert "error" in unknown
 
-    ok = run_tool(db, mine.id, "control_interface", {"action": "open_section", "section": "databases"})
+    ok = run_tool(
+        db, mine.id, "control_interface", {"action": "open_section", "section": "databases"}
+    )
     assert ok.get("ui_action", {}).get("section") == "databases"
     # Управление интерфейсом ничего не сохраняет: это подготовка экрана, а не
     # действие от имени пользователя.
@@ -140,7 +144,9 @@ def test_управление_интерфейсом_ограничено_бел
 def test_обычный_пользователь_не_откроет_админку_через_помощника(db, two_users):
     """Иначе «открой раздел админ» становится обходом проверки прав."""
     mine, _ = two_users
-    result = run_tool(db, mine.id, "control_interface", {"action": "open_section", "section": "admin"})
+    result = run_tool(
+        db, mine.id, "control_interface", {"action": "open_section", "section": "admin"}
+    )
     assert "error" in result
     assert "ui_action" not in result
 
@@ -419,7 +425,14 @@ def test_карта_интерфейса_не_обещает_убранного(
     assert "не переводит оффер" in DEFAULT_SYSTEM_PROMPT.lower()
     assert "закрепления диалогов" in DEFAULT_SYSTEM_PROMPT
     # Актуальные вещи, наоборот, должны быть описаны.
-    for expected in ("Автоматически", "альбом", "Прочитать всё", "{country}"):
+    for expected in (
+        "Автоматически",
+        "альбом",
+        "Прочитать всё",
+        "{country}",
+        "МЕНЮ АККАУНТА",
+        "Написать в поддержку",
+    ):
         assert expected in _UI_MAP, f"карта интерфейса не знает про «{expected}»"
 
 

@@ -37,6 +37,7 @@ from .routers import (
     search,
     stats,
     subscriptions,
+    support,
     system,
     warmup,
     ws,
@@ -457,5 +458,6 @@ app.include_router(leads.router)
 app.include_router(warmup.router)
 app.include_router(ai.router)
 app.include_router(admin.router)
+app.include_router(support.router)
 app.include_router(metrics_router.router)
 app.include_router(ws.router)

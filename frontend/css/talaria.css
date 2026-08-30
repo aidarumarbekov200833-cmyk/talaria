@@ -509,7 +509,6 @@
     inset 3px 0 0 var(--accent),
     0 8px 24px color-mix(in srgb, var(--accent) 9%, transparent);
 }
-.usage,
 .sidebar-session {
   border: 1px solid var(--line);
   background: var(--surface-raised);
@@ -525,10 +524,6 @@
   background: var(--accent-gradient);
   color: var(--on-ink);
   box-shadow: 0 6px 20px var(--glow);
-}
-.usage-bar i,
-.tariff-btn {
-  background: var(--accent-gradient);
 }
 .main {
   min-width: 0;

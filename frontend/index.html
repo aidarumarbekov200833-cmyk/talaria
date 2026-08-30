@@ -96,7 +96,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&amp;family=Poppins:wght@700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria13" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria14" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -1402,44 +1402,10 @@
             </div>
           </nav>
 
-          <div class="usage">
-            <div class="usage-top"><span>Квота YouTube API</span><span id="usageText">—</span></div>
-            <div class="usage-bar"><i id="usageBar" style="width: 0%"></i></div>
-            <div class="usage-hint" id="usageHint">Расход за сегодня по всем ключам</div>
-          </div>
-
-          <div class="tariff-btn" data-target="tariffs">
-            <svg
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M12 2l2.9 6.3 6.8.7-5.1 4.6 1.5 6.8L12 16.9 5.9 20.4l1.5-6.8-5.1-4.6 6.8-.7z"
-              />
-            </svg>
-            <span class="t-label">Тариф</span>
-          </div>
-
+          <!-- Низ меню: только админ-раздел и карточка аккаунта. Тариф, квота,
+           тема, настройки, помощь, поддержка и выход переехали в меню аккаунта
+           (v40) — из-за них боковое меню не вмещалось в экран и скроллилось. -->
           <div class="sidebar-bottom">
-            <div
-              class="nav-item sidebar-session"
-              data-target="settings"
-              id="sessionUserCard"
-              aria-label="Открыть настройки аккаунта"
-            >
-              <span class="sidebar-session-avatar" id="sessionUserAvatar" aria-hidden="true"
-                >O</span
-              >
-              <span class="sidebar-session-copy"
-                ><b id="sessionUserName">Пользователь</b
-                ><small id="sessionUserUsername">Telegram подключён</small></span
-              >
-              <span class="sidebar-session-live" aria-label="Сессия активна"></span>
-            </div>
             <div class="nav-item" data-target="admin" data-admin-only style="display: none">
               <svg
                 viewBox="0 0 24 24"
@@ -1454,7 +1420,164 @@
               </svg>
               <span>Админ</span>
             </div>
-            <div class="nav-item" data-target="settings">
+            <button
+              type="button"
+              class="nav-item sidebar-session"
+              id="sessionUserCard"
+              data-act="toggleAccountMenu"
+              aria-haspopup="dialog"
+              aria-expanded="false"
+              aria-controls="accountMenu"
+              aria-label="Меню аккаунта"
+            >
+              <span class="sidebar-session-avatar" id="sessionUserAvatar" aria-hidden="true"
+                >O</span
+              >
+              <span class="sidebar-session-copy"
+                ><b id="sessionUserName">Пользователь</b
+                ><small id="sessionUserUsername">Telegram подключён</small></span
+              >
+              <span class="sidebar-session-live" aria-label="Сессия активна"></span>
+              <span
+                class="sidebar-session-alert"
+                id="sessionSupportDot"
+                hidden
+                aria-label="Есть ответ поддержки"
+              ></span>
+              <svg
+                class="sidebar-session-chev"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M8 15l4-4 4 4" />
+              </svg>
+            </button>
+          </div>
+        </aside>
+
+        <!-- МЕНЮ АККАУНТА (v40). Одна панель вместо пяти разных мест: тариф был
+         плиткой в меню, квота — виджетом над ним, тема жила в настройках, выход
+         внизу страницы настроек, а поддержки не было вовсе. На компьютере
+         панель выезжает над карточкой профиля, на телефоне — снизу экрана. -->
+        <div
+          class="acc-menu"
+          id="accountMenu"
+          role="dialog"
+          aria-label="Меню аккаунта"
+          aria-hidden="true"
+          hidden
+        >
+          <div class="acc-head">
+            <span class="acc-ava" id="accMenuAvatar" aria-hidden="true">T</span>
+            <div class="acc-id">
+              <b id="accMenuName">Пользователь</b>
+              <small id="accMenuUsername">Telegram подключён</small>
+            </div>
+            <button
+              type="button"
+              class="acc-close"
+              data-act="closeAccountMenu"
+              aria-label="Закрыть меню аккаунта"
+            >
+              ✕
+            </button>
+          </div>
+
+          <button
+            type="button"
+            class="acc-plan"
+            data-act="accountGoTo"
+            data-args='["tariffs"]'
+            data-target="tariffs"
+            aria-label="Открыть раздел «Тариф»"
+          >
+            <span class="acc-plan-dot" id="accMenuPlanBadge"></span>
+            <span class="acc-plan-copy">
+              <b id="accMenuPlan">Тариф</b>
+              <small id="accMenuPlanSub">загрузка…</small>
+            </span>
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M9 6l6 6-6 6" />
+            </svg>
+          </button>
+
+          <div class="acc-block">
+            <div class="acc-block-label">Лимиты</div>
+            <div class="acc-limit">
+              <div class="acc-limit-top"><span>Квота YouTube API</span><b id="usageText">—</b></div>
+              <div class="acc-limit-bar"><i id="usageBar" style="width: 0%"></i></div>
+              <div class="acc-limit-hint" id="usageHint">Расход за сегодня по всем ключам</div>
+            </div>
+            <div id="accMenuLimits"></div>
+          </div>
+
+          <div class="acc-block">
+            <div class="acc-block-label">Тема</div>
+            <div class="acc-theme" id="accMenuTheme">
+              <button
+                type="button"
+                data-theme-choice="light"
+                data-act="setAccountTheme"
+                data-args='["light"]'
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="12" cy="12" r="4" />
+                  <path
+                    d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19"
+                  />
+                </svg>
+                Светлая
+              </button>
+              <button
+                type="button"
+                data-theme-choice="dark"
+                data-act="setAccountTheme"
+                data-args='["dark"]'
+              >
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M20 14.5A8 8 0 019.5 4a8 8 0 1010.5 10.5z" />
+                </svg>
+                Тёмная
+              </button>
+            </div>
+          </div>
+
+          <div class="acc-links">
+            <button
+              type="button"
+              data-act="accountGoTo"
+              data-args='["settings"]'
+              data-target="settings"
+            >
               <svg
                 viewBox="0 0 24 24"
                 fill="none"
@@ -1462,6 +1585,7 @@
                 stroke-width="2"
                 stroke-linecap="round"
                 stroke-linejoin="round"
+                aria-hidden="true"
               >
                 <circle cx="12" cy="12" r="3" />
                 <path
@@ -1469,9 +1593,58 @@
                 />
               </svg>
               <span>Настройки</span>
-            </div>
+            </button>
+            <button type="button" data-act="openHelpCenter">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <circle cx="12" cy="12" r="9" />
+                <path d="M9.6 9.2a2.5 2.5 0 114.4 1.7c-.8.8-2 1.2-2 2.6" />
+                <path d="M12 17.2h.01" />
+              </svg>
+              <span>Помощь по сервису</span>
+            </button>
+            <button type="button" data-act="openSupport">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path
+                  d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-4-.9L3 21l1.9-4.6A8.4 8.4 0 013 11.5 8.4 8.4 0 0112 3a8.4 8.4 0 019 8.5z"
+                />
+              </svg>
+              <span>Написать в поддержку</span>
+              <span class="acc-count" id="accMenuSupportCount" hidden></span>
+            </button>
+            <button type="button" class="acc-danger" data-act="logout">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M15 17l5-5-5-5" />
+                <path d="M20 12H9" />
+                <path d="M12 4H6a2 2 0 00-2 2v12a2 2 0 002 2h6" />
+              </svg>
+              <span>Выйти из аккаунта</span>
+            </button>
           </div>
-        </aside>
+        </div>
 
         <!-- Нижняя навигация для телефона. Те же data-target и класс nav-item,
          что в сайдбаре: initNav() навешивает клики, а goTo() подсвечивает
@@ -1566,7 +1739,9 @@
             </svg>
             <span>Чат</span>
           </div>
-          <div class="nav-item" data-target="settings">
+          <!-- На телефоне бокового меню нет, поэтому «Аккаунт» — единственный
+           путь к тарифу, теме, настройкам, помощи, поддержке и выходу. -->
+          <button type="button" class="nav-item" data-act="toggleAccountMenu">
             <svg
               viewBox="0 0 24 24"
               fill="none"
@@ -1575,13 +1750,12 @@
               stroke-linecap="round"
               stroke-linejoin="round"
             >
-              <circle cx="12" cy="12" r="3" />
-              <path
-                d="M19.4 15a1.7 1.7 0 00.34 1.87l.06.06a2 2 0 11-2.83 2.83l-.06-.06a1.7 1.7 0 00-1.87-.34 1.7 1.7 0 00-1.03 1.56V21a2 2 0 11-4 0v-.09A1.7 1.7 0 009 19.35a1.7 1.7 0 00-1.87.34l-.06.06a2 2 0 11-2.83-2.83l.06-.06A1.7 1.7 0 004.65 15a1.7 1.7 0 00-1.56-1.03H3a2 2 0 110-4h.09A1.7 1.7 0 004.65 9a1.7 1.7 0 00-.34-1.87l-.06-.06a2 2 0 112.83-2.83l.06.06A1.7 1.7 0 009 4.65a1.7 1.7 0 001.03-1.56V3a2 2 0 114 0v.09a1.7 1.7 0 001.03 1.56 1.7 1.7 0 001.87-.34l.06-.06a2 2 0 112.83 2.83l-.06.06A1.7 1.7 0 0019.35 9a1.7 1.7 0 001.56 1.03H21a2 2 0 110 4h-.09a1.7 1.7 0 00-1.51 1.03z"
-              />
+              <circle cx="12" cy="8.5" r="3.6" />
+              <path d="M4.8 20a7.4 7.4 0 0114.4 0" />
             </svg>
-            <span>Ещё</span>
-          </div>
+            <span>Аккаунт</span>
+            <span class="bottom-nav-alert" id="sessionSupportDotMobile" hidden></span>
+          </button>
         </nav>
 
         <!-- MAIN -->
@@ -4227,6 +4401,50 @@
               </div>
             </div>
 
+            <!-- ОБРАЩЕНИЯ В ПОДДЕРЖКУ (v40). Уведомление о новом обращении
+             приходит владельцу в Telegram, но отвечать удобнее здесь: виден
+             весь диалог, а ответ уходит человеку и в кабинет, и ботом. -->
+            <div class="panel admin-support-panel">
+              <div class="panel-head">
+                <div>
+                  <h3>Обращения в поддержку</h3>
+                  <div class="field-hint">
+                    Слева — кто писал; непрочитанные помечены. Ответ появится у человека в кабинете
+                    и придёт ему в Telegram.
+                  </div>
+                </div>
+                <span class="badge" id="adminSupportUnread" hidden></span>
+              </div>
+              <div class="admin-support-grid">
+                <div class="admin-support-list" id="adminSupportList">
+                  <div class="dd-empty">Загрузка…</div>
+                </div>
+                <div class="admin-support-room">
+                  <div class="sup-thread" id="adminSupportThread">
+                    <div class="sup-empty">Выберите обращение слева.</div>
+                  </div>
+                  <div class="sup-form">
+                    <textarea
+                      id="adminSupportReply"
+                      rows="3"
+                      maxlength="2000"
+                      placeholder="Ответ клиенту…"
+                      disabled
+                    ></textarea>
+                    <button
+                      class="btn"
+                      type="button"
+                      id="adminSupportSend"
+                      data-act="replySupportThread"
+                      disabled
+                    >
+                      Ответить
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             <div class="panel admin-notice-panel">
               <div class="panel-head">
                 <div>
@@ -4898,6 +5116,72 @@
     <!-- Общее подтверждение опасных действий. Одна модалка на весь кабинет,
      а не confirm() браузера: системное окно нельзя ни оформить, ни объяснить
      в нём последствия, и человек закрывает его не читая. -->
+    <!-- ЦЕНТР ПОМОЩИ (v40). Одна модалка на весь сервис: раньше подсказки
+     жили только в подписях под полями, и «как это работает» человек спрашивал
+     лично. Статьи лежат в js/help.js рядом с интерфейсом, который описывают. -->
+    <div class="modal-overlay" id="modalHelp">
+      <div class="modal modal-wide">
+        <div class="modal-head">
+          <h3>Помощь по сервису</h3>
+          <button class="modal-close" data-act="closeModal" data-args='["modalHelp"]'>✕</button>
+        </div>
+        <div class="help-search">
+          <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+          >
+            <circle cx="11" cy="11" r="7" />
+            <path d="M21 21l-4.3-4.3" />
+          </svg>
+          <input
+            id="helpSearch"
+            type="search"
+            autocomplete="off"
+            placeholder="Что не получается? Например: квота, рассылка, промокод"
+            data-input-act="filterHelp"
+          />
+        </div>
+        <div class="help-list" id="helpList"></div>
+        <div class="help-foot">
+          <span>Не нашли ответ?</span>
+          <button class="btn" type="button" data-act="helpToSupport">Написать в поддержку</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ПОДДЕРЖКА (v40). Переписка с владельцем сервиса внутри кабинета:
+     сообщение уходит ему в Telegram, ответ виден здесь и приходит человеку
+     в Telegram. Историю держит сервер (таблица support_messages). -->
+    <div class="modal-overlay" id="modalSupport">
+      <div class="modal">
+        <div class="modal-head">
+          <h3>Поддержка</h3>
+          <button class="modal-close" data-act="closeModal" data-args='["modalSupport"]'>✕</button>
+        </div>
+        <p class="field-hint">
+          Пишите прямо владельцу сервиса. Ответ придёт в этот диалог и сообщением от Telegram-бота.
+          Если вопрос про ошибку — укажите раздел и что нажимали.
+        </p>
+        <div class="sup-thread" id="supportThread"></div>
+        <div class="sup-form">
+          <textarea
+            id="supportInput"
+            rows="3"
+            maxlength="2000"
+            placeholder="Опишите вопрос…"
+          ></textarea>
+          <button class="btn" type="button" id="supportSend" data-act="sendSupportMessage">
+            Отправить
+          </button>
+        </div>
+      </div>
+    </div>
+
     <div class="modal-overlay" id="modalConfirm">
       <div class="modal modal-narrow">
         <div class="modal-head">
@@ -5263,6 +5547,6 @@
     </div>
 
     <script src="/js/talaria-landing.js?v=talaria6"></script>
-    <script type="module" src="/js/main.js?v=talaria7"></script>
+    <script type="module" src="/js/main.js?v=talaria8"></script>
   </body>
 </html>
