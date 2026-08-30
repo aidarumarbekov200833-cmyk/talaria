@@ -585,3 +585,57 @@ test('v40: обращение в поддержку появляется в пе
   await expect(bubble.first().locator('.sup-text')).toHaveText('Не приходит проверка Telegram');
   await expect(page.locator('#supportInput')).toHaveValue('');
 });
+test('v41: админка — тариф бинарный, деньги из активаций, журналы модалками', async ({ page }) => {
+  await mockApi(page);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    sessionStorage.removeItem('talaria_in_app');
+  });
+  await page.goto('/index.html');
+  await page.locator('[data-telegram-login-trigger]').first().click();
+  await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+  await page.locator('#loginScreen').evaluate((element) => {
+    element.style.display = 'none';
+  });
+  await page.locator('#appWrapper').evaluate((element) => {
+    element.style.display = 'block';
+  });
+  await hideOnboardingOnly(page);
+
+  // Включаем админский вид и открываем раздел, как это делает goTo.
+  await page.evaluate(() => {
+    window.__isAdmin = true;
+    document.querySelectorAll('[data-admin-only]').forEach((el) => {
+      el.style.display = '';
+    });
+    window.goTo('admin');
+    window.loadAdmin();
+  });
+  await expect(page.locator('#admin')).toHaveClass(/\bactive\b/);
+
+  // Сводка: пробные считаются отдельно от платных, «Риска оттока» больше нет.
+  await expect(page.locator('#adminOverview')).toContainText('Платных подписок');
+  await expect(page.locator('#adminOverview')).toContainText('пробных: 1');
+  await expect(page.locator('#adminChurn')).toHaveCount(0);
+
+  // Деньги приходят из активаций тарифа: формы «записать платёж» больше нет.
+  await expect(page.locator('#payUserId')).toHaveCount(0);
+  await expect(page.locator('#adminRevenue')).toContainText('оплат: 3');
+  await expect(page.locator('#adminPayments .pay-row')).toHaveCount(1);
+
+  // График активности: периоды переключаются, столбики отвечают на наведение.
+  await expect(page.locator('#adminChart .adm-bar-col')).toHaveCount(14);
+  await page.locator('[data-chart-period="today"]').click();
+  await expect(page.locator('[data-chart-period="today"]')).toHaveClass(/is-active/);
+  await expect(page.locator('[data-chart-period="today"]')).toHaveCSS('cursor', 'pointer');
+
+  // «Показать все» открывает журналы модалками — с фильтрами внутри.
+  await page.locator('[data-act="openLoginJournal"]').click();
+  await expect(page.locator('#modalLoginJournal')).toHaveClass(/show/);
+  await expect(page.locator('#loginReasonFilter')).toBeVisible();
+  await page.locator('#modalLoginJournal .modal-close').click();
+  await page.locator('[data-act="openActivityJournal"]').click();
+  await expect(page.locator('#modalActivityJournal')).toHaveClass(/show/);
+  await expect(page.locator('#activityScopeFilter')).toBeVisible();
+});

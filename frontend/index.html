@@ -4366,7 +4366,7 @@
                       <circle cx="12" cy="12" r="3.4" /></svg
                   ></span>
                   <div>
-                    <b>Очередь проверки</b><small id="adminHealthQueue">Загрузка данных…</small>
+                    <b>Проверка лидов</b><small id="adminHealthQueue">Загрузка данных…</small>
                   </div>
                 </div>
                 <div class="admin-health-item">
@@ -4498,47 +4498,22 @@
               <div class="adm-revenue" id="adminRevenue">
                 <div class="dd-empty">Загрузка…</div>
               </div>
-              <div class="pay-form">
-                <div class="field">
-                  <label for="payUserId">ID пользователя</label>
-                  <input id="payUserId" type="number" min="1" placeholder="напр. 2" />
-                </div>
-                <div class="field">
-                  <label for="payAmount">Сумма</label>
-                  <input id="payAmount" type="number" step="0.01" placeholder="5000" />
-                </div>
-                <div class="field">
-                  <label for="payCurrency">Валюта</label>
-                  <select id="payCurrency">
-                    <option value="RUB">RUB</option>
-                    <option value="KZT">KZT</option>
-                    <option value="USD">USD</option>
-                    <option value="EUR">EUR</option>
-                  </select>
-                </div>
-                <div class="field">
-                  <label for="payNote">Заметка</label>
-                  <input id="payNote" placeholder="за что и когда" />
-                </div>
-                <button class="btn" data-act="addPayment">Записать платёж</button>
+              <div class="field-hint" style="margin: 10px 0 6px">
+                Записи появляются сами: укажите сумму при активации тарифа в карточке пользователя.
+                Ошибочную запись можно удалить.
               </div>
-              <div id="adminPayments"><div class="dd-empty">Платежей пока нет.</div></div>
-            </div>
-
-            <!-- Кто оплатил и перестал заходить: список на обзвон, пока тариф
-                 ещё не закончился. -->
-            <div class="panel">
-              <div class="panel-head">
-                <h3>Риск оттока</h3>
-                <span class="log-scope">оплачено, но не заходят 14 дней</span>
-              </div>
-              <div id="adminChurn"><div class="dd-empty">Загрузка…</div></div>
+              <div id="adminPayments"><div class="dd-empty">Оплат пока нет.</div></div>
             </div>
 
             <div class="panel adm-chart-panel">
               <div class="panel-head">
-                <h3>Активность за 14 дней</h3>
-                <span class="log-scope">входы и действия</span>
+                <h3>Активность</h3>
+                <div class="adm-chart-periods" role="group" aria-label="Период графика">
+                  <button type="button" data-chart-period="today">Сегодня</button>
+                  <button type="button" data-chart-period="14d" class="is-active">14 дней</button>
+                  <button type="button" data-chart-period="month">Месяц</button>
+                  <button type="button" data-chart-period="year">Год</button>
+                </div>
               </div>
               <div class="adm-chart" id="adminChart"><div class="dd-empty">Загрузка…</div></div>
             </div>
@@ -4547,7 +4522,12 @@
               <div class="panel">
                 <div class="panel-head">
                   <h3>Кто заходил</h3>
-                  <span class="log-scope">последние входы</span>
+                  <div class="panel-tools">
+                    <span class="log-scope">последние входы</span
+                    ><button class="link-button" type="button" data-act="openLoginJournal">
+                      Показать все
+                    </button>
+                  </div>
                 </div>
                 <div id="adminVisitors"><div class="dd-empty">Загрузка…</div></div>
               </div>
@@ -4556,7 +4536,7 @@
                   <h3>Что делали</h3>
                   <div class="panel-tools">
                     <span class="log-scope">свежие действия</span
-                    ><button class="link-button" type="button" id="adminRecentToggle">
+                    ><button class="link-button" type="button" data-act="openActivityJournal">
                       Показать все
                     </button>
                   </div>
@@ -4676,8 +4656,8 @@
                 <h3>Выдать дни всем</h3>
               </div>
               <p class="field-hint">
-                Продлевает доступ от текущего срока, а просроченным — от сегодня. Отрицательное
-                число снимает ошибочно выданные дни.
+                Только клиентам с действующим тарифом. Продлевает доступ от текущего срока, а
+                просроченным — от сегодня. Отрицательное число снимает ошибочно выданные дни.
               </p>
               <div class="grant-days-form">
                 <div>
@@ -4688,9 +4668,6 @@
                   <label class="field-label" for="grantAllNote">Причина</label>
                   <input id="grantAllNote" type="text" placeholder="Простой 14 августа" />
                 </div>
-                <label class="log-scope" style="display: flex; align-items: center; gap: 6px">
-                  <input type="checkbox" id="grantAllOnlyPaid" checked /> только с тарифом
-                </label>
                 <button class="btn" type="button" data-act="grantDaysToAll">Выдать</button>
               </div>
             </div>
@@ -4731,97 +4708,129 @@
               </div>
             </div>
 
-            <!-- Журнал попыток входа: кто, откуда и с какого устройства заходил.
-             По совпадению IP/устройства у разных аккаунтов видно мультиаккаунты. -->
-            <div class="panel" style="margin-top: 22px">
-              <div class="panel-head">
-                <h3>Журнал входов</h3>
-                <div style="display: flex; align-items: center; gap: 14px">
-                  <label
-                    class="log-scope"
-                    style="display: flex; align-items: center; gap: 6px; cursor: pointer"
+            <!-- Журнал входов открывается модалкой из «Кто заходил»: на самой
+             странице ему не место — админка и так длинная. -->
+            <div class="modal-overlay" id="modalLoginJournal">
+              <div class="modal modal-wide">
+                <div class="modal-head">
+                  <h3>Журнал входов</h3>
+                  <button
+                    class="modal-close"
+                    data-act="closeModal"
+                    data-args='["modalLoginJournal"]'
                   >
-                    <input type="checkbox" id="loginOnlyFailed" /> только отклонённые
-                  </label>
-                  <button class="btn ghost" data-act="exportLoginAttempts">Экспорт CSV</button>
+                    ✕
+                  </button>
                 </div>
-              </div>
-              <div class="field-hint">
-                Последние попытки входа. Отклонённые — это чужие, кого нет в белом списке, или
-                неверная подпись Telegram. Совпадение IP или устройства у разных аккаунтов — повод
-                присмотреться к мультиаккаунтам.
-              </div>
-              <div class="log-filters">
-                <select id="loginReasonFilter" class="lead-sort">
-                  <option value="">Все причины</option>
-                  <option value="ok">успешно</option>
-                  <option value="not_whitelisted">нет в белом списке</option>
-                  <option value="blocked">доступ заблокирован</option>
-                  <option value="hash_mismatch">неверная подпись</option>
-                  <option value="expired">устаревшие данные</option>
-                  <option value="clock_skew">расхождение часов</option>
-                  <option value="demo_mode">бот не настроен</option>
-                </select>
-                <input id="loginIpFilter" placeholder="IP целиком, например 203.0.113.7" />
-                <input id="loginQueryFilter" placeholder="username, имя или telegram_id…" />
-              </div>
-              <div id="loginAttemptsList"><div class="dd-empty">Загрузка…</div></div>
-              <div class="lead-pager" id="loginPager" style="display: none; margin-top: 12px">
-                <span id="loginCount"></span>
-                <div style="display: flex; gap: 8px">
-                  <button class="btn ghost" id="loginPrev">Назад</button>
-                  <button class="btn ghost" id="loginNext">Вперёд</button>
+                <div class="modal-body">
+                  <div class="journal-block">
+                    <div class="panel-head">
+                      <div style="display: flex; align-items: center; gap: 14px">
+                        <label
+                          class="log-scope"
+                          style="display: flex; align-items: center; gap: 6px; cursor: pointer"
+                        >
+                          <input type="checkbox" id="loginOnlyFailed" /> только отклонённые
+                        </label>
+                        <button class="btn ghost" data-act="exportLoginAttempts">
+                          Экспорт CSV
+                        </button>
+                      </div>
+                    </div>
+                    <div class="field-hint">
+                      Последние попытки входа. Отклонённые — это чужие, кого нет в белом списке, или
+                      неверная подпись Telegram. Совпадение IP или устройства у разных аккаунтов —
+                      повод присмотреться к мультиаккаунтам.
+                    </div>
+                    <div class="log-filters">
+                      <select id="loginReasonFilter" class="lead-sort">
+                        <option value="">Все причины</option>
+                        <option value="ok">успешно</option>
+                        <option value="not_whitelisted">нет в белом списке</option>
+                        <option value="blocked">доступ заблокирован</option>
+                        <option value="hash_mismatch">неверная подпись</option>
+                        <option value="expired">устаревшие данные</option>
+                        <option value="clock_skew">расхождение часов</option>
+                        <option value="demo_mode">бот не настроен</option>
+                      </select>
+                      <input id="loginIpFilter" placeholder="IP целиком, например 203.0.113.7" />
+                      <input id="loginQueryFilter" placeholder="username, имя или telegram_id…" />
+                    </div>
+                    <div id="loginAttemptsList"><div class="dd-empty">Загрузка…</div></div>
+                    <div class="lead-pager" id="loginPager" style="display: none; margin-top: 12px">
+                      <span id="loginCount"></span>
+                      <div style="display: flex; gap: 8px">
+                        <button class="btn ghost" id="loginPrev">Назад</button>
+                        <button class="btn ghost" id="loginNext">Вперёд</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
 
-            <!-- Журнал действий: что делают пользователи внутри системы.
-             Входы выше отвечают на вопрос «кто зашёл», этот журнал — на вопрос
-             «что потом происходило»: поиски, рассылки, ключи, ошибки. -->
-            <div class="panel admin-journal-panel" style="margin-top: 22px">
-              <div class="panel-head">
-                <h3>Журнал действий</h3>
-                <div style="display: flex; align-items: center; gap: 14px">
-                  <label
-                    class="log-scope"
-                    style="display: flex; align-items: center; gap: 6px; cursor: pointer"
+            <!-- Журнал действий открывается модалкой из «Что делали». -->
+            <div class="modal-overlay" id="modalActivityJournal">
+              <div class="modal modal-wide">
+                <div class="modal-head">
+                  <h3>Журнал действий</h3>
+                  <button
+                    class="modal-close"
+                    data-act="closeModal"
+                    data-args='["modalActivityJournal"]'
                   >
-                    <input type="checkbox" id="activityOnlyErrors" /> только ошибки
-                  </label>
-                  <button class="btn ghost" data-act="exportActivity">Экспорт CSV</button>
-                  <button class="link-button" type="button" id="adminActivityToggle">
-                    Показать все
+                    ✕
                   </button>
                 </div>
-              </div>
-              <div class="field-hint">
-                Всё, что делают пользователи: поиски каналов, рассылки, импорт и экспорт, смена
-                настроек, ошибки внешних сервисов. Отбор по пользователю и тексту события.
-              </div>
-              <div class="log-filters">
-                <select id="activityScopeFilter" class="lead-sort">
-                  <option value="">Все разделы</option>
-                  <option value="search">Поиск</option>
-                  <option value="leads">Базы лидов</option>
-                  <option value="campaigns">Рассылки</option>
-                  <option value="offers">Офферы</option>
-                  <option value="warmup">Прогрев</option>
-                  <option value="ai">ИИ-помощник</option>
-                  <option value="settings">Настройки</option>
-                </select>
-                <input
-                  id="activityUserFilter"
-                  inputmode="numeric"
-                  placeholder="ID пользователя (из таблицы выше)"
-                />
-                <input id="activityQueryFilter" placeholder="текст события или username…" />
-              </div>
-              <div id="adminActivityList"><div class="dd-empty">Загрузка…</div></div>
-              <div class="lead-pager" id="activityPager" style="display: none; margin-top: 12px">
-                <span id="activityCount"></span>
-                <div style="display: flex; gap: 8px">
-                  <button class="btn ghost" id="activityPrev">Назад</button>
-                  <button class="btn ghost" id="activityNext">Вперёд</button>
+                <div class="modal-body">
+                  <div class="journal-block admin-journal-panel">
+                    <div class="panel-head">
+                      <div style="display: flex; align-items: center; gap: 14px">
+                        <label
+                          class="log-scope"
+                          style="display: flex; align-items: center; gap: 6px; cursor: pointer"
+                        >
+                          <input type="checkbox" id="activityOnlyErrors" /> только ошибки
+                        </label>
+                        <button class="btn ghost" data-act="exportActivity">Экспорт CSV</button>
+                      </div>
+                    </div>
+                    <div class="field-hint">
+                      Всё, что делают пользователи: поиски каналов, рассылки, импорт и экспорт,
+                      смена настроек, ошибки внешних сервисов. Отбор по пользователю и тексту
+                      события.
+                    </div>
+                    <div class="log-filters">
+                      <select id="activityScopeFilter" class="lead-sort">
+                        <option value="">Все разделы</option>
+                        <option value="search">Поиск</option>
+                        <option value="leads">Базы лидов</option>
+                        <option value="campaigns">Рассылки</option>
+                        <option value="offers">Офферы</option>
+                        <option value="warmup">Прогрев</option>
+                        <option value="ai">ИИ-помощник</option>
+                        <option value="settings">Настройки</option>
+                      </select>
+                      <input
+                        id="activityUserFilter"
+                        inputmode="numeric"
+                        placeholder="ID пользователя (из таблицы выше)"
+                      />
+                      <input id="activityQueryFilter" placeholder="текст события или username…" />
+                    </div>
+                    <div id="adminActivityList"><div class="dd-empty">Загрузка…</div></div>
+                    <div
+                      class="lead-pager"
+                      id="activityPager"
+                      style="display: none; margin-top: 12px"
+                    >
+                      <span id="activityCount"></span>
+                      <div style="display: flex; gap: 8px">
+                        <button class="btn ghost" id="activityPrev">Назад</button>
+                        <button class="btn ghost" id="activityNext">Вперёд</button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

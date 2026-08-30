@@ -2847,6 +2847,104 @@ th {
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 12px;
 }
+/* Поля и кнопки панели объявления не должны слипаться с сеткой получателей. */
+.admin-notice-panel .admin-notice-grid {
+  margin-bottom: 14px;
+}
+.admin-notice-panel .btn-row {
+  align-items: center;
+  margin-top: 14px;
+  gap: 14px;
+}
+/* Переключатель периода графика активности: сегодня / 14 дней / месяц / год. */
+.adm-chart-periods {
+  display: inline-flex;
+  padding: 3px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--bg);
+  gap: 2px;
+}
+.adm-chart-periods button {
+  padding: 5px 10px;
+  border: 0;
+  border-radius: 8px;
+  background: none;
+  color: var(--muted);
+  font: inherit;
+  font-size: 12px;
+  cursor: pointer;
+  transition:
+    background var(--motion-fast),
+    color var(--motion-fast);
+}
+.adm-chart-periods button:hover {
+  color: var(--ink);
+}
+.adm-chart-periods button.is-active {
+  background: var(--panel);
+  color: var(--ink);
+  box-shadow: var(--shadow-small);
+}
+/* Плотные периоды (месяц, сутки): столбики тоньше, подписи мельче. */
+.adm-chart.is-dense .adm-bar {
+  width: 6px;
+}
+.adm-chart.is-dense .adm-bar-label {
+  font-size: 9px;
+}
+/* Журналы в модалках: панель внутри модалки не нуждается в своей рамке. */
+.journal-block {
+  min-width: 0;
+}
+.journal-block .panel-head {
+  margin-bottom: 10px;
+}
+/* .log-scope глобально имеет flex-wrap: wrap и margin-left: auto — в тесной
+   строке модалки чекбокс из-за этого складывался в столбик. */
+.journal-block .log-scope {
+  margin-left: 0;
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+/* Поля выдачи тарифа в карточке пользователя: подписи сверху, сетка вместо
+   расползающегося ряда. */
+.admin-plan-grid {
+  display: grid;
+  grid-template-columns: 90px 1fr 90px;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.admin-plan-grid label {
+  display: grid;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.admin-plan-grid input,
+.admin-plan-grid select {
+  width: 100%;
+  min-width: 0;
+}
+.admin-plan-grid .admin-plan-note {
+  grid-column: 1 / -1;
+}
+@media (max-width: 640px) {
+  .admin-plan-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+/* Круг «Настроенность пула» показывает состояние цветом, а не только числом. */
+.health-ring.is-ok {
+  border-color: var(--success);
+}
+.health-ring.is-warn {
+  border-color: var(--warning);
+}
+.health-ring.is-bad {
+  border-color: var(--danger);
+}
 .account-health-center {
   display: grid;
   gap: 14px;

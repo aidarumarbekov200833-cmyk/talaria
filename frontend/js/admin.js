@@ -15,18 +15,12 @@ const STATUS_LABEL = {
   interested: 'заинтересованы',
   unsubscribed: 'отписались',
 };
-// Тарифа «Старт» больше нет: без тарифа — «none». Старое "free" бэкенд тоже
-// читает как «нет тарифа», поэтому подписываем его так же.
-const PLAN_LABEL = {
-  none: 'Без тарифа',
-  free: 'Без тарифа',
-  trial: 'Пробный',
-  zephyr: 'Talaria',
-  pro: 'Про',
-  max: 'Макс',
-  ultra: 'Ультра',
-};
-const planLabel = (slug) => PLAN_LABEL[slug] || slug || '—';
+// Тариф в Talaria один, поэтому подпись бинарная: «Тариф» или «Без тарифа»
+// (плюс пробный). Старые слаги (pro/max/ultra/zephyr) в базе остались от
+// ранних версий — все читаются как «Тариф», чтобы админ не гадал, что за
+// «Ультра» и чем она отличается.
+const PLAN_LABEL = { none: 'Без тарифа', free: 'Без тарифа', trial: 'Пробный' };
+const planLabel = (slug) => PLAN_LABEL[slug] || (slug ? 'Тариф' : '—');
 
 // Причины отклонения входа из бэкенда (security/access) — в человеческий вид.
 // Список должен совпадать с причинами из LoginAttempt на бэкенде. Раньше
@@ -78,11 +72,15 @@ export async function loadAdminOverview() {
   try {
     const d = await api('GET', '/api/admin/overview');
     box.innerHTML = [
-      card('Сейчас на сайте', d.online_now, 'активность за 15 минут'),
+      card('Сейчас на сайте', Number(d.online_now || 0), 'активность за 15 минут'),
       card('Входов сегодня', d.logins_today, `отклонено: ${d.failed_logins_today}`),
       card('Действий сегодня', d.events_today, 'событий в журнале'),
       card('Пользователей', d.users_total, `+${d.users_new_7d} за неделю`),
-      card('Платных подписок', d.active_subs, `заблокировано: ${d.blocked_users}`),
+      card(
+        'Платных подписок',
+        d.active_subs,
+        `пробных: ${d.trial_subs || 0} · заблокировано: ${d.blocked_users}`,
+      ),
       card(
         'Лидов в базах',
         d.leads_total,
@@ -93,12 +91,15 @@ export async function loadAdminOverview() {
         d.running_campaigns,
         `Telegram-аккаунтов онлайн: ${d.connected_accounts}`,
       ),
-      card('Очередь проверки', d.pending_verifications, `ошибок сегодня: ${d.errors_today}`),
+      card(
+        'Лидов ждут проверки',
+        d.pending_verifications,
+        `Telegram-проверка контактов · ошибок сегодня: ${d.errors_today}`,
+      ),
     ].join('');
     renderAdminHealth(d);
     renderRevenue(d.revenue || {});
-    renderChurn(d.churn_risk || []);
-    renderAdminChart(d.by_day || []);
+    loadAdminChart();
     renderVisitors(d.recent_visitors || []);
     renderRecentActions(d.recent_actions || []);
     loadPayments();
@@ -145,9 +146,12 @@ export async function sendAdminNotification() {
 }
 
 function card(title, value, sub) {
+  // Значение бывает и числом (счётчики), и строкой («25 000 KZT · 5 000 RUB»
+  // в «Деньгах»). Number() на строке давал «не число» прямо в интерфейсе.
+  const shown = typeof value === 'number' ? value.toLocaleString('ru-RU') : String(value ?? '—');
   return `<div class="adm-card">
     <div class="adm-card-label">${esc(title)}</div>
-    <div class="adm-card-value">${Number(value || 0).toLocaleString('ru-RU')}</div>
+    <div class="adm-card-value">${esc(shown)}</div>
     <div class="adm-card-sub">${esc(sub)}</div>
   </div>`;
 }
@@ -168,7 +172,7 @@ function renderAdminHealth(d) {
   );
   put(
     'adminHealthQueue',
-    `В очереди: ${n(d.pending_verifications)} · ошибки сегодня: ${n(d.errors_today)}`,
+    `Лидов ждут Telegram-проверки: ${n(d.pending_verifications)} · ошибки сегодня: ${n(d.errors_today)}`,
   );
   put(
     'adminHealthAccess',
@@ -176,29 +180,59 @@ function renderAdminHealth(d) {
   );
 }
 
-/** Столбики по дням. Масштаб — по максимуму периода: абсолютные числа
- *  здесь менее важны, чем видная форма активности. */
-function renderAdminChart(days) {
+/* Какой период графика выбран. Живёт в переменной, а не в DOM: обновление
+   сводки перерисовывает график, и он должен остаться на выбранном периоде. */
+let _chartPeriod = '14d';
+
+/** Переключить период графика активности (кнопки над графиком). */
+export function setChartPeriod(period) {
+  _chartPeriod = period;
+  document.querySelectorAll('[data-chart-period]').forEach((b) => {
+    b.classList.toggle('is-active', b.dataset.chartPeriod === period);
+  });
+  loadAdminChart();
+}
+
+/** Загрузить точки графика под выбранный период (GET /api/admin/activity-series). */
+async function loadAdminChart() {
   const box = document.getElementById('adminChart');
   if (!box) return;
-  if (!days.length) {
+  try {
+    const data = await api('GET', `/api/admin/activity-series?period=${_chartPeriod}`);
+    renderAdminChart(data.points || []);
+  } catch (e) {
+    box.innerHTML = `<div class="dd-empty">Не удалось загрузить график: ${esc(e.message)}</div>`;
+  }
+}
+
+/** Столбики активности. Масштаб — по максимуму периода: абсолютные числа
+ *  здесь менее важны, чем видная форма активности. Подробности — по наведению
+ *  на столбик (data-tip). */
+function renderAdminChart(points) {
+  const box = document.getElementById('adminChart');
+  if (!box) return;
+  if (!points.length) {
     box.innerHTML = '<div class="dd-empty">Пока нет данных</div>';
     return;
   }
-  const max = Math.max(1, ...days.map((d) => Math.max(d.events || 0, d.logins || 0)));
+  const max = Math.max(1, ...points.map((d) => Math.max(d.events || 0, d.logins || 0)));
+  // На плотных периодах (месяц — 30 столбиков, сутки — до 24) подписываем
+  // каждый второй столбик: подписи внахлёст читать нельзя ни одной.
+  const labelStep = points.length > 16 ? 2 : 1;
+  box.classList.toggle('is-dense', points.length > 16);
   box.innerHTML =
-    days
-      .map((d) => {
-        const label = d.day.slice(8) + '.' + d.day.slice(5, 7);
+    points
+      .map((d, i) => {
         const eh = Math.round(((d.events || 0) / max) * 100);
         const lh = Math.round(((d.logins || 0) / max) * 100);
-        const title = `${label}: входов ${d.logins || 0}, действий ${d.events || 0}`;
+        const title = `${d.label}: входов ${d.logins || 0}, действий ${d.events || 0}`;
+        const label = i % labelStep === 0 ? esc(d.label) : '';
         return `<div class="adm-bar-col" data-tip="${esc(title)}">
       <div class="adm-bars">
         <i class="adm-bar events" style="height:${eh}%"></i>
         <i class="adm-bar logins" style="height:${lh}%"></i>
       </div>
-      <span class="adm-bar-label">${esc(label)}</span>
+      <span class="adm-bar-label">${label}</span>
     </div>`;
       })
       .join('') +
@@ -364,7 +398,7 @@ function renderUsers(data) {
 
   const sum = document.getElementById('adminSummary');
   if (sum)
-    sum.textContent = `Пользователей: ${data.total_users} · всего на этой странице лидов: ${(data.total_leads || 0).toLocaleString('ru-RU')}`;
+    sum.textContent = `Пользователей: ${Number(data.total_users || 0).toLocaleString('ru-RU')} · всего на этой странице лидов: ${(data.total_leads || 0).toLocaleString('ru-RU')}`;
 
   const pager = document.getElementById('adminPager');
   const count = document.getElementById('adminCount');
@@ -433,24 +467,39 @@ async function openUser(id) {
   }
 }
 
-/** Кнопки управления подпиской: активировать план / заблокировать доступ. */
+/** Кнопки управления подпиской: тариф есть или нет, без выбора «какой».
+ *  Тариф в Talaria один; сумма и валюта записываются в «Деньги» вместе с
+ *  активацией — отдельной формы «записать платёж» больше нет. */
 function subActionsHtml(d) {
   const u = d.user || {};
   if (!u.id) return '';
-  // «Старт» убран. «none» — снять тариф (закрыть доступ к платным функциям).
-  const options = ['none', 'pro', 'max', 'ultra']
-    .map(
-      (p) =>
-        `<option value="${p}" ${d.stored_plan === p ? 'selected' : ''}>${planLabel(p)}</option>`,
-    )
-    .join('');
+  const hasPlan = !['none', 'free', ''].includes(d.stored_plan || 'none');
   return `<div class="ad-block admin-sub-actions">
-    <h4>Управление подпиской</h4>
+    <h4>Тариф</h4>
+    <div class="admin-plan-grid">
+      <label>Месяцев
+        <input type="number" id="adminPlanMonths" value="1" min="1" max="24">
+      </label>
+      <label>Сумма оплаты
+        <input type="number" id="adminPlanAmount" min="0" step="0.01" placeholder="0 — без оплаты">
+      </label>
+      <label>Валюта
+        <select id="adminPlanCurrency">
+          <option value="RUB">RUB</option>
+          <option value="KZT">KZT</option>
+          <option value="USD">USD</option>
+          <option value="EUR">EUR</option>
+        </select>
+      </label>
+      <label class="admin-plan-note">Заметка
+        <input type="text" id="adminPlanNote" placeholder="за что и когда">
+      </label>
+    </div>
     <div class="admin-sub-row">
-      <select id="adminPlanSelect">${options}</select>
-      <input type="number" id="adminPlanMonths" value="1" min="1" max="24" data-tip="На сколько месяцев">
-      <input type="text" id="adminPlanNote" placeholder="Заметка (оплата, дата)…">
-      <button class="btn-mini" data-act="adminActivatePlan" data-args='[${u.id}]'>Активировать</button>
+      <button class="btn-mini" data-act="adminActivatePlan" data-args='[${u.id}]'>
+        ${hasPlan ? 'Продлить тариф' : 'Выдать тариф'}
+      </button>
+      ${hasPlan ? `<button class="btn-mini danger" data-act="adminRevokePlan" data-args='[${u.id}]'>Снять тариф</button>` : ''}
     </div>
     <div class="admin-sub-row">
       <button class="btn-mini danger" data-act="adminToggleBlock" data-args='[${u.id}, ${u.blocked ? 'false' : 'true'}]'>
@@ -508,22 +557,47 @@ export function exitViewAs() {
   location.reload();
 }
 
-/** Активировать тариф (POST /api/admin/users/{id}/subscription). */
+/** Выдать/продлить тариф (POST /api/admin/users/{id}/subscription).
+ *  Сумма, если указана, сразу попадает в «Деньги» — отдельной записи не нужно. */
 export async function adminActivatePlan(userId) {
-  const plan = document.getElementById('adminPlanSelect')?.value;
   const months = parseInt(document.getElementById('adminPlanMonths')?.value || '1', 10) || 1;
+  const amount = Number(document.getElementById('adminPlanAmount')?.value || 0);
+  const currency = document.getElementById('adminPlanCurrency')?.value || 'RUB';
   const note = (document.getElementById('adminPlanNote')?.value || '').trim();
-  if (!plan) {
-    toast('Выберите тариф', 'warn');
-    return;
-  }
   try {
-    const d = await api('POST', `/api/admin/users/${userId}/subscription`, { plan, months, note });
+    const d = await api('POST', `/api/admin/users/${userId}/subscription`, {
+      plan: 'pro',
+      months,
+      note,
+      amount,
+      currency,
+    });
     document.getElementById('adminUserBody').innerHTML = detailHtml(d);
-    toast(`Тариф «${planLabel(plan)}» активирован`, 'success');
+    toast(
+      'Тариф выдан',
+      'success',
+      amount ? `Оплата ${amount} ${currency} записана в «Деньги».` : 'Без записи оплаты.',
+    );
     loadAdmin();
   } catch (e) {
     toast(`Не удалось активировать: ${e.message}`, 'warn');
+  }
+}
+
+/** Снять тариф (plan: none) — доступ к платным функциям закрывается сразу. */
+export async function adminRevokePlan(userId) {
+  if (!(await confirmAction('Снять тариф у этого пользователя? Доступ закроется сразу.'))) return;
+  try {
+    const d = await api('POST', `/api/admin/users/${userId}/subscription`, {
+      plan: 'none',
+      months: 1,
+      note: '',
+    });
+    document.getElementById('adminUserBody').innerHTML = detailHtml(d);
+    toast('Тариф снят', 'info');
+    loadAdmin();
+  } catch (e) {
+    toast(`Не удалось: ${e.message}`, 'warn');
   }
 }
 
@@ -985,6 +1059,11 @@ export function initAdmin() {
   document.getElementById('adminPrev')?.addEventListener('click', () => adminPage(-1));
   document.getElementById('adminNext')?.addEventListener('click', () => adminPage(1));
 
+  // Периоды графика активности: сегодня / 14 дней / месяц / год.
+  document.querySelectorAll('[data-chart-period]').forEach((b) => {
+    b.addEventListener('click', () => setChartPeriod(b.dataset.chartPeriod));
+  });
+
   // Белый список: удаление через делегирование (строки перерисовываются).
   const wl = document.getElementById('whitelistList');
   if (wl) {
@@ -1136,20 +1215,17 @@ export async function removePromoCode(id) {
 export async function grantDaysToAll() {
   const days = parseInt(document.getElementById('grantAllDays')?.value || '0', 10);
   const note = (document.getElementById('grantAllNote')?.value || '').trim();
-  const onlyPaid = document.getElementById('grantAllOnlyPaid')?.checked !== false;
   if (!Number.isFinite(days) || days === 0) {
     toast('Укажите число дней', 'warn', 'Ноль ничего не меняет.');
     return;
   }
-  const who = onlyPaid ? 'клиентам с тарифом' : 'ВСЕМ пользователям';
   const verb = days > 0 ? `добавить ${days} дн.` : `снять ${Math.abs(days)} дн.`;
-  if (!(await confirmAction(`Точно ${verb} ${who}? Действие затронет всех сразу.`))) return;
+  if (
+    !(await confirmAction(`Точно ${verb} всем клиентам с тарифом? Действие затронет всех сразу.`))
+  )
+    return;
   try {
-    const result = await api('POST', '/api/admin/grant-days', {
-      days,
-      note,
-      only_with_plan: onlyPaid,
-    });
+    const result = await api('POST', '/api/admin/grant-days', { days, note });
     toast('Готово', 'success', `Затронуто пользователей: ${result.affected}.`);
     await loadAdmin();
   } catch (e) {
@@ -1179,7 +1255,7 @@ function renderRevenue(revenue) {
       `плательщиков: ${revenue.paying_users_this_month || 0}`,
     ),
     card('За 30 дней', money(revenue.last_30_days), 'скользящее окно'),
-    card('За всё время', money(revenue.all_time), `платежей: ${revenue.payments_total || 0}`),
+    card('За всё время', money(revenue.all_time), `оплат: ${revenue.payments_total || 0}`),
   ].join('');
 }
 
@@ -1191,7 +1267,8 @@ async function loadPayments() {
   try {
     const data = await api('GET', '/api/admin/payments?limit=20');
     if (!data.payments.length) {
-      box.innerHTML = '<div class="dd-empty">Платежей пока нет.</div>';
+      box.innerHTML =
+        '<div class="dd-empty">Оплат пока нет. Они записываются при выдаче тарифа с суммой.</div>';
       return;
     }
     box.innerHTML = data.payments
@@ -1214,32 +1291,6 @@ function dateLabel(value) {
   return Number.isNaN(d.getTime()) ? '' : d.toLocaleDateString('ru-RU');
 }
 
-export async function addPayment() {
-  const userId = Number(document.getElementById('payUserId')?.value || 0);
-  const amount = Number(document.getElementById('payAmount')?.value || 0);
-  const currency = document.getElementById('payCurrency')?.value || 'RUB';
-  const note = (document.getElementById('payNote')?.value || '').trim();
-  if (!userId || !amount) {
-    toast('Укажите ID пользователя и сумму', 'warn');
-    return;
-  }
-  if (!(await confirmAction(`Записать платёж ${amount} ${currency} от пользователя #${userId}?`)))
-    return;
-  try {
-    await api('POST', `/api/admin/users/${userId}/payments`, {
-      amount,
-      currency,
-      note,
-    });
-    document.getElementById('payAmount').value = '';
-    document.getElementById('payNote').value = '';
-    toast('Платёж записан', 'success');
-    loadAdminOverview();
-  } catch (e) {
-    toast('Не удалось записать платёж', 'error', e.message);
-  }
-}
-
 export async function deletePayment(id) {
   if (!(await confirmAction('Удалить эту запись о платеже? Выручка пересчитается.'))) return;
   try {
@@ -1251,25 +1302,16 @@ export async function deletePayment(id) {
   }
 }
 
-/** Кто оплатил и перестал заходить. «Ни разу» отличаем от «давно»: у первого
- *  считать дни не от чего, и подставлять ноль было бы враньём. */
-function renderChurn(rows) {
-  const box = document.getElementById('adminChurn');
-  if (!box) return;
-  if (!rows.length) {
-    box.innerHTML = '<div class="dd-empty">Все, кто оплатил, заходят. Хорошо.</div>';
-    return;
-  }
-  box.innerHTML = rows
-    .map((r) => {
-      const silent = r.days_silent < 0 ? 'ни разу не заходил' : `молчит ${r.days_silent} дн.`;
-      return (
-        `<div class="churn-row"><div><b>${esc(r.label)}</b>` +
-        `<span>тариф ${esc(r.plan || '—')} до ${esc(dateLabel(r.paid_until))}</span></div>` +
-        `<span class="badge warn">${esc(silent)}</span></div>`
-      );
-    })
-    .join('');
+/** «Показать все» в «Кто заходил»: полный журнал входов с фильтрами — модалкой. */
+export function openLoginJournal() {
+  document.getElementById('modalLoginJournal')?.classList.add('show');
+  loadLoginAttempts();
+}
+
+/** «Показать все» в «Что делали»: полный журнал действий с фильтрами — модалкой. */
+export function openActivityJournal() {
+  document.getElementById('modalActivityJournal')?.classList.add('show');
+  loadActivity();
 }
 
 /* ------------------------ обращения в поддержку --------------------------- */

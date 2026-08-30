@@ -1532,6 +1532,10 @@ class AdminActivateIn(BaseModel):
     plan: str  # none | pro | max | ultra
     months: int = 1  # на сколько месяцев продлить (>=1)
     note: str = ""  # заметка: за что/когда платил
+    # Сколько заплатил клиент, в обычных единицах. Ноль — активация без денег
+    # (подарок, компенсация): запись в «Деньгах» тогда не создаётся.
+    amount: float = 0.0
+    currency: str = "RUB"
 
 
 class AdminGrantDaysIn(BaseModel):
@@ -1554,11 +1558,10 @@ class AdminGrantDaysIn(BaseModel):
 class AdminGrantDaysAllIn(AdminGrantDaysIn):
     """То же, но всем сразу.
 
-    По умолчанию только действующим клиентам: раздать платный доступ вообще
-    всем, кто когда-либо заходил, — это не «акция», а потеря денег.
+    Всегда только действующим клиентам: раздать платный доступ вообще всем,
+    кто когда-либо заходил, — это не «акция», а потеря денег. Выбора здесь
+    сознательно нет — галочку «всем подряд» однажды нажали бы случайно.
     """
-
-    only_with_plan: bool = True
 
 
 class AdminGrantDaysResultOut(BaseModel):
@@ -1748,15 +1751,20 @@ class AdminDayPointOut(BaseModel):
     events: int = 0
 
 
-class AdminChurnOut(BaseModel):
-    """Пользователь с оплаченным тарифом, который перестал заходить."""
+class AdminSeriesPointOut(BaseModel):
+    """Точка графика активности: готовая подпись и два счётчика."""
 
-    user_id: int
     label: str
-    plan: str = ""
-    paid_until: datetime | None = None
-    last_seen: datetime | None = None
-    days_silent: int = 0
+    logins: int = 0
+    events: int = 0
+
+
+class AdminSeriesOut(BaseModel):
+    """График активности под выбранный период («сегодня» — по часам,
+    недели и месяц — по дням, «год» — по месяцам)."""
+
+    period: str
+    points: list[AdminSeriesPointOut] = []
 
 
 class AdminOverviewOut(BaseModel):
@@ -1772,7 +1780,8 @@ class AdminOverviewOut(BaseModel):
     events_today: int = 0
     users_total: int = 0
     users_new_7d: int = 0
-    active_subs: int = 0
+    active_subs: int = 0  # платные: пробный тариф сюда не входит
+    trial_subs: int = 0
     blocked_users: int = 0
     leads_total: int = 0
     offers_total: int = 0
@@ -1787,9 +1796,6 @@ class AdminOverviewOut(BaseModel):
     # Деньги на главной админки: без них владелец сервиса не видит главного
     # своего показателя и лезет считать его руками по заметкам.
     revenue: AdminRevenueOut = AdminRevenueOut()
-    # Кто оплатил, но перестал заходить. Первый список на обзвон: удержать
-    # действующего клиента дешевле, чем найти нового.
-    churn_risk: list[AdminChurnOut] = []
 
 
 class AdminRecomputeScoreOut(BaseModel):

@@ -1391,13 +1391,13 @@
    Добавление ключа, ручной платёж и выдача дней разъезжались на три ступеньки
    разной ширины. Поля встают равными колонками, кнопка — отдельной строкой
    слева: так у формы один левый край. */
-#appWrapper :is(.key-add, .pay-form, .grant-days-form) {
+#appWrapper :is(.key-add, .grant-days-form) {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
   align-items: end;
   gap: 12px;
 }
-#appWrapper :is(.key-add, .pay-form, .grant-days-form) > :is(button, .btn) {
+#appWrapper :is(.key-add, .grant-days-form) > :is(button, .btn) {
   grid-column: 1 / -1;
   justify-self: start;
 }

@@ -69,6 +69,113 @@ export async function mockApi(page) {
         body: JSON.stringify({ messages: supportThread, unread: 0, can_write: true }),
       });
     }
+    if (url.pathname.startsWith('/api/admin/')) {
+      const adminBody =
+        url.pathname === '/api/admin/overview'
+          ? {
+              online_now: 2,
+              logins_today: 7,
+              failed_logins_today: 1,
+              events_today: 64,
+              users_total: 12,
+              users_new_7d: 3,
+              active_subs: 2,
+              trial_subs: 1,
+              blocked_users: 0,
+              leads_total: 5210,
+              offers_total: 9,
+              campaigns_total: 6,
+              running_campaigns: 1,
+              connected_accounts: 2,
+              pending_verifications: 14,
+              errors_today: 0,
+              recent_visitors: [
+                {
+                  user_id: 2,
+                  username: 'madi',
+                  name: 'Мади',
+                  ip: '10.0.0.2',
+                  ok: true,
+                  reason: '',
+                  at: '2026-08-30T10:00:00Z',
+                },
+              ],
+              recent_actions: [
+                {
+                  id: 1,
+                  owner_id: 2,
+                  username: 'madi',
+                  user_name: 'Мади',
+                  scope: 'search',
+                  level: 'info',
+                  message: 'Поиск каналов: криптообразование',
+                  ref_type: '',
+                  ref_id: null,
+                  created_at: '2026-08-30T10:02:00Z',
+                },
+              ],
+              by_day: [],
+              revenue: {
+                month: { KZT: 25000 },
+                last_30_days: { KZT: 25000 },
+                all_time: { KZT: 50000, RUB: 5000 },
+                payments_total: 3,
+                paying_users_this_month: 1,
+              },
+            }
+          : url.pathname === '/api/admin/activity-series'
+            ? {
+                period: url.searchParams.get('period') || '14d',
+                points: Array.from({ length: 14 }, (_, i) => ({
+                  label: `${String(i + 1).padStart(2, '0')}.08`,
+                  logins: (i % 5) + 1,
+                  events: (i % 7) * 4 + 2,
+                })),
+              }
+            : url.pathname === '/api/admin/payments'
+              ? {
+                  payments: [
+                    {
+                      id: 1,
+                      owner_id: 2,
+                      amount: 25000,
+                      currency: 'KZT',
+                      plan: 'pro',
+                      months: 1,
+                      promo_code: '',
+                      note: 'первый месяц',
+                      paid_at: '2026-08-20T09:00:00Z',
+                      user_label: 'Мади',
+                    },
+                  ],
+                  total: 1,
+                  revenue: {
+                    month: {},
+                    last_30_days: {},
+                    all_time: {},
+                    payments_total: 1,
+                    paying_users_this_month: 1,
+                  },
+                }
+              : url.pathname === '/api/admin/users'
+                ? { users: [], total: 0, scopes: {}, registration_open: true }
+                : url.pathname === '/api/admin/support'
+                  ? { threads: [], unread: 0 }
+                  : url.pathname === '/api/admin/login-attempts'
+                    ? { attempts: [], total: 0 }
+                    : url.pathname === '/api/admin/activity'
+                      ? { events: [], total: 0 }
+                      : url.pathname === '/api/admin/whitelist'
+                        ? []
+                        : url.pathname === '/api/admin/promo-codes'
+                          ? []
+                          : {};
+      return route.fulfill({
+        contentType: 'application/json',
+        status: 200,
+        body: JSON.stringify(adminBody),
+      });
+    }
     const body =
       url.pathname === '/api/subscription'
         ? {
