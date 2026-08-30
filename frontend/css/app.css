@@ -3393,16 +3393,6 @@ a.tut-open {
   text-align: left;
   cursor: pointer;
 }
-.sidebar-session-chev {
-  width: 16px;
-  height: 16px;
-  flex: none;
-  color: var(--muted);
-  transition: transform var(--motion-fast) var(--motion-ease);
-}
-.sidebar-session[aria-expanded='true'] .sidebar-session-chev {
-  transform: rotate(180deg);
-}
 /* Точка «есть ответ поддержки». Живёт на карточке аккаунта, а не в
    колокольчике: ответ адресован лично, и искать его в общей ленте неудобно. */
 .sidebar-session-alert,

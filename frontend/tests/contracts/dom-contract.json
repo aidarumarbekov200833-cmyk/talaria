@@ -3258,14 +3258,6 @@
     "tag": "span"
   },
   {
-    "classes": ["sidebar-session-chev"],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
     "classes": ["acc-menu"],
     "id": "accountMenu",
     "tag": "div"
