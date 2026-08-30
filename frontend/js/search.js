@@ -11,7 +11,7 @@ import { api, esc } from './api.js';
 import { toast } from './ui.js?v=tal32';
 import { icon } from './icons.js';
 import { refreshQuota } from './quota.js';
-import { initRegionPicker } from './region-picker.js';
+import { initRegionPicker } from './region-picker.js?v=talaria13';
 import { logLine } from './logline.js?v=tal33';
 
 /* Состояние страницы. Ключевые слова и темы храним здесь, а не в DOM:
@@ -199,6 +199,29 @@ function paintFilterMode() {
   });
   const country = document.querySelector('.region-picker[data-for="leadCountry"] button');
   if (country) country.disabled = auto;
+}
+
+/** Предзаполнение фильтров помощником. Раньше ИИ писал значения прямо в поля,
+ *  но с v38 поля в авто-режиме заблокированы, а страна живёт в мультиселекте —
+ *  «выставь фильтры» молча ничего не менял. Здесь один вход: режим переводится
+ *  в ручной, значения проставляются, состояние сохраняется. */
+export function applyAiSearchPrefill(action = {}) {
+  setLeadFilterMode('manual');
+  [
+    ['leadMinSubs', action.min_subs],
+    ['leadMaxSubs', action.max_subs],
+  ].forEach(([id, value]) => {
+    if (value === undefined || value === null) return;
+    const el = document.getElementById(id);
+    if (el) el.value = String(value);
+  });
+  if (typeof action.include_hidden === 'boolean') {
+    const hidden = document.getElementById('leadIncludeHidden');
+    if (hidden) hidden.checked = action.include_hidden;
+  }
+  const country = String(action.country || '').trim();
+  if (country) applyCodes('leadCountry', [country]);
+  writeFilterState();
 }
 
 export function setLeadFilterMode(mode) {

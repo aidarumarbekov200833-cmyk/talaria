@@ -148,6 +148,15 @@ export function initRegionPicker(selectId = 'trendsRegion', options = {}) {
     close();
   };
 
+  // Значение могут поменять снаружи: восстановление сохранённых фильтров,
+  // сброс на рекомендованный набор, предзаполнение помощником. Тогда приходит
+  // change на самом <select>, и подпись кнопки обязана обновиться — иначе на
+  // кнопке остаётся «Любая страна», хотя страны уже выбраны.
+  select.addEventListener('change', () => {
+    syncButton();
+    if (!panel.hidden) renderList(search.value);
+  });
+
   button.addEventListener('click', () => (panel.hidden ? open() : close()));
   search.addEventListener('input', () => renderList(search.value));
   search.addEventListener('keydown', (event) => {

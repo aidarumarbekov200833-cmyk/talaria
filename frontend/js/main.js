@@ -96,7 +96,7 @@ import {
   switchChatAccount,
 } from './chat.js?v=tal33';
 import { initSidebar, toggleSidebar } from './sidebar.js?v=tal33';
-import { sendAi } from './ai.js?v=aioffer1';
+import { sendAi } from './ai.js?v=talaria13';
 import { initOnboarding, openKeyGuide, startOnboarding } from './onboarding.js?v=zephyr4';
 import { initActions, clearParseLogs } from './actions.js';
 import {
@@ -163,7 +163,7 @@ import {
   setLeadFilterMode,
   runTelegramVerification,
   cancelTelegramVerification,
-} from './search.js?v=zephyr1';
+} from './search.js?v=talaria13';
 
 /* Модалка оффера должна сбрасывать режим редактирования при открытии. */
 function openModalWithReset(id) {
