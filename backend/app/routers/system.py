@@ -51,7 +51,7 @@ def public_stats(db: Session = Depends(get_db)):
 
     # Вся воронка отправок — тоже одним проходом по campaign_sends.
     send_row = db.query(
-        func.coalesce(func.sum(case((CampaignSend.status == "sent", 1), else_=0)), 0),
+        func.coalesce(func.sum(case((CampaignSend.status.in_(("sent", "uncertain")), 1), else_=0)), 0),
         func.count(CampaignSend.delivered_at),
         func.count(CampaignSend.replied_at),
     ).one()

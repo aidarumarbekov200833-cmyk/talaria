@@ -66,7 +66,9 @@ def _mark_interested_sends(db: Session, owner_id: int, lead_ids: list[int]) -> N
         .filter(
             CampaignSend.owner_id == owner_id,
             CampaignSend.lead_id.in_(lead_ids),
-            CampaignSend.status == "sent",
+            # Интерес лида доказывает, что сообщение дошло: uncertain здесь
+            # равен sent, иначе бизнес-результат терялся бы.
+            CampaignSend.status.in_(("sent", "uncertain")),
         )
         .order_by(CampaignSend.lead_id, CampaignSend.id.desc())
         .all()

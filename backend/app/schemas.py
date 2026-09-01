@@ -896,7 +896,7 @@ class RecipientsOut(BaseModel):
 
 class CampaignSendIn(BaseModel):
     lead_ids: list[int]
-    status: str = "sent"  # sent | failed | skipped
+    status: str = "sent"  # sent | failed | skipped | uncertain
     error: str = ""
 
 
@@ -1561,8 +1561,9 @@ class AdminActivateIn(BaseModel):
     # Сколько заплатил клиент, в обычных единицах. Ноль — активация без денег
     # (подарок, компенсация): запись в «Деньгах» тогда не создаётся.
     # allow_inf_nan: Infinity/NaN из JSON — это 422 на входе, а не 500 в
-    # round() по дороге к минорным единицам.
-    amount: float = Field(default=0.0, allow_inf_nan=False)
+    # round() по дороге к минорным единицам. Потолок — миллиард: 1e308 без
+    # него переполнял бы минорные единицы; отрицательные — возвраты.
+    amount: float = Field(default=0.0, allow_inf_nan=False, ge=-1e9, le=1e9)
     currency: str = "RUB"
 
 
@@ -1640,7 +1641,8 @@ class AdminPaymentIn(BaseModel):
     # В обычных единицах — так её и вводят. В минорные переводим на сервере,
     # чтобы округление было в одном месте, а не в каждом клиенте.
     # allow_inf_nan: Infinity/NaN — 422 на входе, а не 500 в round().
-    amount: float = Field(allow_inf_nan=False)
+    # Границы — как в AdminActivateIn: без них 1e308 переполнял бы минорные.
+    amount: float = Field(allow_inf_nan=False, ge=-1e9, le=1e9)
     currency: str = "RUB"
     plan: str = ""
     months: int = 1

@@ -1,6 +1,6 @@
 {
   "heads": [
-    "0039"
+    "0040"
   ],
   "indexes": [
     "ix_access_whitelist_telegram_id",
@@ -16,6 +16,8 @@
     "ix_campaign_sends_owner_account_status_sent_at",
     "ix_campaign_sends_owner_id",
     "ix_campaign_sends_owner_lead",
+    "ix_campaign_sends_owner_status_lead",
+    "ix_campaign_sends_owner_status_lead",
     "ix_campaign_sends_telegram_message_id",
     "ix_campaigns_owner_id",
     "ix_campaigns_scheduled_at",
@@ -86,6 +88,6 @@
     "ix_warmup_logs_account_id",
     "uq_warmup_primary_owner"
   ],
-  "schema_index_sha256": "93f7b383ae77418b1574b3f38a25df8a3d7a5550bd8fbde713165ae7becc09e7",
-  "schema_operations_sha256": "15bc618753df95e4cb9c297b3bb536a98dc94912c78b5d0428c10725e38f1fe1"
+  "schema_index_sha256": "f5a7de3afac33e6f0627b08dab95cdcbfb55fff04aac786ce276c7e1a93487ad",
+  "schema_operations_sha256": "8b8b954db85ca56c9988fccc3e99803071ef6c82d7322657cb02cd576a381d31"
 }

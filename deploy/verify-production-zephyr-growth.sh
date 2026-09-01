@@ -3,7 +3,7 @@ set -eu
 
 ROOT=/home/aidar/zapp
 RELEASE=/home/aidar/releases/zephyr-growth-20260811-final
-BASE=https://zapp.westus2.cloudapp.azure.com
+BASE=${BASE:-https://talaria.mooo.com}
 COMPOSE="docker compose -f docker-compose.yml -f docker-compose.prod.yml"
 
 cd "$ROOT"

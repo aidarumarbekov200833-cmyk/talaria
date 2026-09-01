@@ -29,9 +29,14 @@ const SESSIONS_DIR = path.join(__dirname, "sessions");
 // .env иначе тихо ломает и билеты, и X-Send-Secret сразу для всех запросов.
 const SEND_SECRET = String(process.env.TG_CLIENT_SECRET || "").trim();
 // Короткий секрет подбирается перебором, а падение здесь дешевле компрометации:
-// compose так же громко валится на ${VAR:?} для паролей БД.
-if (SEND_SECRET && SEND_SECRET.length < 32) {
-  console.error("TG_CLIENT_SECRET короче 32 символов — задайте длинный случайный секрет.");
+// compose так же громко валится на ${VAR:?} для паролей БД. Пустой секрет —
+// тоже фатально: раньше сервис молча поднимался и отвергал вообще все запросы,
+// а «почему не работает подключение» приходилось выяснять по логам бэкенда.
+if (SEND_SECRET.length < 32) {
+  console.error(
+    "TG_CLIENT_SECRET пуст или короче 32 символов — задайте длинный случайный секрет " +
+      "(openssl rand -hex 32) одинаковым у backend и web-tg."
+  );
   process.exit(1);
 }
 // Куда сообщать, кто именно вошёл: бэкенд подпишет аккаунт к карточке в
@@ -165,13 +170,18 @@ function saveSession(ownerId, accountId, sessionString) {
   // 0600 остаётся и после шифрования: права на файл — вторая линия, а не
   // замена первой.
   const file = sessionFile(ownerId, accountId);
-  fs.writeFileSync(file, sessionCrypto.encrypt(sessionString, SESSION_KEY), {
+  // Пишем во временный файл и подменяем rename'ом: writeFileSync поверх
+  // существующего файла не атомарна, и падение процесса посреди записи
+  // оставляло бы битую сессию — то есть повторный вход с кодом из Telegram.
+  const tmp = `${file}.tmp`;
+  fs.writeFileSync(tmp, sessionCrypto.encrypt(sessionString, SESSION_KEY), {
     encoding: "utf8",
     mode: 0o600,
   });
-  // mode в writeFileSync действует только при создании файла; при перезаписи
-  // существующего права не меняются — возвращаем 0600 явно.
-  fs.chmodSync(file, 0o600);
+  // mode в writeFileSync действует только при создании файла; на всякий
+  // случай (tmp мог остаться с прошлого раза) возвращаем 0600 явно.
+  fs.chmodSync(tmp, 0o600);
+  fs.renameSync(tmp, file);
 }
 
 /**
@@ -337,6 +347,11 @@ function tgErrorInfo(err) {
 }
 
 function errorPayload(err) {
+  // Свои коды (не из Telegram) отдаём как есть: бэкенд по QUEUE_BUSY знает,
+  // что запрос НЕ выполнялся, и повтор безопасен.
+  if (err && err.code === "QUEUE_BUSY") {
+    return { ok: false, error: errText(err), error_code: "QUEUE_BUSY", retry_after: 3 };
+  }
   return { ok: false, error: errText(err), ...tgErrorInfo(err) };
 }
 
@@ -468,23 +483,53 @@ async function getEntry(ownerId, accountId, { requireSession = false } = {}) {
 }
 
 /** Обёртка для разовых операций: держит ссылку, потом отдаёт на погашение. */
+// Предел глубины очереди на аккаунт. Один залипший вызов (resolve до 20 с)
+// выстраивает за собой хвост, каждый элемент которого у бэкенда закончится
+// таймаутом → GATEWAY_INTERRUPTED → «исход неизвестен». Честный немедленный
+// отказ (QUEUE_BUSY) лучше: бэкенд знает, что запрос НЕ выполнялся, и может
+// безопасно повторить позже.
+const OP_QUEUE_LIMIT = Number(process.env.OP_QUEUE_LIMIT || 20);
+
+// Глубина очереди на аккаунт — СИНХРОННО, до первого await. Если проверять
+// поле entry после await getEntry(), конкурентные вызовы успевают пройти
+// проверку до чужих инкрементов, и лимит превышается на несколько единиц.
+// Отдельная Map, а не поле entry: счётчик нужен до того, как entry появится.
+const opDepth = new Map(); // "<owner>:<account>" → операций в очереди
+
 async function withClient(ownerId, accountId, fn, opts) {
-  const entry = await getEntry(ownerId, accountId, opts);
-  entry.refs += 1;
-  cancelIdle(entry);
-  // Сериализация на аккаунт: вызовы к одной MTProto-сессии идут по очереди,
-  // к разным аккаунтам — параллельно. Ошибка предыдущей операции не должна
-  // рвать цепочку (catch), иначе одна неудача подвесила бы весь аккаунт.
-  const run = entry.opChain.then(() => fn(entry.client, entry));
-  entry.opChain = run.then(
-    () => undefined,
-    () => undefined
-  );
+  const key = `${ownerId}:${accountId}`;
+  const depth = opDepth.get(key) || 0;
+  if (depth >= OP_QUEUE_LIMIT) {
+    const busy = new Error(
+      "Очередь операций аккаунта переполнена — повторите запрос через несколько секунд"
+    );
+    busy.code = "QUEUE_BUSY";
+    busy.status = 429;
+    throw busy;
+  }
+  opDepth.set(key, depth + 1);
+  let entry = null;
   try {
+    entry = await getEntry(ownerId, accountId, opts);
+    entry.refs += 1;
+    cancelIdle(entry);
+    // Сериализация на аккаунт: вызовы к одной MTProto-сессии идут по очереди,
+    // к разным аккаунтам — параллельно. Ошибка предыдущей операции не должна
+    // рвать цепочку (catch), иначе одна неудача подвесила бы весь аккаунт.
+    const run = entry.opChain.then(() => fn(entry.client, entry));
+    entry.opChain = run.then(
+      () => undefined,
+      () => undefined
+    );
     return await run;
   } finally {
-    entry.refs = Math.max(0, entry.refs - 1);
-    scheduleIdle(entry.key);
+    const left = (opDepth.get(key) || 1) - 1;
+    if (left <= 0) opDepth.delete(key);
+    else opDepth.set(key, left);
+    if (entry) {
+      entry.refs = Math.max(0, entry.refs - 1);
+      scheduleIdle(entry.key);
+    }
   }
 }
 
@@ -1483,9 +1528,18 @@ wss.on("connection", async (ws, req) => {
 
   let entry = null;
   let released = false;
+  // Объявлено до release(): обработчик close может сработать в любой момент.
+  const pending = { code: null, password: null };
   const release = () => {
     if (released) return;
     released = true;
+    // Прервать незавершённый вход: без этого client.start() ждал бы код или
+    // пароль до таймаута, а authBusy блокировал бы слот аккаунта.
+    for (const field of Object.keys(pending)) {
+      if (pending[field] && typeof pending[field].cancel === "function") {
+        pending[field].cancel();
+      }
+    }
     if (entry) {
       entry.listeners.delete(ws);
       // Никто больше не смотрит — соединение погаснет само через паузу.
@@ -1517,7 +1571,6 @@ wss.on("connection", async (ws, req) => {
     return chain;
   };
 
-  const pending = { code: null, password: null };
   let resendRequested = false;
   let forceSmsRequested = false;
   let qrRequested = false;
@@ -1529,11 +1582,20 @@ wss.on("connection", async (ws, req) => {
         pending[field] = null;
         reject(new Error("Время ожидания истекло — начните вход заново"));
       }, INPUT_TIMEOUT_MS);
-      pending[field] = (value) => {
+      const deliver = (value) => {
         clearTimeout(timer);
         pending[field] = null;
         resolve(value);
       };
+      // Закрытие вкладки посреди входа должно СРАЗУ провалить client.start():
+      // иначе его finally не выполняется до таймаута, и authBusy держит слот
+      // аккаунта занятым — «вход уже выполняется» без единого живого окна.
+      deliver.cancel = () => {
+        clearTimeout(timer);
+        pending[field] = null;
+        reject(new Error("Окно подключения закрыто — вход прерван"));
+      };
+      pending[field] = deliver;
     });
 
   /** Общий финал входа: и после кода, и при автовходе с сохранённой сессией. */
@@ -1554,6 +1616,18 @@ wss.on("connection", async (ws, req) => {
   };
 
   const sendQrCode = async ({ token, expires }) => {
+    // Окно закрыто — некому показывать QR. Бросаем, чтобы client.start()
+    // завершился и снял authBusy, а не крутил цикл обновления токена впустую.
+    // errorMessage = "AUTH_USER_CANCEL" НАРОЧНО повторяет код самого GramJS
+    // для отменённого входа: ошибка идёт по тому же пути обработки, что и
+    // настоящая отмена (не ретраится, не пугает пользователя). Проверка
+    // стоит на обновлении QR-токена (~раз в 30 с) — раньше прервать цикл
+    // client.start() снаружи GramJS не даёт.
+    if (released) {
+      const cancel = new Error("AUTH_USER_CANCEL");
+      cancel.errorMessage = "AUTH_USER_CANCEL";
+      throw cancel;
+    }
     const encoded = Buffer.from(token)
       .toString("base64")
       .replace(/\+/g, "-")
