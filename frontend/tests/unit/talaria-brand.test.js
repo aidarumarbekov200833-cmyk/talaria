@@ -12,14 +12,16 @@ test('public product identity is Talaria while compatibility identifiers stay in
   assert.doesNotMatch(talariaCss, /Talaria-derived Zephyr/i);
 });
 
-test('Talaria finale keeps the seven-letter word, hand, letter and login action', () => {
+test('Talaria finale keeps the seven-letter word and login action', () => {
   const finale = html.match(/<section[^>]+id="zephyrFinale"[\s\S]*?<\/section>/)?.[0];
 
   assert.ok(finale, 'finale section must remain in the contract DOM');
   assert.match(finale, /TALARIA/);
   assert.equal((finale.match(/class="zp-final-letter-char"/g) || []).length, 7);
-  assert.match(finale, /id="zpFinalHand"/);
-  assert.match(finale, /class="zp-final-letter[^\"]*"/);
+  // v47: гравюры руки и письма убраны по решению владельца («прям полный
+  // редизайн») — финал чисто типографический. Стережём, чтобы растровые
+  // картинки не вернулись случайно вместе со старым куском разметки.
+  assert.doesNotMatch(finale, /id="zpFinalHand"|fin-palm|fin-letter-float/);
   assert.match(finale, />Войти\s*→?</);
 });
 

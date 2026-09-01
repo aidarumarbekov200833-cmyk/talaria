@@ -17,7 +17,7 @@
     <link rel="canonical" href="https://talaria.mooo.com/" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
     <meta name="theme-color" content="#0b0a0e" media="(prefers-color-scheme: dark)" />
-    <meta name="theme-color" content="#fdf6fb" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#f7f7f8" media="(prefers-color-scheme: light)" />
     <link rel="apple-touch-icon" href="/assets/talaria/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
 
@@ -87,10 +87,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Unbounded:wght@400;500;600;700;800&amp;family=Poppins:wght@700;800&amp;display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Unbounded:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria20" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria21" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -256,13 +256,6 @@
               <p class="login-hint" id="loginHint" style="display: none"></p>
               <div class="hero-login-fallback-end" hidden></div>
             </div>
-            <div class="hero-art rv on" style="--d: 0.3s">
-              <span
-                class="hero-plate"
-                role="img"
-                aria-label="Гермес в полёте несёт запечатанное письмо — гравюра"
-              ></span>
-            </div>
           </section>
           <section class="zp-control-grid">
             <div class="wrap">
@@ -413,9 +406,6 @@
               </div>
               <div class="fgrid">
                 <div class="fcard rv">
-                  <div class="fim">
-                    <span class="fplate fplate-art fplate-score" aria-hidden="true"></span>
-                  </div>
                   <div class="fb">
                     <div class="fn">01 / Скоринг</div>
                     <h3>Скоринг лидов</h3>
@@ -423,9 +413,6 @@
                   </div>
                 </div>
                 <div class="fcard rv" style="--d: 0.08s">
-                  <div class="fim">
-                    <span class="fplate fplate-art fplate-context" aria-hidden="true"></span>
-                  </div>
                   <div class="fb">
                     <div class="fn">02 / Контекст</div>
                     <h3>Карточка контекста</h3>
@@ -433,9 +420,6 @@
                   </div>
                 </div>
                 <div class="fcard rv" style="--d: 0.16s">
-                  <div class="fim">
-                    <span class="fplate fplate-art fplate-intro" aria-hidden="true"></span>
-                  </div>
                   <div class="fb">
                     <div class="fn">03 / Вступление</div>
                     <h3>Личное вступление</h3>
@@ -443,9 +427,6 @@
                   </div>
                 </div>
                 <div class="fcard rv">
-                  <div class="fim">
-                    <span class="fplate fplate-art fplate-pace" aria-hidden="true"></span>
-                  </div>
                   <div class="fb">
                     <div class="fn">04 / Темп</div>
                     <h3>Безопасный темп</h3>
@@ -453,9 +434,6 @@
                   </div>
                 </div>
                 <div class="fcard rv" style="--d: 0.08s">
-                  <div class="fim">
-                    <span class="fplate fplate-art fplate-ledger" aria-hidden="true"></span>
-                  </div>
                   <div class="fb">
                     <div class="fn">05 / Статусы</div>
                     <h3>Честный статус-леджер</h3>
@@ -463,9 +441,6 @@
                   </div>
                 </div>
                 <div class="fcard rv" style="--d: 0.16s">
-                  <div class="fim">
-                    <span class="fplate fplate-art fplate-funnel" aria-hidden="true"></span>
-                  </div>
                   <div class="fb">
                     <div class="fn">06 / Воронка</div>
                     <h3>Воронка до ответа</h3>
@@ -1077,21 +1052,6 @@
                   </p>
                   <div class="landing-tariff-foot" id="landingTariffFoot"></div>
                 </div>
-                <figure
-                  class="pplate rv"
-                  style="--d: 0.18s"
-                  role="img"
-                  aria-label="Гермес несёт запечатанное письмо — гравюра"
-                >
-                  <span class="pplate-art" aria-hidden="true"></span>
-                  <figcaption class="pplate-cap">
-                    <span class="mono">// доставка в тот же день</span>
-                    <span class="pplate-cap-line" aria-hidden="true"></span>
-                    <span class="pplate-cap-note"
-                      >Письмо уходит от вашего имени, а не от робота.</span
-                    >
-                  </figcaption>
-                </figure>
               </div>
             </div>
             <!-- Вордмарк на розовой полосе тарифа: по скрину Samat слово стоит
@@ -1115,11 +1075,11 @@
           </section>
           <section class="zp-final" id="zephyrFinale">
             <div class="zp-final-sticky">
-              <!-- Финал: шторка со словом TALARIA плавно уезжает вверх и
-               открывает сцену-футер. Справа из-за края экрана выходит рука
-               (без крыльев) и подаёт письмо. -->
+              <!-- v47: финал чисто типографический — шторка тарифа уезжает вверх и
+               открывает сцену с вордмарком TALARIA и входом. Гравюры руки и
+               письма убраны по решению владельца (полный редизайн). -->
               <div class="fin-stage">
-                <!-- Вордмарк — фоновая вырезка ЗА рукой и кнопками (z-index 0). -->
+                <!-- Вордмарк — на нижнем крае сцены. -->
                 <div class="fin-mark">
                   <div class="fin-word zp-final-word" id="finWord">
                     <span class="zp-final-letter-char">T</span
@@ -1130,33 +1090,6 @@
                     ><span class="zp-final-letter-char">I</span
                     ><span class="zp-final-letter-char">A</span>
                   </div>
-                </div>
-                <div class="fin-hand zp-final-hand" id="zpFinalHand">
-                  <picture
-                    ><source srcset="/assets/hand-palm.avif" type="image/avif" />
-                    <img
-                      class="fin-palm"
-                      src="/assets/hand-palm.webp"
-                      alt="Раскрытая ладонь"
-                      draggable="false"
-                      width="1100"
-                      height="733"
-                      loading="lazy"
-                      decoding="async"
-                  /></picture>
-                  <span class="fin-letter-orbit" aria-hidden="true"
-                    ><picture
-                      ><source srcset="/assets/letter-v3.avif" type="image/avif" />
-                      <img
-                        class="fin-letter-float zp-final-letter"
-                        src="/assets/letter-v3.webp"
-                        alt="Запечатанное письмо с сургучной печатью парит над ладонью"
-                        draggable="false"
-                        width="980"
-                        height="760"
-                        loading="lazy"
-                        decoding="async" /></picture
-                  ></span>
                 </div>
                 <div class="fin-cta zp-final-login">
                   <p class="fin-kicker">// письмо уже в пути</p>

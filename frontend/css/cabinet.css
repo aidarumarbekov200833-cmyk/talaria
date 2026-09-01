@@ -130,9 +130,11 @@
 }
 #appWrapper .brand-name {
   font-family: var(--cabp-font-brand);
-  font-size: 23px;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  /* v47: Unbounded шире Poppins ~1.25x — кегль и трекинг пересчитаны,
+     иначе подпись упиралась в край сайдбара. */
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   line-height: 1;
   text-transform: lowercase;
 }
@@ -2208,9 +2210,10 @@ body > .toast-wrap {
 }
 #loginScreen .aw-app .brand-name {
   font-family: var(--cabp-font-brand);
-  font-size: 16px;
-  font-weight: 800;
-  letter-spacing: -0.035em;
+  /* v47: Unbounded — кегль ниже (шире Poppins). */
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   text-transform: lowercase;
 }
 #loginScreen .aw-app .field label {

@@ -437,14 +437,6 @@
     "tag": "div"
   },
   {
-    "classes": ["hero-art", "rv", "on"],
-    "tag": "div"
-  },
-  {
-    "classes": ["hero-plate"],
-    "tag": "span"
-  },
-  {
     "classes": ["zp-control-grid"],
     "tag": "section"
   },
@@ -790,12 +782,24 @@
     "tag": "div"
   },
   {
-    "classes": ["fim"],
+    "classes": ["fb"],
     "tag": "div"
   },
   {
-    "classes": ["fplate", "fplate-art", "fplate-score"],
-    "tag": "span"
+    "classes": ["fn"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["fcard", "rv"],
+    "tag": "div"
   },
   {
     "classes": ["fb"],
@@ -818,12 +822,24 @@
     "tag": "div"
   },
   {
-    "classes": ["fim"],
+    "classes": ["fb"],
     "tag": "div"
   },
   {
-    "classes": ["fplate", "fplate-art", "fplate-context"],
-    "tag": "span"
+    "classes": ["fn"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["fcard", "rv"],
+    "tag": "div"
   },
   {
     "classes": ["fb"],
@@ -846,14 +862,6 @@
     "tag": "div"
   },
   {
-    "classes": ["fim"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fplate", "fplate-art", "fplate-intro"],
-    "tag": "span"
-  },
-  {
     "classes": ["fb"],
     "tag": "div"
   },
@@ -872,70 +880,6 @@
   {
     "classes": ["fcard", "rv"],
     "tag": "div"
-  },
-  {
-    "classes": ["fim"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fplate", "fplate-art", "fplate-pace"],
-    "tag": "span"
-  },
-  {
-    "classes": ["fb"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fn"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["fcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fim"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fplate", "fplate-art", "fplate-ledger"],
-    "tag": "span"
-  },
-  {
-    "classes": ["fb"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fn"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["fcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fim"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fplate", "fplate-art", "fplate-funnel"],
-    "tag": "span"
   },
   {
     "classes": ["fb"],
@@ -2662,30 +2606,6 @@
     "tag": "div"
   },
   {
-    "classes": ["pplate", "rv"],
-    "tag": "figure"
-  },
-  {
-    "classes": ["pplate-art"],
-    "tag": "span"
-  },
-  {
-    "classes": ["pplate-cap"],
-    "tag": "figcaption"
-  },
-  {
-    "classes": ["mono"],
-    "tag": "span"
-  },
-  {
-    "classes": ["pplate-cap-line"],
-    "tag": "span"
-  },
-  {
-    "classes": ["pplate-cap-note"],
-    "tag": "span"
-  },
-  {
     "classes": ["pmark-track"],
     "tag": "div"
   },
@@ -2778,39 +2698,6 @@
   {
     "classes": ["zp-final-letter-char"],
     "tag": "span"
-  },
-  {
-    "classes": ["fin-hand", "zp-final-hand"],
-    "id": "zpFinalHand",
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "picture"
-  },
-  {
-    "classes": [],
-    "tag": "source"
-  },
-  {
-    "classes": ["fin-palm"],
-    "tag": "img"
-  },
-  {
-    "classes": ["fin-letter-orbit"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "picture"
-  },
-  {
-    "classes": [],
-    "tag": "source"
-  },
-  {
-    "classes": ["fin-letter-float", "zp-final-letter"],
-    "tag": "img"
   },
   {
     "classes": ["fin-cta", "zp-final-login"],

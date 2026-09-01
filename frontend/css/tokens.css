@@ -89,7 +89,8 @@
   --cabp-tg-check: #4fae4e;
   --cabp-tg-sys: rgba(0, 0, 0, 0.16);
   --cabp-font-ui: 'Inter', -apple-system, 'Segoe UI', Roboto, sans-serif;
-  --cabp-font-brand: 'Poppins', 'Inter', -apple-system, sans-serif;
+  /* v47: бренд-подпись кабинета — Unbounded, как заголовки лендинга. */
+  --cabp-font-brand: 'Unbounded', 'Inter', -apple-system, sans-serif;
   --font-ui: 'JetBrains Mono', ui-monospace, monospace;
   --font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
   /* Финал v8: сцена следует теме — на светлой странице она светлая,
@@ -463,4 +464,105 @@ html[data-theme='graphite'],
   --tal-ff2fa4-a45: rgba(255, 255, 255, 0.32);
   --tal-ff2fa4-a50: rgba(255, 255, 255, 0.36);
   --tal-c22bff-a28: rgba(255, 255, 255, 0.2);
+}
+
+/* === v47: полный редизайн лендинга (владелец, 2026-09-01) ==================
+   «Убери эти картинки и тд, прям полный редизайн сделай лэндинга».
+   1) Светлая тема уходит из розового в бумажный графит — светлое зеркало
+      тёмной v45: белая бумага, чернильный акцент, тонкие линии. Базовые
+      розовые значения выше НЕ удаляются: css-architecture-тест закрепляет
+      канонические литералы (#FAF5FB, #FF2FA4, …), здесь только оверрайд.
+   2) Финал-инверсия: сцена финала контрастна теме страницы — светлая бумага
+      на тёмной теме, графит на светлой. Новые токены --fin-accent /
+      --fin-on-accent — кнопки финала (раньше брали розовый --grad). */
+:root {
+  --fin-accent: #1b1020;
+  --fin-on-accent: #ffffff;
+}
+html[data-theme='dark'],
+html[data-theme='midnight'],
+html[data-theme='graphite'] {
+  /* Финал: светлая бумажная сцена под тёмной шторкой. */
+  --fin-bg: #ececee;
+  --fin-halo-a: #e2e2e6;
+  --fin-halo-b: rgba(16, 16, 19, 0.05);
+  --fin-ink: #101013;
+  --fin-mut: #55555c;
+  --fin-kicker: #101013;
+  --fin-mark-ink: rgba(16, 16, 19, 0.12);
+  --fin-mark-strong: rgba(16, 16, 19, 0.14);
+  --fin-hairline: rgba(16, 16, 19, 0.16);
+  --fin-ghost-line: rgba(16, 16, 19, 0.3);
+  --fin-accent: #101013;
+  --fin-on-accent: #ffffff;
+}
+html[data-theme='light'] {
+  /* Ядро: бумажный графит вместо розовой пудры. */
+  --fog: #f7f7f8;
+  --surface: #ffffff;
+  --surface-raised: #f2f2f4;
+  --ink: #17171a;
+  --muted: #6b6b74;
+  --line: #e4e4e8;
+  --accent: #1b1b1f;
+  --accent-ink: #2c2c32;
+  --accent-strong: #000000;
+  --accent-soft: #ededf0;
+  --accent-gradient: linear-gradient(120deg, #3a3a41, #1b1b1f 55%, #000000);
+  --on-accent: #ffffff;
+  --hand-highlight: #ffffff;
+  --hand-shadow: #a2a2ab;
+  --glow: rgba(23, 23, 26, 0.1);
+  --ring: 0 0 0 3px rgba(23, 23, 26, 0.18);
+  /* Финал: графитовая сцена под светлой шторкой. */
+  --fin-bg: #101013;
+  --fin-halo-a: #1a1a1e;
+  --fin-halo-b: rgba(255, 255, 255, 0.05);
+  --fin-ink: #ececee;
+  --fin-mut: #9a9aa2;
+  --fin-kicker: #ececee;
+  --fin-mark-ink: rgba(255, 255, 255, 0.13);
+  --fin-mark-strong: rgba(255, 255, 255, 0.15);
+  --fin-hairline: rgba(255, 255, 255, 0.16);
+  --fin-ghost-line: rgba(255, 255, 255, 0.28);
+  --fin-accent: #ececee;
+  --fin-on-accent: #101013;
+  --bubble-grad: linear-gradient(135deg, #2a2a30, #1c1c22);
+  /* Розовые литералы бренда на светлой теме гасим в чернила/бумагу
+     (имена — ключи, не значения; см. комментарий в блоке v45). */
+  --tal-faf5fb: #f7f7f8;
+  --tal-171019: #17171a;
+  --tal-6d5f72: #6b6b74;
+  --tal-171019-a14: rgba(23, 23, 26, 0.14);
+  --tal-171019-a76: rgba(23, 23, 26, 0.76);
+  --tal-ff2fa4: #17171a;
+  --tal-c30074: #2c2c32;
+  --tal-ff8fe0: #3a3a41;
+  --tal-c22bff: #4a4a52;
+  --tal-e04a9f: #e8e8ea;
+  --tal-b81f74: #dedee2;
+  --tal-7f21a8: #d3d3d8;
+  --tal-260b1b: #f2f2f4;
+  --tal-ffd9f0: #55555c;
+  --tal-fff2fb: #17171a;
+  --tal-17091a: #101013;
+  --tal-2a0f2e: #1c1c20;
+  --tal-e05fa8: #6b6b74;
+  --tal-7b2bff: #8a8a93;
+  --tal-3d1236: #2c2c32;
+  --tal-1d0b1f: #17171a;
+  --tal-281041: #222226;
+  --tal-ff2fa4-a10: rgba(23, 23, 26, 0.06);
+  --tal-ff2fa4-a18: rgba(23, 23, 26, 0.1);
+  --tal-ff2fa4-a22: rgba(23, 23, 26, 0.12);
+  --tal-ff2fa4-a28: rgba(23, 23, 26, 0.14);
+  --tal-ff2fa4-a30: rgba(23, 23, 26, 0.16);
+  --tal-ff2fa4-a35: rgba(23, 23, 26, 0.18);
+  --tal-ff2fa4-a40: rgba(23, 23, 26, 0.2);
+  --tal-ff2fa4-a45: rgba(23, 23, 26, 0.22);
+  --tal-ff2fa4-a50: rgba(23, 23, 26, 0.26);
+  --plate-ink: linear-gradient(165deg, #3a3a41, #17171a 52%, #000000);
+  --pricing-plate-grad: linear-gradient(120deg, #ececee, #e4e4e8 55%, #d8d8dc);
+  --pricing-art-ink: #8a8a93;
+  --tal-c22bff-a28: rgba(23, 23, 26, 0.12);
 }

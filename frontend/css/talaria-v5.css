@@ -74,13 +74,16 @@ html[data-theme='light'] #loginScreen {
 #loginScreen :is(.zp-control-grid, .zp-workflow, .zp-account-band) :is(p, li, dd, dt) {
   color: inherit;
 }
+/* v47: правило-нейтрализатор legacy-стилей (landing.css/talaria.css) — стоит
+   РАНО нарочно: оформление ниже по файлу его перебивает. Без него легаси
+   `.zp-final-word span { opacity: 0 }` и таблетка .zp-final-login прятали
+   вордмарк и CTA финала. Классы гравюр (.zp-final-hand, .zp-final-letter)
+   убраны из списка вместе с разметкой. */
 #loginScreen
   :is(
     .zp-final-sticky,
     .zp-final-word,
     .zp-final-ghost,
-    .zp-final-hand,
-    .zp-final-letter,
     .zp-final-login,
     .zp-final-letter-char,
     .lp-nav,
@@ -113,6 +116,11 @@ html[data-theme='light'] #loginScreen {
   font-size: inherit;
   letter-spacing: normal;
   color: inherit;
+}
+/* То же для букв внутри вордмарка: легаси прятало каждую букву по span. */
+#loginScreen .zp-final-word span {
+  opacity: 1;
+  transform: none;
 }
 
 #loginScreen * {
@@ -385,34 +393,7 @@ html[data-theme='light'] #loginScreen {
   flex-wrap: wrap;
   align-items: center;
 }
-#loginScreen .hero-art {
-  position: relative;
-  display: grid;
-  place-items: center;
-}
-/* Раньше картинка стояла в жёсткой рамке-коробке и читалась как «отдельно
-   вставленная». Теперь края растворяются в фоне (маска), сцена и текст
-   выглядят единым целым — без коробки, только свечение и парение. */
-#loginScreen .hero-art img {
-  width: min(100%, 500px);
-  filter: drop-shadow(0 26px 60px var(--tal-000000-a45)) drop-shadow(0 0 46px var(--glow));
-  -webkit-mask-image: radial-gradient(
-    ellipse 80% 80% at 50% 46%,
-    var(--tal-black) 52%,
-    transparent 86%
-  );
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 46%, var(--tal-black) 52%, transparent 86%);
-  animation: lev 7s ease-in-out infinite;
-}
-@keyframes lev {
-  0%,
-  100% {
-    transform: translateY(0) rotate(-1.2deg);
-  }
-  50% {
-    transform: translateY(-16px) rotate(1.2deg);
-  }
-}
+
 #loginScreen .orbit {
   position: absolute;
   width: 120%;
@@ -1887,77 +1868,7 @@ html[data-theme='light'] #loginScreen {
     radial-gradient(120% 92% at 82% 120%, var(--tal-2a0f2e), transparent 60%),
     radial-gradient(70% 55% at 72% 42%, var(--tal-ff2fa4-a18), transparent 72%), var(--tal-17091a);
 }
-#loginScreen .fin-ghost {
-  position: absolute;
-  left: 50%;
-  top: 53%;
-  transform: translate(-50%, -50%);
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  /* Крупная надпись TALARIA прямо на фоне, за рукой и кнопками. */
-  font-size: 27vw;
-  letter-spacing: 0.005em;
-  line-height: 0.9;
-  white-space: nowrap;
-  color: var(--tal-ffffff-a09);
-  user-select: none;
-  opacity: 0;
-  will-change: opacity;
-}
-/* Раскрытая ладонь входит из-за правого края экрана; письмо парит над ней
-   и медленно вращается. Рука не «выезжает», а плавно ПРОЯВЛЯЕТСЯ (только
-   opacity — по просьбе Samat). */
-#loginScreen .fin-hand {
-  position: absolute;
-  right: 0;
-  bottom: 6%;
-  width: min(64vw, 760px);
-  z-index: 2;
-  opacity: 0;
-  will-change: opacity;
-  pointer-events: none;
-}
-#loginScreen .fin-palm {
-  width: 100%;
-  display: block;
-  /* Изображение уже с настоящей прозрачностью (альфа получена из свечения
-     гравюры), поэтому рамки нет и режимы наложения не нужны. */
-  filter: drop-shadow(0 0 60px var(--tal-ff2fa4-a30));
-}
-/* Письмо парит над раскрытой ладонью: орбита даёт лёгкое покачивание,
-   само письмо непрерывно вращается по оси Y (эффект «крутится»). */
-#loginScreen .fin-letter-orbit {
-  position: absolute;
-  left: 14%;
-  top: 1%;
-  width: 30%;
-  z-index: 3;
-  perspective: 900px;
-  animation: finBob 4.5s ease-in-out infinite;
-}
-#loginScreen .fin-letter-float {
-  width: 100%;
-  display: block;
-  transform-style: preserve-3d;
-  filter: drop-shadow(0 10px 26px var(--tal-050308-a72));
-  animation: finSpin 9s linear infinite;
-}
-@keyframes finBob {
-  50% {
-    transform: translateY(-16px);
-  }
-}
-@keyframes finSpin {
-  to {
-    transform: rotateY(360deg);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .fin-letter-orbit,
-  #loginScreen .fin-letter-float {
-    animation: none;
-  }
-}
+
 /* Шторка: полноэкранная панель цвета страницы, слово по центру. */
 #loginScreen .fin-wclip {
   position: absolute;
@@ -2231,15 +2142,7 @@ html[data-theme='light'] #loginScreen {
   #loginScreen .fin-word {
     font-size: 17.5vw;
   }
-  #loginScreen .fin-ghost {
-    font-size: 46vw;
-    top: 50%;
-    left: 50%;
-  }
-  #loginScreen .fin-hand {
-    width: min(104vw, 560px);
-    bottom: 26%;
-  }
+
   #loginScreen .fin-cta {
     left: 6%;
     right: 6%;
@@ -2922,13 +2825,6 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
     flex: 1 1 100%;
     min-width: 0;
   }
-  #loginScreen .fin-hand {
-    max-width: 92%;
-  }
-  #loginScreen .fin-palm {
-    width: 100%;
-    height: auto;
-  }
 }
 
 /* Превью-картинка в пузыре Telegram (одно сообщение + одна картинка). */
@@ -3132,21 +3028,10 @@ html[data-theme='light'] #loginScreen .pcard {
   max-width: 660px;
   margin: 0 auto;
 }
-@media (max-width: 900px) {
-}
 
 /* Гравюрные плашки возможностей — вектор вместо шести AI-картинок в data-URI
    (было 936 КБ base64 в index.html: и «иишно», и главная причина тормозов на
    телефоне). Теперь ~26 КБ, чётко на любом экране, у каждой карточки свой сюжет. */
-#loginScreen .fcard .fim .fplate {
-  display: block;
-  width: 100%;
-  height: 100%;
-  transition: transform var(--tal-dur-600) cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-#loginScreen .fcard:hover .fim .fplate {
-  transform: scale(1.045);
-}
 
 /* Мобилка: карточки возможностей по одной в ряд — на 390px две колонки
    ломали текст в столбик по одному слову. И переключатель валют перестаёт
@@ -3263,35 +3148,6 @@ html[data-theme='light'] #loginScreen .pcard {
 }
 /* Арт во всю высоту секции, ровно по правому краю окна. Слева — мягкая
    растушёвка, чтобы гравюра не выглядела наклеенным прямоугольником. */
-#loginScreen .hero-art {
-  position: relative;
-  align-self: stretch;
-  min-height: min(78vh, 720px);
-  margin: 0;
-  border: 0;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-}
-#loginScreen .hero-art img {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: 60% 46%;
-  border-radius: 0;
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent 0%,
-    var(--tal-black) 26%,
-    var(--tal-black) 100%
-  );
-  mask-image: linear-gradient(90deg, transparent 0%, var(--tal-black) 26%, var(--tal-black) 100%);
-}
-#loginScreen .hero-art .orbit {
-  opacity: 0.5;
-}
 
 /* ── ДЕМО: рамка вокруг окна (как обрамление демо у Hermes) ────────────── */
 #loginScreen .aw-frame {
@@ -3512,11 +3368,11 @@ html[data-theme='light'] #loginScreen .pcard {
   min-height: 0;
 }
 /* Сцена появляется сразу, без ожидания прокрутки: плавное проявление. */
-#loginScreen .fin-hand,
+
+/* v47: анимация проявления CTA (раньше жила в общем правиле с удалённой
+   рукой .fin-hand). */
 #loginScreen .fin-cta {
   animation: finIn var(--motion-metrics) var(--ease-smooth-out) both;
-}
-#loginScreen .fin-cta {
   animation-delay: var(--tal-dur-250);
 }
 @keyframes finIn {
@@ -3717,24 +3573,7 @@ html {
     padding-left: 20px;
     padding-right: 20px;
   }
-  #loginScreen .hero-art {
-    min-height: 52vh;
-    order: 2;
-  }
-  #loginScreen .hero-art img {
-    -webkit-mask-image: linear-gradient(
-      180deg,
-      transparent 0%,
-      var(--tal-black) 22%,
-      var(--tal-black) 100%
-    );
-    mask-image: linear-gradient(
-      180deg,
-      transparent 0%,
-      var(--tal-black) 22%,
-      var(--tal-black) 100%
-    );
-  }
+
   #loginScreen .hero-snippet {
     max-width: none;
   }
@@ -3751,14 +3590,7 @@ html {
     flex-direction: column;
     justify-content: flex-start;
   }
-  #loginScreen .fin-hand {
-    position: relative;
-    right: auto;
-    bottom: auto;
-    width: 100%;
-    margin: 0 0 6px -8%;
-    max-width: 118%;
-  }
+
   #loginScreen .fin-cta {
     position: relative;
     inset: auto;
@@ -4125,16 +3957,10 @@ html {
    «дрейф» (медленный поворот) больше не нужен: у повёрнутого элемента
    габаритный прямоугольник шире родителя и вылезает за вьюпорт. Орбиту
    ужимаем внутрь по той же причине. */
-#loginScreen .hero-art img {
-  animation: none;
-  transform: none;
-}
+
 /* Орбита-кольцо была декором вокруг картинки-карточки. Гравюра теперь
    полноэкранная и прижата к краю, кольцо вокруг неё не читается, а его
    повёрнутый габарит вылезал за вьюпорт на 360px. Убираем. */
-#loginScreen .hero-art .orbit {
-  display: none;
-}
 
 /* ── Финал на телефоне: сцена перестаёт быть абсолютной подложкой и встаёт
    в обычный поток, иначе между кнопками и вордмарком зияла дыра на пол-экрана
@@ -4170,11 +3996,7 @@ html {
 @media (max-width: 700px) {
   /* Рука занимает освободившийся верх, чтобы между кнопками и вордмарком
      не оставалось пустого экрана. */
-  #loginScreen .fin-hand {
-    width: 132%;
-    max-width: 132%;
-    margin: 0 0 10px -18%;
-  }
+
   #loginScreen .fin-cta {
     margin-bottom: 8px;
   }
@@ -4230,48 +4052,9 @@ html {
   order: 1;
   width: 100%;
 }
-#loginScreen .pplate {
-  order: 2;
-  display: grid;
-  justify-items: center;
-  gap: 18px;
-  width: 100%;
-  margin: 54px 0 0;
-  padding: 0;
-}
+
 /* Гравюра — не картинка, а МАСКА: цвет чернил задаёт тема, поэтому один
    файл одинаково работает и на тёмном, и на белом фоне. */
-#loginScreen .pplate-art {
-  display: block;
-  width: min(300px, 62vw);
-  aspect-ratio: 544 / 816;
-  background: var(--plate-ink);
-  -webkit-mask: url('/assets/talaria/pricing-plate-dark.webp') center / contain no-repeat;
-  mask: url('/assets/talaria/pricing-plate-dark.webp') center / contain no-repeat;
-}
-#loginScreen .pplate-cap {
-  display: grid;
-  justify-items: center;
-  gap: 12px;
-  max-width: 46ch;
-  text-align: center;
-}
-#loginScreen .pplate-cap .mono {
-  color: var(--accent-ink);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-#loginScreen .pplate-cap-line {
-  width: 54px;
-  height: 1px;
-  background: var(--line);
-}
-#loginScreen .pplate-cap-note {
-  color: var(--mut);
-  font-size: 13.5px;
-  line-height: 1.6;
-}
 
 /* ── Финал: сцена следует теме ───────────────────────────────────────── */
 #loginScreen .zp-final {
@@ -4383,13 +4166,7 @@ html {
     background: none;
     overflow: hidden;
   }
-  #loginScreen .fin-hand {
-    position: absolute;
-    inset: auto -14% 16% auto;
-    width: 128%;
-    max-width: 128%;
-    margin: 0;
-  }
+
   #loginScreen .fin-cta {
     position: absolute;
     inset: auto 22px 56% 22px;
@@ -4456,16 +4233,6 @@ html {
    декодировать. Строка с обычным url() выше остаётся как фолбэк для движков,
    которые image-set в маске ещё не поддерживают — без неё маска бы не
    применилась вовсе и на месте гравюры остался бы залитый прямоугольник. */
-#loginScreen .pplate-art {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/pricing-plate-dark.avif') type('image/avif'),
-    url('/assets/talaria/pricing-plate-dark.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/pricing-plate-dark.avif') type('image/avif'),
-    url('/assets/talaria/pricing-plate-dark.webp') type('image/webp')
-  );
-}
 
 /* --- Выбор главного аккаунта для уведомлений (настройки) ------------------ */
 .notify-target {
@@ -5570,32 +5337,7 @@ html {
    Поэтому герой стал такой же МАСКОЙ, как плашка тарифа и шесть перьев:
    альфа вырезана в файле, цвет чернил даёт тема (--plate-ink). Чернила в обеих
    темах розовые; на светлой гравюра лежит на тёмной плашке — см. v28. */
-#loginScreen .hero-art .hero-plate {
-  /* Абсолютом, как была картинка: в потоке гравюра вместе с анимацией
-     «дрейфа» вылезала за правый край и растягивала документ на 8px. */
-  position: absolute;
-  inset: 0;
-  display: block;
-  background: var(--plate-ink);
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/hero-plate-dark.avif') type('image/avif'),
-    url('/assets/talaria/hero-plate-dark.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/hero-plate-dark.avif') type('image/avif'),
-    url('/assets/talaria/hero-plate-dark.webp') type('image/webp')
-  );
-  /* Только вертикальный дрейф. Общий `lev` доворачивает на ±1.2°, а гравюра
-     стоит вплотную к правому краю сетки: габарит повёрнутого элемента шире
-     родителя, и документ разъезжается на несколько пикселей. */
-  animation: heroLev 7s ease-in-out infinite;
-}
+
 @keyframes heroLev {
   0%,
   100% {
@@ -5605,90 +5347,9 @@ html {
     transform: translateY(-16px);
   }
 }
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .hero-art .hero-plate {
-    animation: none;
-  }
-}
 
 /* ── 6. Шесть гравюр вместо схем. Как и плашка тарифа — это МАСКА:
       цвет чернил даёт тема, один файл живёт и на тёмном, и на белом. ───── */
-#loginScreen .fplate-art {
-  display: block;
-  width: 100%;
-  aspect-ratio: 1 / 1;
-  background: var(--plate-ink);
-  -webkit-mask-position: center;
-  mask-position: center;
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: contain;
-  mask-size: contain;
-  transition: transform var(--motion-slow) var(--ease-smooth-out);
-}
-#loginScreen .fcard:hover .fplate-art {
-  transform: scale(1.04);
-}
-#loginScreen .fplate-score {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-score-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-score-dark.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-score-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-score-dark.webp') type('image/webp')
-  );
-}
-#loginScreen .fplate-context {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-context-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-context-dark.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-context-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-context-dark.webp') type('image/webp')
-  );
-}
-#loginScreen .fplate-intro {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-intro-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-intro-dark.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-intro-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-intro-dark.webp') type('image/webp')
-  );
-}
-#loginScreen .fplate-pace {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-pace-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-pace-dark.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-pace-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-pace-dark.webp') type('image/webp')
-  );
-}
-#loginScreen .fplate-ledger {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-ledger-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-ledger-dark.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-ledger-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-ledger-dark.webp') type('image/webp')
-  );
-}
-#loginScreen .fplate-funnel {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-funnel-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-funnel-dark.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-funnel-dark.avif') type('image/avif'),
-    url('/assets/talaria/feather-funnel-dark.webp') type('image/webp')
-  );
-}
 
 /* ── 8. Демо: мышью не потрогать. Класса .aw-body в разметке нет (правило
       писалось вслепую и не работало) — гасим клики на самом окне. ─────── */
@@ -5711,17 +5372,11 @@ html {
   max-width: none;
   margin: 0;
 }
-#loginScreen .pplate {
-  order: 2;
-  margin: 0;
-}
+
 /* Гравюра занимает свою колонку целиком: касса слева выросла (в неё добавился
    блок про пробный тариф), и прежние 360px рядом с ней читались как случайно
    уменьшенная картинка. Потолок 520px держит её ниже кассы по высоте, поэтому
    высота секции по-прежнему задаётся кассой и ничего не разъезжается. */
-#loginScreen .pplate-art {
-  width: min(520px, 100%);
-}
 
 /* ── 12. Вордмарк финала: читаемая вырезка, тёмная на светлом и наоборот ── */
 #loginScreen .fin-word .zp-final-letter-char {
@@ -6026,15 +5681,10 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
     grid-template-columns: minmax(0, 1fr);
     gap: 30px;
   }
-  #loginScreen .pplate {
-    justify-items: center;
-  }
+
   /* На одной колонке гравюра идёт под кассой во всю ширину — 260px там
      выглядели потерянно. Потолок по высоте экрана, чтобы на коротком
      телефоне картинка не занимала весь экран целиком. */
-  #loginScreen .pplate-art {
-    width: min(380px, 76vw, 40vh);
-  }
 }
 @media (max-width: 700px) {
   /* Шапка: у пунктов меню нет места, полоска-подчёркивание там не нужна. */
@@ -6042,19 +5692,13 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
     display: none;
   }
   /* Герой: гравюра не должна занимать целый экран до текста. */
-  #loginScreen .hero-art {
-    min-height: 46vh;
-  }
+
   /* Карточки возможностей: гравюра чуть ниже квадрата — карточка перестаёт
      быть в полтора экрана высотой. */
   #loginScreen .fcard .fim {
     aspect-ratio: 4 / 3;
   }
-  #loginScreen .fplate-art {
-    aspect-ratio: 4 / 3;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-  }
+
   /* Телефон: рамка тоньше, иначе экран внутри становится совсем узким. */
   #loginScreen .phone {
     padding: 8px;
@@ -6110,86 +5754,6 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
    Ставим на светлой теме второй файл с той же геометрией и поднятой альфой
    (scripts/bake_plates.py: срез подложки 5%, гамма 0.5) — полутона
    набирают плотность, край по-прежнему растворяется в бумаге. ═══════════ */
-html[data-theme='light'] #loginScreen .hero-art .hero-plate {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/hero-plate-light.avif') type('image/avif'),
-    url('/assets/talaria/hero-plate-light.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/hero-plate-light.avif') type('image/avif'),
-    url('/assets/talaria/hero-plate-light.webp') type('image/webp')
-  );
-}
-html[data-theme='light'] #loginScreen .pplate-art {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/pricing-plate-light.avif') type('image/avif'),
-    url('/assets/talaria/pricing-plate-light.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/pricing-plate-light.avif') type('image/avif'),
-    url('/assets/talaria/pricing-plate-light.webp') type('image/webp')
-  );
-}
-html[data-theme='light'] #loginScreen .fplate-score {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-score-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-score-light.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-score-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-score-light.webp') type('image/webp')
-  );
-}
-html[data-theme='light'] #loginScreen .fplate-context {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-context-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-context-light.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-context-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-context-light.webp') type('image/webp')
-  );
-}
-html[data-theme='light'] #loginScreen .fplate-intro {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-intro-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-intro-light.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-intro-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-intro-light.webp') type('image/webp')
-  );
-}
-html[data-theme='light'] #loginScreen .fplate-pace {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-pace-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-pace-light.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-pace-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-pace-light.webp') type('image/webp')
-  );
-}
-html[data-theme='light'] #loginScreen .fplate-ledger {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-ledger-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-ledger-light.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-ledger-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-ledger-light.webp') type('image/webp')
-  );
-}
-html[data-theme='light'] #loginScreen .fplate-funnel {
-  -webkit-mask-image: image-set(
-    url('/assets/talaria/feather-funnel-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-funnel-light.webp') type('image/webp')
-  );
-  mask-image: image-set(
-    url('/assets/talaria/feather-funnel-light.avif') type('image/avif'),
-    url('/assets/talaria/feather-funnel-light.webp') type('image/webp')
-  );
-}
 
 /* Тень от карточки, которой нет. `.tariff-card-single` в talaria.css носит
    `box-shadow: var(--shadow)` — это карточка тарифа в кабинете, там под тенью
@@ -6257,17 +5821,10 @@ html[data-theme='dark'] #loginScreen .landing-brand .tl-logo {
     transform: rotateY(26deg);
   }
 }
-#loginScreen .fin-letter-float {
-  animation: finSwing 7s ease-in-out infinite;
-}
+
 @media (max-width: 700px) {
   /* Письмо уходит правее и ниже — под кнопки «Войти» и «Смотреть тариф»
      оно больше не залезает, а садится ровно над раскрытой ладонью. */
-  #loginScreen .fin-letter-orbit {
-    left: 26%;
-    top: 6%;
-    width: 34%;
-  }
 }
 
 /* Довесок к v13. Переключатели периода и валюты в кассе лендинга остались
@@ -6331,9 +5888,6 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
 /* Гравюра доставки — тёмные чернила на розовом (маска та же, меняется только
    заливка под ней). Розовым по розовому фигура пропадала: у маски медиана
    альфы 0.3, и светлая заливка давала бледное пятно. */
-#loginScreen .zp-pricing .pplate-art {
-  background: var(--tal-0b0a0e);
-}
 
 /* Вордмарк на розовой полосе. Семь букв Playfair ≈ 0.66em каждая, поэтому
    21vw даёт ~97vw: space-between разносит слово ровно от края до края на
@@ -6359,15 +5913,6 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
   line-height: 1.25;
   letter-spacing: 0;
 }
-/* Рука на финале длиннее: ладонь уходит дальше от правого края, предплечье
-   тянется через сцену. Письмо привязано к габариту руки в процентах и
-   масштабируется вместе с ней. Только десктоп: на телефоне ширину задаёт
-   мобильный блок (128%), и безусловное правило его перебивало. */
-@media (min-width: 701px) {
-  #loginScreen .fin-hand {
-    width: min(74vw, 900px);
-  }
-}
 
 /* ── v14. Телефон: гравюры стоят РЯДОМ с текстом, а не под ним ──────────
    Samat: «сделай чтобы картинки возле главной и тарифа всегда стояли возле
@@ -6385,26 +5930,10 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
   }
   /* Гравюра больше не «экран до текста»: она занимает свою колонку и стоит
      на уровне заголовка. order сбрасываем — колонка вторая по потоку. */
-  #loginScreen .hero-art {
-    order: 0;
-    align-self: start;
-    min-height: min(58vh, 420px);
-  }
+
   /* Растушёвка снова слева-направо: на телефоне гравюра опять сбоку, а не
      сверху, и верхняя маска срезала бы Гермесу голову. */
-  #loginScreen .hero-art .hero-plate {
-    -webkit-mask-size: contain;
-    mask-size: contain;
-  }
-  #loginScreen .hero-art img {
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      transparent 0%,
-      var(--tal-black) 22%,
-      var(--tal-black) 100%
-    );
-    mask-image: linear-gradient(90deg, transparent 0%, var(--tal-black) 22%, var(--tal-black) 100%);
-  }
+
   /* Тариф: касса и гравюра рядом. Касса шире — внутри неё цена, кнопка и
      список, при 50/50 они сыпались в столбик из обрубков. */
   #loginScreen .pgrid {
@@ -6418,23 +5947,13 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
   /* Касса на телефоне высокая (восемь пунктов тарифа), поэтому гравюра
      прилипает к верху своей колонки: она остаётся РЯДОМ с кассой всё время
      прокрутки, а не мелькает один раз в начале секции. */
-  #loginScreen .pplate {
-    position: sticky;
-    top: 76px;
-    justify-items: stretch;
-    align-self: start;
-  }
+
   /* Гравюра тянется по колонке вверх-вниз: в узкой колонке квадрат давал
      фигурку в палец высотой. */
-  #loginScreen .pplate-art {
-    width: 100%;
-    aspect-ratio: 3 / 4;
-  }
+
   /* Подпись под гравюрой — декоративная; в колонке 120px она рассыпалась в
      лестницу из двух слов. На широком экране она остаётся. */
-  #loginScreen .pplate-cap {
-    display: none;
-  }
+
   #loginScreen .pcard .tariff-feats li,
   #loginScreen .pcard .ptariff-note,
   #loginScreen .pcard .tariff-trial p {
@@ -6451,20 +5970,9 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
     /* v46: «сообщений.» в Unbounded = 9.1em — 6vw держит слово в колонке 55vw */
     font-size: clamp(19px, 6vw, 34px);
   }
-  #loginScreen .hero-art {
-    min-height: min(46vh, 340px);
-  }
+
   #loginScreen .pmark {
     margin-top: 56px;
-  }
-}
-/* Рука на финале длиннее: ладонь уходит дальше от правого края, предплечье
-   тянется через сцену. Письмо привязано к габариту руки в процентах и
-   масштабируется вместе с ней. Только десктоп: на телефоне ширину задаёт
-   мобильный блок (128%), и безусловное правило его перебивало. */
-@media (min-width: 701px) {
-  #loginScreen .fin-hand {
-    width: min(74vw, 900px);
   }
 }
 
@@ -6716,14 +6224,6 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
   margin-top: -100vh;
 }
 
-/* 3. Письмо срезалось фиксированной шапкой: кадр финала липнет к top: 0, а
-      конверт стоял на 6% высоты сцены — это 54px, под 86px шапки. Опускаем
-      орбиту письма ниже шапки; заодно письмо ближе к ладони. */
-@media (min-width: 701px) {
-  #loginScreen .fin-letter-orbit {
-    top: 108px;
-  }
-}
 @media (max-width: 700px) {
   #loginScreen .zp-final {
     height: 200vh;
@@ -6789,27 +6289,6 @@ html[data-theme='light'] #loginScreen .zp-pricing {
   background: var(--grad);
 }
 
-/* -------------------------------------------------------------------------
-   Правки Samat (2026-08-28, v19).
-
-   8. «Опусти руку с письмом чуть ниже». Письмо — ребёнок .fin-hand, поэтому
-      двигаем только ладонь, письмо едет вместе с ней и не съезжает с орбиты.
-   9. «Снизу не видно полоски». Полоска снизу была, но border-image режет
-      картинку по краям: у гигантской .zp-main нижнему краю достаётся конец
-      градиента — тёмно-пурпурный, который на тёмном финале почти не читался.
-      Нижнюю кромку рисуем отдельной лентой с полным градиентом кнопки: она
-      идёт слева розовым и справа пурпурным, как полоска под шапкой.
-   ------------------------------------------------------------------------- */
-@media (min-width: 701px) {
-  #loginScreen .fin-hand {
-    bottom: 1.5%;
-  }
-}
-@media (max-width: 700px) {
-  #loginScreen .fin-hand {
-    bottom: 12%;
-  }
-}
 /* Абсолютная лента с отрицательными отступами давала 1px горизонтального
    переполнения на 1024px (тест visual-structure), поэтому ленту рисуем фоном
    в области нижнего бордюра: геометрия та же, лишней ширины нет.
@@ -6934,11 +6413,6 @@ html[data-theme='light'] #loginScreen .zp-pricing {
   #loginScreen .pgrid {
     align-items: start;
   }
-  #loginScreen .pplate {
-    position: sticky;
-    top: 118px;
-    align-self: start;
-  }
 }
 
 /* ── 5. Тариф на телефоне: касса во всю ширину, гравюра баннером сверху ───
@@ -6957,19 +6431,7 @@ html[data-theme='light'] #loginScreen .zp-pricing {
     width: 100%;
     padding: 20px 16px;
   }
-  #loginScreen .pplate {
-    order: 0;
-    position: static;
-    display: grid;
-    justify-items: stretch;
-    margin: 0;
-  }
-  #loginScreen .pplate-art {
-    width: 100%;
-    aspect-ratio: 16 / 7;
-    -webkit-mask-size: contain;
-    mask-size: contain;
-  }
+
   #loginScreen .pcard .tariff-feats li,
   #loginScreen .pcard .ptariff-note,
   #loginScreen .pcard .tariff-trial p {
@@ -7045,26 +6507,6 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
    до бледно-сиреневой. Альфу поднимаем без нового ассета: две одинаковые
    маски складываются (mask-composite: add по умолчанию), 0.3 + 0.3 − 0.09 ≈
    0.51 — полутона набирают плотность, край по-прежнему растворяется. */
-html[data-theme='light'] #loginScreen .hero-art .hero-plate {
-  -webkit-mask-image:
-    image-set(
-      url('/assets/talaria/hero-plate-light.avif') type('image/avif'),
-      url('/assets/talaria/hero-plate-light.webp') type('image/webp')
-    ),
-    image-set(
-      url('/assets/talaria/hero-plate-light.avif') type('image/avif'),
-      url('/assets/talaria/hero-plate-light.webp') type('image/webp')
-    );
-  mask-image:
-    image-set(
-      url('/assets/talaria/hero-plate-light.avif') type('image/avif'),
-      url('/assets/talaria/hero-plate-light.webp') type('image/webp')
-    ),
-    image-set(
-      url('/assets/talaria/hero-plate-light.avif') type('image/avif'),
-      url('/assets/talaria/hero-plate-light.webp') type('image/webp')
-    );
-}
 
 /* ── 10. Подзаголовок тарифа: свои отступы вместо инлайна ────────────────
    Инлайновый `margin-top: -26px` подтягивал строку к заголовку на компе, а на
@@ -7084,9 +6526,6 @@ html[data-theme='light'] #loginScreen .hero-art .hero-plate {
   }
   /* Гравюра-баннер над кассой: 16/7 давала фигурку в 170px — полоса читалась
      как случайное пятно. 5/3 держит Гермеса разборчивым и не съедает экран. */
-  #loginScreen .pplate-art {
-    aspect-ratio: 5 / 3;
-  }
 }
 
 /* ── 11. Блок «Пишет ваш Telegram» на компе: воздух по 250px сверху и снизу
@@ -7103,12 +6542,7 @@ html[data-theme='light'] #loginScreen .hero-art .hero-plate {
    градиента он практически не читался. Красим тёмным, как заголовок секции.
    Ход шторки на компе сокращаем ещё: слово занимает 42vh, при 66vh над ним
    оставалось 24vh пустого розового. */
-#loginScreen .zp-pricing .pplate-cap .mono {
-  color: var(--tal-171019);
-}
-#loginScreen .zp-pricing .pplate-cap-note {
-  color: var(--tal-171019-a76);
-}
+
 @media (min-width: 701px) {
   #loginScreen {
     --curtain: 54vh;
@@ -7161,9 +6595,6 @@ html[data-theme='light'] #loginScreen .hero-art .hero-plate {
 /* ── 3. Письмо снова крутится ────────────────────────────────────────────
    Стояло качание ±26° (finSwing) — на глаз это «дрожит», а не вращается.
    Возвращаем полный оборот по оси Y. */
-#loginScreen .fin-letter-float {
-  animation: finSpin 11s linear infinite;
-}
 
 /* ── 4. Лого подвала: скруглённая подложка ──────────────────────────────
    Раньше тут была розовая пилюля, но глиф на ней читался как дырка. Плашка
@@ -7251,47 +6682,6 @@ html[data-theme='light'] #loginScreen .fin-foot-logo {
    Берём кремовые чернила секции (её текст тоже белый) и добираем плотность
    тем же приёмом, что герой на светлой теме: две одинаковые маски
    складываются (mask-composite: add), 0.3 + 0.3 − 0.09 ≈ 0.51. */
-#loginScreen .zp-pricing .pplate-art {
-  background: var(--tal-fff2fb);
-  -webkit-mask-image:
-    image-set(
-      url('/assets/talaria/pricing-plate-dark.avif') type('image/avif'),
-      url('/assets/talaria/pricing-plate-dark.webp') type('image/webp')
-    ),
-    image-set(
-      url('/assets/talaria/pricing-plate-dark.avif') type('image/avif'),
-      url('/assets/talaria/pricing-plate-dark.webp') type('image/webp')
-    );
-  mask-image:
-    image-set(
-      url('/assets/talaria/pricing-plate-dark.avif') type('image/avif'),
-      url('/assets/talaria/pricing-plate-dark.webp') type('image/webp')
-    ),
-    image-set(
-      url('/assets/talaria/pricing-plate-dark.avif') type('image/avif'),
-      url('/assets/talaria/pricing-plate-dark.webp') type('image/webp')
-    );
-}
-html[data-theme='light'] #loginScreen .zp-pricing .pplate-art {
-  -webkit-mask-image:
-    image-set(
-      url('/assets/talaria/pricing-plate-light.avif') type('image/avif'),
-      url('/assets/talaria/pricing-plate-light.webp') type('image/webp')
-    ),
-    image-set(
-      url('/assets/talaria/pricing-plate-light.avif') type('image/avif'),
-      url('/assets/talaria/pricing-plate-light.webp') type('image/webp')
-    );
-  mask-image:
-    image-set(
-      url('/assets/talaria/pricing-plate-light.avif') type('image/avif'),
-      url('/assets/talaria/pricing-plate-light.webp') type('image/webp')
-    ),
-    image-set(
-      url('/assets/talaria/pricing-plate-light.avif') type('image/avif'),
-      url('/assets/talaria/pricing-plate-light.webp') type('image/webp')
-    );
-}
 
 /* ── 8. Финал: рука целиком в кадре, вордмарк поверх неё ──────────────────
    Samat: «рука не видна, текст полностью не закрывает».
@@ -7307,40 +6697,12 @@ html[data-theme='light'] #loginScreen .zp-pricing .pplate-art {
 #loginScreen .fin-mark {
   z-index: 3;
 }
-#loginScreen .fin-letter-orbit {
-  z-index: 4;
-}
-#loginScreen .fin-palm {
-  -webkit-mask-image: linear-gradient(96deg, var(--tal-black) 66%, transparent 96%);
-  mask-image: linear-gradient(96deg, var(--tal-black) 66%, transparent 96%);
-}
-@media (min-width: 701px) {
-  #loginScreen .fin-hand {
-    right: 6%;
-    width: min(56vw, 680px);
-  }
-}
-@media (max-width: 700px) {
-  #loginScreen .fin-hand {
-    inset: auto -2% 16% auto;
-    width: 104%;
-    max-width: 104%;
-  }
-  #loginScreen .fin-palm {
-    -webkit-mask-image: linear-gradient(96deg, var(--tal-black) 72%, transparent 98%);
-    mask-image: linear-gradient(96deg, var(--tal-black) 72%, transparent 98%);
-  }
-}
 
 /* ── 9. Финал на светлой теме: рука и письмо читаются как рисунок ─────────
    Ассет один на обе темы: розовые чернила по прозрачному фону. На белой
    бумаге они выцветали, а розовое drop-shadow-свечение (нужное на тёмном)
    размывало контур в дымку — гравюра пропадала. В светлой теме свечение
    убираем и добавляем плотности самим чернилам. */
-html[data-theme='light'] #loginScreen .fin-palm,
-html[data-theme='light'] #loginScreen .fin-letter-float {
-  filter: saturate(1.22) contrast(1.16) brightness(0.8);
-}
 
 /* =========================================================================
    v25. Правка Samat: «почему вот так — сделай чтобы полностью вниз закрывало»
@@ -7403,9 +6765,6 @@ html[data-theme='light'] #loginScreen .fin-letter-float {
 html[data-theme='light'] #loginScreen .zp-pricing {
   background: var(--pricing-plate-grad);
 }
-#loginScreen .zp-pricing .pplate-art {
-  background: var(--pricing-art-ink);
-}
 
 /* в) Пауза перед открытием шторы. Раньше слово ехало вверх непрерывно: как
    только розовое закрывало экран, тёмная сцена сразу же начинала открываться,
@@ -7447,14 +6806,7 @@ html[data-theme='light'] #loginScreen .zp-pricing {
    штрих исчезает. На тёмной теме тот же розовый читается только потому, что
    под ним чёрный. Значит и на светлой теме кладём картинку на тёмную плашку:
    бумага остаётся белой, а сам оттиск — ровно такой же, как на чёрной теме. */
-html[data-theme='light'] #loginScreen .hero-art,
-html[data-theme='light'] #loginScreen .fcard .fim {
-  background: var(--tal-0b0a0e);
-}
-html[data-theme='light'] #loginScreen .hero-art {
-  border-radius: 22px;
-  overflow: hidden;
-}
+
 /* Растворение низа картинки в карточке: на тёмной плашке оно должно уходить в
    чёрный, а не в белый цвет карточки. */
 html[data-theme='light'] #loginScreen .fcard .fim::after {
@@ -9836,12 +9188,10 @@ select optgroup {
 /* v45: логотип в графитовой (тёмной) теме — белое перо, как белый логотип в
    панели Viktor. Градиент lgW зашит в SVG литералом и токенами не красится,
    поэтому перекрываем fill правилом. Светлая тема сохраняет розовый бренд. */
-html[data-theme='dark'] #loginScreen .tl-logo g,
-html[data-theme='midnight'] #loginScreen .tl-logo g,
-html[data-theme='graphite'] #loginScreen .tl-logo g,
-html[data-theme='dark'] #loginScreen .fin-foot-logo g,
-html[data-theme='midnight'] #loginScreen .fin-foot-logo g,
-html[data-theme='graphite'] #loginScreen .fin-foot-logo g {
+/* v47: логотип в чернилах на ОБЕИХ темах — розовый градиент из инлайнового
+   SVG (#lgW) в графитовом редизайне не участвует. */
+#loginScreen .tl-logo g,
+#loginScreen .fin-foot-logo g {
   /* Литерал запрещён css-architecture-тестом: цвет берём из токена. */
   fill: var(--ink);
 }
@@ -9849,11 +9199,297 @@ html[data-theme='graphite'] #loginScreen .fin-foot-logo g {
 /* v45: финальная гравюра (ладонь + письмо) — розовые растровые webp/avif,
    токенами не красятся. В графитовой теме обесцвечиваем фильтром; лёгкий
    подъём яркости компенсирует потемнение розового при grayscale. */
-html[data-theme='dark'] #loginScreen .fin-palm,
-html[data-theme='midnight'] #loginScreen .fin-palm,
-html[data-theme='graphite'] #loginScreen .fin-palm,
-html[data-theme='dark'] #loginScreen .fin-letter-float,
-html[data-theme='midnight'] #loginScreen .fin-letter-float,
-html[data-theme='graphite'] #loginScreen .fin-letter-float {
-  filter: grayscale(1) brightness(1.12);
+
+/* =========================================================================
+   v47: ПОЛНЫЙ РЕДИЗАЙН ЛЕНДИНГА (владелец, 2026-09-01).
+   «Убери эти картинки и тд, прям полный редизайн сделай лэндинга».
+   Гравюры (Гермес в герое, шесть перьев в карточках, плита тарифа, рука с
+   письмом в финале) удалены из разметки; их правила вычищены выше по файлу.
+   Новая система — чистая типографика «как Viktor»: страница-графит, панели
+   на линиях-волосках, один радиус карточек, Unbounded только в заголовках,
+   единственный акцент — контраст. Блок лежит последним нарочно: одинаковая
+   специфичность — побеждает поздний. */
+
+/* ── Общий ритм ────────────────────────────────────────────────────────── */
+#loginScreen {
+  --card-r: 18px;
+}
+#loginScreen .zp-capabilities,
+#loginScreen .zp-workflow,
+#loginScreen .zp-stats,
+#loginScreen .zp-account-band {
+  border-top: 1px solid var(--line);
+}
+#loginScreen .shead {
+  display: block;
+  margin-bottom: 56px;
+}
+#loginScreen .shead .mono {
+  display: block;
+  margin-bottom: 16px;
+}
+#loginScreen .shead h2 {
+  font-size: clamp(26px, 3.2vw, 44px);
+  letter-spacing: -0.005em;
+}
+
+/* ── Герой: одна колонка, крупная типографика, звёздный canvas скрыт ───── */
+#loginScreen #stars {
+  display: none;
+}
+#loginScreen .zp-hero {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
+  max-width: 1240px;
+  margin: 0 auto;
+  min-height: 92vh;
+  align-items: center;
+  padding: 150px 28px 72px;
+}
+#loginScreen .zp-hero > div:first-of-type {
+  padding: 0;
+}
+#loginScreen .zp-hero h1 {
+  font-size: clamp(33px, 6.4vw, 94px);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  margin: 22px 0 30px;
+  max-width: 12em;
+}
+#loginScreen .zp-hero p {
+  max-width: 54ch;
+  font-size: 16px;
+  line-height: 1.7;
+}
+#loginScreen .hero-snippet {
+  max-width: 640px;
+  border: 1px solid var(--line);
+  border-radius: var(--card-r);
+  background: var(--bg2);
+  box-shadow: none;
+}
+
+/* ── Карточки возможностей: сетка на линиях, без гравюр ────────────────── */
+#loginScreen .fgrid {
+  gap: 1px;
+  background: var(--line);
+  border: 1px solid var(--line);
+  border-radius: var(--card-r);
+  overflow: hidden;
+}
+#loginScreen .fcard {
+  border: 0;
+  border-radius: 0;
+  background: var(--bg);
+  box-shadow: none;
+}
+#loginScreen .fcard:hover {
+  transform: none;
+  border-color: transparent;
+  box-shadow: none;
+  background: var(--bg2);
+}
+#loginScreen .fcard .fb {
+  padding: 30px 28px 34px;
+}
+#loginScreen .fcard .fn {
+  font-family: var(--tal-font-mono);
+  font-size: 11px;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--mut);
+  margin-bottom: 46px;
+}
+#loginScreen .fcard h3 {
+  font-size: 16.5px;
+  margin-bottom: 10px;
+}
+#loginScreen .fcard p {
+  color: var(--mut);
+  font-size: 13.5px;
+  line-height: 1.65;
+}
+
+/* ── Живая доставка и демо-окно: панели одного радиуса ─────────────────── */
+#loginScreen .ph-scr,
+#loginScreen .phone,
+#loginScreen .aw-frame,
+#loginScreen .feed,
+#loginScreen .ab-in,
+#loginScreen .hero-snippet,
+#loginScreen .mini {
+  border-radius: var(--card-r);
+}
+
+/* ── Пульс: цифры без розовых свечений уже в токенах; рамка ленты ──────── */
+#loginScreen .feed {
+  border: 1px solid var(--line);
+  background: var(--bg2);
+  box-shadow: none;
+}
+
+/* ── Полоса аккаунта ───────────────────────────────────────────────────── */
+#loginScreen .ab-in {
+  border: 1px solid var(--line);
+  background: var(--bg2);
+  box-shadow: none;
+}
+
+/* ── Тариф: карточка по центру, полоса-шторка цвета страницы ───────────── */
+#loginScreen .zp-pricing {
+  --ink: var(--tal-f5eef6);
+  --mut: var(--tal-a99cad);
+  --line: var(--tal-ffffff-a14);
+  --pink-ink: var(--tal-f5eef6);
+  --card: var(--bg2);
+  background: var(--bg);
+  border-top: 1px solid var(--line);
+  color: var(--ink);
+}
+html[data-theme='light'] #loginScreen .zp-pricing {
+  --ink: var(--tal-171019);
+  --mut: var(--tal-6d5f72);
+  --line: var(--tal-171019-a14);
+  --pink-ink: var(--tal-171019);
+  --card: var(--bg2);
+}
+#loginScreen .pgrid {
+  display: grid;
+  grid-template-columns: minmax(0, 760px);
+  justify-content: center;
+}
+#loginScreen .pcard {
+  border-radius: var(--card-r);
+  border: 1px solid var(--line);
+}
+#loginScreen .pcard::before {
+  display: none;
+}
+/* Вордмарк на шторке: тихая вырезка тоном чернил, а не белым по розовому. */
+#loginScreen .pmark-word {
+  color: color-mix(in srgb, var(--ink) 14%, transparent);
+  font-weight: 800;
+}
+
+/* ── Финал: инверсия — светлая сцена на тёмной теме и наоборот ─────────── */
+#loginScreen .zp-final {
+  background: var(--fin-bg);
+  color: var(--fin-ink);
+}
+#loginScreen .fin-stage {
+  background: var(--fin-bg);
+  color: var(--fin-ink);
+}
+#loginScreen .fin-kicker {
+  color: var(--fin-mut);
+}
+/* CTA-блок: рука убрана — призыв стоит по центру сцены, над вордмарком. */
+#loginScreen .fin-cta {
+  left: 50%;
+  right: auto;
+  top: 40%;
+  bottom: auto;
+  transform: translate(-50%, -50%);
+  max-width: min(92vw, 560px);
+  text-align: center;
+  animation-name: finCtaIn;
+}
+@keyframes finCtaIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+#loginScreen .fin-btns {
+  justify-content: center;
+}
+#loginScreen .fin-btn {
+  background: var(--fin-accent);
+  color: var(--fin-on-accent);
+  box-shadow: none;
+}
+#loginScreen .fin-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: none;
+}
+#loginScreen .fin-btn.ghost {
+  background: none;
+  color: var(--fin-ink);
+  border-color: var(--fin-ghost-line);
+}
+#loginScreen .fin-btn.ghost:hover {
+  border-color: var(--fin-ink);
+  color: var(--fin-ink);
+}
+#loginScreen .fin-word .zp-final-letter-char {
+  color: var(--fin-mark-ink);
+}
+#loginScreen .fin-foot {
+  color: var(--fin-ink);
+  border-top-color: color-mix(in srgb, var(--fin-ink) 16%, transparent);
+}
+#loginScreen .fin-foot-links a,
+#loginScreen .fin-foot-name,
+#loginScreen .fin-foot-copy small {
+  color: var(--fin-mut);
+}
+#loginScreen .fin-foot-links a:hover {
+  color: var(--fin-ink);
+}
+#loginScreen .fin-foot-logo,
+#loginScreen .fin-foot-logo g {
+  fill: var(--fin-ink);
+}
+
+/* Полоса тарифа: правило v27 (плита из --pricing-plate-grad) заявлено и на
+   светлую тему с селектором выше нашего — перебиваем той же парой селекторов:
+   в v47 полоса-шторка везде цвета страницы. */
+#loginScreen .zp-pricing,
+html[data-theme='light'] #loginScreen .zp-pricing {
+  background: var(--bg);
+}
+/* Подводка тарифа: отрицательный margin был рассчитан на flex-строку старого
+   shead; в блочном shead v47 он налезал на заголовок. */
+#loginScreen .zp-pricing .shead .pricing-lede {
+  margin-top: 14px;
+  max-width: 52ch;
+  font-size: 13.5px;
+}
+
+/* Заголовок тарифа: правило эпохи розовой полосы красило его в тёмные
+   чернила (белым по розовому был контраст 2:1). Полоса теперь цвета
+   страницы — заголовок возвращается к чернилам темы. */
+#loginScreen .zp-pricing .shead {
+  --ink: inherit;
+  --mut: inherit;
+  --pink-ink: inherit;
+  color: var(--ink);
+}
+#loginScreen .zp-pricing .shead h2,
+#loginScreen .zp-pricing .shead .mono {
+  color: var(--ink);
+}
+#loginScreen .zp-pricing .shead .mono {
+  color: var(--mut);
+}
+
+/* ── Мобильная сетка ───────────────────────────────────────────────────── */
+@media (max-width: 900px) {
+  #loginScreen .fgrid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+@media (max-width: 620px) {
+  #loginScreen .fgrid {
+    grid-template-columns: 1fr;
+  }
+  #loginScreen .zp-hero {
+    min-height: auto;
+    padding-top: 120px;
+  }
+  #loginScreen .fin-cta {
+    top: 36%;
+  }
 }
