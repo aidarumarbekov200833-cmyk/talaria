@@ -90,7 +90,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Unbounded:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria24" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria25" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -119,11 +119,6 @@
               <a href="#features">Возможности</a><a href="#how">Как работает</a>
               <a href="#pulse">Динамика</a><a href="#pricing">Тариф</a>
               <a href="#faq">Вопросы</a>
-              <!-- Живой признак того, что за лендингом есть работающий сервис, а не
-                   одна только обещалка. Шапка была пустоватой именно слева. -->
-              <span class="nav-status" title="Сервис работает штатно">
-                <i class="nav-status-dot" aria-hidden="true"></i>Работает
-              </span>
             </nav>
             <a class="brand landing-brand" href="#top">
               <svg class="tl-logo" viewBox="0 0 52 44" aria-hidden="true">
@@ -268,6 +263,43 @@
               <p class="login-hint" id="loginHint" style="display: none"></p>
               <div class="hero-login-fallback-end" hidden></div>
             </div>
+            <div
+              class="hero-chain rv on"
+              style="--d: 0.5s"
+              aria-label="Путь письма: от канала до ответа"
+            >
+              <div class="hc-card" style="--hd: 0.65s">
+                <span class="hc-step mono">01 · найден на youtube</span>
+                <div class="hc-row">
+                  <i class="hc-ava">И</i>
+                  <div class="hc-body">
+                    <b>Инвестируй Просто</b>
+                    <small>142 тыс. подписчиков · финансы</small>
+                  </div>
+                  <span class="hc-badge">Скоринг 92</span>
+                </div>
+              </div>
+              <div class="hc-card" style="--hd: 1.05s">
+                <span class="hc-step mono">02 · письмо доставлено</span>
+                <div class="hc-row">
+                  <div class="hc-body">
+                    <b>Личное вступление</b>
+                    <small>Первая строка — про последний ролик лида</small>
+                  </div>
+                  <span class="hc-tick">14:02 ✓✓</span>
+                </div>
+              </div>
+              <div class="hc-card" style="--hd: 1.45s">
+                <span class="hc-step mono">03 · ответ в ваш telegram</span>
+                <div class="hc-row">
+                  <div class="hc-body">
+                    <b>«Да, звучит интересно»</b>
+                    <small>Скиньте детали, посмотрю после съёмок 👍</small>
+                  </div>
+                  <span class="hc-badge hc-badge-live">за 7 мин</span>
+                </div>
+              </div>
+            </div>
           </section>
           <section class="zp-control-grid">
             <div class="wrap">
@@ -406,6 +438,64 @@
                     </div>
                     <div class="ph-home"></div>
                   </div>
+                </div>
+              </div>
+            </div>
+          </section>
+          <!-- Лента ниш: показывает ширину охвата без лишнего текста. Дубль
+               ряда нужен для бесшовного цикла бегущей строки. -->
+          <section class="zp-niches" aria-label="Ниши, в которых ищет Talaria">
+            <div class="mq" role="presentation">
+              <div class="mq-track">
+                <div class="mq-row">
+                  <span class="mq-item">Финансы</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Крипта</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Инвестиции</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">EdTech</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Бизнес</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Маркетинг</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Недвижимость</span
+                  ><span class="mq-dot" aria-hidden="true">·</span><span class="mq-item">Авто</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Гейминг</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Здоровье</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Путешествия</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">IT и софт</span
+                  ><span class="mq-dot" aria-hidden="true">·</span>
+                </div>
+                <div class="mq-row" aria-hidden="true">
+                  <span class="mq-item">Финансы</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Крипта</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Инвестиции</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">EdTech</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Бизнес</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Маркетинг</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Недвижимость</span
+                  ><span class="mq-dot" aria-hidden="true">·</span><span class="mq-item">Авто</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Гейминг</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Здоровье</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">Путешествия</span
+                  ><span class="mq-dot" aria-hidden="true">·</span
+                  ><span class="mq-item">IT и софт</span
+                  ><span class="mq-dot" aria-hidden="true">·</span>
                 </div>
               </div>
             </div>
@@ -1051,14 +1141,21 @@
                вопросы здесь выглядят как ваши сообщения, ответы приходят пузырём
                от Talaria: сервис про личные сообщения, FAQ говорит на его языке. -->
           <section class="zp-faq" id="faq">
-            <div class="wrap">
-              <div class="shead rv">
-                <span class="mono">// вопросы</span>
-                <h2>Спросите, как в личке</h2>
-                <p class="faq-lede">
-                  Нажмите вопрос — ответ придёт, как в переписке. Что-то своё — задайте в Telegram
-                  после входа.
-                </p>
+            <div class="wrap faq-grid">
+              <div class="faq-side">
+                <div class="shead rv">
+                  <span class="mono">// вопросы</span>
+                  <h2>Спросите, как в личке</h2>
+                  <p class="faq-lede">
+                    Нажмите вопрос — ответ придёт, как в переписке. Что-то своё — задайте в Telegram
+                    после входа.
+                  </p>
+                </div>
+                <ul class="faq-facts rv" style="--d: 0.15s">
+                  <li><b>Не спам.</b> Пишет ваш личный аккаунт, адресно и по контексту.</li>
+                  <li><b>Не бан.</b> Очередь, интервалы и автопауза при риске лимита.</li>
+                  <li><b>Не молчанка.</b> Ответ лида приходит уведомлением в ваш Telegram.</li>
+                </ul>
               </div>
               <div class="faq-chat rv" role="list" id="faqChat" style="--d: 0.1s">
                 <div class="faq-item" role="listitem">
@@ -1391,6 +1488,23 @@
                     >
                     <a class="fin-btn ghost" href="#pricing">Смотреть тариф</a>
                   </div>
+                  <p class="fin-note">14 дней бесплатно, без карты.</p>
+                  <!-- Те же живые счётчики, что и в «Динамике»: финал перестаёт
+                       быть пустой сценой, а цифры — последний аргумент. -->
+                  <dl class="fin-facts">
+                    <div>
+                      <dt data-public-stat="leads">—</dt>
+                      <dd>лидов найдено</dd>
+                    </div>
+                    <div>
+                      <dt data-public-stat="audience" data-public-stat-compact>—</dt>
+                      <dd>аудитория каналов</dd>
+                    </div>
+                    <div>
+                      <dt data-public-stat="countries">—</dt>
+                      <dd>стран</dd>
+                    </div>
+                  </dl>
                 </div>
               </div>
               <div class="fin-foot">

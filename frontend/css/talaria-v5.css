@@ -10006,40 +10006,6 @@ body,
   }
 }
 
-/* Признак живого сервиса слева в меню. */
-#loginScreen .nav-status {
-  display: inline-flex;
-  align-items: center;
-  padding: 4px 10px 4px 8px;
-  border: 1px solid color-mix(in srgb, var(--success) 32%, transparent);
-  border-radius: 99px;
-  color: var(--muted);
-  font-size: 10px;
-  gap: 6px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-#loginScreen .nav-status-dot {
-  width: 6px;
-  height: 6px;
-  flex: none;
-  border-radius: 50%;
-  background: var(--success);
-  box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 60%, transparent);
-  animation: navPulse 2.4s ease-out infinite;
-}
-@keyframes navPulse {
-  70% {
-    box-shadow: 0 0 0 7px color-mix(in srgb, var(--success) 0%, transparent);
-  }
-  100% {
-    box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 0%, transparent);
-  }
-}
-
-/* Пункты меню были просто текстом, который меняет цвет. Подчёркивание,
-   выезжающее от левого края, даёт отклик без смещения соседей. */
 #loginScreen .nav-side a {
   position: relative;
 }
@@ -10091,12 +10057,8 @@ body,
 }
 
 @media (max-width: 900px) {
-  #loginScreen .nav-status {
-    display: none;
-  }
 }
 @media (prefers-reduced-motion: reduce) {
-  #loginScreen .nav-status-dot,
   #loginScreen .lp-nav-cta:hover::after,
   #loginScreen .lp-progress i {
     animation: none;
@@ -10108,4 +10070,274 @@ body,
    некуда и незачем. */
 #loginScreen .nav-side a {
   white-space: nowrap;
+}
+
+/* ── v50. Лендинг гуще: цепочка в герое, лента ниш, FAQ в два столбца,
+   финал с фактами. Бейдж «Работает» убран по решению владельца. ───────── */
+
+/* Правая колонка героя пустовала (грид её резервировал, а внутри был только
+   канвас со звёздами). Цепочка «найден → доставлено → ответ» показывает путь
+   письма — то, за что продукт покупают. */
+/* Герой с v47 одноколонный — на широком экране возвращаем правую колонку
+   под цепочку (правило ниже v47-блока, поэтому побеждает в каскаде). */
+@media (min-width: 981px) {
+  #loginScreen .zp-hero {
+    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
+    gap: 52px;
+  }
+  /* Крупная шкала заголовка v47 рассчитана на всю ширину — в две колонки
+     чуть скромнее, иначе «сообщений.» упирается в цепочку. */
+  #loginScreen .zp-hero h1 {
+    font-size: clamp(33px, 4.8vw, 72px);
+  }
+}
+#loginScreen .hero-chain {
+  position: relative;
+  display: grid;
+  gap: 18px;
+  align-self: center;
+  margin: 0;
+}
+/* Пунктирная нить между карточками: цепочка читается как маршрут. */
+#loginScreen .hero-chain::before {
+  content: '';
+  position: absolute;
+  top: 28px;
+  bottom: 28px;
+  left: 21px;
+  border-left: 1px dashed color-mix(in srgb, var(--ink) 26%, transparent);
+}
+#loginScreen .hc-card {
+  position: relative;
+  padding: 14px 18px 15px;
+  border-radius: 16px;
+  background: color-mix(in srgb, var(--card) 88%, transparent);
+  box-shadow: 0 18px 44px -30px color-mix(in srgb, var(--ink) 34%, transparent);
+  opacity: 0;
+  animation: hcIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--hd, 0s) forwards;
+}
+/* Вторая и третья карточки сдвинуты вправо лесенкой — маршрут «летит». */
+#loginScreen .hc-card:nth-child(2) {
+  margin-left: 34px;
+}
+#loginScreen .hc-card:nth-child(3) {
+  margin-left: 68px;
+}
+@keyframes hcIn {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+#loginScreen .hc-step {
+  display: block;
+  margin-bottom: 9px;
+  color: var(--mut);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+#loginScreen .hc-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+#loginScreen .hc-ava {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  flex: none;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink) 10%, transparent);
+  color: var(--ink);
+  font-size: 13px;
+  font-style: normal;
+  font-weight: 600;
+}
+#loginScreen .hc-body {
+  min-width: 0;
+  flex: 1;
+}
+#loginScreen .hc-body b {
+  display: block;
+  font-size: 14px;
+}
+#loginScreen .hc-body small {
+  display: block;
+  margin-top: 2px;
+  color: var(--mut);
+  font-size: 12px;
+  line-height: 1.45;
+}
+#loginScreen .hc-badge {
+  flex: none;
+  padding: 4px 10px;
+  border-radius: 99px;
+  background: color-mix(in srgb, var(--ink) 8%, transparent);
+  color: var(--ink);
+  font-size: 11px;
+  white-space: nowrap;
+}
+#loginScreen .hc-badge-live {
+  background: color-mix(in srgb, var(--success) 16%, transparent);
+  color: var(--success);
+}
+#loginScreen .hc-tick {
+  flex: none;
+  color: var(--success);
+  font-size: 11.5px;
+  white-space: nowrap;
+}
+/* На узких экранах герой в одну колонку — цепочка уходит под текст. */
+@media (max-width: 980px) {
+  #loginScreen .hero-chain {
+    margin: 34px 28px 0;
+  }
+  #loginScreen .hc-card:nth-child(2),
+  #loginScreen .hc-card:nth-child(3) {
+    margin-left: 0;
+  }
+}
+
+/* Лента ниш: одна строка фактуры между «вживую» и возможностями. */
+#loginScreen .zp-niches {
+  padding: 26px 0;
+  border-top: 1px solid var(--line);
+  border-bottom: 1px solid var(--line);
+  background: color-mix(in srgb, var(--card) 55%, transparent);
+}
+#loginScreen .mq {
+  overflow: hidden;
+  /* Края растворяются, чтобы строка не обрубалась о границы окна. */
+  /* Цвет маски не рисуется — важна только альфа, токен взят для линтера. */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    var(--tal-0b0a0e) 12%,
+    var(--tal-0b0a0e) 88%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    var(--tal-0b0a0e) 12%,
+    var(--tal-0b0a0e) 88%,
+    transparent
+  );
+}
+#loginScreen .mq-track {
+  display: flex;
+  width: max-content;
+  animation: mqRun 46s linear infinite;
+}
+#loginScreen .mq:hover .mq-track {
+  animation-play-state: paused;
+}
+#loginScreen .mq-row {
+  display: flex;
+  align-items: center;
+  flex: none;
+}
+@keyframes mqRun {
+  to {
+    transform: translateX(-50%);
+  }
+}
+#loginScreen .mq-item {
+  padding: 0 22px;
+  color: var(--mut);
+  font-family: var(--tal-font-mono);
+  font-size: 12px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+#loginScreen .mq-dot {
+  color: color-mix(in srgb, var(--mut) 55%, transparent);
+}
+@media (prefers-reduced-motion: reduce) {
+  #loginScreen .mq-track {
+    animation: none;
+  }
+}
+
+/* FAQ: чат уезжает вправо, слева — заголовок и три коротких «не».
+   Раньше правая половина секции была пустой. */
+#loginScreen .faq-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 48px;
+  align-items: start;
+}
+#loginScreen .faq-grid .shead {
+  margin-bottom: 26px;
+}
+#loginScreen .faq-facts {
+  display: grid;
+  gap: 14px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+#loginScreen .faq-facts li {
+  padding: 13px 16px;
+  border-left: 2px solid color-mix(in srgb, var(--ink) 30%, transparent);
+  border-radius: 0 12px 12px 0;
+  background: color-mix(in srgb, var(--card) 70%, transparent);
+  color: var(--mut);
+  font-size: 13px;
+  line-height: 1.6;
+}
+#loginScreen .faq-facts li b {
+  color: var(--ink);
+}
+@media (max-width: 900px) {
+  #loginScreen .faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 10px;
+  }
+}
+
+/* Финал: под кнопками — подпись про бесплатный период и живые счётчики
+   (те же data-public-stat, что в «Динамике»). Сцена перестаёт быть пустой. */
+#loginScreen .fin-note {
+  margin: 18px 0 0;
+  color: var(--fin-mut);
+  font-size: 13px;
+}
+#loginScreen .fin-facts {
+  display: flex;
+  gap: 38px;
+  justify-content: center;
+  margin: 26px 0 0;
+}
+#loginScreen .fin-facts > div {
+  text-align: center;
+}
+#loginScreen .fin-facts dt {
+  font-family: var(--tal-font-display);
+  font-size: 30px;
+  font-weight: 500;
+  line-height: 1.1;
+}
+#loginScreen .fin-facts dd {
+  margin: 4px 0 0;
+  color: var(--fin-mut);
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+@media (max-width: 700px) {
+  #loginScreen .fin-facts {
+    gap: 22px;
+  }
+  #loginScreen .fin-facts dt {
+    font-size: 22px;
+  }
 }
