@@ -11,7 +11,7 @@
  */
 import { api, getToken, esc } from './api.js';
 import { toast, closeModal, confirmAction } from './ui.js?v=tal32';
-import { setCampaignOffers } from './campaigns.js?v=zephyr3';
+import { setCampaignOffers } from './campaigns.js?v=zephyr4';
 import { logLine, resetLog } from './logline.js?v=tal33';
 
 const OFFERS = [];
