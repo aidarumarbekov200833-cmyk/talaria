@@ -15,6 +15,7 @@ from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from ..models import Payment, User
+from . import promo as promo_service
 from .errors import DomainError
 
 # Валюты, в которых сервис принимает оплату. Список закрыт: свободное поле
@@ -78,6 +79,12 @@ def add_payment(
     db.add(payment)
     db.commit()
     db.refresh(payment)
+    # Настоящее применение промокода — оплаченные деньги, а не показ формы с
+    # введённым кодом (см. promo.mark_used). До этого вызова счётчик применений
+    # не рос нигде, и max_uses не работал вовсе. Возвраты (amount < 0) кодом
+    # не считаются.
+    if amount > 0 and payment.promo_code:
+        promo_service.mark_used(db, payment.promo_code)
     return payment
 
 

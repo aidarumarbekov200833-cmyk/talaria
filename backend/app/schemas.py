@@ -1560,7 +1560,9 @@ class AdminActivateIn(BaseModel):
     note: str = ""  # заметка: за что/когда платил
     # Сколько заплатил клиент, в обычных единицах. Ноль — активация без денег
     # (подарок, компенсация): запись в «Деньгах» тогда не создаётся.
-    amount: float = 0.0
+    # allow_inf_nan: Infinity/NaN из JSON — это 422 на входе, а не 500 в
+    # round() по дороге к минорным единицам.
+    amount: float = Field(default=0.0, allow_inf_nan=False)
     currency: str = "RUB"
 
 
@@ -1637,7 +1639,8 @@ class AdminPaymentIn(BaseModel):
 
     # В обычных единицах — так её и вводят. В минорные переводим на сервере,
     # чтобы округление было в одном месте, а не в каждом клиенте.
-    amount: float
+    # allow_inf_nan: Infinity/NaN — 422 на входе, а не 500 в round().
+    amount: float = Field(allow_inf_nan=False)
     currency: str = "RUB"
     plan: str = ""
     months: int = 1

@@ -26,6 +26,7 @@ from ..plans import (
     quote_plan,
     usage_summary,
 )
+from ..ratelimit import limiter
 from ..schemas import PlanOut, PlanQuoteIn, PlanQuoteOut, PlansOut, SubscriptionOut
 from ..services import promo as promo_service
 from ..services.plans import read_subscription
@@ -48,7 +49,13 @@ def public_plans() -> PlansOut:
     )
 
 
-@router.post("/plans/quote", response_model=PlanQuoteOut)
+@router.post(
+    "/plans/quote",
+    response_model=PlanQuoteOut,
+    # Ручка публичная (лендинг до входа), а внутри — проверка промокода по
+    # базе: без лимита коды подбираются перебором на скорости сети.
+    dependencies=[Depends(limiter("quote"))],
+)
 def plan_quote(payload: PlanQuoteIn, db: Session = Depends(get_db)) -> PlanQuoteOut:
     """Рассчитать 1/3 месяца и промокод без доверия арифметике браузера.
 
