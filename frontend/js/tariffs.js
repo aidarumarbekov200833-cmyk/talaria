@@ -300,7 +300,9 @@ export function handlePlanAction(element) {
   } else if (element.matches('[data-plan-promo-reveal]')) {
     card.querySelector('[data-plan-promo-controls]').hidden = false;
     state.promoAttempt.open();
-    card.querySelector('[data-plan-promo-input]').focus();
+    // preventScroll: поле встаёт на место ссылки, скроллить страницу не надо —
+    // иначе браузер дёргает вьюпорт и карточка «прыгает» под курсором.
+    card.querySelector('[data-plan-promo-input]').focus({ preventScroll: true });
   } else if (element.matches('[data-plan-promo-close]')) {
     state.promo = '';
     state.promoAttempt.close();

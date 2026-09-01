@@ -32,7 +32,6 @@ def test_key_create_list_duplicate_blank_and_owner_isolation(
 
     other = models.User(telegram_id=3003, username="other", first_name="Other")
     db.add(other)
-    db.add(models.AccessWhitelist(username="other", note="test"))
     db.commit()
     foreign_token, _ = create_jwt(other.id)
     foreign_headers = {"Authorization": f"Bearer {foreign_token}", "X-Request-Id": "keys-404"}

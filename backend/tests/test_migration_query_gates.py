@@ -59,12 +59,12 @@ def test_migrations_have_single_head_with_exact_indexes_and_model_parity() -> No
 
     Проверка именно на «одну голову», а не на конкретный номер: иначе тест
     приходится править при каждой миграции, и смысл (нет расходящихся веток)
-    теряется за обновлением константы. Актуальная голова — 0036: зеркало
-    «без звука» для диалогов переписки.
+    теряется за обновлением константы. Актуальная голова — 0037: белый список
+    доступа удалён (пробный тариф выдаётся всем, список стал лишним).
     """
     captured = capture_alembic(BACKEND_ROOT / "alembic" / "versions")
     assert len(captured["heads"]) == 1, f"расходящиеся ветки миграций: {captured['heads']}"
-    assert captured["heads"] == ["0036"]
+    assert captured["heads"] == ["0037"]
     assert captured["indexes"].count(CAMPAIGN_INDEX) == 1
     assert captured["indexes"].count(LEAD_INDEX) == 1
 

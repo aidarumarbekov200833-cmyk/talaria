@@ -2881,6 +2881,18 @@
     "tag": "small"
   },
   {
+    "classes": ["fin-foot-links"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "a"
+  },
+  {
+    "classes": [],
+    "tag": "a"
+  },
+  {
     "classes": ["fin-foot-name"],
     "tag": "span"
   },
@@ -2989,6 +3001,8 @@
   },
   {
     "classes": ["brand-mark"],
+    "data-act": "goTo",
+    "data-args": "[\"dashboard\"]",
     "tag": "div"
   },
   {
@@ -3017,6 +3031,8 @@
   },
   {
     "classes": [],
+    "data-act": "goTo",
+    "data-args": "[\"dashboard\"]",
     "tag": "div"
   },
   {
@@ -3820,12 +3836,6 @@
     "tag": "b"
   },
   {
-    "classes": ["btn", "header-primary"],
-    "data-act": "goTo",
-    "data-args": "[\"search\"]",
-    "tag": "button"
-  },
-  {
     "classes": ["quick-start"],
     "id": "quickStart",
     "tag": "section"
@@ -4252,7 +4262,7 @@
     "tag": "small"
   },
   {
-    "classes": ["panel-row"],
+    "classes": ["panel-row", "panel-row-single"],
     "tag": "div"
   },
   {
@@ -4303,113 +4313,6 @@
     "classes": ["chart-compare"],
     "id": "chartCompare",
     "tag": "div"
-  },
-  {
-    "classes": ["panel", "dashboard-signal-panel"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel-head"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": ["dashboard-kicker"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["dashboard-live"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["dashboard-signal-map"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": [],
-    "tag": "em"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": [],
-    "tag": "em"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["dashboard-signal-copy"],
-    "tag": "p"
-  },
-  {
-    "classes": ["dash-limit"],
-    "id": "dashLimit",
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "id": "dashLimitText",
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "id": "dashLimitBar",
-    "tag": "i"
   },
   {
     "classes": ["grid-2"],
@@ -8382,6 +8285,70 @@
   },
   {
     "classes": ["section"],
+    "id": "help",
+    "tag": "section"
+  },
+  {
+    "classes": ["topbar"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "div"
+  },
+  {
+    "classes": ["page-title"],
+    "tag": "div"
+  },
+  {
+    "classes": ["page-sub"],
+    "tag": "div"
+  },
+  {
+    "classes": ["help-page"],
+    "tag": "div"
+  },
+  {
+    "classes": ["help-search"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "circle"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "id": "helpSearch",
+    "tag": "input"
+  },
+  {
+    "classes": ["help-list"],
+    "id": "helpList",
+    "tag": "div"
+  },
+  {
+    "classes": ["help-foot"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["btn"],
+    "data-act": "helpToSupport",
+    "tag": "button"
+  },
+  {
+    "classes": ["section"],
     "id": "admin",
     "tag": "section"
   },
@@ -9198,87 +9165,6 @@
   {
     "classes": ["btn"],
     "data-act": "grantDaysToAll",
-    "tag": "button"
-  },
-  {
-    "classes": ["panel"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel-head"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["log-scope"],
-    "tag": "span"
-  },
-  {
-    "classes": ["field-hint"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "id": "whitelistList",
-    "tag": "div"
-  },
-  {
-    "classes": ["dd-empty"],
-    "tag": "div"
-  },
-  {
-    "classes": ["key-add"],
-    "tag": "div"
-  },
-  {
-    "classes": ["row-2"],
-    "tag": "div"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "wlTelegramId",
-    "tag": "input"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "wlUsername",
-    "tag": "input"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": [],
-    "id": "wlNote",
-    "tag": "input"
-  },
-  {
-    "classes": ["btn"],
-    "data-act": "addWhitelist",
     "tag": "button"
   },
   {
@@ -10124,30 +10010,24 @@
   },
   {
     "classes": ["modal-overlay"],
-    "id": "modalHelp",
+    "id": "modalSupport",
     "tag": "div"
   },
   {
-    "classes": ["modal", "modal-wide"],
+    "classes": ["modal", "sup-modal"],
     "tag": "div"
   },
   {
-    "classes": ["modal-head"],
+    "classes": ["modal-head", "sup-head"],
     "tag": "div"
   },
   {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["modal-close"],
-    "data-act": "closeModal",
-    "data-args": "[\"modalHelp\"]",
-    "tag": "button"
-  },
-  {
-    "classes": ["help-search"],
+    "classes": ["sup-head-id"],
     "tag": "div"
+  },
+  {
+    "classes": ["sup-avatar"],
+    "tag": "span"
   },
   {
     "classes": [],
@@ -10155,46 +10035,10 @@
   },
   {
     "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
     "tag": "path"
   },
   {
     "classes": [],
-    "id": "helpSearch",
-    "tag": "input"
-  },
-  {
-    "classes": ["help-list"],
-    "id": "helpList",
-    "tag": "div"
-  },
-  {
-    "classes": ["help-foot"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["btn"],
-    "data-act": "helpToSupport",
-    "tag": "button"
-  },
-  {
-    "classes": ["modal-overlay"],
-    "id": "modalSupport",
-    "tag": "div"
-  },
-  {
-    "classes": ["modal"],
-    "tag": "div"
-  },
-  {
-    "classes": ["modal-head"],
     "tag": "div"
   },
   {
@@ -10202,14 +10046,18 @@
     "tag": "h3"
   },
   {
+    "classes": ["sup-status"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
     "classes": ["modal-close"],
     "data-act": "closeModal",
     "data-args": "[\"modalSupport\"]",
     "tag": "button"
-  },
-  {
-    "classes": ["field-hint"],
-    "tag": "p"
   },
   {
     "classes": ["sup-thread"],
@@ -10226,10 +10074,26 @@
     "tag": "textarea"
   },
   {
-    "classes": ["btn"],
+    "classes": ["btn", "sup-send"],
     "data-act": "sendSupportMessage",
     "id": "supportSend",
     "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": ["sup-foot-note"],
+    "tag": "p"
   },
   {
     "classes": ["modal-overlay"],

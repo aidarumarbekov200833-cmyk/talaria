@@ -28,7 +28,8 @@ const planLabel = (slug) => PLAN_LABEL[slug] || (slug ? 'Тариф' : '—');
 // «clock_skew» — т.е. ровно в тех случаях, когда надо было разбираться.
 const LOGIN_REASON = {
   ok: 'успешно',
-  not_whitelisted: 'нет в белом списке',
+  registration_closed: 'регистрация закрыта',
+  not_whitelisted: 'регистрация закрыта',
   hash_mismatch: 'неверная подпись',
   expired: 'устаревшие данные',
   blocked: 'доступ заблокирован',
@@ -314,7 +315,6 @@ export async function loadAdmin() {
   // Белый список и журнал входов грузим вместе со списком — они на той же
   // странице. Ошибка одного не должна ронять остальные, поэтому по отдельности.
   loadAdminOverview();
-  loadWhitelist();
   loadLoginAttempts();
   loadActivity();
 }
@@ -349,7 +349,7 @@ export async function adminToggleRegistration(open) {
   const ok = await confirmAction(
     wanted
       ? 'Любой человек с аккаунтом Telegram сможет войти сам и получить пробный доступ. Отправка сообщений на пробном тарифе всё равно выключена.'
-      : 'Новые люди перестанут входить сами. Те, кто уже зарегистрирован, продолжат пользоваться. Доступ можно будет выдавать вручную через белый список.',
+      : 'Новые люди перестанут входить сами. Те, кто уже зарегистрирован, продолжат пользоваться.',
     {
       title: wanted ? 'Открыть регистрацию?' : 'Закрыть регистрацию?',
       okLabel: wanted ? 'Открыть' : 'Закрыть',
@@ -382,7 +382,7 @@ function renderScopes(data) {
     <span><b>Регистрация ${open ? 'открыта' : 'закрыта'}</b><small>${
       open
         ? 'Любой аккаунт Telegram входит сам и получает пробный доступ без отправки сообщений.'
-        : 'Войти могут только те, кто уже зарегистрирован или внесён в белый список.'
+        : 'Войти могут только те, кто уже зарегистрирован.'
     }</small></span>
     <button type="button" class="btn ghost" data-act="adminToggleRegistration" data-args='[${open ? 'false' : 'true'}]'>${open ? 'Закрыть' : 'Открыть'}</button>
   </div>`;
@@ -426,26 +426,35 @@ function renderUsers(data) {
       const seen = u.last_login_at ? fmtDateTime(u.last_login_at) : 'ни разу';
       const ip = u.last_ip ? `<div class="key-sub">${esc(u.last_ip)}</div>` : '';
       const flags = (u.flags || []).map((f) => `<span class="adm-flag">${esc(f)}</span>`).join('');
+      // Шесть счётчиков в одной ячейке вместо шести колонок: таблица из 11
+      // колонок не читалась и не влезала. Нулевые значения гасим цветом, чтобы
+      // взгляд цеплялся только за живые кабинеты.
+      const nums = [
+        ['лиды', u.leads || 0],
+        ['базы', u.databases || 0],
+        ['офферы', u.offers || 0],
+        ['рассылки', u.campaigns || 0],
+        ['прогрев', u.warmup_accounts || 0],
+        ['ключи', u.api_keys || 0],
+      ]
+        .map(
+          ([label, n]) =>
+            `<span class="adm-num${n ? '' : ' is-zero'}" title="${label}"><b>${Number(n).toLocaleString('ru-RU')}</b>${label}</span>`,
+        )
+        .join('');
       return `<tr data-admin-user="${u.id}">
-      <td>${u.id}</td>
       <td>${esc(u.name || '—')} ${adminTag}<div class="key-sub">${uname} · id ${u.telegram_id}</div>${flags ? `<div class="adm-flags">${flags}</div>` : ''}</td>
       <td><span class="key-status ${planCls}">${esc(planTxt)}</span></td>
       <td>${esc(seen)}${ip}</td>
-      <td>${u.databases}</td>
-      <td>${(u.leads || 0).toLocaleString('ru-RU')}</td>
-      <td>${u.offers}</td>
-      <td>${u.campaigns}</td>
-      <td>${u.warmup_accounts}</td>
-      <td>${u.api_keys}</td>
+      <td><div class="adm-nums">${nums}</div></td>
       <td>${joined}</td>
     </tr>`;
     })
     .join('');
 
-  wrap.innerHTML = `<div class="table-wrap"><table class="lead-table admin-table">
+  wrap.innerHTML = `<div class="table-wrap adm-users-wrap"><table class="lead-table admin-table">
     <thead><tr>
-      <th>ID</th><th>Пользователь</th><th>Тариф</th><th>Последний вход</th><th>Базы</th><th>Лиды</th><th>Офферы</th>
-      <th>Рассылки</th><th>Прогрев</th><th>Ключи</th><th>Регистрация</th>
+      <th>Пользователь</th><th>Тариф</th><th>Последний вход</th><th>Данные кабинета</th><th>Регистрация</th>
     </tr></thead>
     <tbody>${rows}</tbody>
   </table></div>`;
@@ -659,10 +668,7 @@ function detailHtml(d) {
       ? `<span class="key-status warn">истёк</span>`
       : `<span class="key-status ok">${esc(planLabel(d.plan))}</span>`;
 
-  // Доступ: есть ли в белом списке и действует ли скидка на первую покупку.
-  const wl = d.whitelisted
-    ? '<span class="key-status ok">в белом списке</span>'
-    : '<span class="key-status err">не в белом списке</span>';
+  // Доступ: действует ли скидка на первую покупку.
   const firstBuy = d.first_purchase
     ? '<span class="key-status ok">скидка на первую покупку доступна</span>'
     : '<span class="key-status muted">скидкой уже пользовался</span>';
@@ -698,7 +704,7 @@ function detailHtml(d) {
         ${d.sub_note ? `<div class="key-sub">Заметка: ${esc(d.sub_note)}</div>` : ''}
       </div>
       ${subActionsHtml(d)}
-      <div class="ad-block"><h4>Доступ</h4><div class="key-sub">${wl} · ${firstBuy}</div></div>
+      <div class="ad-block"><h4>Доступ</h4><div class="key-sub"> · ${firstBuy}</div></div>
       <div class="ad-block"><h4>Лиды по статусам</h4><div class="key-sub">${statuses}</div></div>
       <div class="ad-block"><h4>Отправки за месяц</h4><div class="key-sub">Фактически отправлено: ${d.monthly_used.toLocaleString('ru-RU')}. В Talaria нет продуктовой месячной квоты; Telegram-безопасность управляет только темпом каждого аккаунта. ИИ-провайдер задаётся только переменными окружения сервера.</div></div>
       <div class="ad-block"><h4>Журнал входов</h4>${attempts}</div>
@@ -714,96 +720,6 @@ function detailHtml(d) {
 /* --------------------------- белый список доступа ------------------------ */
 // Без записи здесь войти нельзя: бесплатного входа нет. Пускаем по telegram_id
 // и/или username (бэкенд требует хотя бы одно поле).
-
-/** Загрузить белый список (GET /api/admin/whitelist). */
-export async function loadWhitelist() {
-  const wrap = document.getElementById('whitelistList');
-  if (!wrap || !getToken() || !window.__isAdmin) return;
-  try {
-    const data = await api('GET', '/api/admin/whitelist');
-    renderWhitelist(data.entries || []);
-  } catch (e) {
-    wrap.innerHTML = `<div class="dd-empty">Не удалось загрузить список: ${esc(e.message)}</div>`;
-  }
-}
-
-function renderWhitelist(entries) {
-  const wrap = document.getElementById('whitelistList');
-  if (!wrap) return;
-  if (!entries.length) {
-    wrap.innerHTML =
-      '<div class="dd-empty">Список пуст. Пока в нём никого — войти сможет только админ.</div>';
-    return;
-  }
-  wrap.innerHTML = entries
-    .map((w) => {
-      const uname = w.username ? '@' + esc(w.username) : '<span class="muted">без username</span>';
-      const id = w.telegram_id != null ? `id ${w.telegram_id}` : 'id неизвестен';
-      const added = w.created_at ? new Date(w.created_at).toLocaleDateString('ru-RU') : '';
-      return `<div class="key-row" data-wl-id="${w.id}">
-      <div class="key-main">
-        <div class="key-top"><span class="key-label">${w.name ? esc(w.name) : uname}</span></div>
-        <div class="key-sub">${uname} · ${id}${added ? ' · добавлен ' + added : ''}</div>
-        ${w.note ? `<div class="key-sub">${esc(w.note)}</div>` : ''}
-      </div>
-      <div class="key-actions"><button class="btn-mini ghost" data-wl-del="${w.id}">Убрать</button></div>
-    </div>`;
-    })
-    .join('');
-}
-
-/** Добавить в белый список (POST /api/admin/whitelist). */
-export async function addWhitelist() {
-  if (!getToken()) {
-    toast('Сначала войдите', 'warn');
-    return;
-  }
-  const rawId = (document.getElementById('wlTelegramId')?.value || '').replace(/\D/g, '');
-  const username = (document.getElementById('wlUsername')?.value || '').trim().replace(/^@/, '');
-  const note = (document.getElementById('wlNote')?.value || '').trim();
-  if (!rawId && !username) {
-    toast('Укажите Telegram ID или username', 'warn');
-    return;
-  }
-  const body = { note };
-  if (rawId) body.telegram_id = Number(rawId);
-  if (username) body.username = username;
-  try {
-    const data = await api('POST', '/api/admin/whitelist', body);
-    ['wlTelegramId', 'wlUsername', 'wlNote'].forEach((id) => {
-      const el = document.getElementById(id);
-      if (el) el.value = '';
-    });
-    renderWhitelist(data.entries || []);
-    toast('Добавлено в белый список', 'success');
-  } catch (e) {
-    toast(`Не удалось добавить: ${e.message}`, 'warn');
-  }
-}
-
-/** Убрать из белого списка (DELETE /api/admin/whitelist/{id}). */
-async function removeWhitelist(id) {
-  if (
-    !(await confirmAction(
-      'Убрать этот аккаунт из белого списка? Его текущий вход перестанет работать.',
-    ))
-  )
-    return;
-  try {
-    await api('DELETE', `/api/admin/whitelist/${id}`);
-    toast('Убрано из белого списка', 'info');
-    loadWhitelist();
-  } catch (e) {
-    toast(`Не удалось убрать: ${e.message}`, 'warn');
-  }
-}
-
-/* ------------------------------ журнал входов ---------------------------- */
-// Кто, откуда и с какого устройства пытался войти. Совпадение IP/устройства у
-// разных аккаунтов — сигнал о мультиаккаунтах.
-
-let _loginOffset = 0;
-const _LOGIN_PAGE = 100;
 
 /** Загрузить журнал входов (GET /api/admin/login-attempts).
  *
@@ -1063,15 +979,6 @@ export function initAdmin() {
   document.querySelectorAll('[data-chart-period]').forEach((b) => {
     b.addEventListener('click', () => setChartPeriod(b.dataset.chartPeriod));
   });
-
-  // Белый список: удаление через делегирование (строки перерисовываются).
-  const wl = document.getElementById('whitelistList');
-  if (wl) {
-    wl.addEventListener('click', (e) => {
-      const del = e.target.closest('[data-wl-del]');
-      if (del) removeWhitelist(Number(del.dataset.wlDel));
-    });
-  }
 
   // Поиск с задержкой: новый запрос всегда сбрасывает страницу на первую,
   // иначе поиск со 2–3 страницы показал бы пустоту.

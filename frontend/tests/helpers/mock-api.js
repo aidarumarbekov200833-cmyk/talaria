@@ -230,11 +230,9 @@ export async function mockApi(page) {
                     ? { attempts: [], total: 0 }
                     : url.pathname === '/api/admin/activity'
                       ? { events: [], total: 0 }
-                      : url.pathname === '/api/admin/whitelist'
+                      : url.pathname === '/api/admin/promo-codes'
                         ? []
-                        : url.pathname === '/api/admin/promo-codes'
-                          ? []
-                          : {};
+                        : {};
       return route.fulfill({
         contentType: 'application/json',
         status: 200,

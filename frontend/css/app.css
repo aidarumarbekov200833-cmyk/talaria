@@ -3948,7 +3948,76 @@ a.tut-open {
   gap: 10px;
 }
 .sup-form textarea {
-  min-height: 76px;
+  min-height: 58px;
+}
+
+/* Редизайн поддержки (v43): шапка с аватаркой и статусом, кнопка-самолётик. */
+.sup-modal {
+  max-width: 560px;
+}
+.sup-head {
+  align-items: flex-start;
+}
+.sup-head-id {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.sup-head-id h3 {
+  margin: 0;
+}
+.sup-avatar {
+  display: grid;
+  width: 40px;
+  height: 40px;
+  flex: none;
+  place-items: center;
+  border-radius: 50%;
+  color: var(--on-accent);
+  background: var(--accent);
+}
+.sup-avatar svg {
+  width: 20px;
+  height: 20px;
+}
+.sup-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 11.5px;
+}
+.sup-status i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--success);
+}
+.sup-send {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  place-items: center;
+  border-radius: 50%;
+}
+.sup-send svg {
+  width: 18px;
+  height: 18px;
+}
+.sup-foot-note {
+  margin: 10px 0 0;
+  color: var(--muted);
+  font-size: 11.5px;
+  text-align: center;
+}
+.sup-msg .sup-text {
+  border-bottom-left-radius: 4px;
+}
+.sup-msg.out .sup-text {
+  border-bottom-left-radius: var(--radius-small);
+  border-bottom-right-radius: 4px;
 }
 
 @media (max-width: 900px) {
@@ -3961,12 +4030,7 @@ a.tut-open {
     max-height: calc(100vh - 100px);
     transform-origin: bottom center;
   }
-  .sup-form {
-    grid-template-columns: 1fr;
-  }
-  .sup-form .btn {
-    width: 100%;
-  }
+  /* Кнопка-самолётик (v43) узкая — на телефоне двухколоночная форма помещается. */
 }
 
 /* --- Админка: обращения в поддержку (v40) ----------------------------- */

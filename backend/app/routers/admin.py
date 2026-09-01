@@ -19,16 +19,12 @@ from sqlalchemy.orm import Session
 
 from .. import alerts
 from ..access import (
-    is_whitelisted,
-    normalize_username,
     registration_open,
-    set_registration_open,
 )
 from ..config import settings
 from ..database import get_db
 from ..dependencies import require_admin
 from ..models import (
-    AccessWhitelist,
     ApiKey,
     Campaign,
     EventLog,
@@ -74,7 +70,6 @@ from ..schemas import (
     AdminPromoOut,
     AdminPromoPatchIn,
     AdminRecomputeScoreOut,
-    AdminRegistrationIn,
     AdminRevenueOut,
     AdminSeriesOut,
     AdminSeriesPointOut,
@@ -83,9 +78,6 @@ from ..schemas import (
     AdminUsersOut,
     AdminViewAsOut,
     AdminVisitorOut,
-    AdminWhitelistAddIn,
-    AdminWhitelistListOut,
-    AdminWhitelistOut,
     EventLogOut,
     OkOut,
 )
@@ -605,7 +597,6 @@ def user_detail(
         monthly_used=int(app_settings.monthly_used or 0),
         recent_events=[EventLogOut.model_validate(e) for e in reversed(events)],
         login_attempts=[_attempt_out(a) for a in attempts],
-        whitelisted=is_whitelisted(db, u.telegram_id, u.username),
         first_purchase=is_first_purchase(db, user_id),
         plan=effective_plan_slug(db, user_id),
         stored_plan=sub.plan or NO_PLAN,
@@ -801,8 +792,7 @@ def view_as_user(
       1. Только чтение — запрет на изменения стоит в middleware, а не в ручках,
          чтобы новая забытая ручка не сделала его неправдой.
       2. Короткий срок — забытая вкладка перестаёт быть доступом сама.
-      3. Запись в журнал ОБОИМ: и админу, и владельцу кабинета. Тихий просмотр
-         чужой переписки и чужих клиентов — не поддержка, а слежка.
+      3. Запись в журнал админа: кто и чей кабинет открывал, видно всегда.
     """
     if user_id == admin.id:
         raise HTTPException(400, "Это ваш собственный кабинет")
@@ -811,14 +801,9 @@ def view_as_user(
         raise HTTPException(404, "Пользователь не найден")
 
     token, _jti = create_view_token(admin.id, target.id, ttl_minutes=VIEW_AS_MINUTES)
-    who = admin.username or f"id{admin.id}"
-    log_event(
-        db,
-        owner_id=target.id,
-        scope="security",
-        message=f"Поддержка открыла ваш кабинет для просмотра (только чтение), админ @{who}",
-        level="warn",
-    )
+    # Владельцу кабинета событие НЕ пишем (просьба владельца сервиса, v43):
+    # запись «поддержка смотрела ваш кабинет» пугала клиентов. След остаётся
+    # в журнале админа — просмотр по-прежнему не тихий для владельца сервиса.
     log_event(
         db,
         owner_id=admin.id,
@@ -870,139 +855,12 @@ def set_block(
     return user_detail(user_id, admin, db)
 
 
-# ------------------------------ белый список ------------------------------
-
-
-def _whitelist_entries(db: Session) -> list[AdminWhitelistOut]:
-    """Весь белый список с именами тех, кто уже заходил.
-
-    Имена подтягиваются одним запросом: раньше на каждую строку списка шёл
-    отдельный запрос к users. По одному username в списке админу трудно
-    вспомнить, кто это, поэтому имя стоит лишнего запроса.
-    """
-    rows = db.query(AccessWhitelist).order_by(AccessWhitelist.id.desc()).all()
-
-    tg_ids = [w.telegram_id for w in rows if w.telegram_id is not None]
-    names: dict[int, str] = {}
-    if tg_ids:
-        names = {
-            u.telegram_id: u.display_name
-            for u in db.query(User).filter(User.telegram_id.in_(tg_ids)).all()
-        }
-
-    return [
-        AdminWhitelistOut(
-            id=w.id,
-            telegram_id=w.telegram_id,
-            username=w.username or "",
-            name=names.get(w.telegram_id, "") if w.telegram_id is not None else "",
-            note=w.note or "",
-            created_at=w.created_at,
-        )
-        for w in rows
-    ]
-
-
-@router.post("/registration", response_model=AdminUsersOut)
-def toggle_registration(
-    payload: AdminRegistrationIn,
-    admin: User = Depends(require_admin),
-    db: Session = Depends(get_db),
-) -> AdminUsersOut:
-    """Открыть или закрыть самостоятельную регистрацию.
-
-    Отвечаем тем же телом, что и список пользователей: интерфейсу после
-    переключения нужен свежий список, а не только флаг, и лишний запрос из-за
-    этого не нужен.
-    """
-    set_registration_open(db, bool(payload.open), admin_id=admin.id)
-    log_event(
-        db,
-        admin.id,
-        "admin",
-        "Регистрация открыта" if payload.open else "Регистрация закрыта",
-        "warn",
-    )
-    # Значения передаём явно: у параметров функции значения по умолчанию —
-    # объекты Query, и прямой вызов без аргументов подсунул бы их в запрос.
-    return list_users(_=admin, db=db, q="", scope="all", offset=0, limit=50)
-
-
-@router.get("/whitelist", response_model=AdminWhitelistListOut)
-def list_whitelist(
-    _: User = Depends(require_admin), db: Session = Depends(get_db)
-) -> AdminWhitelistListOut:
-    return AdminWhitelistListOut(entries=_whitelist_entries(db))
-
-
-@router.post("/whitelist", response_model=AdminWhitelistListOut, status_code=201)
-def add_whitelist(
-    payload: AdminWhitelistAddIn,
-    admin: User = Depends(require_admin),
-    db: Session = Depends(get_db),
-) -> AdminWhitelistListOut:
-    """Добавить доступ по telegram_id и/или username.
-
-    Хотя бы одно поле обязательно. По username удобно пускать того, кто ещё ни
-    разу не входил (id неизвестен); telegram_id надёжнее — его нельзя сменить.
-    """
-    tg_id = payload.telegram_id
-    uname = normalize_username(payload.username)
-    if tg_id is None and not uname:
-        raise HTTPException(400, "Укажите telegram_id или username")
-
-    # Не плодим дубли: и по id, и по имени.
-    exists = None
-    if tg_id is not None:
-        exists = db.query(AccessWhitelist).filter(AccessWhitelist.telegram_id == tg_id).first()
-    if exists is None and uname:
-        exists = db.query(AccessWhitelist).filter(AccessWhitelist.username == uname).first()
-    if exists is not None:
-        raise HTTPException(409, "Этот аккаунт уже в списке допущенных")
-
-    db.add(
-        AccessWhitelist(
-            telegram_id=tg_id,
-            username=uname or None,
-            note=payload.note or "",
-            added_by=admin.id,
-        )
-    )
-    db.commit()
-    return AdminWhitelistListOut(entries=_whitelist_entries(db))
-
-
-@router.delete("/whitelist/{entry_id}", response_model=OkOut)
-def remove_whitelist(
-    entry_id: int,
-    admin: User = Depends(require_admin),
-    db: Session = Depends(get_db),
-) -> OkOut:
-    """Убрать из белого списка. Действующий токен человека перестаёт работать на
-    следующем запросе — get_current_user тоже сверяется с белым списком."""
-    w = db.get(AccessWhitelist, entry_id)
-    if not w:
-        raise HTTPException(404, "Запись не найдена")
-    # Себя из списка убрать нельзя: админ проходит и без записи (settings.is_admin),
-    # но на всякий случай не даём отстрелить единственный гарантированный доступ.
-    if w.telegram_id == admin.telegram_id or normalize_username(w.username) == normalize_username(
-        admin.username
-    ):
-        raise HTTPException(400, "Нельзя убрать из списка самого себя")
-    db.delete(w)
-    db.commit()
-    return OkOut()
-
-
-# ------------------------------ журнал входов ------------------------------
-
-
 @router.get("/login-attempts", response_model=list[AdminLoginAttemptOut])
 def list_login_attempts(
     _: User = Depends(require_admin),
     db: Session = Depends(get_db),
     only_failed: bool = Query(False, description="только отклонённые входы"),
-    reason: str = Query("", description="not_whitelisted | blocked | hash_mismatch | ..."),
+    reason: str = Query("", description="registration_closed | blocked | hash_mismatch | ..."),
     ip: str = Query("", description="точное совпадение IP"),
     q: str = Query("", description="поиск по username и имени"),
     offset: int = Query(0, ge=0),

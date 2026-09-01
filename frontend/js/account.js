@@ -144,8 +144,11 @@ function paintLimits(sub) {
   if (!usage) return;
   // Полосу квоты YouTube рисует quota.js по тем же id, что и раньше: два места,
   // считающие один и тот же процент, однажды разошлись бы в цифрах.
-  box.append(limitRow('Сообщений за сутки', usage.messages_used, usage.messages_limit));
-  box.append(limitRow('Лидов в базах', usage.leads_used, usage.leads_limit));
+  // Строка одна (v43): «Лидов в базах» убрана — эта цифра и так живёт в разделе
+  // «Базы лидов». Сообщения у тарифа Talaria без лимита; на пробном тарифе
+  // отправка выключена вовсе, и рисовать «0 из 0» смысла нет.
+  const messages = limitRow('Сообщения', usage.messages_used, usage.messages_limit);
+  if (Number(usage.messages_limit) !== 0) box.append(messages);
 }
 
 /** Точка «есть непрочитанный ответ поддержки» на карточке аккаунта. */

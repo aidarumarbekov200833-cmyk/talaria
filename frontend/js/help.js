@@ -9,9 +9,8 @@
  *  несуществующей кнопки в справке ничем не лучше выдумки ИИ-помощника.
  */
 import { goTo } from './nav.js?v=zephyr4';
-import { openModal } from './ui.js?v=tal32';
-import { openSupport } from './support.js?v=talaria14';
-import { closeAccountMenu } from './account.js?v=talaria14';
+import { openSupport } from './support.js?v=talaria15';
+import { closeAccountMenu } from './account.js?v=talaria15';
 
 // section — раздел кабинета, куда ведёт кнопка статьи; null, если статья общая.
 const ARTICLES = [
@@ -192,10 +191,7 @@ function articleNode(article) {
     open.type = 'button';
     open.className = 'btn ghost help-open';
     open.textContent = 'Открыть раздел';
-    open.addEventListener('click', () => {
-      document.getElementById('modalHelp')?.classList.remove('show');
-      goTo(article.section);
-    });
+    open.addEventListener('click', () => goTo(article.section));
     box.append(open);
   }
   return box;
@@ -237,7 +233,8 @@ export function openHelpCenter(topic = '') {
   query = '';
   render();
   closeAccountMenu();
-  openModal('modalHelp');
+  // Отдельная страница вместо модалки (v43): статьи длинные.
+  goTo('help');
   const wanted = String(topic || '');
   const article =
     ARTICLES.find((item) => item.id === wanted) || ARTICLES.find((item) => item.section === wanted);
@@ -253,7 +250,6 @@ export function openHelpCenter(topic = '') {
 
 /** Кнопка «Написать в поддержку» из справки. */
 export function helpToSupport() {
-  document.getElementById('modalHelp')?.classList.remove('show');
   openSupport();
 }
 
@@ -262,3 +258,8 @@ export function openHelpForCurrentSection() {
   const active = document.querySelector('.section.active')?.id || '';
   openHelpCenter(active);
 }
+
+// Оглавление рисуется сразу при загрузке модуля: на страницу помощи можно
+// попасть не только через openHelpCenter, но и по F5 (nav.js возвращает в
+// сохранённый раздел напрямую через goTo) — без этого она была бы пустой.
+render();

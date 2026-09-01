@@ -389,7 +389,7 @@
         "type": "object"
       },
       "AdminLoginAttemptOut": {
-        "description": "Одна попытка входа для журнала админки.\n\nПолей достаточно, чтобы ловить мультиаккаунты: один IP/устройство у разных\ntelegram_id — повод присмотреться. Причина отклонения — сырой код из\nsecurity/access (ok, not_whitelisted, hash_mismatch и т.п.).",
+        "description": "Одна попытка входа для журнала админки.\n\nПолей достаточно, чтобы ловить мультиаккаунты: один IP/устройство у разных\ntelegram_id — повод присмотреться. Причина отклонения — сырой код из\nsecurity/access (ok, registration_closed, hash_mismatch и т.п.).",
         "properties": {
           "created_at": {
             "anyOf": [
@@ -968,18 +968,6 @@
         "title": "AdminRecomputeScoreOut",
         "type": "object"
       },
-      "AdminRegistrationIn": {
-        "description": "Рубильник самостоятельной регистрации.",
-        "properties": {
-          "open": {
-            "title": "Open",
-            "type": "boolean"
-          }
-        },
-        "required": ["open"],
-        "title": "AdminRegistrationIn",
-        "type": "object"
-      },
       "AdminRevenueOut": {
         "description": "Сводка выручки. По валютам раздельно: курса на дату платежа мы не\nхраним, а пересчёт по сегодняшнему менял бы прошлые месяцы каждый день.",
         "properties": {
@@ -1260,11 +1248,6 @@
           },
           "user": {
             "$ref": "#/components/schemas/AdminUserOut"
-          },
-          "whitelisted": {
-            "default": false,
-            "title": "Whitelisted",
-            "type": "boolean"
           }
         },
         "required": ["user"],
@@ -1560,103 +1543,6 @@
           }
         },
         "title": "AdminVisitorOut",
-        "type": "object"
-      },
-      "AdminWhitelistAddIn": {
-        "description": "Добавление в белый список. Хотя бы одно из полей id/username обязательно.",
-        "properties": {
-          "note": {
-            "default": "",
-            "title": "Note",
-            "type": "string"
-          },
-          "telegram_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Telegram Id"
-          },
-          "username": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Username"
-          }
-        },
-        "title": "AdminWhitelistAddIn",
-        "type": "object"
-      },
-      "AdminWhitelistListOut": {
-        "properties": {
-          "entries": {
-            "default": [],
-            "items": {
-              "$ref": "#/components/schemas/AdminWhitelistOut"
-            },
-            "title": "Entries",
-            "type": "array"
-          }
-        },
-        "title": "AdminWhitelistListOut",
-        "type": "object"
-      },
-      "AdminWhitelistOut": {
-        "properties": {
-          "created_at": {
-            "anyOf": [
-              {
-                "format": "date-time",
-                "type": "string"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Created At"
-          },
-          "id": {
-            "title": "Id",
-            "type": "integer"
-          },
-          "name": {
-            "default": "",
-            "title": "Name",
-            "type": "string"
-          },
-          "note": {
-            "default": "",
-            "title": "Note",
-            "type": "string"
-          },
-          "telegram_id": {
-            "anyOf": [
-              {
-                "type": "integer"
-              },
-              {
-                "type": "null"
-              }
-            ],
-            "title": "Telegram Id"
-          },
-          "username": {
-            "default": "",
-            "title": "Username",
-            "type": "string"
-          }
-        },
-        "required": ["id"],
-        "title": "AdminWhitelistOut",
         "type": "object"
       },
       "AiChatIn": {
@@ -7976,13 +7862,13 @@
             }
           },
           {
-            "description": "not_whitelisted | blocked | hash_mismatch | ...",
+            "description": "registration_closed | blocked | hash_mismatch | ...",
             "in": "query",
             "name": "reason",
             "required": false,
             "schema": {
               "default": "",
-              "description": "not_whitelisted | blocked | hash_mismatch | ...",
+              "description": "registration_closed | blocked | hash_mismatch | ...",
               "title": "Reason",
               "type": "string"
             }
@@ -8574,57 +8460,6 @@
         "tags": ["admin"]
       }
     },
-    "/api/admin/registration": {
-      "post": {
-        "description": "Открыть или закрыть самостоятельную регистрацию.\n\nОтвечаем тем же телом, что и список пользователей: интерфейсу после\nпереключения нужен свежий список, а не только флаг, и лишний запрос из-за\nэтого не нужен.",
-        "operationId": "toggle_registration_api_admin_registration_post",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "title": "Authorization",
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AdminRegistrationIn"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AdminUsersOut"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "summary": "Toggle Registration",
-        "tags": ["admin"]
-      }
-    },
     "/api/admin/support": {
       "get": {
         "description": "Кто писал в поддержку, начиная с самых свежих обращений.",
@@ -9168,7 +9003,7 @@
     },
     "/api/admin/users/{user_id}/view-as": {
       "post": {
-        "description": "Открыть чужой кабинет глазами владельца — только чтение.\n\nПоловина обращений в поддержку звучит как «у меня ничего не работает», и\nбез возможности посмотреть тот же экран разбор превращается в переписку\nскриншотами. Поэтому просмотр есть, но с тремя ограничениями:\n\n  1. Только чтение — запрет на изменения стоит в middleware, а не в ручках,\n     чтобы новая забытая ручка не сделала его неправдой.\n  2. Короткий срок — забытая вкладка перестаёт быть доступом сама.\n  3. Запись в журнал ОБОИМ: и админу, и владельцу кабинета. Тихий просмотр\n     чужой переписки и чужих клиентов — не поддержка, а слежка.",
+        "description": "Открыть чужой кабинет глазами владельца — только чтение.\n\nПоловина обращений в поддержку звучит как «у меня ничего не работает», и\nбез возможности посмотреть тот же экран разбор превращается в переписку\nскриншотами. Поэтому просмотр есть, но с тремя ограничениями:\n\n  1. Только чтение — запрет на изменения стоит в middleware, а не в ручках,\n     чтобы новая забытая ручка не сделала его неправдой.\n  2. Короткий срок — забытая вкладка перестаёт быть доступом сама.\n  3. Запись в журнал админа: кто и чей кабинет открывал, видно всегда.",
         "operationId": "view_as_user_api_admin_users__user_id__view_as_post",
         "parameters": [
           {
@@ -9213,145 +9048,6 @@
           }
         },
         "summary": "View As User",
-        "tags": ["admin"]
-      }
-    },
-    "/api/admin/whitelist": {
-      "get": {
-        "operationId": "list_whitelist_api_admin_whitelist_get",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "title": "Authorization",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AdminWhitelistListOut"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "summary": "List Whitelist",
-        "tags": ["admin"]
-      },
-      "post": {
-        "description": "Добавить доступ по telegram_id и/или username.\n\nХотя бы одно поле обязательно. По username удобно пускать того, кто ещё ни\nразу не входил (id неизвестен); telegram_id надёжнее — его нельзя сменить.",
-        "operationId": "add_whitelist_api_admin_whitelist_post",
-        "parameters": [
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "title": "Authorization",
-              "type": "string"
-            }
-          }
-        ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AdminWhitelistAddIn"
-              }
-            }
-          },
-          "required": true
-        },
-        "responses": {
-          "201": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/AdminWhitelistListOut"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "summary": "Add Whitelist",
-        "tags": ["admin"]
-      }
-    },
-    "/api/admin/whitelist/{entry_id}": {
-      "delete": {
-        "description": "Убрать из белого списка. Действующий токен человека перестаёт работать на\nследующем запросе — get_current_user тоже сверяется с белым списком.",
-        "operationId": "remove_whitelist_api_admin_whitelist__entry_id__delete",
-        "parameters": [
-          {
-            "in": "path",
-            "name": "entry_id",
-            "required": true,
-            "schema": {
-              "title": "Entry Id",
-              "type": "integer"
-            }
-          },
-          {
-            "in": "header",
-            "name": "authorization",
-            "required": false,
-            "schema": {
-              "title": "Authorization",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/OkOut"
-                }
-              }
-            },
-            "description": "Successful Response"
-          },
-          "422": {
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/HTTPValidationError"
-                }
-              }
-            },
-            "description": "Validation Error"
-          }
-        },
-        "summary": "Remove Whitelist",
         "tags": ["admin"]
       }
     },

@@ -674,26 +674,6 @@ class PlatformSettings(Base):
     updated_at = Column(DateTime(timezone=True), server_default=func.now(), onupdate=func.now())
 
 
-class AccessWhitelist(Base):
-    """Белый список: кто вообще может войти в приложение.
-
-    Бесплатного тарифа нет, поэтому вход открыт не всем: пользователь должен
-    быть заранее добавлен админом. Запись может задавать telegram_id (надёжно,
-    его нельзя сменить) и/или username (удобно, когда id ещё не известен —
-    человек ни разу не входил). Username хранится в нижнем регистре и без «@»,
-    чтобы сравнение было однозначным.
-    """
-
-    __tablename__ = "access_whitelist"
-
-    id = Column(Integer, primary_key=True)
-    telegram_id = Column(BigInteger, unique=True, index=True)  # может быть NULL
-    username = Column(String(64), index=True)  # без @, в нижнем регистре
-    note = Column(Text, default="")  # кто это и за что оплачено
-    added_by = Column(Integer)  # id админа, который добавил
-    created_at = Column(DateTime(timezone=True), server_default=func.now())
-
-
 class LoginAttempt(Base):
     """Журнал попыток входа — и удачных, и отклонённых.
 

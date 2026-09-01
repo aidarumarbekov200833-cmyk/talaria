@@ -26,7 +26,6 @@ def _data_uri(mime: str, raw: bytes) -> str:
 def _make_user(db, telegram_id: int, username: str) -> models.User:
     user = models.User(telegram_id=telegram_id, username=username, first_name=username)
     db.add(user)
-    db.add(models.AccessWhitelist(username=username, note="offers service test"))
     db.commit()
     db.refresh(user)
     return user

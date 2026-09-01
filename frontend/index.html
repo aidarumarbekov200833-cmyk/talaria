@@ -96,7 +96,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,600&amp;family=Poppins:wght@700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria15" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria16" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -1200,6 +1200,9 @@
                   ><span class="fin-foot-copy"
                     ><b>Talaria</b><small>Лиды с YouTube · доставка в Telegram</small></span
                   ></span
+                ><span class="fin-foot-links"
+                  ><a href="/privacy.html">Политика конфиденциальности</a
+                  ><a href="/terms.html">Условия использования</a></span
                 ><span class="fin-foot-name">Talaria 2026</span>
               </div>
             </div>
@@ -1263,7 +1266,15 @@
         <!-- SIDEBAR -->
         <aside class="sidebar">
           <div class="brand">
-            <div class="brand-mark">
+            <div
+              class="brand-mark"
+              data-act="goTo"
+              data-args='["dashboard"]'
+              role="button"
+              tabindex="0"
+              aria-label="На главную"
+              title="На главную"
+            >
               <svg viewBox="0 0 52 44" fill="currentColor" aria-hidden="true">
                 <path
                   d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"
@@ -1280,7 +1291,7 @@
                 <path class="tl-f" d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z" />
               </svg>
             </div>
-            <div>
+            <div data-act="goTo" data-args='["dashboard"]' role="button" tabindex="0">
               <div class="brand-name">Talaria</div>
               <div class="brand-tag">Рассылки и офферы</div>
             </div>
@@ -1824,14 +1835,6 @@
                   ><i></i
                   ><span><small>Talaria в работе</small><b id="dashLiveClock">—</b></span></span
                 >
-                <button
-                  class="btn header-primary"
-                  type="button"
-                  data-act="goTo"
-                  data-args='["search"]'
-                >
-                  Найти лидов
-                </button>
               </div>
             </div>
 
@@ -2079,7 +2082,9 @@
               </button>
             </div>
 
-            <div class="panel-row" style="margin-bottom: 18px">
+            <!-- v43: панель «Рабочий ритм» убрана (декорация без данных),
+             график собранных лидов занял всю ширину. -->
+            <div class="panel-row panel-row-single" style="margin-bottom: 18px">
               <div class="chart-wrap">
                 <div class="panel-head">
                   <h3>Собрано лидов</h3>
@@ -2118,30 +2123,6 @@
                 </div>
                 <div class="chart-bars" id="chartBars"></div>
                 <div class="chart-compare" id="chartCompare"></div>
-              </div>
-
-              <div class="panel dashboard-signal-panel">
-                <div class="panel-head">
-                  <div>
-                    <span class="dashboard-kicker">Система</span>
-                    <h3>Рабочий ритм</h3>
-                  </div>
-                  <span class="dashboard-live"><i></i>обновляется</span>
-                </div>
-                <div class="dashboard-signal-map" aria-hidden="true">
-                  <span><i></i><b>Поиск</b><small>каналы</small></span>
-                  <em></em>
-                  <span><i></i><b>Проверка</b><small>контакты</small></span>
-                  <em></em>
-                  <span><i></i><b>Диалог</b><small>ответы</small></span>
-                </div>
-                <p class="dashboard-signal-copy">
-                  Talaria собирает события из поиска, Telegram-проверки и рассылок в одну живую
-                  картину. Цифры сверху обновляются после каждого завершённого этапа.
-                </p>
-                <div class="dash-limit" id="dashLimit" hidden>
-                  <b id="dashLimitText">—</b><i id="dashLimitBar"></i>
-                </div>
               </div>
             </div>
 
@@ -4305,6 +4286,48 @@
             </div>
           </section>
 
+          <!-- ПОМОЩЬ ПО СЕРВИСУ (v43): отдельная страница вместо модалки —
+           статьи длинные, в модалке их читали через замочную скважину.
+           Содержимое рендерит js/help.js в #helpList, как и раньше. -->
+          <section class="section" id="help">
+            <div class="topbar">
+              <div>
+                <div class="page-title">Помощь по сервису</div>
+                <div class="page-sub">Как работает каждый раздел — шаг за шагом</div>
+              </div>
+            </div>
+            <div class="help-page">
+              <div class="help-search">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <circle cx="11" cy="11" r="7" />
+                  <path d="M21 21l-4.3-4.3" />
+                </svg>
+                <input
+                  id="helpSearch"
+                  type="search"
+                  autocomplete="off"
+                  placeholder="Что не получается? Например: квота, рассылка, промокод"
+                  data-input-act="filterHelp"
+                />
+              </div>
+              <div class="help-list" id="helpList"></div>
+              <div class="help-foot">
+                <span>Не нашли ответ?</span>
+                <button class="btn" type="button" data-act="helpToSupport">
+                  Написать в поддержку
+                </button>
+              </div>
+            </div>
+          </section>
+
           <!-- АДМИН (только для админа) -->
           <section class="section" id="admin" data-admin-only style="display: none">
             <div class="topbar">
@@ -4684,42 +4707,6 @@
               </div>
             </div>
 
-            <!-- Белый список доступа: без записи здесь войти нельзя (бесплатного
-             входа нет). Пускаем по telegram_id и/или username. -->
-            <div class="panel" style="margin-top: 22px">
-              <div class="panel-head">
-                <h3>Белый список доступа</h3>
-                <span class="log-scope">кто может войти</span>
-              </div>
-              <div class="field-hint">
-                Войти в систему может только тот, кто есть в этом списке. По telegram_id надёжнее
-                (его нельзя сменить); по username удобно пустить того, кто ещё ни разу не заходил.
-              </div>
-              <div id="whitelistList"><div class="dd-empty">Загрузка…</div></div>
-              <div class="key-add">
-                <div class="row-2">
-                  <div class="field">
-                    <label>Telegram ID</label
-                    ><input
-                      type="text"
-                      id="wlTelegramId"
-                      inputmode="numeric"
-                      placeholder="123456789"
-                    />
-                  </div>
-                  <div class="field">
-                    <label>Username</label
-                    ><input type="text" id="wlUsername" placeholder="@username" />
-                  </div>
-                </div>
-                <div class="field">
-                  <label>Заметка</label
-                  ><input type="text" id="wlNote" placeholder="Кто это, почему допущен" />
-                </div>
-                <button class="btn" data-act="addWhitelist">Добавить в список</button>
-              </div>
-            </div>
-
             <!-- Журнал входов открывается модалкой из «Кто заходил»: на самой
              странице ему не место — админка и так длинная. -->
             <div class="modal-overlay" id="modalLoginJournal">
@@ -4750,7 +4737,7 @@
                       </div>
                     </div>
                     <div class="field-hint">
-                      Последние попытки входа. Отклонённые — это чужие, кого нет в белом списке, или
+                      Последние попытки входа. Отклонённые — это вход при закрытой регистрации или
                       неверная подпись Telegram. Совпадение IP или устройства у разных аккаунтов —
                       повод присмотреться к мультиаккаунтам.
                     </div>
@@ -4758,7 +4745,7 @@
                       <select id="loginReasonFilter" class="lead-sort">
                         <option value="">Все причины</option>
                         <option value="ok">успешно</option>
-                        <option value="not_whitelisted">нет в белом списке</option>
+                        <option value="registration_closed">регистрация закрыта</option>
                         <option value="blocked">доступ заблокирован</option>
                         <option value="hash_mismatch">неверная подпись</option>
                         <option value="expired">устаревшие данные</option>
@@ -5125,69 +5112,65 @@
     <!-- Общее подтверждение опасных действий. Одна модалка на весь кабинет,
      а не confirm() браузера: системное окно нельзя ни оформить, ни объяснить
      в нём последствия, и человек закрывает его не читая. -->
-    <!-- ЦЕНТР ПОМОЩИ (v40). Одна модалка на весь сервис: раньше подсказки
-     жили только в подписях под полями, и «как это работает» человек спрашивал
-     лично. Статьи лежат в js/help.js рядом с интерфейсом, который описывают. -->
-    <div class="modal-overlay" id="modalHelp">
-      <div class="modal modal-wide">
-        <div class="modal-head">
-          <h3>Помощь по сервису</h3>
-          <button class="modal-close" data-act="closeModal" data-args='["modalHelp"]'>✕</button>
-        </div>
-        <div class="help-search">
-          <svg
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            aria-hidden="true"
-          >
-            <circle cx="11" cy="11" r="7" />
-            <path d="M21 21l-4.3-4.3" />
-          </svg>
-          <input
-            id="helpSearch"
-            type="search"
-            autocomplete="off"
-            placeholder="Что не получается? Например: квота, рассылка, промокод"
-            data-input-act="filterHelp"
-          />
-        </div>
-        <div class="help-list" id="helpList"></div>
-        <div class="help-foot">
-          <span>Не нашли ответ?</span>
-          <button class="btn" type="button" data-act="helpToSupport">Написать в поддержку</button>
-        </div>
-      </div>
-    </div>
-
-    <!-- ПОДДЕРЖКА (v40). Переписка с владельцем сервиса внутри кабинета:
-     сообщение уходит ему в Telegram, ответ виден здесь и приходит человеку
-     в Telegram. Историю держит сервер (таблица support_messages). -->
+    <!-- ПОДДЕРЖКА (v40, редизайн v43). Переписка с владельцем сервиса внутри
+     кабинета: сообщение уходит ему в Telegram, ответ виден здесь и приходит
+     человеку в Telegram. Историю держит сервер (таблица support_messages). -->
     <div class="modal-overlay" id="modalSupport">
-      <div class="modal">
-        <div class="modal-head">
-          <h3>Поддержка</h3>
+      <div class="modal sup-modal">
+        <div class="modal-head sup-head">
+          <div class="sup-head-id">
+            <span class="sup-avatar" aria-hidden="true">
+              <svg
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <path
+                  d="M21 11.5a8.4 8.4 0 01-9 8.4 9 9 0 01-4-.9L3 21l1.9-4.6A8.4 8.4 0 013 11.5 8.4 8.4 0 0112 3a8.4 8.4 0 019 8.5z"
+                />
+              </svg>
+            </span>
+            <div>
+              <h3>Поддержка</h3>
+              <span class="sup-status"><i></i>пишете напрямую владельцу сервиса</span>
+            </div>
+          </div>
           <button class="modal-close" data-act="closeModal" data-args='["modalSupport"]'>✕</button>
         </div>
-        <p class="field-hint">
-          Пишите прямо владельцу сервиса. Ответ придёт в этот диалог и сообщением от Telegram-бота.
-          Если вопрос про ошибку — укажите раздел и что нажимали.
-        </p>
         <div class="sup-thread" id="supportThread"></div>
         <div class="sup-form">
           <textarea
             id="supportInput"
-            rows="3"
+            rows="2"
             maxlength="2000"
-            placeholder="Опишите вопрос…"
+            placeholder="Опишите вопрос. Если про ошибку — какой раздел и что нажимали"
           ></textarea>
-          <button class="btn" type="button" id="supportSend" data-act="sendSupportMessage">
-            Отправить
+          <button
+            class="btn sup-send"
+            type="button"
+            id="supportSend"
+            data-act="sendSupportMessage"
+            aria-label="Отправить"
+            title="Отправить"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              aria-hidden="true"
+            >
+              <path d="M22 2 11 13" />
+              <path d="M22 2 15 22l-4-9-9-4Z" />
+            </svg>
           </button>
         </div>
+        <p class="sup-foot-note">Ответ придёт сюда и сообщением от Telegram-бота.</p>
       </div>
     </div>
 
@@ -5556,6 +5539,6 @@
     </div>
 
     <script src="/js/talaria-landing.js?v=talaria6"></script>
-    <script type="module" src="/js/main.js?v=talaria9"></script>
+    <script type="module" src="/js/main.js?v=talaria11"></script>
   </body>
 </html>

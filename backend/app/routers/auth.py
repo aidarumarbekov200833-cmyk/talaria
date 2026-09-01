@@ -105,15 +105,15 @@ def auth_telegram(
         raise reject(reason, 401, messages.get(reason, "Подпись Telegram невалидна"))
 
     # Подпись честная. Дальше решаем, пускать ли: при открытой регистрации —
-    # всех, при закрытой — только белый список.
+    # всех, при закрытой — только тех, кто уже зарегистрирован.
     user = db.query(User).filter(User.telegram_id == payload.id).first()
 
     if not access.login_allowed(db, payload.id, payload.username):
         raise reject(
-            "not_whitelisted",
+            "registration_closed",
             403,
-            "Вам не разрешено входить в Talaria: вашего Telegram-аккаунта нет в списке доступа. "
-            f"Обратитесь к администратору {settings.admin_contact}.",
+            "Регистрация новых аккаунтов сейчас закрыта. "
+            f"Напишите администратору {settings.admin_contact} — откроем доступ.",
             owner_id=user.id if user else None,
         )
 
@@ -125,7 +125,7 @@ def auth_telegram(
         user is None
         and open_signup
         and settings.trial_max_per_ip > 0
-        and not access.is_whitelisted(db, payload.id, payload.username)
+        and not settings.is_admin(payload.username, payload.id)
     ):
         ip = access.client_ip(request)
         if access.fresh_signups_from_ip(db, ip) >= settings.trial_max_per_ip:
@@ -152,9 +152,6 @@ def auth_telegram(
     user.first_name = payload.first_name
     user.last_name = payload.last_name
     user.photo_url = payload.photo_url
-    # Запись могли добавить по одному имени — закрепляем за ней telegram_id,
-    # чтобы смена username в Telegram не отрезала человеку доступ.
-    access.bind_whitelist_id(db, payload.id, payload.username)
     db.commit()
     db.refresh(user)
 

@@ -43,4 +43,16 @@ export function initSidebar() {
   // На узком экране меню и так превращается в нижнюю навигацию — сворачивать
   // там нечего, а восстановленный класс ломал бы разметку.
   paint(collapsed && window.innerWidth > 900);
+
+  // Клик по пустому месту свёрнутого меню разворачивает его обратно (v43):
+  // человек тянется к меню — значит, оно ему нужно целиком. Иконки пунктов,
+  // лого и кнопки продолжают работать как раньше.
+  const sidebar = document.querySelector('#appWrapper .sidebar');
+  if (sidebar) {
+    sidebar.addEventListener('click', (e) => {
+      if (!shell()?.classList.contains('sidebar-collapsed')) return;
+      if (e.target.closest('.nav-item, [data-act], a, button, input, label')) return;
+      toggleSidebar();
+    });
+  }
 }

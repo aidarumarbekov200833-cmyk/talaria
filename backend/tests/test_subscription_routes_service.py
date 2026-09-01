@@ -388,7 +388,6 @@ def test_route_handlers_contain_no_direct_persistence_calls() -> None:
 def _admin_headers(db) -> dict[str, str]:
     admin = models.User(telegram_id=92001, username="admin_user", first_name="Admin")
     db.add(admin)
-    db.add(models.AccessWhitelist(username="admin_user", note="D3 admin"))
     db.commit()
     db.refresh(admin)
     token, _jti = create_jwt(admin.id)

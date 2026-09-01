@@ -26,7 +26,7 @@ import {
 import { toast } from './ui.js?v=tal32';
 import { goTo, restoreLastSection } from './nav.js?v=zephyr4';
 import { maybeShowOnboarding } from './onboarding.js?v=zephyr4';
-import { animateCounters, loadNotifications } from './dashboard.js?v=tal32';
+import { animateCounters, loadNotifications } from './dashboard.js?v=tal33';
 import { loadDatabases } from './databases.js?v=note1';
 import { loadOffers, loadPlaceholders, loadAiOfferSettings } from './offers.js?v=aioffer1';
 import {
@@ -36,7 +36,7 @@ import {
   refreshAiAvailability,
 } from './campaigns.js?v=zephyr3';
 import { loadSettings, loadKeys, loadWarmup } from './settings.js?v=sess1';
-import { applyAdminVisibility, loadAdmin } from './admin.js?v=talaria14';
+import { applyAdminVisibility, loadAdmin } from './admin.js?v=talaria15';
 // Тот же URL модуля, что и в main.js: разные query-string создают два
 // независимых state/слушателя, и тариф рисует одна копия, а клики ждёт другая.
 import { loadSubscription, loadPublicPlans } from './plans.js?v=phone3';

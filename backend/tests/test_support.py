@@ -24,7 +24,6 @@ def admin(db):
     """Владелец сервиса. Админ определяется по username (см. conftest)."""
     row = models.User(telegram_id=2002, username="admin_user", first_name="Boss")
     db.add(row)
-    db.add(models.AccessWhitelist(username="admin_user", note="support test"))
     db.commit()
     db.refresh(row)
     return row

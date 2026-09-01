@@ -657,7 +657,6 @@ def test_unknown_activation_keeps_real_http_error_envelope(client, db, user) -> 
         first_name="Admin",
     )
     db.add(admin)
-    db.add(models.AccessWhitelist(username="admin_user", note="D2 admin"))
     db.commit()
     db.refresh(admin)
     token, _jti = create_jwt(admin.id)
