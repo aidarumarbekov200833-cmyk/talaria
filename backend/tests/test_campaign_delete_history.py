@@ -59,3 +59,47 @@ def test_delete_campaign_keeps_send_history(client, db, paid_user, auth_headers)
     assert (
         db.query(models.Campaign).filter(models.Campaign.id == campaign_id).one_or_none() is None
     )
+
+
+def test_uncertain_send_counts_as_contacted(client, db, paid_user, auth_headers):
+    """SEND_UNCERTAIN-исход исключает лида из следующей рассылки.
+
+    Ревью PR #3: отказ от ретрая при неопределённом исходе (сообщение могло
+    уйти) не имел смысла, пока skip_contacted видел только status=sent —
+    дубль просто переезжал в следующую кампанию. Теперь строка со статусом
+    uncertain тоже считается «уже писали», а честный failed — по-прежнему нет.
+    """
+    lead = _lead_fixture(db, paid_user.id)
+    lead.tg_status = "verified"
+    # Предпросмотру нужен хотя бы один оффер — иначе честный 400 до отбора.
+    db.add(models.Offer(owner_id=paid_user.id, name="Оффер", text="Привет, {name}!"))
+    db.add(
+        models.CampaignSend(
+            owner_id=paid_user.id,
+            campaign_id=None,
+            lead_id=lead.id,
+            status="uncertain",
+        )
+    )
+    db.commit()
+    database_id = lead.database_id
+
+    response = client.post(
+        "/api/campaigns/launch-preview",
+        json={"database_id": database_id, "skip_contacted": True, "limit": 10},
+        headers=auth_headers,
+    )
+    assert response.status_code == 200
+    body = response.json()
+    assert body["skipped_contacted"] == 1, "uncertain должен считаться «уже писали»"
+
+    # Честная ошибка (failed) лида не исключает: он ничего не получал.
+    db.query(models.CampaignSend).update({models.CampaignSend.status: "failed"})
+    db.commit()
+    response = client.post(
+        "/api/campaigns/launch-preview",
+        json={"database_id": database_id, "skip_contacted": True, "limit": 10},
+        headers=auth_headers,
+    )
+    assert response.status_code == 200
+    assert response.json()["skipped_contacted"] == 0

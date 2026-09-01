@@ -26,6 +26,9 @@ def get_metrics(x_metrics_token: str | None = Header(default=None)) -> Response:
     ручка вообще существует и просто требует другой токен.
     """
     expected = settings.metrics_token.strip()
-    if expected and not secrets.compare_digest(x_metrics_token or "", expected):
+    # Пустой METRICS_TOKEN раньше ОТКЛЮЧАЛ проверку, а не доступ: забыл задать
+    # токен — и метрики (имена пользователей процессов нет, но объёмы и статусы
+    # есть) торчали в интернет через /api/. Нет токена — ручки «нет».
+    if not expected or not secrets.compare_digest(x_metrics_token or "", expected):
         raise HTTPException(404, "Not Found")
     return Response(content=metrics.render_prometheus(), media_type="text/plain; version=0.0.4")

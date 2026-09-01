@@ -21,7 +21,7 @@ import {
 import { initTheme } from './theme.js?v=zephyr3';
 import { initPolish } from './polish.js?v=phone3';
 import { initNav, goTo } from './nav.js?v=zephyr4';
-import { initAuth, enterApp, logout } from './auth.js?v=viewas2';
+import { initAuth, enterApp, logout } from './auth.js?v=viewas3';
 import {
   animateCounters,
   buildChart,

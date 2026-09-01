@@ -12,6 +12,7 @@ from __future__ import annotations
 
 from datetime import UTC, datetime
 
+from sqlalchemy import func
 from sqlalchemy.orm import Session
 
 from ..models import PromoCode
@@ -161,8 +162,15 @@ def mark_used(db: Session, code: str | None) -> None:
     normalized = normalize(code)
     if not normalized:
         return
-    row = db.query(PromoCode).filter(PromoCode.code == normalized).one_or_none()
-    if row is None:
-        return
-    row.used_count = int(row.used_count or 0) + 1
-    db.commit()
+    # Условный UPDATE вместо чтения и инкремента в питоне: два параллельных
+    # платежа с одним кодом иначе оба прочитали бы used_count=N и записали
+    # N+1 — max_uses превышался бы молча. rowcount не проверяем нарочно:
+    # платёж уже принят, и валидность кода решалась раньше, при расчёте цены.
+    db.query(PromoCode).filter(PromoCode.code == normalized).update(
+        {PromoCode.used_count: func.coalesce(PromoCode.used_count, 0) + 1},
+        synchronize_session=False,
+    )
+    # Bulk UPDATE не трогает объекты в identity map: без expire чтение той же
+    # сессии (например, повторный расчёт цены в этом же запросе) видело бы
+    # старый used_count и считало бы исчерпанный код живым.
+    db.expire_all()

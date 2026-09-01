@@ -18,6 +18,7 @@ from contextvars import ContextVar
 from datetime import UTC, datetime, timedelta
 
 from fastapi import Request
+from sqlalchemy.exc import ProgrammingError
 from sqlalchemy.orm import Session
 
 from .config import settings
@@ -33,7 +34,11 @@ logger = logging.getLogger("outly.access")
 # чтобы подменить IP и обойти rate limit. Теперь отсчитываем адрес С КОНЦА,
 # пропуская TRUSTED_PROXY_HOPS собственных прокси: элементы, которые дописали
 # наши nginx/Caddy, подделать нельзя.
-_IP_HEADERS = ("cf-connecting-ip", "x-real-ip")
+# Только заголовок, который ставит НАШ nginx. cf-connecting-ip убран: проект
+# не за Cloudflare, а доверять заголовку, который может прислать кто угодно, —
+# заряженный fallback: любое изменение проксирования сделало бы подмену IP
+# однострочной.
+_IP_HEADERS = ("x-real-ip",)
 _MAX_IP_LEN = 64
 
 
@@ -92,9 +97,15 @@ def registration_open(db: Session) -> bool:
     """
     try:
         row = db.query(PlatformSettings).order_by(PlatformSettings.id).first()
-    except Exception:  # noqa: BLE001 — таблицы может не быть до миграции
-        logger.warning("Не удалось прочитать platform_settings", exc_info=True)
+    except ProgrammingError:
+        # Таблицы ещё нет (до миграции) — честный случай для значения из env.
+        logger.warning("platform_settings ещё не создана", exc_info=True)
         return settings.open_registration
+    except Exception:  # noqa: BLE001
+        # БД недоступна — это НЕ «настройки по умолчанию»: если админ закрыл
+        # регистрацию рубильником, падение БД не должно тихо открыть её снова.
+        logger.warning("БД недоступна при проверке регистрации — считаем закрытой", exc_info=True)
+        return False
     if row is None:
         return settings.open_registration
     return bool(row.open_registration)

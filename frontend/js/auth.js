@@ -320,6 +320,11 @@ function sessionExpired() {
   document.getElementById('appWrapper').classList.remove('active');
   document.getElementById('loginScreen').classList.remove('hidden');
   document.querySelectorAll('.dropdown').forEach((d) => d.classList.remove('show'));
+  // Тот же сигнал, что и при выходе по кнопке: разделы глушат свои поллеры.
+  // Без него после 401 фоновые опросы продолжали бы молотить по закрытой
+  // сессии. Личные ключи localStorage при этом НЕ чистим: истечение сессии —
+  // не смена пользователя, фильтры пригодятся после повторного входа.
+  window.dispatchEvent(new CustomEvent('talaria:logout'));
   toast('Сессия истекла — войдите заново', 'warn');
 }
 

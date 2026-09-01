@@ -300,7 +300,7 @@ def main() -> int:
         if attempts >= MAX_ATTEMPTS:
             notify(
                 "🔴 Сайт не отвечает\n\n"
-                "Проверка https://zapp.westus2.cloudapp.azure.com/api/health не "
+                "Проверка https://talaria.mooo.com/api/health не "
                 "проходит, хотя контейнеры перезапускались.\n\n"
                 "Что сделать: ssh aidar@20.3.102.97, затем\n"
                 "cd ~/zapp && docker compose ps && docker compose logs --tail 50",

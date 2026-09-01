@@ -431,7 +431,7 @@ def offer_stats(
         key = (offer_id, kind)
         acc = per_offer.setdefault(key, empty.copy())
         kind_acc = per_kind.setdefault(kind, empty.copy())
-        if status == "failed":
+        if status in ("failed", "uncertain"):
             acc["failed"] += count
             kind_acc["failed"] += count
         elif status == "sent":
@@ -759,12 +759,13 @@ def campaign_recipients(
     query = base
     skipped_contacted = 0
     if data.skip_contacted:
-        # Считаем «уже писали» только успешные отправки. Если прошлая попытка
-        # упала с ошибкой, сообщение человек не получил — исключать его навсегда
-        # было бы потерей лида из-за чужой технической ошибки.
+        # «Уже писали» = успешные отправки плюс неопределённые (uncertain):
+        # при обрыве связи со шлюзом сообщение могло дойти, и повтор дал бы
+        # человеку дубль первого сообщения. Честные ошибки (failed) не
+        # исключают лида: он ничего не получал.
         contacted = db.query(CampaignSend.lead_id).filter(
             CampaignSend.owner_id == user.id,
-            CampaignSend.status == "sent",
+            CampaignSend.status.in_(("sent", "uncertain")),
         )
         # Оба счётчика берём одним запросом: раньше здесь было два отдельных
         # COUNT по той же выборке, и на больших базах это дублировало скан.
@@ -1410,8 +1411,10 @@ def _pick_launch_leads(
     skipped_contacted = 0
     query = base
     if data.skip_contacted:
+        # sent + uncertain: см. комментарий про дедупликацию в launch_preview.
         contacted = db.query(CampaignSend.lead_id).filter(
-            CampaignSend.owner_id == user.id, CampaignSend.status == "sent"
+            CampaignSend.owner_id == user.id,
+            CampaignSend.status.in_(("sent", "uncertain")),
         )
         query = base.filter(~Lead.id.in_(contacted))
         skipped_contacted = candidates_total - query.count()
@@ -1464,8 +1467,10 @@ def _verify_launch_candidates(
         query = query.filter(Lead.score >= max(0, min(100, data.min_score)))
     account_health.release_expired(db, user.id)
     if data.skip_contacted:
+        # sent + uncertain: см. комментарий про дедупликацию в launch_preview.
         contacted = db.query(CampaignSend.lead_id).filter(
-            CampaignSend.owner_id == user.id, CampaignSend.status == "sent"
+            CampaignSend.owner_id == user.id,
+            CampaignSend.status.in_(("sent", "uncertain")),
         )
         query = query.filter(~Lead.id.in_(contacted))
 

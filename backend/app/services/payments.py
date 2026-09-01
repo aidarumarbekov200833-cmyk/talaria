@@ -77,14 +77,14 @@ def add_payment(
         paid_at=moment,
     )
     db.add(payment)
-    db.commit()
-    db.refresh(payment)
     # Настоящее применение промокода — оплаченные деньги, а не показ формы с
-    # введённым кодом (см. promo.mark_used). До этого вызова счётчик применений
-    # не рос нигде, и max_uses не работал вовсе. Возвраты (amount < 0) кодом
-    # не считаются.
+    # введённым кодом (см. promo.mark_used). Инкремент в ОДНОЙ транзакции с
+    # платежом: иначе сбой между коммитами оставлял бы платёж без учтённого
+    # применения кода. Возвраты (amount < 0) кодом не считаются.
     if amount > 0 and payment.promo_code:
         promo_service.mark_used(db, payment.promo_code)
+    db.commit()
+    db.refresh(payment)
     return payment
 
 
