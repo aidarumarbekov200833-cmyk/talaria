@@ -189,6 +189,22 @@ def send_via_client(
                     "SEND_UNCERTAIN",
                     retry_after,
                 )
+            if error_code == "QUEUE_BUSY":
+                # Шлюз отверг вызов ДО выполнения (очередь аккаунта полна):
+                # запрос к Telegram не выполнялся, повтор безопасен. Раньше
+                # этот код попадал в повтор «по счастливой случайности» (не
+                # матчился ни одним ранним выходом) — намерение закреплено
+                # явно, чтобы правка списков выше его не сломала. Ждём
+                # retry_after шлюза, а не жёсткие 3 секунды.
+                if attempt == 1:
+                    wait = float(retry_after or 3)
+                    logger.warning(
+                        "Отправка @%s: очередь шлюза занята — повтор через %s с",
+                        username,
+                        wait,
+                    )
+                    time.sleep(wait)
+                continue
             if error_code in {
                 "FLOOD_WAIT",
                 "FLOOD_PREMIUM_WAIT",

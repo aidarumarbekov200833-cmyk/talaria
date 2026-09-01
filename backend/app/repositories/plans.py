@@ -66,7 +66,9 @@ class PlanRepository:
             self._db.query(func.count(CampaignSend.id))
             .filter(
                 CampaignSend.owner_id == owner_id,
-                CampaignSend.status == "sent",
+                # uncertain потратил квоту (sending.py её не возвращает) —
+                # пересчёт обязан видеть его, иначе разойдётся с monthly_used.
+                CampaignSend.status.in_(("sent", "uncertain")),
                 CampaignSend.offer_kind == "ai",
                 CampaignSend.sent_at >= start,
             )

@@ -20,11 +20,27 @@ depends_on = None
 
 
 def upgrade() -> None:
-    op.create_index(
-        "ix_campaign_sends_owner_status_lead",
-        "campaign_sends",
-        ["owner_id", "status", "lead_id"],
-    )
+    if op.get_bind().dialect.name == "postgresql":
+        # CONCURRENTLY: обычный CREATE INDEX берёт блокировку записи на всю
+        # сборку, а campaign_sends — самая живая и «бессмертная» таблица;
+        # деплой замораживал бы отправки. CONCURRENTLY не работает внутри
+        # транзакции — отсюда autocommit_block. Если сборка оборвётся,
+        # останется невидимый INVALID-индекс: удалить его руками
+        # (DROP INDEX ix_campaign_sends_owner_status_lead) и повторить.
+        with op.get_context().autocommit_block():
+            op.create_index(
+                "ix_campaign_sends_owner_status_lead",
+                "campaign_sends",
+                ["owner_id", "status", "lead_id"],
+                postgresql_concurrently=True,
+            )
+    else:
+        # SQLite (тесты/локалка) CONCURRENTLY не знает и не нуждается.
+        op.create_index(
+            "ix_campaign_sends_owner_status_lead",
+            "campaign_sends",
+            ["owner_id", "status", "lead_id"],
+        )
 
 
 def downgrade() -> None:
