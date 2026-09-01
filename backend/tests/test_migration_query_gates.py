@@ -59,12 +59,13 @@ def test_migrations_have_single_head_with_exact_indexes_and_model_parity() -> No
 
     Проверка именно на «одну голову», а не на конкретный номер: иначе тест
     приходится править при каждой миграции, и смысл (нет расходящихся веток)
-    теряется за обновлением константы. Актуальная голова — 0039: история
+    теряется за обновлением константы. Актуальная голова — 0040: индекс дедупликации;
+    до неё 0039 — история
     отправок (campaign_sends.campaign_id nullable) переживает удаление кампании.
     """
     captured = capture_alembic(BACKEND_ROOT / "alembic" / "versions")
     assert len(captured["heads"]) == 1, f"расходящиеся ветки миграций: {captured['heads']}"
-    assert captured["heads"] == ["0039"]
+    assert captured["heads"] == ["0040"]
     assert captured["indexes"].count(CAMPAIGN_INDEX) == 1
     assert captured["indexes"].count(LEAD_INDEX) == 1
 

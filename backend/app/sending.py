@@ -321,7 +321,9 @@ def run_launch(
         db.query(CampaignSend.account_id, func.count(CampaignSend.id))
         .filter(
             CampaignSend.owner_id == campaign.owner_id,
-            CampaignSend.status == "sent",
+            # uncertain — сообщение могло уйти: для дневного темпа аккаунта
+            # считаем его потраченной отправкой (консервативно, от бана).
+            CampaignSend.status.in_(("sent", "uncertain")),
             CampaignSend.sent_at >= today_start,
             CampaignSend.account_id.isnot(None),
         )
@@ -532,20 +534,35 @@ def run_launch(
                 "success",
             )
         else:
-            db.query(AppSettings).filter(AppSettings.id == limit_row.id).update(
-                {AppSettings.monthly_used: AppSettings.monthly_used - 1},
-                synchronize_session=False,
-            )
+            uncertain = str(getattr(raw_outcome, "error_code", "")) == "SEND_UNCERTAIN"
+            # Возвращаем месячную квоту только когда сообщение точно не ушло.
+            # При SEND_UNCERTAIN оно могло дойти до лида — возврат позволил бы
+            # отправить сверх лимита реально доставленных сообщений.
+            if not uncertain:
+                db.query(AppSettings).filter(AppSettings.id == limit_row.id).update(
+                    {AppSettings.monthly_used: AppSettings.monthly_used - 1},
+                    synchronize_session=False,
+                )
             failed += 1
             problems.append(f"@{username}: {error}")
             clog(db, campaign.id, f"@{username} ({title}): {error}", "error")
 
+        if ok:
+            send_status = "sent"
+        elif str(getattr(raw_outcome, "error_code", "")) == "SEND_UNCERTAIN":
+            # Исход неизвестен: сообщение могло дойти. Отдельный статус, чтобы
+            # дедупликация «кому уже писали» видела такие строки и не отправила
+            # человеку первое сообщение второй раз, а «повторить неудачные»
+            # их не подхватывал.
+            send_status = "uncertain"
+        else:
+            send_status = "failed"
         _record_send(
             db,
             campaign,
             lead,
             account,
-            status="sent" if ok else "failed",
+            status=send_status,
             text=text if ok else "",
             offer=offer,
             error="" if ok else error,

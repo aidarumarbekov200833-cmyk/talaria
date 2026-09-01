@@ -891,9 +891,17 @@ class CampaignSend(Base):
     __table_args__ = (
         # Защита от двойной отправки на уровне БД, а не только проверкой в коде:
         # проверка в коде не спасает от двух одновременных запросов.
+        # ВАЖНО: в PostgreSQL NULL != NULL, поэтому для строк с campaign_id=NULL
+        # (история удалённых кампаний, миграция 0039) этот constraint не
+        # работает — их дубли терпимы: строки исторические, новых _record_send
+        # по ним не бывает, а дедупликация запусков идёт запросом по lead_id.
         UniqueConstraint("campaign_id", "lead_id", name="uq_campaign_send_lead"),
         # Основной запрос дедупликации: все лиды владельца, которым уже писали.
         Index("ix_campaign_sends_owner_lead", "owner_id", "lead_id"),
+        # Под предикат дедупликации (owner_id, status in (...)) c выборкой
+        # lead_id: без status в индексе запрос на большой истории сканировал
+        # больше, чем нужно, на каждый запуск рассылки.
+        Index("ix_campaign_sends_owner_status_lead", "owner_id", "status", "lead_id"),
         Index(
             "ix_campaign_sends_owner_account_status_sent_at",
             "owner_id",
