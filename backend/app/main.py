@@ -153,6 +153,9 @@ async def lifespan(app: FastAPI):
     # Fail-fast: не поднимаемся с шаблонным JWT_SECRET в проде (демо-режим
     # пропускается внутри).
     settings.validate_jwt_secret()
+    # Fail-fast: TRUSTED_PROXY_HOPS вне 1..3 — почти наверняка опечатка,
+    # причём завышение эксплуатируемо (подмена IP одним заголовком).
+    settings.validate_trusted_proxy_hops()
     _init_sentry()
 
     # init_db() убран намеренно: Base.metadata.create_all() создавал таблицы в
