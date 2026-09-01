@@ -123,9 +123,17 @@ export function openSupport() {
   setTimeout(() => document.getElementById('supportInput')?.focus(), 160);
 }
 
+let supportBadgeTimer = null;
+
 export function initSupport() {
   // Точку на карточке аккаунта проверяем после входа и раз в пять минут: чаще
   // не нужно, ответ поддержки не срочнее этого.
   refreshSupportBadge();
-  setInterval(refreshSupportBadge, 300_000);
+  if (!supportBadgeTimer) supportBadgeTimer = setInterval(refreshSupportBadge, 300_000);
 }
+
+// Вышел — значок поддержки опрашивать нечем: токен снят, каждый тик был бы 401.
+window.addEventListener('talaria:logout', () => {
+  if (supportBadgeTimer) clearInterval(supportBadgeTimer);
+  supportBadgeTimer = null;
+});

@@ -45,6 +45,16 @@
 		Content-Security-Policy "default-src 'self'; script-src 'self' https://telegram.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' wss:; frame-src 'self' https://oauth.telegram.org; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
 	}
 
+	# Форма подключения Telegram: nginx выставляет для неё БОЛЕЕ строгие
+	# заголовки (CSP без telegram.org и Referrer-Policy: no-referrer — в URL
+	# страницы живёт подписанный билет), а header выше перезаписывал их общими
+	# значениями. Повторяем строгий набор nginx здесь, чтобы наружу уходил он.
+	@tgconnect path /tg-connect/*
+	header @tgconnect {
+		Content-Security-Policy "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; connect-src 'self' wss:; img-src 'self' data:; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+		Referrer-Policy "no-referrer"
+	}
+
 	# Всё (статика, /api/, /tg-connect/) уходит на nginx фронтенда — маршрутизация
 	# уже описана там, дублировать её здесь не нужно.
 	#

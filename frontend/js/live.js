@@ -22,7 +22,7 @@ import { loadNotifications, loadOfferStats } from './dashboard.js?v=tal33';
 // Тот же URL модуля, что и в main.js: иначе query-string создаёт второй
 // экземпляр campaigns.js со своим pendingTestReply, и реальный ответ не
 // завершает таймер теста в первом экземпляре.
-import { applyCampaignLiveUpdate, applyTestReplyUpdate } from './campaigns.js?v=zephyr3';
+import { applyCampaignLiveUpdate, applyTestReplyUpdate } from './campaigns.js?v=zephyr4';
 
 const ACTIVITY_COLOR = {
   success: 'var(--success)',

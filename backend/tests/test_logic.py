@@ -465,8 +465,8 @@ def test_spambot_clear_reply_and_real_reply_watch_are_wired_end_to_end():
     assert 'id="testReplyWatch"' in page
     assert "startTestReplyWatch" in campaigns
     assert "export function applyTestReplyUpdate" in campaigns
-    assert "./campaigns.js?v=zephyr3" in live
-    assert all("./campaigns.js?v=zephyr3" in source for source in campaign_consumers)
+    assert "./campaigns.js?v=zephyr4" in live
+    assert all("./campaigns.js?v=zephyr4" in source for source in campaign_consumers)
     assert all("from './campaigns.js';" not in source for source in campaign_consumers)
     main = campaign_consumers[0]
     auth = campaign_consumers[1]

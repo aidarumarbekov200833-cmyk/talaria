@@ -9,7 +9,7 @@
  *  несуществующей кнопки в справке ничем не лучше выдумки ИИ-помощника.
  */
 import { goTo } from './nav.js?v=zephyr4';
-import { openSupport } from './support.js?v=talaria15';
+import { openSupport } from './support.js?v=talaria16';
 import { closeAccountMenu } from './account.js?v=talaria15';
 
 // section — раздел кабинета, куда ведёт кнопка статьи; null, если статья общая.

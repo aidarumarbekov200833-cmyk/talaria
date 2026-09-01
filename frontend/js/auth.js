@@ -34,7 +34,7 @@ import {
   loadCampaignBases,
   fillTestSendOffers,
   refreshAiAvailability,
-} from './campaigns.js?v=zephyr3';
+} from './campaigns.js?v=zephyr4';
 import { loadSettings, loadKeys, loadWarmup } from './settings.js?v=sess1';
 import { applyAdminVisibility, loadAdmin } from './admin.js?v=talaria15';
 // Тот же URL модуля, что и в main.js: разные query-string создают два
@@ -461,6 +461,31 @@ export function enterApp(user, options = {}) {
   }, 400);
 }
 
+// Персональные следы в localStorage. Ключи объявлены строками, а не импортами:
+// их владельцы (search.js, chat.js, …) сами не знают про logout, а имена
+// менять нельзя — по ним читается сохранённое состояние (см. AI_HANDOFF.md).
+const PERSONAL_STORAGE_KEYS = [
+  'talaria.search-filters.v1', // фильтры поиска — коммерческая информация о нишах
+  'talaria.chat-filters.v1',
+  'talaria_notif_seen',
+  'mf_onboarded',
+  'mf_quickstart_hidden',
+];
+
+function clearPersonalStorage() {
+  // Выход — это в том числе «передаю машину другому человеку»: фильтры ниш,
+  // прочитанность уведомлений и флаги онбординга не должны доставаться
+  // следующему вошедшему. Тема и ширина сайдбара — настройки устройства,
+  // их не трогаем.
+  PERSONAL_STORAGE_KEYS.forEach((key) => {
+    try {
+      localStorage.removeItem(key);
+    } catch (_) {
+      /* приватный режим — там и так ничего не сохранялось */
+    }
+  });
+}
+
 export function logout() {
   // Отозвать токен на сервере (jti уходит в чёрный список). Ошибки не
   // блокируют выход: даже если бэкенд недоступен, локально выходим.
@@ -470,6 +495,11 @@ export function logout() {
   disconnectLive(); // закрыть WebSocket и перестать переподключаться
   markInApp(false);
   clearToken();
+  clearPersonalStorage();
+  // Разослать модулям с фоновыми опросами (чат, кампании, поиск, поддержка)
+  // команду остановиться: иначе их таймеры продолжали бы стучать в API с
+  // мёртвым токеном и получать тихие 401 до перезагрузки страницы.
+  window.dispatchEvent(new CustomEvent('talaria:logout'));
   initTheme(); // гостевой лендинг: Talaria pink + Unbounded/JetBrains Mono
   applyAdminVisibility(false);
   document.getElementById('appWrapper').classList.remove('active');
@@ -544,11 +574,18 @@ async function tryAutoLogin() {
       return true;
     }
     return false; // токен жив, но вход — только по клику
-  } catch (_) {
-    // Токен истёк или подписан другим секретом. Здесь это не «выкинуло», а
-    // обычный вход с нуля — тост про истёкшую сессию был бы шумом на экране
-    // входа, поэтому снимаем токен тихо и гасим флаг перехватчика.
-    clearToken();
+  } catch (err) {
+    // Токен истёк или подписан другим секретом (401/403). Здесь это не
+    // «выкинуло», а обычный вход с нуля — тост про истёкшую сессию был бы
+    // шумом на экране входа, поэтому снимаем токен тихо и гасим флаг.
+    if (err && (err.status === 401 || err.status === 403)) {
+      clearToken();
+      resetUnauthorized();
+      return false;
+    }
+    // Сеть или 5xx: бэкенд прилёг, но токен может быть жив. Разлогинивать
+    // всех при каждом рестарте сервера нельзя — оставляем токен на месте,
+    // вход просто останется «по клику».
     resetUnauthorized();
     return false;
   }
