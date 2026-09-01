@@ -9825,3 +9825,28 @@ select optgroup {
 #dashboard .chart-bars {
   height: 232px;
 }
+
+/* v45: логотип в графитовой (тёмной) теме — белое перо, как белый логотип в
+   панели Viktor. Градиент lgW зашит в SVG литералом и токенами не красится,
+   поэтому перекрываем fill правилом. Светлая тема сохраняет розовый бренд. */
+html[data-theme='dark'] #loginScreen .tl-logo g,
+html[data-theme='midnight'] #loginScreen .tl-logo g,
+html[data-theme='graphite'] #loginScreen .tl-logo g,
+html[data-theme='dark'] #loginScreen .fin-foot-logo g,
+html[data-theme='midnight'] #loginScreen .fin-foot-logo g,
+html[data-theme='graphite'] #loginScreen .fin-foot-logo g {
+  /* Литерал запрещён css-architecture-тестом: цвет берём из токена. */
+  fill: var(--ink);
+}
+
+/* v45: финальная гравюра (ладонь + письмо) — розовые растровые webp/avif,
+   токенами не красятся. В графитовой теме обесцвечиваем фильтром; лёгкий
+   подъём яркости компенсирует потемнение розового при grayscale. */
+html[data-theme='dark'] #loginScreen .fin-palm,
+html[data-theme='midnight'] #loginScreen .fin-palm,
+html[data-theme='graphite'] #loginScreen .fin-palm,
+html[data-theme='dark'] #loginScreen .fin-letter-float,
+html[data-theme='midnight'] #loginScreen .fin-letter-float,
+html[data-theme='graphite'] #loginScreen .fin-letter-float {
+  filter: grayscale(1) brightness(1.12);
+}

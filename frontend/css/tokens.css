@@ -393,3 +393,74 @@ html[data-theme='graphite'],
     --toast-close: 0ms;
   }
 }
+
+/* === v45: тёмная тема в графите «как Viktor» ==============================
+   Правка владельца (2026-09-01, скрин панели Viktor): «цвет и тд сделай как
+   у виктора». Розовый бренд остаётся на СВЕТЛОЙ теме и в OG-графике; тёмная
+   тема (дефолт) переезжает в нейтральный графит: почти чёрная страница,
+   панели на два шага светлее, единственный акцент — белый. Гравюры красятся
+   токеном --plate-ink, поэтому весь перекрас живёт здесь, в токенах, а не
+   по файлам компонентов. Блок лежит ПОСЛЕ базового тёмного набора нарочно:
+   одинаковая специфичность — побеждает поздний. */
+html[data-theme='dark'],
+html[data-theme='midnight'],
+html[data-theme='graphite'],
+#loginScreen .aw-frame {
+  --fog: #0f0f10;
+  --surface: #161618;
+  --surface-raised: #1e1e21;
+  --ink: #ececee;
+  --muted: #9a9aa2;
+  --line: #2a2a2e;
+  --accent: #ececee;
+  --accent-ink: #ffffff;
+  --accent-strong: #ffffff;
+  --accent-soft: #26262a;
+  --accent-gradient: linear-gradient(120deg, #ffffff, #e6e6ea 55%, #c9c9d2);
+  --ink-surface: #0b0b0d;
+  --ink-raised: #151517;
+  --on-ink: #ececee;
+  --hand-highlight: #f2f2f4;
+  --hand-shadow: #6f6f78;
+  --glow: rgba(255, 255, 255, 0.16);
+  --ring: 0 0 0 3px rgba(255, 255, 255, 0.22);
+  /* Финальная секция и тариф: вместо розово-фиолетовых заливок — графитовые
+     ступени; гравюра на плите из тёмных чернил становится светло-серой. */
+  --fin-bg: #0e0e10;
+  --fin-halo-a: #1a1a1e;
+  --fin-halo-b: rgba(255, 255, 255, 0.06);
+  --fin-ink: #ececee;
+  --fin-mut: #9a9aa2;
+  --fin-kicker: #e6e6ea;
+  --plate-ink: linear-gradient(165deg, #f2f2f4, #c9c9d2 52%, #8f8f99);
+  --pricing-plate-grad: linear-gradient(120deg, #2e2e33, #222226 55%, #18181c);
+  --pricing-art-ink: #7c7c86;
+  --bubble-grad: linear-gradient(135deg, #2a2a30, #1c1c22);
+  /* Розовые литералы бренда в тёмной теме гасим в серебро. Имена оставлены
+     хексовыми нарочно (это ключи, не значения) — переименование затронуло бы
+     9k строк talaria-v5.css при запрете массовых переименований. */
+  --tal-ff2fa4: #ececee;
+  --tal-c30074: #d9d9de;
+  --tal-ff8fe0: #ffffff;
+  --tal-c22bff: #c9c9d2;
+  --tal-e04a9f: #2e2e33;
+  --tal-b81f74: #222226;
+  --tal-7f21a8: #18181c;
+  --tal-260b1b: #0e0e10;
+  --tal-ffd9f0: #e6e6ea;
+  --tal-fff2fb: #f2f2f4;
+  --tal-17091a: #101013;
+  --tal-2a0f2e: #1c1c20;
+  --tal-e05fa8: #bfbfc7;
+  --tal-7b2bff: #9a9aa2;
+  --tal-ff2fa4-a10: rgba(255, 255, 255, 0.08);
+  --tal-ff2fa4-a18: rgba(255, 255, 255, 0.14);
+  --tal-ff2fa4-a22: rgba(255, 255, 255, 0.18);
+  --tal-ff2fa4-a28: rgba(255, 255, 255, 0.22);
+  --tal-ff2fa4-a30: rgba(255, 255, 255, 0.24);
+  --tal-ff2fa4-a35: rgba(255, 255, 255, 0.28);
+  --tal-ff2fa4-a40: rgba(255, 255, 255, 0.3);
+  --tal-ff2fa4-a45: rgba(255, 255, 255, 0.32);
+  --tal-ff2fa4-a50: rgba(255, 255, 255, 0.36);
+  --tal-c22bff-a28: rgba(255, 255, 255, 0.2);
+}
