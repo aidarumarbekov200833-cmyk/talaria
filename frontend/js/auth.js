@@ -24,6 +24,7 @@ import {
   resetUnauthorized,
 } from './api.js';
 import { toast } from './ui.js?v=tal32';
+import { railDone, railStart } from './shared/topbar.js';
 import { goTo, restoreLastSection } from './nav.js?v=zephyr4';
 import { maybeShowOnboarding } from './onboarding.js?v=zephyr4';
 import { animateCounters, loadNotifications } from './dashboard.js?v=tal33';
@@ -268,6 +269,7 @@ function showUnavailableLogin() {
 }
 async function authenticateTelegram(user) {
   setHint('Проверяем подпись…');
+  railStart(); // v48: радужная полоса сверху, пока идёт вход
   try {
     const data = await api('POST', '/api/auth/telegram', user);
     setToken(data.access_token);
@@ -279,6 +281,8 @@ async function authenticateTelegram(user) {
     setHint(`Вход не выполнен: ${error}`, true);
     toast('Ошибка входа через Telegram', 'warn');
     return { authenticated: false, error };
+  } finally {
+    railDone();
   }
 }
 

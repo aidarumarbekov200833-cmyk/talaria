@@ -11,12 +11,12 @@
       id="appFavicon"
       rel="icon"
       type="image/svg+xml"
-      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 44"><rect width="48" height="48" rx="13" fill="%23ff2fa4"/><g fill="%230b0a0e"><path d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"/><path d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"/><path class="tl-f" d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"/><path class="tl-f" d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"/><path class="tl-f" d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"/></g></svg>'
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 44"><rect width="48" height="44" rx="12" fill="%2318181b"/><g fill="%23ffffff" stroke="%23ffffff" stroke-width="1.3" stroke-linejoin="round"><path d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"/><path d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"/><path class="tl-f" d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"/><path class="tl-f" d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"/><path class="tl-f" d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"/></g></svg>'
     />
     <title>Talaria — крылья для холодных сообщений</title>
     <link rel="canonical" href="https://talaria.mooo.com/" />
     <meta name="robots" content="index, follow, max-image-preview:large" />
-    <meta name="theme-color" content="#0b0a0e" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#18181b" media="(prefers-color-scheme: dark)" />
     <meta name="theme-color" content="#f7f7f8" media="(prefers-color-scheme: light)" />
     <link rel="apple-touch-icon" href="/assets/talaria/apple-touch-icon.png" />
     <link rel="manifest" href="/manifest.webmanifest" />
@@ -90,7 +90,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Unbounded:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria21" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria22" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -105,6 +105,8 @@
     ></script>
   </head>
   <body>
+    <!-- Радужная полоса загрузки: видна только пока что-то грузится (topbar.js). -->
+    <div class="load-rail" id="loadRail" aria-hidden="true"></div>
     <div class="toast-wrap" id="toastWrap"></div>
     <div class="overlay-soft" id="drawerOverlay"></div>
 
@@ -116,6 +118,7 @@
             <nav class="nav-side nav-left">
               <a href="#features">Возможности</a><a href="#how">Как работает</a>
               <a href="#pulse">Динамика</a><a href="#pricing">Тариф</a>
+              <a href="#faq">Вопросы</a>
             </nav>
             <a class="brand landing-brand" href="#top">
               <svg class="tl-logo" viewBox="0 0 52 44" aria-hidden="true">
@@ -436,7 +439,7 @@
                 <div class="fcard rv" style="--d: 0.08s">
                   <div class="fb">
                     <div class="fn">05 / Статусы</div>
-                    <h3>Честный статус-леджер</h3>
+                    <h3>Статусы как есть</h3>
                     <p>Фактическое состояние сессий: активна, пауза, причина.</p>
                   </div>
                 </div>
@@ -979,7 +982,9 @@
                     </div>
                   </div>
                   <p class="pulse-note" id="publicStatsStatus">получаем актуальные данные</p>
-                  <p class="pulse-note">Живые счётчики сервиса, а не витринные цифры.</p>
+                  <p class="pulse-note">
+                    Счётчики читаются из рабочей базы при каждом открытии страницы.
+                  </p>
                 </div>
                 <div class="feed rv" style="--d: 0.12s">
                   <div class="feed-h">
@@ -1019,7 +1024,7 @@
               <div class="ab-in rv">
                 <div class="ab-copy">
                   <span class="mono">// доставка</span>
-                  <h2 id="zdAccountTitle">Пишет ваш Telegram — не робот</h2>
+                  <h2 id="zdAccountTitle">Пишет ваш личный Telegram</h2>
                   <p>
                     Talaria подключает ваш личный аккаунт и отправляет от вашего имени: живой
                     профиль, живая история, обычный диалог. Отвечаете вы сами — прямо в Telegram.
@@ -1030,6 +1035,280 @@
                   <li><b>Пауза</b><span>при риске лимита</span></li>
                   <li><b>Ответ</b><span>приходит уведомлением</span></li>
                 </ul>
+              </div>
+            </div>
+          </section>
+          <!-- v48: FAQ-переписка. Обычный аккордеон владелец назвал «как у всех» —
+               вопросы здесь выглядят как ваши сообщения, ответы приходят пузырём
+               от Talaria: сервис про личные сообщения, FAQ говорит на его языке. -->
+          <section class="zp-faq" id="faq">
+            <div class="wrap">
+              <div class="shead rv">
+                <span class="mono">// вопросы</span>
+                <h2>Спросите, как в личке</h2>
+                <p class="faq-lede">
+                  Нажмите вопрос — ответ придёт, как в переписке. Что-то своё — задайте в Telegram
+                  после входа.
+                </p>
+              </div>
+              <div class="faq-chat rv" role="list" id="faqChat" style="--d: 0.1s">
+                <div class="faq-item" role="listitem">
+                  <button
+                    class="faq-q"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="faqA1"
+                    id="faqQ1"
+                  >
+                    Это спам-рассылка? <span class="faq-tick" aria-hidden="true">✓✓</span>
+                  </button>
+                  <div class="faq-a" id="faqA1" role="region" aria-labelledby="faqQ1">
+                    <div class="faq-a-clip">
+                      <div class="faq-bubble">
+                        <span class="faq-ava" aria-hidden="true"
+                          ><svg viewBox="0 0 52 44" aria-hidden="true">
+                            <g>
+                              <path
+                                d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"
+                              />
+                              <path
+                                d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"
+                              />
+                              <path
+                                d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"
+                              />
+                              <path
+                                d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"
+                              />
+                              <path
+                                d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"
+                              />
+                            </g></svg
+                        ></span>
+                        <div class="faq-body">
+                          Сообщения уходят с ваших аккаунтов, по одному, в человеческом темпе:
+                          очередь, интервалы, автопауза по сигналам Telegram. Лид получает обычное
+                          личное сообщение, а не веерный вброс.
+                          <small>talaria · в сети</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="faq-item" role="listitem">
+                  <button
+                    class="faq-q"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="faqA2"
+                    id="faqQ2"
+                  >
+                    Откуда берутся лиды? <span class="faq-tick" aria-hidden="true">✓✓</span>
+                  </button>
+                  <div class="faq-a" id="faqA2" role="region" aria-labelledby="faqQ2">
+                    <div class="faq-a-clip">
+                      <div class="faq-bubble">
+                        <span class="faq-ava" aria-hidden="true"
+                          ><svg viewBox="0 0 52 44" aria-hidden="true">
+                            <g>
+                              <path
+                                d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"
+                              />
+                              <path
+                                d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"
+                              />
+                              <path
+                                d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"
+                              />
+                              <path
+                                d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"
+                              />
+                              <path
+                                d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"
+                              />
+                            </g></svg
+                        ></span>
+                        <div class="faq-body">
+                          С YouTube. Задаёте нишу и фильтры — подписчики, просмотры, гео, свежесть
+                          контента. Talaria собирает каналы, скорит их и достаёт контакты там, где
+                          авторы их открыли.
+                          <small>talaria · в сети</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="faq-item" role="listitem">
+                  <button
+                    class="faq-q"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="faqA3"
+                    id="faqQ3"
+                  >
+                    Что писать первым сообщением?
+                    <span class="faq-tick" aria-hidden="true">✓✓</span>
+                  </button>
+                  <div class="faq-a" id="faqA3" role="region" aria-labelledby="faqQ3">
+                    <div class="faq-a-clip">
+                      <div class="faq-bubble">
+                        <span class="faq-ava" aria-hidden="true"
+                          ><svg viewBox="0 0 52 44" aria-hidden="true">
+                            <g>
+                              <path
+                                d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"
+                              />
+                              <path
+                                d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"
+                              />
+                              <path
+                                d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"
+                              />
+                              <path
+                                d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"
+                              />
+                              <path
+                                d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"
+                              />
+                            </g></svg
+                        ></span>
+                        <div class="faq-body">
+                          Первую строку Talaria собирает из контекста канала — например, про
+                          последний ролик лида. Дальше ваш оффер. Текст видите и правите до
+                          отправки.
+                          <small>talaria · в сети</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="faq-item" role="listitem">
+                  <button
+                    class="faq-q"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="faqA4"
+                    id="faqQ4"
+                  >
+                    Мой аккаунт не забанят? <span class="faq-tick" aria-hidden="true">✓✓</span>
+                  </button>
+                  <div class="faq-a" id="faqA4" role="region" aria-labelledby="faqQ4">
+                    <div class="faq-a-clip">
+                      <div class="faq-bubble">
+                        <span class="faq-ava" aria-hidden="true"
+                          ><svg viewBox="0 0 52 44" aria-hidden="true">
+                            <g>
+                              <path
+                                d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"
+                              />
+                              <path
+                                d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"
+                              />
+                              <path
+                                d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"
+                              />
+                              <path
+                                d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"
+                              />
+                              <path
+                                d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"
+                              />
+                            </g></svg
+                        ></span>
+                        <div class="faq-body">
+                          Гарантий тут не даёт никто, и мы не обещаем. Talaria снижает риск: пишет
+                          медленно, держит паузы между сообщениями и сама останавливается, когда
+                          Telegram просит подождать.
+                          <small>talaria · в сети</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="faq-item" role="listitem">
+                  <button
+                    class="faq-q"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="faqA5"
+                    id="faqQ5"
+                  >
+                    Сколько это стоит? <span class="faq-tick" aria-hidden="true">✓✓</span>
+                  </button>
+                  <div class="faq-a" id="faqA5" role="region" aria-labelledby="faqQ5">
+                    <div class="faq-a-clip">
+                      <div class="faq-bubble">
+                        <span class="faq-ava" aria-hidden="true"
+                          ><svg viewBox="0 0 52 44" aria-hidden="true">
+                            <g>
+                              <path
+                                d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"
+                              />
+                              <path
+                                d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"
+                              />
+                              <path
+                                d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"
+                              />
+                              <path
+                                d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"
+                              />
+                              <path
+                                d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"
+                              />
+                            </g></svg
+                        ></span>
+                        <div class="faq-body">
+                          14 дней бесплатно, карта не нужна. Дальше один тариф — он выше на
+                          странице. Оплата в Telegram, автосписаний нет.
+                          <small>talaria · в сети</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="faq-item" role="listitem">
+                  <button
+                    class="faq-q"
+                    type="button"
+                    aria-expanded="false"
+                    aria-controls="faqA6"
+                    id="faqQ6"
+                  >
+                    Куда приходят ответы? <span class="faq-tick" aria-hidden="true">✓✓</span>
+                  </button>
+                  <div class="faq-a" id="faqA6" role="region" aria-labelledby="faqQ6">
+                    <div class="faq-a-clip">
+                      <div class="faq-bubble">
+                        <span class="faq-ava" aria-hidden="true"
+                          ><svg viewBox="0 0 52 44" aria-hidden="true">
+                            <g>
+                              <path
+                                d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"
+                              />
+                              <path
+                                d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"
+                              />
+                              <path
+                                d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"
+                              />
+                              <path
+                                d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"
+                              />
+                              <path
+                                d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"
+                              />
+                            </g></svg
+                        ></span>
+                        <div class="faq-body">
+                          В ваш обычный Telegram, в ту же переписку с лидом. Плюс уведомление от
+                          Talaria — в ту же минуту.
+                          <small>talaria · в сети</small>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </section>
@@ -5465,7 +5744,7 @@
       </div>
     </div>
 
-    <script src="/js/talaria-landing.js?v=talaria6"></script>
-    <script type="module" src="/js/main.js?v=talaria12"></script>
+    <script src="/js/talaria-landing.js?v=talaria7"></script>
+    <script type="module" src="/js/main.js?v=talaria13"></script>
   </body>
 </html>

@@ -160,7 +160,7 @@
         } else if (values[3] > 0) {
           note.textContent = 'Каждый ответ прилетает владельцу кампании в Telegram.';
         } else {
-          note.textContent = 'Считаем воронку по всему сервису, без витринных цифр.';
+          note.textContent = 'Считаем воронку по всему сервису с первого дня.';
         }
       }
     }
@@ -535,6 +535,21 @@
      убери это»: вордмарк за рукой просто стоит на месте, а движение внизу
      страницы делает шторка (розовая секция тарифа уезжает вверх, открывая
      сцену) — это чистый CSS, без пересчёта на каждый кадр прокрутки. */
+
+  /* v48: FAQ-переписка. Клик по вопросу-пузырю открывает ответ от Talaria.
+     Несколько веток могут быть открыты одновременно — как в настоящем чате. */
+  (function () {
+    var chat = document.getElementById('faqChat');
+    if (!chat) return;
+    chat.addEventListener('click', function (e) {
+      var q = e.target.closest ? e.target.closest('.faq-q') : null;
+      if (!q) return;
+      var item = q.closest('.faq-item');
+      if (!item) return;
+      var open = item.classList.toggle('open');
+      q.setAttribute('aria-expanded', String(open));
+    });
+  })();
 
   /* Промо-модалка убрана: код скидки не публикуется в разметке, промокод
      вводится в карточке тарифа и проверяется на сервере. */

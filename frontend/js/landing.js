@@ -89,6 +89,7 @@ export function initFinale(options = {}) {
 /** Public landing metrics and motion. Keeps product data rendering text-only. */
 import { createNumberTween, MOTION, prefersReducedMotion } from './shared/motion.js';
 import { renderText } from './shared/dom.js';
+import { railDone, railStart } from './shared/topbar.js';
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
 const REVEAL_SELECTOR = [
@@ -184,6 +185,13 @@ export function createPublicStatsLoader(options = {}) {
     const status = queryOne('#publicStatsStatus');
     if (!nodes.length || destroyed) return;
 
+    /* v48: пока цифры едут — скелеты вместо пустоты. Ширину держит
+       плейсхолдер-текст под классом .skl (он прозрачный). */
+    nodes.forEach((node) => {
+      node.classList?.add?.('skl');
+      if (!String(node.textContent || '').trim()) putText(node, '00 000');
+    });
+    railStart();
     try {
       const response = await fetcher('/api/public/stats', { credentials: 'same-origin' });
       if (!response.ok) throw new Error('Public stats unavailable');
@@ -191,6 +199,8 @@ export function createPublicStatsLoader(options = {}) {
       if (destroyed || run !== generation) return;
       const values = nodes.map((node) => validMetric(stats?.[node.dataset.publicStat]));
       if (values.some((value) => value === null)) throw new Error('Invalid public stats');
+      nodes.forEach((node) => node.classList?.remove?.('skl'));
+      railDone();
       targets = nodes.map((node, index) => ({ node, target: values[index] }));
 
       if (reducedMotion()) renderTargets();
@@ -209,10 +219,14 @@ export function createPublicStatsLoader(options = {}) {
       }
       putText(status, 'фактические данные рабочего сервиса');
     } catch (_) {
+      railDone();
       if (destroyed || run !== generation) return;
       cancel();
       targets = [];
-      nodes.forEach((node) => putText(node, '—'));
+      nodes.forEach((node) => {
+        node.classList?.remove?.('skl');
+        putText(node, '—');
+      });
       putText(status, 'Данные временно недоступны');
     }
   };

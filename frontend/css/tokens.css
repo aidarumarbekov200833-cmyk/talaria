@@ -174,7 +174,8 @@ html[data-theme='graphite'],
   /* v38. Владелец задал фон кабинета точным цветом: HEX #18181A (24, 24, 26).
      Панели строим на два шага светлее, чтобы иерархия «страница → карточка →
      вложенный блок» читалась без градиентов и свечений. */
-  --cabp-fog: #18181a;
+  /* v48: единый тёмный цвет с лендингом — #18181B. */
+  --cabp-fog: #18181b;
   --cabp-surface: #1f1f22;
   --cabp-raised: #26262a;
   --cabp-ink: #f1f1f3;
@@ -320,10 +321,14 @@ html[data-theme='graphite'],
   --tg-blue: #64b5ef;
   --tg-sys: rgba(0, 0, 0, 0.35);
   --tg-shadow: rgba(0, 0, 0, 0.35);
-  --ph-frame: #1a1a1c;
-  --ph-frame-edge: #3a3a3e;
-  --ph-frame-inner: #4a4a50;
-  --ph-key: #2c2c30;
+  /* v48: корпус ближе к реальному титану — светлая грань по периметру,
+     глубокий чёрный борт у экрана, клавиши с металлическим бликом. */
+  --ph-frame: #232326;
+  --ph-frame-edge: #55555e;
+  --ph-frame-inner: #0a0a0c;
+  --ph-key: #3a3a40;
+  --ph-key-hi: #6a6a74;
+  --ph-glass: rgba(255, 255, 255, 0.055);
   --ph-cam: #0d1a2b;
   --ph-cam-ring: #14243a;
   --ph-home-ink: rgba(0, 0, 0, 0.32);
@@ -407,19 +412,21 @@ html[data-theme='dark'],
 html[data-theme='midnight'],
 html[data-theme='graphite'],
 #loginScreen .aw-frame {
-  --fog: #0f0f10;
-  --surface: #161618;
-  --surface-raised: #1e1e21;
+  /* v48: владелец задал тёмный фон сайта точным цветом — HEX #18181B.
+     Ступени поверхностей пересчитаны от него. */
+  --fog: #18181b;
+  --surface: #1f1f22;
+  --surface-raised: #26262a;
   --ink: #ececee;
   --muted: #9a9aa2;
-  --line: #2a2a2e;
+  --line: #313138;
   --accent: #ececee;
   --accent-ink: #ffffff;
   --accent-strong: #ffffff;
   --accent-soft: #26262a;
   --accent-gradient: linear-gradient(120deg, #ffffff, #e6e6ea 55%, #c9c9d2);
-  --ink-surface: #0b0b0d;
-  --ink-raised: #151517;
+  --ink-surface: #101013;
+  --ink-raised: #1c1c1f;
   --on-ink: #ececee;
   --hand-highlight: #f2f2f4;
   --hand-shadow: #6f6f78;
@@ -440,6 +447,10 @@ html[data-theme='graphite'],
   /* Розовые литералы бренда в тёмной теме гасим в серебро. Имена оставлены
      хексовыми нарочно (это ключи, не значения) — переименование затронуло бы
      9k строк talaria-v5.css при запрете массовых переименований. */
+  /* v48: страница лендинга в тёмной теме — #18181B (владелец) и её ступени. */
+  --tal-0b0a0e: #18181b;
+  --tal-121016: #1f1f22;
+  --tal-151218: #202024;
   --tal-ff2fa4: #ececee;
   --tal-c30074: #d9d9de;
   --tal-ff8fe0: #ffffff;
@@ -476,6 +487,28 @@ html[data-theme='graphite'],
       на тёмной теме, графит на светлой. Новые токены --fin-accent /
       --fin-on-accent — кнопки финала (раньше брали розовый --grad). */
 :root {
+  /* v48: радужная полоса загрузки (просьба владельца: «полоска радужная
+     плавная») — единственное цветное пятно монохромного сайта, видна
+     только в момент загрузки. */
+  --loader-rainbow: linear-gradient(
+    90deg,
+    #ff5f6d,
+    #ffc371 22%,
+    #47e7a0 44%,
+    #4facfe 66%,
+    #b06ab3 88%,
+    #ff5f6d
+  );
+  /* Скелеты загрузки: подложка и бегущий блик. */
+  --skl-base: rgba(127, 127, 127, 0.14);
+  --skl-sheen: rgba(255, 255, 255, 0.09);
+  /* Превью тем в настройках: фиксированные цвета обеих тем. Раньше превью
+     красились токенами --tal-*, которые светлая тема инвертирует — обе
+     карточки выглядели одинаково тёмными. */
+  --tpv-paper: #f7f7f8;
+  --tpv-paper-ink: #17171a;
+  --tpv-graphite: #18181b;
+  --tpv-graphite-ink: #ececee;
   --fin-accent: #1b1020;
   --fin-on-accent: #ffffff;
 }

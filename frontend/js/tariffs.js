@@ -1,5 +1,6 @@
 /** Server-authoritative tariff quotes and manual Telegram payment. */
 import { api, esc, getToken } from './api.js';
+import { railDone, railStart } from './shared/topbar.js';
 import { renderText } from './shared/dom.js';
 import { attachDialogLifecycle } from './shared/dialogs.js';
 import { createNumberTween, MOTION, prefersReducedMotion } from './shared/motion.js';
@@ -401,6 +402,12 @@ export async function loadPublicPlans() {
   publicLoading = true;
   const grid = document.getElementById('landingTariffGrid');
   grid?.setAttribute('aria-busy', 'true');
+  /* v48: пока тариф едет с сервера — скелет-силуэт карточки и радужная
+     полоса, а не пустота (владелец: «сделай загрузки скелеты»). */
+  if (grid)
+    grid.innerHTML =
+      '<div class="tariff-skeleton" aria-hidden="true"><span class="skl"></span><span class="skl"></span><span class="skl"></span><span class="skl"></span><span class="skl"></span></div>';
+  railStart();
   try {
     const data = await api('GET', '/api/plans');
     adminContact = data.admin_contact || '';
@@ -417,6 +424,7 @@ export async function loadPublicPlans() {
       grid.innerHTML = `<div class="tariff-load-error"><b>Тариф временно не загрузился</b><span>${esc(errorMessage(error))}</span><button class="btn ghost" type="button" data-act="loadPublicPlans">Повторить</button></div>`;
   } finally {
     publicLoading = false;
+    railDone();
     grid?.setAttribute('aria-busy', 'false');
   }
 }
