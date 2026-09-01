@@ -36,7 +36,9 @@ test('only tokens define CSS colour literals and motion uses shared tokens', () 
   const forbidden = /#[0-9a-f]{3,8}\b|\b(?:rgb|hsl)a?\(/i;
   for (const name of names) assert.doesNotMatch(css(name), forbidden, name);
   const joined = names.map(css).join('\n');
-  assert.doesNotMatch(joined, /OUTLY|Manrope|Unbounded|--theme-/i);
+  // v46: Unbounded снят с запрета — владелец вернул его как дисплейный шрифт
+  // (редизайн «как Viktor», 2026-09-01). Запрет был стражем серифной эпохи v34+.
+  assert.doesNotMatch(joined, /OUTLY|Manrope|--theme-/i);
   assert.doesNotMatch(joined, /transition:[^;}]*\b(?:\d+ms|\.\d+s)/i);
 });
 

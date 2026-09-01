@@ -248,7 +248,7 @@ html[data-theme='graphite'],
 /* === Talaria V5 landing palette === */
 /* Значения лендинга Talaria V5. Единственное место, где живут литералы. */
 :root {
-  --tal-font-display: 'Playfair Display', Georgia, 'Times New Roman', serif;
+  --tal-font-display: 'Unbounded', 'Inter', -apple-system, sans-serif;
   --tal-font-mono: 'JetBrains Mono', monospace;
   --tal-ff2fa4: #ff2fa4;
   /* Тот же розовый, приглушённый до читаемого на белой бумаге:

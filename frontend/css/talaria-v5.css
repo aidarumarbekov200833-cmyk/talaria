@@ -247,7 +247,9 @@ html[data-theme='light'] #loginScreen {
 }
 #loginScreen .landing-brand-name {
   text-transform: none;
-  font-style: italic;
+  /* v46: у Unbounded нет курсива, наклон был бы фальшивым */
+  font-style: normal;
+  font-weight: 600;
 }
 #loginScreen .nl {
   display: flex;
@@ -350,8 +352,10 @@ html[data-theme='light'] #loginScreen {
   z-index: 1;
 }
 #loginScreen .zp-hero h1 {
-  font-size: clamp(34px, 4.6vw, 66px);
-  font-weight: 800;
+  /* v46: Unbounded заметно шире Playfair — шкала ниже, вес 700 */
+  font-size: clamp(28px, 3.6vw, 52px);
+  font-weight: 700;
+  line-height: 1.08;
   text-transform: uppercase;
   margin: 18px 0 26px;
 }
@@ -1968,7 +1972,8 @@ html[data-theme='light'] #loginScreen {
 #loginScreen .fin-word {
   font-family: var(--tal-font-display);
   font-weight: 800;
-  font-size: 17vw;
+  /* v46: Unbounded шире — 13.5vw вместо 17vw */
+  font-size: 13.5vw;
   letter-spacing: 0.01em;
   line-height: 0.9;
   user-select: none;
@@ -2224,7 +2229,7 @@ html[data-theme='light'] #loginScreen {
     padding: 80px 0;
   }
   #loginScreen .fin-word {
-    font-size: 22vw;
+    font-size: 17.5vw;
   }
   #loginScreen .fin-ghost {
     font-size: 46vw;
@@ -3183,7 +3188,8 @@ html[data-theme='light'] #loginScreen .pcard {
   padding-right: 48px;
 }
 #loginScreen .zp-hero h1 {
-  font-size: clamp(38px, 5.4vw, 78px);
+  /* v46: Unbounded шире Playfair ~1.24x — прежняя шкала рвала колонку */
+  font-size: clamp(30px, 4.2vw, 60px);
   line-height: 0.98;
   letter-spacing: -0.005em;
   margin: 20px 0 24px;
@@ -3536,10 +3542,10 @@ html[data-theme='light'] #loginScreen .pcard {
   width: 100%;
   font-family: var(--tal-font-display);
   font-weight: 800;
-  /* 7 букв Playfair ≈ 0.66em каждая: 13vw держит слово в одной строке
-     и на 390px, и на 1920px. clamp сверху — чтобы не разносило на 4K. */
-  font-size: min(13vw, 190px);
-  line-height: 0.82;
+  /* v46: 7 букв Unbounded ≈ 0.82em каждая (шире Playfair) — 10vw держит
+     слово в одной строке и на 390px, и на 1920px; clamp — чтобы не 4K. */
+  font-size: min(10vw, 150px);
+  line-height: 0.94;
   letter-spacing: 0;
   color: var(--ink);
   opacity: 0.96;
@@ -3635,8 +3641,8 @@ html[data-theme='light'] #loginScreen .pcard {
 }
 #loginScreen .fin-foot-name {
   font-family: var(--tal-font-display);
-  font-size: clamp(16px, 2vw, 24px);
-  font-style: italic;
+  font-size: clamp(14px, 1.6vw, 20px);
+  font-style: normal;
   letter-spacing: 0.04em;
   color: var(--mut);
 }
@@ -3767,7 +3773,7 @@ html {
     text-align: center;
   }
   #loginScreen .fin-word {
-    font-size: 15.5vw;
+    font-size: 12.5vw;
   }
   #loginScreen .fin-foot {
     flex-direction: column;
@@ -4301,14 +4307,14 @@ html {
   transform: translateY(-50%);
   pointer-events: none;
 }
-/* Слово разнесено по всей ширине окна: 7 букв Playfair при 21vw дают ~97vw —
-   надпись садится ровно от края до края, целиком, без обрезки по бокам. */
+/* Слово разнесено по всей ширине окна: 7 букв Unbounded при 16.8vw дают
+   ~97vw — надпись садится от края до края, целиком, без обрезки (v46). */
 #loginScreen .fin-word {
   display: flex;
   justify-content: space-between;
   width: 100%;
   padding: 0 clamp(8px, 1.4vw, 20px);
-  font-size: 21vw;
+  font-size: 16.8vw;
   line-height: 0.74;
   letter-spacing: 0;
   white-space: nowrap;
@@ -4398,7 +4404,7 @@ html {
     margin: 0;
   }
   #loginScreen .fin-word {
-    font-size: 21vw;
+    font-size: 16.8vw;
   }
   /* Подвал остаётся строкой: слева лого, справа «Talaria 2026». Юридические
      ссылки (v43) переносятся отдельной строкой на всю ширину — в общей строке
@@ -6442,7 +6448,8 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
     grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
   }
   #loginScreen .zp-hero h1 {
-    font-size: clamp(26px, 8vw, 44px);
+    /* v46: «сообщений.» в Unbounded = 9.1em — 6vw держит слово в колонке 55vw */
+    font-size: clamp(19px, 6vw, 34px);
   }
   #loginScreen .hero-art {
     min-height: min(46vh, 340px);
