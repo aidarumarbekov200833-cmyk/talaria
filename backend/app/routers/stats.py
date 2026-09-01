@@ -55,7 +55,9 @@ def get_stats(
     )
     sent_messages = (
         db.query(func.count(CampaignSend.id))
-        .filter(CampaignSend.owner_id == user.id, CampaignSend.status == "sent")
+        # uncertain: сообщение могло дойти и квоту оно потратило — считаем
+        # его отправленным, чтобы цифра сходилась с лимитами тарифа.
+        .filter(CampaignSend.owner_id == user.id, CampaignSend.status.in_(("sent", "uncertain")))
         .scalar()
         or 0
     )

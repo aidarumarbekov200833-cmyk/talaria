@@ -18,7 +18,7 @@ from contextvars import ContextVar
 from datetime import UTC, datetime, timedelta
 
 from fastapi import Request
-from sqlalchemy.exc import ProgrammingError
+from sqlalchemy.exc import OperationalError, ProgrammingError
 from sqlalchemy.orm import Session
 
 from .config import settings
@@ -32,8 +32,11 @@ logger = logging.getLogger("outly.access")
 # ВАЖНО (было уязвимостью): раньше брался ПЕРВЫЙ адрес из X-Forwarded-For. Его
 # полностью контролирует клиент — достаточно прислать свой X-Forwarded-For,
 # чтобы подменить IP и обойти rate limit. Теперь отсчитываем адрес С КОНЦА,
-# пропуская TRUSTED_PROXY_HOPS собственных прокси: элементы, которые дописали
-# наши nginx/Caddy, подделать нельзя.
+# пропуская TRUSTED_PROXY_HOPS элементов, дописанных нашим контуром.
+# Нюанс прод-профиля: nginx с включённым real_ip дописывает не свой адрес,
+# а КОПИЮ клиентского (см. комментарий у set_real_ip_from в
+# frontend/nginx.conf) — hops=2 попадает в клиента именно поэтому. Числа hops
+# и конфиг nginx связаны: менять их можно только вместе.
 # Только заголовок, который ставит НАШ nginx. cf-connecting-ip убран: проект
 # не за Cloudflare, а доверять заголовку, который может прислать кто угодно, —
 # заряженный fallback: любое изменение проксирования сделало бы подмену IP
@@ -99,8 +102,18 @@ def registration_open(db: Session) -> bool:
         row = db.query(PlatformSettings).order_by(PlatformSettings.id).first()
     except ProgrammingError:
         # Таблицы ещё нет (до миграции) — честный случай для значения из env.
+        # Postgres кидает ProgrammingError (UndefinedTable)...
         logger.warning("platform_settings ещё не создана", exc_info=True)
         return settings.open_registration
+    except OperationalError as exc:
+        # ...а SQLite (локальная разработка) — OperationalError «no such
+        # table». Но OperationalError у Postgres — это ещё и «БД недоступна»,
+        # поэтому различаем по тексту: недоступная БД идёт в ветку ниже.
+        if "no such table" in str(getattr(exc, "orig", None) or exc).lower():
+            logger.warning("platform_settings ещё не создана", exc_info=True)
+            return settings.open_registration
+        logger.warning("БД недоступна при проверке регистрации — считаем закрытой", exc_info=True)
+        return False
     except Exception:  # noqa: BLE001
         # БД недоступна — это НЕ «настройки по умолчанию»: если админ закрыл
         # регистрацию рубильником, падение БД не должно тихо открыть её снова.

@@ -190,7 +190,9 @@ def lead_replied(
             .filter(
                 CampaignSend.owner_id == payload.owner_id,
                 CampaignSend.account_id == payload.account_id,
-                CampaignSend.status == "sent",
+                # Ответ лида — доказательство доставки: uncertain-отправка,
+                # на которую ответили, ничем не хуже sent.
+                CampaignSend.status.in_(("sent", "uncertain")),
             )
         )
         if tg_id:
@@ -370,7 +372,9 @@ def lead_read(
         .filter(
             CampaignSend.owner_id == payload.owner_id,
             CampaignSend.account_id == payload.account_id,
-            CampaignSend.status == "sent",
+            # uncertain с message_id не бывает, но прочтение — доказательство
+            # доставки, скрывать его из-за статуса не за что.
+            CampaignSend.status.in_(("sent", "uncertain")),
             CampaignSend.telegram_message_id.isnot(None),
             CampaignSend.telegram_message_id <= payload.max_message_id,
             CampaignSend.read_at.is_(None),
@@ -502,7 +506,8 @@ def offer_stats(
         db.query(CampaignSend.sent_at)
         .filter(
             CampaignSend.owner_id == user.id,
-            CampaignSend.status == "sent",
+            # Ответ подтверждает доставку — uncertain с ответом равен sent.
+            CampaignSend.status.in_(("sent", "uncertain")),
             CampaignSend.replied_at.isnot(None),
         )
         .all()
@@ -712,7 +717,7 @@ def test_send(
 # Получатели и дедупликация
 # ---------------------------------------------------------------------------
 
-SEND_STATUSES = {"sent", "failed", "skipped"}
+SEND_STATUSES = {"sent", "failed", "skipped", "uncertain"}
 
 # Сколько лидов разрешено отметить одним запросом. Ограничение есть потому,
 # что тело запроса приходит снаружи и список на миллион id положил бы сервис.
@@ -917,7 +922,7 @@ def reply_hours(
         .join(Lead, Lead.id == CampaignSend.lead_id)
         .filter(
             CampaignSend.owner_id == user.id,
-            CampaignSend.status == "sent",
+            CampaignSend.status.in_(("sent", "uncertain")),
             CampaignSend.sent_at.isnot(None),
         )
         .all()

@@ -166,11 +166,12 @@ def mark_used(db: Session, code: str | None) -> None:
     # платежа с одним кодом иначе оба прочитали бы used_count=N и записали
     # N+1 — max_uses превышался бы молча. rowcount не проверяем нарочно:
     # платёж уже принят, и валидность кода решалась раньше, при расчёте цены.
+    # synchronize_session="fetch": bulk UPDATE иначе не трогает identity map,
+    # и чтение той же сессии (повторный расчёт цены в этом же запросе) видело
+    # бы старый used_count — исчерпанный код казался бы живым. "fetch"
+    # протухает ТОЛЬКО задетые строки; db.expire_all() здесь был бы кувалдой —
+    # лишние SELECT'ы по всем объектам вызывающего роутера.
     db.query(PromoCode).filter(PromoCode.code == normalized).update(
         {PromoCode.used_count: func.coalesce(PromoCode.used_count, 0) + 1},
-        synchronize_session=False,
+        synchronize_session="fetch",
     )
-    # Bulk UPDATE не трогает объекты в identity map: без expire чтение той же
-    # сессии (например, повторный расчёт цены в этом же запросе) видело бы
-    # старый used_count и считало бы исчерпанный код живым.
-    db.expire_all()

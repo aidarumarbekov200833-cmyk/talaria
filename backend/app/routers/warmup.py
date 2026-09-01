@@ -492,12 +492,16 @@ def list_accounts(
                 CampaignSend.owner_id == user.id,
                 CampaignSend.account_id.in_(metrics),
                 CampaignSend.sent_at >= today_start,
-                CampaignSend.status.in_(("sent", "failed")),
+                CampaignSend.status.in_(("sent", "failed", "uncertain")),
             )
             .group_by(CampaignSend.account_id, CampaignSend.status)
             .all()
         ):
-            metrics[int(account_id)][str(status)] = int(count)
+            # uncertain для здоровья аккаунта = потраченная отправка: сообщение
+            # могло уйти, и дневную нагрузку аккаунта оно создало.
+            bucket = "sent" if status in ("sent", "uncertain") else str(status)
+            row_metrics = metrics[int(account_id)]
+            row_metrics[bucket] = row_metrics.get(bucket, 0) + int(count)
         for account_id, count in (
             db.query(Lead.tg_verified_by_account_id, func.count(Lead.id))
             .filter(
@@ -596,7 +600,8 @@ def account_risk(
             CampaignSend.owner_id == user.id,
             CampaignSend.account_id.in_([row.id for row in connected]),
             CampaignSend.sent_at >= today_start,
-            CampaignSend.status == "sent",
+            # uncertain занимает дневной лимит аккаунта (см. sending.py).
+            CampaignSend.status.in_(("sent", "uncertain")),
         )
         .group_by(CampaignSend.account_id)
         .all()

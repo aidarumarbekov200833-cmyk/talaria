@@ -466,7 +466,6 @@ async function getEntry(ownerId, accountId, { requireSession = false } = {}) {
       // параллельные вызовы к ней перемешиваются (вплоть до FLOOD_WAIT).
       // withClient выстраивает вызовы к одному аккаунту в очередь.
       opChain: Promise.resolve(),
-      opQueueDepth: 0,
       // Признак идущего входа: два client.start() на одном клиенте (две
       // вкладки формы подключения) перемешивают этапы авторизации.
       authBusy: false,
@@ -491,9 +490,16 @@ async function getEntry(ownerId, accountId, { requireSession = false } = {}) {
 // безопасно повторить позже.
 const OP_QUEUE_LIMIT = Number(process.env.OP_QUEUE_LIMIT || 20);
 
+// Глубина очереди на аккаунт — СИНХРОННО, до первого await. Если проверять
+// поле entry после await getEntry(), конкурентные вызовы успевают пройти
+// проверку до чужих инкрементов, и лимит превышается на несколько единиц.
+// Отдельная Map, а не поле entry: счётчик нужен до того, как entry появится.
+const opDepth = new Map(); // "<owner>:<account>" → операций в очереди
+
 async function withClient(ownerId, accountId, fn, opts) {
-  const entry = await getEntry(ownerId, accountId, opts);
-  if (entry.opQueueDepth >= OP_QUEUE_LIMIT) {
+  const key = `${ownerId}:${accountId}`;
+  const depth = opDepth.get(key) || 0;
+  if (depth >= OP_QUEUE_LIMIT) {
     const busy = new Error(
       "Очередь операций аккаунта переполнена — повторите запрос через несколько секунд"
     );
@@ -501,23 +507,29 @@ async function withClient(ownerId, accountId, fn, opts) {
     busy.status = 429;
     throw busy;
   }
-  entry.refs += 1;
-  entry.opQueueDepth += 1;
-  cancelIdle(entry);
-  // Сериализация на аккаунт: вызовы к одной MTProto-сессии идут по очереди,
-  // к разным аккаунтам — параллельно. Ошибка предыдущей операции не должна
-  // рвать цепочку (catch), иначе одна неудача подвесила бы весь аккаунт.
-  const run = entry.opChain.then(() => fn(entry.client, entry));
-  entry.opChain = run.then(
-    () => undefined,
-    () => undefined
-  );
+  opDepth.set(key, depth + 1);
+  let entry = null;
   try {
+    entry = await getEntry(ownerId, accountId, opts);
+    entry.refs += 1;
+    cancelIdle(entry);
+    // Сериализация на аккаунт: вызовы к одной MTProto-сессии идут по очереди,
+    // к разным аккаунтам — параллельно. Ошибка предыдущей операции не должна
+    // рвать цепочку (catch), иначе одна неудача подвесила бы весь аккаунт.
+    const run = entry.opChain.then(() => fn(entry.client, entry));
+    entry.opChain = run.then(
+      () => undefined,
+      () => undefined
+    );
     return await run;
   } finally {
-    entry.refs = Math.max(0, entry.refs - 1);
-    entry.opQueueDepth = Math.max(0, entry.opQueueDepth - 1);
-    scheduleIdle(entry.key);
+    const left = (opDepth.get(key) || 1) - 1;
+    if (left <= 0) opDepth.delete(key);
+    else opDepth.set(key, left);
+    if (entry) {
+      entry.refs = Math.max(0, entry.refs - 1);
+      scheduleIdle(entry.key);
+    }
   }
 }
 
@@ -1606,6 +1618,11 @@ wss.on("connection", async (ws, req) => {
   const sendQrCode = async ({ token, expires }) => {
     // Окно закрыто — некому показывать QR. Бросаем, чтобы client.start()
     // завершился и снял authBusy, а не крутил цикл обновления токена впустую.
+    // errorMessage = "AUTH_USER_CANCEL" НАРОЧНО повторяет код самого GramJS
+    // для отменённого входа: ошибка идёт по тому же пути обработки, что и
+    // настоящая отмена (не ретраится, не пугает пользователя). Проверка
+    // стоит на обновлении QR-токена (~раз в 30 с) — раньше прервать цикл
+    // client.start() снаружи GramJS не даёт.
     if (released) {
       const cancel = new Error("AUTH_USER_CANCEL");
       cancel.errorMessage = "AUTH_USER_CANCEL";

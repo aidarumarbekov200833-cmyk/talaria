@@ -17,6 +17,7 @@
     "ix_campaign_sends_owner_id",
     "ix_campaign_sends_owner_lead",
     "ix_campaign_sends_owner_status_lead",
+    "ix_campaign_sends_owner_status_lead",
     "ix_campaign_sends_telegram_message_id",
     "ix_campaigns_owner_id",
     "ix_campaigns_scheduled_at",
@@ -87,6 +88,6 @@
     "ix_warmup_logs_account_id",
     "uq_warmup_primary_owner"
   ],
-  "schema_index_sha256": "41ea725f3101344d7daaa54bd0f2eb3f4fc932aa4c29850bb06ae1323e61f6d6",
-  "schema_operations_sha256": "0caddf3603831e60b60e6dff1da93e8db1bca2bcf3da1ff8397f8fe603e93ff4"
+  "schema_index_sha256": "f5a7de3afac33e6f0627b08dab95cdcbfb55fff04aac786ce276c7e1a93487ad",
+  "schema_operations_sha256": "8b8b954db85ca56c9988fccc3e99803071ef6c82d7322657cb02cd576a381d31"
 }

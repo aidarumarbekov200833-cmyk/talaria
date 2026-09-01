@@ -7,14 +7,20 @@ on:
 
 jobs:
   # Секреты ловим ДО всего остального: закоммиченный ключ дороже упавшего
-  # теста. Полная история (fetch-depth: 0) — gitleaks смотрит и старые коммиты.
+  # теста. ВАЖНО про глубину: пока история не вычищена (deploy/.env.production
+  # лежал в git с v33 — ротация + git filter-repo за владельцем), gitleaks с
+  # fetch-depth: 0 находил бы эти секреты в старых коммитах и падал на КАЖДОМ
+  # прогоне — красный пайплайн, который все научатся игнорировать. Поэтому до
+  # чистки сканируем только свежие коммиты (fetch-depth: 50 покрывает любой
+  # разумный PR); после filter-repo поставьте 0 — тогда история проверяется
+  # целиком.
   gitleaks:
     name: секреты — gitleaks
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0
+          fetch-depth: 50
       - uses: gitleaks/gitleaks-action@v2
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -39,6 +45,13 @@ jobs:
 
       - name: Линтер
         run: ruff check .
+
+      # ruff format --check и mypy из старого deploy/github-ci.yml НЕ
+      # возвращены осознанно: на текущем коде это 43 файла к переформату и
+      # ~900 ошибок mypy — оба шага были бы красными с первого прогона.
+      # Включать их имеет смысл отдельным PR, который сначала приводит код
+      # в соответствие (форматирующий коммит / mypy-долг), иначе это второй
+      # «вечно красный» пайплайн.
 
       - name: Тесты
         run: pytest -q
@@ -68,6 +81,16 @@ jobs:
       # зависимостями — эти гейты выполняются в backend-джобе через pytest.
       - name: Формат
         run: npm run format:check
+
+      # Из старого deploy/github-ci.yml: inline-обработчики ломают CSP
+      # (script-src без unsafe-inline для обработчиков). Дёшево и полезно.
+      - name: Отсутствие inline-обработчиков (защита CSP)
+        run: |
+          n="$(grep -oE 'on(click|change|input|submit|load)=' index.html | wc -l)"
+          if [ "$n" -gt 0 ]; then
+            echo "Найдено $n inline-обработчиков — используйте data-act= вместо onclick=" >&2
+            exit 1
+          fi
 
   tg-mini-client:
     name: tg-mini-client — node --test

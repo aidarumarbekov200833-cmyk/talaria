@@ -896,7 +896,7 @@ class RecipientsOut(BaseModel):
 
 class CampaignSendIn(BaseModel):
     lead_ids: list[int]
-    status: str = "sent"  # sent | failed | skipped
+    status: str = "sent"  # sent | failed | skipped | uncertain
     error: str = ""
 
 
