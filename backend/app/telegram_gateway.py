@@ -92,8 +92,19 @@ class TelegramGateway:
                 headers=self._headers(),
                 timeout=timeout,
             )
+        except (httpx.ConnectError, httpx.ConnectTimeout) as exc:
+            # Соединение не установилось — запрос гарантированно не дошёл до
+            # шлюза, повторять такое безопасно.
+            raise TelegramGatewayError(
+                f"Telegram-gateway недоступен: {exc}", code="GATEWAY_UNREACHABLE"
+            ) from exc
         except httpx.RequestError as exc:
-            raise TelegramGatewayError(f"Telegram-gateway недоступен: {exc}") from exc
+            # Таймаут чтения или обрыв после отправки тела: запрос мог дойти,
+            # и сообщение могло реально уйти в Telegram. Такой исход помечаем
+            # отдельным кодом — вызывающий не имеет права слепо повторять.
+            raise TelegramGatewayError(
+                f"Ответ Telegram-gateway не получен: {exc}", code="GATEWAY_INTERRUPTED"
+            ) from exc
         try:
             body = response.json()
         except ValueError as exc:

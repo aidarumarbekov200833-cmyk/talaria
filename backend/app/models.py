@@ -905,11 +905,14 @@ class CampaignSend(Base):
 
     id = Column(Integer, primary_key=True)
     owner_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=False)
+    # nullable: удаление кампании ОТВЯЗЫВАЕТ историю (campaign_id -> NULL до
+    # db.delete), а не стирает её — иначе skip_contacted забывал бы, кому уже
+    # писали, и лид получал повторное первое сообщение (миграция 0039).
     campaign_id = Column(
         Integer,
         ForeignKey("campaigns.id", ondelete="CASCADE"),
         index=True,
-        nullable=False,
+        nullable=True,
     )
     # Удалили базу лидов — история отправок по ней тоже теряет смысл,
     # поэтому CASCADE, а не висячие строки с мёртвым lead_id.

@@ -8,6 +8,7 @@ import json
 import logging
 import secrets
 import threading
+import time
 from datetime import UTC, datetime, timedelta
 
 from fastapi import APIRouter, Depends, Header, HTTPException, Query
@@ -1026,15 +1027,18 @@ def delete_campaign(
     campaign = _owned_campaign(campaign_id, db, user)
     if campaign.status in {"running", "cancel_requested"}:
         raise HTTPException(409, "Сначала остановите активную рассылку")
-    # Журнал и историю отправок сносим явно. В модели стоит ondelete="CASCADE",
-    # но в базах, созданных до этого, ограничение осталось без каскада, и
-    # удаление падало с ошибкой внешнего ключа. Миграция 0009 чинит схему,
-    # а эти два запроса делают удаление независимым от того, накатили её или нет.
+    # Журнал сносим явно. В модели стоит ondelete="CASCADE", но в базах,
+    # созданных до этого, ограничение осталось без каскада, и удаление падало
+    # с ошибкой внешнего ключа (миграцию 0009 могли не накатить).
     db.query(CampaignLog).filter(CampaignLog.campaign_id == campaign.id).delete(
         synchronize_session=False
     )
-    db.query(CampaignSend).filter(CampaignSend.campaign_id == campaign.id).delete(
-        synchronize_session=False
+    # Историю отправок НЕ удаляем, а отвязываем: campaign_sends — единственный
+    # источник skip_contacted («этому человеку уже писали»). Стереть её вместе
+    # с кампанией — значит отправить тем же лидам повторное первое сообщение
+    # в следующей рассылке. Отвязка до db.delete не даёт каскаду сработать.
+    db.query(CampaignSend).filter(CampaignSend.campaign_id == campaign.id).update(
+        {CampaignSend.campaign_id: None}, synchronize_session=False
     )
     db.delete(campaign)
     db.commit()
@@ -1096,6 +1100,11 @@ def add_campaign_log(
 
 
 logger = logging.getLogger("outly.campaigns")
+
+# Сколько секунд /launch имеет право потратить на синхронную доверификацию
+# pending-кандидатов. Остальные останутся pending и попадут в следующий запуск
+# или в верификацию базы — лид не теряется (см. _verify_launch_candidates).
+LAUNCH_VERIFY_BUDGET_SECONDS = 20
 
 
 def _launch_in_background(
@@ -1494,18 +1503,34 @@ def _verify_launch_candidates(
     if not account_ids:
         return 0, 0
     verified = 0
+    checked = 0
+    # Бюджет времени: верификация выполняется синхронно внутри HTTP-запроса
+    # /launch, а один resolve может занять до 20 с. Без предела 600 кандидатов
+    # держали бы соединение часами — обрыв по таймауту прокси, повторный клик
+    # и лишние флуд-лимиты. Непроверенные остаются pending: их добёрет
+    # верификация базы или следующий запуск.
+    deadline = time.monotonic() + LAUNCH_VERIFY_BUDGET_SECONDS
     for index, lead in enumerate(rows):
+        if time.monotonic() >= deadline:
+            logger.info(
+                "Верификация перед запуском остановлена по бюджету времени: "
+                "проверено %s из %s кандидатов",
+                checked,
+                len(rows),
+            )
+            break
         profile = contacts.verify_lead(
             lead,
             user.id,
             account_ids,
             start_index=index,
         )
+        checked += 1
         if profile.sendable:
             verified += 1
-    if rows:
+    if checked:
         db.commit()
-    return len(rows), verified
+    return checked, verified
 
 
 @router.post("/launch-preview", response_model=CampaignPreviewOut)

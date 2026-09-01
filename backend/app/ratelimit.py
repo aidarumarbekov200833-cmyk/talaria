@@ -21,6 +21,18 @@ from .config import settings
 
 _lock = threading.Lock()
 _hits: dict[str, list[float]] = {}
+# Амортизированная уборка: без неё каждый новый IP на публичных ручках
+# оставался в _hits навсегда — медленная утечка памяти и дешёвый способ
+# раздуть процесс перебором адресов.
+_SWEEP_EVERY = 1000
+_calls_since_sweep = 0
+
+
+def _sweep(cutoff: float) -> None:
+    """Убрать ключи, у которых не осталось меток в окне. Вызывать под _lock."""
+    dead = [key for key, hits in _hits.items() if not hits or hits[-1] <= cutoff]
+    for key in dead:
+        del _hits[key]
 
 
 def _limit_for(group: str) -> int:
@@ -32,6 +44,7 @@ def _limit_for(group: str) -> int:
         "test_send": settings.rate_limit_test_send,
         "chat": settings.rate_limit_chat,
         "support": settings.rate_limit_support,
+        "quote": settings.rate_limit_quote,
     }.get(group, 0)
 
 
@@ -52,7 +65,12 @@ def check(group: str, identity: str) -> tuple[bool, int]:
     cutoff = now - window
     key = f"{group}:{identity}"
 
+    global _calls_since_sweep
     with _lock:
+        _calls_since_sweep += 1
+        if _calls_since_sweep >= _SWEEP_EVERY:
+            _calls_since_sweep = 0
+            _sweep(cutoff)
         hits = [t for t in _hits.get(key, ()) if t > cutoff]
         if len(hits) >= limit:
             retry = int(hits[0] + window - now) + 1
