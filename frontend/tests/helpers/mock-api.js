@@ -239,6 +239,40 @@ export async function mockApi(page) {
         body: JSON.stringify(adminBody),
       });
     }
+    if (url.pathname === '/api/search' && route.request().method() === 'POST') {
+      // Поиск v44 — фоновый прогон на сервере; в моке он завершается мгновенно,
+      // чтобы тест проверял обработку результата, а не таймеры опроса.
+      const sent = JSON.parse(route.request().postData() || '{}');
+      const keywords = sent.keywords || [];
+      return route.fulfill({
+        contentType: 'application/json',
+        status: 200,
+        body: JSON.stringify({
+          id: 7,
+          status: 'completed',
+          mode: sent.mode || 'custom',
+          keywords_total: keywords.length,
+          keywords_done: keywords.length,
+          found_count: 4,
+          limit_total: sent.limit || 4,
+          current_keyword: '',
+          stop_reason: '',
+          error: '',
+          database: {
+            id: 91,
+            name: sent.database_name || 'Новая база',
+            source: 'youtube',
+            mode: sent.mode || 'custom',
+            query: keywords.join(', '),
+            units_spent: 400,
+            filters_json: '{}',
+            pipeline_status: 'youtube_ready',
+            created_at: new Date().toISOString(),
+            leads_count: 4,
+          },
+        }),
+      });
+    }
     const body =
       url.pathname === '/api/subscription'
         ? {

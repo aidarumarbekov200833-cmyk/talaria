@@ -3,18 +3,20 @@
 from __future__ import annotations
 
 import json
+import logging
 import re
+import threading
 from datetime import UTC, datetime
 
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from .. import alerts, contacts
+from .. import alerts, contacts, database
 from .. import quota as q
 from .. import youtube as yt
 from ..database import get_db
 from ..dependencies import get_current_user
-from ..models import ApiKey, Lead, LeadDatabase, TopicRun, User
+from ..models import ApiKey, Lead, LeadDatabase, SearchJob, TopicRun, User
 from ..niches import (
     KEYWORDS_NOTE,
     NICHES,
@@ -31,6 +33,7 @@ from ..schemas import (
     NicheOut,
     SearchEstimateOut,
     SearchIn,
+    SearchJobOut,
     TopicItem,
     TopicRunIn,
     TopicRunOut,
@@ -38,6 +41,8 @@ from ..schemas import (
 from ..services import compute_lead_score, log_event
 
 router = APIRouter(prefix="/api", tags=["search"])
+
+logger = logging.getLogger("outly.search")
 
 NO_KEY_MESSAGE = (
     "Не добавлен ключ YouTube API. Откройте «Настройки» → «Ключи YouTube API» "
@@ -320,26 +325,26 @@ def estimate_search(
 
 @router.post(
     "/search",
-    response_model=LeadDatabaseOut,
+    response_model=SearchJobOut,
     dependencies=[Depends(limiter("search"))],
 )
 def run_search(
     payload: SearchIn,
     user: User = Depends(get_current_user),
     db: Session = Depends(get_db),
-) -> LeadDatabaseOut:
-    """Найти каналы и сохранить их в новую базу лидов.
+) -> SearchJobOut:
+    """Запустить поиск каналов: прогон живёт в БД и переживает рестарт сервера.
 
-    Идём по ключевым словам по очереди и останавливаемся, когда набрали limit
-    каналов либо кончилась квота. Частичный результат сохраняем и пишем в
-    журнал, сколько реально нашли — молча урезать запрос было бы обманом.
+    Запрос только проверяет лимиты и создаёт SearchJob — сам перебор идёт в
+    фоне, интерфейс опрашивает /api/search/jobs/current. Так закрытая вкладка
+    или рестарт сервера не теряют найденное: worker продолжит с первого
+    непройденного ключевого слова.
     """
     keywords = [k.strip() for k in payload.keywords if k and k.strip()]
     if not keywords:
         raise HTTPException(400, "Не заданы ключевые слова")
     # Выбранное значение — на каждое ключевое слово. Общий потолок —
-    # произведение, но с верхней границей: без неё 5000 каналов в одном
-    # синхронном запросе гарантированно уйдут в таймаут.
+    # произведение, но с верхней границей: 5000 каналов и так занимают минуты.
     per_keyword = max(1, min(1000, payload.limit))
     limit = min(per_keyword * len(keywords), MAX_TOTAL_CHANNELS)
 
@@ -348,55 +353,101 @@ def run_search(
     allowed = check_leads_budget(db, user.id, limit)
     limit = min(limit, allowed)
     check_object_limit(db, user.id, "databases")
+    _require_key(db, user, q.COST_SEARCH_LIST)  # хватило бы хоть на страницу
 
-    plan = _estimate(db, user.id, len(keywords), per_keyword)
-    key = _require_key(db, user, q.COST_SEARCH_LIST)  # хватило бы хоть на страницу
-    found: dict[str, str] = {}  # channel_id -> ключевое слово
-    stop_reason = ""
+    # Один активный поиск на пользователя: два параллельных прогона дерутся за
+    # квоту ключей и лимит каналов, а интерфейс умеет показывать только один.
+    active = (
+        db.query(SearchJob.id)
+        .filter(SearchJob.owner_id == user.id, SearchJob.status.in_(["queued", "running"]))
+        .first()
+    )
+    if active:
+        raise HTTPException(409, "Поиск уже идёт. Дождитесь его завершения.")
 
-    for keyword in keywords:
-        if len(found) >= limit:
-            break
-        page_token = ""
-        collected = 0
-        while collected < per_keyword and len(found) < limit:
-            key = q.pick_key(db, user.id, q.COST_SEARCH_LIST)
-            if key is None:
-                stop_reason = "закончилась квота по нашему счётчику"
-                break
-            q.spend(db, key, "search.list")
-            db.commit()
-            try:
-                ids, page_token = yt.search_channels(
-                    key.key, keyword, page_token, 50, payload.region
-                )
-            except yt.YouTubeError as exc:
-                if exc.is_quota:
-                    key.status, key.status_detail = "quota_exceeded", exc.message
-                elif exc.is_key_problem:
-                    key.status, key.status_detail = "invalid", f"{exc.reason}: {exc.message}"
-                key.last_checked_at = datetime.now(UTC)
-                db.commit()
-                stop_reason = f"YouTube: {exc.message}"
-                break
+    job = SearchJob(
+        owner_id=user.id,
+        status="queued",
+        payload=payload.model_dump_json(),
+        limit_total=limit,
+        per_keyword=per_keyword,
+    )
+    db.add(job)
+    db.commit()
+    db.refresh(job)
 
-            for cid in ids:
-                if cid not in found:
-                    found[cid] = keyword
-                    collected += 1
-                    if len(found) >= limit:
-                        break
-            if not page_token:
-                break
-        if stop_reason:
-            break
+    if payload.wait:
+        # Синхронный путь для API-тестов: маленькие прогоны, ответ в конце.
+        _process_search_job(db, job.id)
+        db.refresh(job)
+        return _search_job_out(db, job)
 
-    if not found:
-        message = stop_reason or "YouTube не вернул ни одного канала по этим словам"
-        log_event(db, user.id, "search", f"Поиск без результата: {message}", "warn")
-        raise HTTPException(502 if stop_reason else 404, message)
+    spawn_search_job(job.id)
+    return _search_job_out(db, job)
 
-    return _save_results(db, user, payload, keywords, found, plan, stop_reason)
+
+@router.get("/search/jobs/current", response_model=SearchJobOut)
+def current_search_job(
+    user: User = Depends(get_current_user),
+    db: Session = Depends(get_db),
+) -> SearchJobOut:
+    """Последний прогон поиска: интерфейс опрашивает его во время работы и
+    подхватывает уже идущий поиск после перезагрузки страницы."""
+    job = (
+        db.query(SearchJob)
+        .filter(SearchJob.owner_id == user.id)
+        .order_by(SearchJob.id.desc())
+        .first()
+    )
+    if job is None:
+        raise HTTPException(404, "Поиск ещё не запускался")
+    return _search_job_out(db, job)
+
+
+def _search_job_out(db: Session, job: SearchJob) -> SearchJobOut:
+    """Собрать ответ по прогону; у завершённого — вместе с созданной базой."""
+    try:
+        payload = json.loads(job.payload or "{}")
+    except ValueError:
+        payload = {}
+    keywords_total = len(payload.get("keywords") or [])
+    mode = payload.get("mode") or "custom"
+    try:
+        found_count = len(json.loads(job.found_json or "{}"))
+    except ValueError:
+        found_count = 0
+    database_out: LeadDatabaseOut | None = None
+    if job.database_id:
+        row = db.get(LeadDatabase, job.database_id)
+        if row is not None:
+            database_out = LeadDatabaseOut(
+                id=row.id,
+                name=row.name,
+                source=row.source,
+                mode=row.mode,
+                query=row.query,
+                units_spent=row.units_spent,
+                filters_json=row.filters_json,
+                pipeline_status=row.pipeline_status,
+                created_at=row.created_at,
+                leads_count=job.leads_count,
+            )
+    return SearchJobOut(
+        id=job.id,
+        status=job.status,
+        mode=mode,
+        keywords_total=keywords_total,
+        keywords_done=int(job.keywords_done or 0),
+        found_count=found_count,
+        limit_total=int(job.limit_total or 0),
+        current_keyword=job.current_keyword or "",
+        stop_reason=job.stop_reason or "",
+        error=job.error or "",
+        database=database_out,
+        started_at=job.started_at,
+        completed_at=job.completed_at,
+        created_at=job.created_at,
+    )
 
 
 def _extract_contacts(db: Session, database_id: int) -> int:
@@ -645,3 +696,214 @@ def _save_results(
         created_at=database.created_at,
         leads_count=saved,
     )
+
+
+# ---------------------------------------------------------------------------
+# Фоновый прогон поиска: живёт в БД и продолжается после рестарта сервера
+# ---------------------------------------------------------------------------
+
+_ACTIVE_SEARCH_JOBS: set[int] = set()
+_ACTIVE_SEARCH_LOCK = threading.Lock()
+
+
+def spawn_search_job(job_id: int) -> bool:
+    """Запустить прогон не больше одного раза в текущем процессе."""
+    with _ACTIVE_SEARCH_LOCK:
+        if job_id in _ACTIVE_SEARCH_JOBS:
+            return False
+        _ACTIVE_SEARCH_JOBS.add(job_id)
+    try:
+        thread = threading.Thread(
+            target=_search_background,
+            args=(job_id,),
+            name=f"search-job-{job_id}",
+            daemon=True,
+        )
+        thread.start()
+        return True
+    except Exception:
+        with _ACTIVE_SEARCH_LOCK:
+            _ACTIVE_SEARCH_JOBS.discard(job_id)
+        raise
+
+
+def recover_search_jobs(db: Session) -> list[int]:
+    """Подготовить незавершённые прогоны поиска к автопродолжению после рестарта."""
+    jobs = (
+        db.query(SearchJob)
+        .filter(SearchJob.status.in_(["queued", "running"]))
+        .order_by(SearchJob.id)
+        .all()
+    )
+    resume: list[int] = []
+    for job in jobs:
+        job.status = "queued"
+        resume.append(job.id)
+    if jobs:
+        db.commit()
+    return resume
+
+
+def _search_background(job_id: int) -> None:
+    db = database.SessionLocal()
+    try:
+        _process_search_job(db, job_id)
+    except Exception as exc:
+        logger.exception("Фоновый поиск #%s упал", job_id)
+        db.rollback()
+        try:
+            job = db.get(SearchJob, job_id)
+            if job is not None:
+                _finish_search_job(db, job, "error", error=str(exc))
+        except Exception:
+            logger.exception("Не удалось записать ошибку search job #%s", job_id)
+    finally:
+        db.close()
+        with _ACTIVE_SEARCH_LOCK:
+            _ACTIVE_SEARCH_JOBS.discard(job_id)
+
+
+def _finish_search_job(
+    db: Session,
+    job: SearchJob,
+    status: str,
+    *,
+    error: str = "",
+    stop_reason: str | None = None,
+) -> None:
+    job.status = status
+    job.current_keyword = ""
+    job.completed_at = datetime.now(UTC)
+    if error:
+        job.error = error[:1000]
+    if stop_reason is not None:
+        job.stop_reason = stop_reason[:500]
+    db.commit()
+
+
+def _notify_search_owner(db: Session, job: SearchJob, text: str) -> None:
+    """Пуш в Telegram владельцу прогона. Сбой доставки поиск не ломает."""
+    owner = db.get(User, job.owner_id)
+    if owner is None:
+        return
+    alerts.notify_user(owner.telegram_id, text, dedupe_key=f"search-job:{job.id}:{job.status}")
+
+
+def _autostart_verification(db: Session, user: User, database_id: int) -> bool:
+    """Запустить проверку Telegram сразу после поиска на стороне сервера.
+
+    Раньше проверку запускал браузер после ответа поиска; с фоновым прогоном
+    вкладка может быть закрыта, поэтому запуск переехал на сервер. Эндпоинт
+    идемпотентен: если браузер тоже дёрнет запуск, он получит тот же job.
+    """
+    from ..schemas import LeadVerificationStartIn
+    from . import leads as leads_router
+
+    try:
+        out = leads_router.start_verification_job(
+            database_id, LeadVerificationStartIn(), user, db
+        )
+    except HTTPException:
+        # Нет подключённых Telegram-аккаунтов — проверять нечем; база готова,
+        # человек запустит проверку позже, когда подключит аккаунт.
+        return False
+    return out.status in {"queued", "running"}
+
+
+def _process_search_job(db: Session, job_id: int) -> None:
+    """Пройти ключевые слова прогона и сохранить найденное базой лидов.
+
+    Возобновляемость: найденные каналы и число полностью пройденных слов
+    коммитятся после каждой страницы, поэтому рестарт продолжает с первого
+    непройденного слова. Прерванное на середине слово идёт заново — повторная
+    страница квоты честнее, чем потерянные каналы.
+    """
+    job = db.get(SearchJob, job_id)
+    if job is None or job.status not in {"queued", "running"}:
+        return
+    user = db.get(User, job.owner_id)
+    if user is None:
+        _finish_search_job(db, job, "error", error="Владелец прогона не найден")
+        return
+
+    payload = SearchIn.model_validate_json(job.payload or "{}")
+    keywords = [k.strip() for k in payload.keywords if k and k.strip()]
+    limit = int(job.limit_total or 0)
+    per_keyword = max(1, int(job.per_keyword or 1))
+    try:
+        found: dict[str, str] = dict(json.loads(job.found_json or "{}"))
+    except ValueError:
+        found = {}
+
+    job.status = "running"
+    job.started_at = job.started_at or datetime.now(UTC)
+    db.commit()
+
+    stop_reason = ""
+    index = int(job.keywords_done or 0)
+    while index < len(keywords) and len(found) < limit and not stop_reason:
+        keyword = keywords[index]
+        job.current_keyword = keyword[:200]
+        db.commit()
+        page_token = ""
+        collected = 0
+        while collected < per_keyword and len(found) < limit:
+            key = q.pick_key(db, user.id, q.COST_SEARCH_LIST)
+            if key is None:
+                stop_reason = "закончилась квота по нашему счётчику"
+                break
+            q.spend(db, key, "search.list")
+            db.commit()
+            try:
+                ids, page_token = yt.search_channels(
+                    key.key, keyword, page_token, 50, payload.region
+                )
+            except yt.YouTubeError as exc:
+                if exc.is_quota:
+                    key.status, key.status_detail = "quota_exceeded", exc.message
+                elif exc.is_key_problem:
+                    key.status, key.status_detail = "invalid", f"{exc.reason}: {exc.message}"
+                key.last_checked_at = datetime.now(UTC)
+                db.commit()
+                stop_reason = f"YouTube: {exc.message}"
+                break
+            for cid in ids:
+                if cid not in found:
+                    found[cid] = keyword
+                    collected += 1
+                    if len(found) >= limit:
+                        break
+            # Прогресс в БД после каждой страницы — это и есть возобновляемость.
+            job.found_json = json.dumps(found, ensure_ascii=False)
+            db.commit()
+            if not page_token:
+                break
+        index += 1
+        job.keywords_done = index
+        job.found_json = json.dumps(found, ensure_ascii=False)
+        db.commit()
+
+    if not found:
+        message = stop_reason or "YouTube не вернул ни одного канала по этим словам"
+        log_event(db, user.id, "search", f"Поиск без результата: {message}", "warn")
+        _finish_search_job(db, job, "error", error=message, stop_reason=stop_reason)
+        _notify_search_owner(db, job, f"Talaria: поиск остановлен — {message}")
+        return
+
+    plan = _estimate(db, user.id, len(keywords), per_keyword)
+    try:
+        result = _save_results(db, user, payload, keywords, found, plan, stop_reason)
+    except HTTPException as exc:
+        db.rollback()
+        _finish_search_job(db, job, "error", error=str(exc.detail), stop_reason=stop_reason)
+        _notify_search_owner(db, job, f"Talaria: поиск остановлен — {exc.detail}")
+        return
+
+    job.database_id = result.id
+    job.leads_count = result.leads_count
+    _finish_search_job(db, job, "completed", stop_reason=stop_reason)
+    verification_started = _autostart_verification(db, user, result.id)
+    message = f"Talaria: поиск завершён — база «{result.name}», каналов {result.leads_count}."
+    if verification_started:
+        message += " Проверка Telegram запущена автоматически."
+    _notify_search_owner(db, job, message)

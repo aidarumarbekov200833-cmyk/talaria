@@ -114,7 +114,7 @@ import {
   helpToSupport,
   filterHelp,
 } from './help.js?v=talaria16';
-import { sendAi } from './ai.js?v=talaria13';
+import { sendAi } from './ai.js?v=talaria17';
 import { initOnboarding, openKeyGuide, startOnboarding } from './onboarding.js?v=zephyr4';
 import { initActions, clearParseLogs } from './actions.js';
 import {
@@ -186,7 +186,7 @@ import {
   setLeadFilterMode,
   runTelegramVerification,
   cancelTelegramVerification,
-} from './search.js?v=talaria13';
+} from './search.js?v=talaria17';
 
 /* Модалка оффера должна сбрасывать режим редактирования при открытии. */
 function openModalWithReset(id) {

@@ -639,10 +639,64 @@ export async function runCustomSearch() {
 
 /* ---------- общий запуск поиска ---------- */
 
+/** Кнопка запуска по режиму прогона — чтобы после F5 подсветить нужную. */
+const SEARCH_BTN_BY_MODE = {
+  trends: 'trendsSearchBtn',
+  niches: 'nicheSearchBtn',
+  custom: 'customSearchBtn',
+};
+
+/** Дождаться завершения прогона поиска, транслируя прогресс в терминал.
+ *
+ *  Прогон живёт на сервере и переживает и закрытую вкладку, и рестарт —
+ *  здесь только опрос состояния. В лог идут факты из ответа, ничего выдуманного.
+ */
+async function trackSearchJob(job) {
+  let lastKeyword = '';
+  const paint = (j) => {
+    if (j.current_keyword && j.current_keyword !== lastKeyword) {
+      lastKeyword = j.current_keyword;
+      const step = Math.min((j.keywords_done || 0) + 1, j.keywords_total || 1);
+      const found = j.found_count ? ` · найдено ${j.found_count}` : '';
+      log(`Слово ${step}/${j.keywords_total}: «${j.current_keyword}»${found}`, 'info');
+    }
+  };
+  paint(job);
+  let current = job;
+  while (current.status === 'queued' || current.status === 'running') {
+    await new Promise((resolve) => setTimeout(resolve, 1600));
+    try {
+      current = await api('GET', '/api/search/jobs/current');
+    } catch {
+      continue; // сеть мигнула — следующий опрос покажет реальное состояние
+    }
+    if (current.id !== job.id) break; // это уже другой прогон
+    paint(current);
+  }
+  return current;
+}
+
+/** Общий финал успешного прогона: журнал, списки баз, автопроверка. */
+async function handleSearchSuccess(finished) {
+  const db = finished.database;
+  log(`Готово: база «${db.name}», каналов ${db.leads_count}, единиц ${db.units_spent}`, 'info');
+  if (finished.stop_reason) log(`Остановка: ${finished.stop_reason}`, 'warn');
+  toast(`Найдено каналов: ${db.leads_count}. База «${db.name}» создана.`, 'success');
+  refreshQuota();
+  // Списки баз и получателей обновляем сразу — иначе новая база не видна.
+  if (window.loadDatabases) window.loadDatabases();
+  if (window.loadCampaignBases) window.loadCampaignBases();
+  await loadVerificationDatabases(db.id);
+  // Проверку Telegram сервер запускает сам сразу после поиска; этот вызов
+  // только подхватывает её состояние (и остаётся запасным путём, если на
+  // сервере проверять было нечем).
+  await autoStartVerification(db.id);
+}
+
 /** Запустить поиск каналов и сохранить базу.
  *
- *  Поиск идёт одним запросом и может занять минуты — прогресс-бара нет, потому
- *  что бэкенд не сообщает промежуточный прогресс, а рисовать выдуманный нельзя.
+ *  Запрос создаёт прогон на сервере и сразу возвращается; дальше — опрос
+ *  прогресса. Рестарт сервера прогон не теряет: он продолжится сам.
  */
 async function doSearch(payload, btnId, errId) {
   Object.assign(payload, collectLeadFilters());
@@ -650,26 +704,47 @@ async function doSearch(payload, btnId, errId) {
   busy(btnId, true, 'Идёт поиск…');
   log(`Поиск каналов: слов ${payload.keywords.length}, лимит ${payload.limit}`, 'info');
   try {
-    const db = await api('POST', '/api/search', payload);
-    log(`Готово: база «${db.name}», каналов ${db.leads_count}, единиц ${db.units_spent}`, 'info');
-    if (db.leads_count < payload.limit) {
+    const started = await api('POST', '/api/search', payload);
+    const finished = await trackSearchJob(started);
+    if (finished.status !== 'completed' || !finished.database) {
+      throw new Error(finished.error || 'Поиск не выполнен');
+    }
+    if (finished.database.leads_count < payload.limit) {
       log(`Запрошено было ${payload.limit} — найдено меньше`, 'warn');
     }
-    toast(`Найдено каналов: ${db.leads_count}. База «${db.name}» создана.`, 'success');
-    refreshQuota();
-    // Списки баз и получателей обновляем сразу — иначе новая база не видна.
-    if (window.loadDatabases) window.loadDatabases();
-    if (window.loadCampaignBases) window.loadCampaignBases();
-    await loadVerificationDatabases(db.id);
-    // Проверка Telegram больше не отдельный ручной шаг: сразу после поиска
-    // база уходит в проверку сама (просьба владельца «сделай автоматически»).
-    await autoStartVerification(db.id);
+    await handleSearchSuccess(finished);
   } catch (e) {
     showErr(errId, e.message);
     log('Поиск не выполнен: ' + e.message, 'warn');
     // Отсутствие ключа — самая частая причина; выносим в уведомление,
     // потому что исправлять её надо в другом разделе.
     if (/ключ YouTube API/i.test(e.message)) toast(e.message, 'warn');
+  } finally {
+    busy(btnId, false);
+  }
+}
+
+/** Подхватить прогон, который шёл до перезагрузки страницы или рестарта
+ *  сервера: терминал снова показывает прогресс, кнопка занята до конца. */
+async function resumeActiveSearchJob() {
+  let job;
+  try {
+    job = await api('GET', '/api/search/jobs/current');
+  } catch {
+    return; // поиск ещё не запускался
+  }
+  if (!job || !['queued', 'running'].includes(job.status)) return;
+  const btnId = SEARCH_BTN_BY_MODE[job.mode] || 'customSearchBtn';
+  log('Поиск продолжается на сервере — подключаемся к прогрессу', 'info');
+  busy(btnId, true, 'Идёт поиск…');
+  try {
+    const finished = await trackSearchJob(job);
+    if (finished.status !== 'completed' || !finished.database) {
+      throw new Error(finished.error || 'Поиск не выполнен');
+    }
+    await handleSearchSuccess(finished);
+  } catch (e) {
+    log('Поиск не выполнен: ' + e.message, 'warn');
   } finally {
     busy(btnId, false);
   }
@@ -883,6 +958,8 @@ export function initSearch() {
   loadNiches();
   restoreFilterState();
   loadVerificationDatabases();
+  // Поиск, запущенный до перезагрузки, продолжается на сервере — подхватываем.
+  resumeActiveSearchJob();
   document.getElementById('verificationDatabase')?.addEventListener('change', async (event) => {
     verificationDatabaseId = Number(event.target.value || 0);
     if (verificationDatabaseId) await loadVerificationSummary();

@@ -586,7 +586,8 @@ def test_launch_background_returns_immediately(client, paid_user, auth_headers, 
 
 
 def test_recover_interrupted_marks_stuck_campaigns(db, paid_user):
-    """После рестарта «идущие» рассылки помечаются прерванными, а не висят вечно."""
+    """Рассылка без сохранённого списка получателей (до v44) после рестарта
+    помечается прерванной, а не висит вечно — продолжать её нечем."""
     from app import models
     from app.routers.campaigns import recover_interrupted
 
@@ -596,7 +597,7 @@ def test_recover_interrupted_marks_stuck_campaigns(db, paid_user):
     db.add(campaign)
     db.commit()
 
-    assert recover_interrupted(db) == 1
+    assert recover_interrupted(db) == (1, [])
     db.refresh(campaign)
     assert campaign.status == "interrupted"
     logs = db.query(models.CampaignLog).filter(models.CampaignLog.campaign_id == campaign.id).all()

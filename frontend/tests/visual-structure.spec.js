@@ -772,3 +772,41 @@ test('v43: помощь-страница, узкое меню, клик по л�
   await page.locator('#sessionUserCard').click();
   await expect(page.locator('#accMenuLimits')).not.toContainText('Лидов в базах');
 });
+
+test('v44: поиск — фоновый прогон, терминал показывает готовую базу', async ({ page }) => {
+  await mockApi(page);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    localStorage.setItem('mf_onboarded', '1');
+    sessionStorage.removeItem('talaria_in_app');
+  });
+  await page.goto('/index.html');
+  await page.locator('[data-telegram-login-trigger]').first().click();
+  await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+  await page.locator('#loginScreen').evaluate((element) => {
+    element.style.display = 'none';
+  });
+  await page.locator('#appWrapper').evaluate((element) => {
+    element.style.display = 'block';
+  });
+  await hideOnboardingOnly(page);
+
+  await page.evaluate(() => window.goTo('search'));
+  await expect(page.locator('#search')).toHaveClass(/active/);
+
+  // Вкладка «Свои слова»: слово добавляется Enter'ом, шаг 2 разблокируется.
+  await page.locator('.search-tab[data-args="[3]"]').click();
+  await page.locator('#customKwInput').fill('криптообразование');
+  await page.locator('#customKwInput').press('Enter');
+  await expect(page.locator('#customKeywordsChips .chip')).toHaveCount(1);
+  await page.locator('#customDbName').fill('Ручной сбор — тест');
+
+  // Запуск: прогон в моке завершается сразу; терминал пишет факты из ответа,
+  // кнопка возвращается из состояния «Идёт поиск…».
+  await page.locator('#customSearchBtn').click();
+  await expect(page.locator('#parseLogs')).toContainText(
+    'Готово: база «Ручной сбор — тест», каналов 4',
+  );
+  await expect(page.locator('#customSearchBtn')).toBeEnabled();
+});

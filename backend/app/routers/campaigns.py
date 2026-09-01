@@ -1148,6 +1148,7 @@ def _launch_in_background(
                 sending.clog(db, campaign_id, f"Рассылка остановлена ошибкой: {exc}", "error")
                 db.commit()
                 hub.campaign_update(campaign.owner_id, campaign.id, campaign.progress, "error")
+                _notify_campaign_error(db, campaign)
         except Exception:
             logger.exception("Не удалось записать ошибку рассылки #%s", campaign_id)
         alerts.report_error(
@@ -1162,15 +1163,52 @@ def _launch_in_background(
         db.close()
 
 
-def recover_interrupted(db: Session) -> int:
-    """Пометить рассылки, «идущие» с прошлого запуска процесса, как прерванные.
+def recover_interrupted(db: Session) -> tuple[int, list[int]]:
+    """Разобрать рассылки, «идущие» с прошлого запуска процесса.
 
     Отправка живёт в потоке процесса и не переживает рестарт (деплой, OOM,
-    перезагрузка). Без этой уборки кампания навсегда остаётся «Идёт», а человек
-    ждёт то, что уже никогда не закончится. Вызывается один раз на старте.
+    перезагрузка). Кампании, у которых сохранён список получателей, готовятся
+    к автопродолжению — их id возвращаются вторым элементом, поток запускает
+    lifespan. Старые кампании без списка честно помечаются прерванными: без
+    списка получателей продолжать нечего. Ожидавшие остановки закрываются как
+    остановленные — подтверждать остановку после рестарта уже некому.
     """
-    stuck = db.query(Campaign).filter(Campaign.status == "running").all()
+    stuck = (
+        db.query(Campaign)
+        .filter(Campaign.status.in_(["running", "cancel_requested"]))
+        .all()
+    )
+    interrupted = 0
+    resume: list[int] = []
     for campaign in stuck:
+        if campaign.status == "cancel_requested":
+            campaign.status = "cancelled"
+            campaign.completed_at = datetime.now(UTC)
+            sending.clog(
+                db,
+                campaign.id,
+                "Остановка подтверждена перезапуском сервера.",
+                "warning",
+            )
+            continue
+        planned = _campaign_lead_ids(campaign)
+        if planned and _remaining_lead_ids(db, campaign, planned):
+            resume.append(campaign.id)
+            continue
+        if planned:
+            # Список есть, но все получатели уже обработаны — рестарт случился
+            # между последней отправкой и финальной записью статуса.
+            campaign.status = "completed"
+            campaign.progress = 100.0
+            campaign.completed_at = campaign.completed_at or datetime.now(UTC)
+            sending.clog(
+                db,
+                campaign.id,
+                "Готово: все получатели были обработаны ещё до перезапуска сервера.",
+                "success",
+            )
+            continue
+        interrupted += 1
         campaign.status = "interrupted"
         campaign.completed_at = campaign.completed_at or datetime.now(UTC)
         sending.clog(
@@ -1182,7 +1220,139 @@ def recover_interrupted(db: Session) -> int:
         )
     if stuck:
         db.commit()
-    return len(stuck)
+    return interrupted, resume
+
+
+def _notify_campaign_error(db: Session, campaign: Campaign) -> None:
+    """Пуш владельцу о рассылке, остановленной ошибкой. Сбой пуша глотается."""
+    owner = db.get(User, campaign.owner_id)
+    if owner is None:
+        return
+    alerts.notify_user(
+        owner.telegram_id,
+        f"Talaria: рассылка «{campaign.name}» остановлена ошибкой — "
+        f"отправлено {int(campaign.sent_count or 0)} из {int(campaign.total_recipients or 0)}. "
+        "Подробности в журнале рассылки.",
+        dedupe_key=f"campaign-error:{campaign.id}",
+    )
+
+
+def _campaign_lead_ids(campaign: Campaign) -> list[int]:
+    """Сохранённый при запуске список получателей; [] у кампаний до v44."""
+    try:
+        raw = json.loads(campaign.lead_ids or "[]")
+    except ValueError:
+        return []
+    return [int(v) for v in raw if isinstance(v, int | str) and str(v).isdigit()]
+
+
+def _remaining_lead_ids(db: Session, campaign: Campaign, planned: list[int]) -> list[int]:
+    """Кому из запланированных ещё не писали (нет строки в campaign_sends).
+
+    Любой статус отправки считается обработкой: sent, failed и skipped — по
+    ним решение уже принималось, повторять его после рестарта нельзя.
+    """
+    done = {
+        row[0]
+        for row in db.query(CampaignSend.lead_id).filter(
+            CampaignSend.campaign_id == campaign.id
+        )
+    }
+    return [lead_id for lead_id in planned if lead_id not in done]
+
+
+def resume_campaign(campaign_id: int) -> None:
+    """Продолжить прерванную рестартом рассылку в фоновом потоке."""
+    thread = threading.Thread(
+        target=_resume_in_background,
+        args=(campaign_id,),
+        name=f"launch-resume-{campaign_id}",
+        daemon=True,
+    )
+    thread.start()
+
+
+def _resume_in_background(campaign_id: int) -> None:
+    """Тело возобновления: своя сессия, всё перечитывается из БД по id.
+
+    Настройки запуска восстанавливаются из самой кампании (списки получателей,
+    аккаунтов и офферов сохранены при старте), провайдер ИИ — из текущих
+    настроек сервиса: хранить его ключ в кампании было бы дырой.
+    """
+    db = database.SessionLocal()
+    try:
+        campaign = db.query(Campaign).filter(Campaign.id == campaign_id).one()
+        planned = _campaign_lead_ids(campaign)
+        remaining = _remaining_lead_ids(db, campaign, planned)
+        if not remaining:
+            campaign.status = "completed"
+            campaign.progress = 100.0
+            campaign.completed_at = datetime.now(UTC)
+            db.commit()
+            return
+
+        order = {lead_id: index for index, lead_id in enumerate(remaining)}
+        leads = db.query(Lead).filter(Lead.id.in_(remaining)).all()
+        leads.sort(key=lambda lead: order.get(lead.id, 0))
+        account_ids = [int(v) for v in json.loads(campaign.account_ids or "[]")]
+        accounts = [
+            a for a in db.query(WarmupAccount).filter(WarmupAccount.id.in_(account_ids)).all()
+        ]
+        accounts.sort(key=lambda a: account_ids.index(a.id))
+        offer_ids = [int(v) for v in json.loads(campaign.offer_ids or "[]")]
+        offers = db.query(Offer).filter(Offer.id.in_(offer_ids)).order_by(Offer.id).all()
+        if not accounts or not leads or (campaign.offer_mode != "ai" and not offers):
+            raise RuntimeError("После рестарта не осталось аккаунтов или получателей")
+
+        ai_provider = None
+        if campaign.offer_mode == "ai":
+            base_url, api_key, model, _prompt, _tools = resolve_ai_provider(db)
+            if not (base_url and api_key and model):
+                raise RuntimeError("ИИ-провайдер не подключён — продолжить AI-рассылку нельзя")
+            ai_provider = (base_url, api_key, model)
+
+        done = len(planned) - len(remaining)
+        sending.clog(
+            db,
+            campaign.id,
+            f"Продолжаем после перезапуска сервера: осталось {len(remaining)} из {len(planned)}.",
+            "warning",
+        )
+        db.commit()
+        sending.run_launch(
+            db,
+            campaign,
+            leads,
+            accounts,
+            offers,
+            ai_provider=ai_provider,
+            ai_materials=int(campaign.ai_materials or 5),
+            resume_from=done,
+        )
+    except Exception as exc:
+        logger.exception("Возобновление рассылки #%s упало", campaign_id)
+        db.rollback()
+        try:
+            campaign = db.query(Campaign).filter(Campaign.id == campaign_id).one_or_none()
+            if campaign is not None:
+                campaign.status = "error"
+                campaign.completed_at = datetime.now(UTC)
+                sending.clog(db, campaign_id, f"Возобновление остановлено ошибкой: {exc}", "error")
+                db.commit()
+                hub.campaign_update(campaign.owner_id, campaign.id, campaign.progress, "error")
+                _notify_campaign_error(db, campaign)
+        except Exception:
+            logger.exception("Не удалось записать ошибку возобновления #%s", campaign_id)
+        alerts.report_error(
+            "Рассылка",
+            "campaign",
+            "Автовозобновление после рестарта упало с ошибкой",
+            entity=f"campaign #{campaign_id}",
+            details={"Ошибка": str(exc)[:500]},
+            dedupe_key=f"campaign-resume-crash:{campaign_id}",
+        )
+    finally:
+        db.close()
 
 
 def _owned_database(db: Session, user: User, database_id: int) -> LeadDatabase:
@@ -1579,6 +1749,10 @@ def launch_campaign(
         ai_template=ai_template if ai_mode else "",
         spintax=bool(data.spintax) and not ai_mode,
         account_ids=json.dumps([a.id for a in accounts]),
+        # Полный список получателей — опора автовозобновления: после рестарта
+        # остаток вычисляется вычитанием уже записанных campaign_sends.
+        lead_ids=json.dumps([lead.id for lead in leads]),
+        ai_materials=ai_materials,
         started_at=datetime.now(UTC),
     )
     db.add(campaign)
