@@ -30,7 +30,6 @@ def test_admin_overview_counts_connected_warmup_accounts(client, db):
 
     admin = models.User(telegram_id=2002, username="admin_user", first_name="Admin")
     db.add(admin)
-    db.add(models.AccessWhitelist(username="admin_user", note="admin test"))
     db.flush()
     db.add_all(
         [
@@ -87,7 +86,7 @@ def test_config_not_demo_when_bot_configured(client):
     assert body["bot_username"] == "test_bot"
 
 
-def test_telegram_login_explains_whitelist_denial(client):
+def test_telegram_login_explains_closed_registration(client):
     import hashlib
     import hmac
     import time
@@ -108,15 +107,14 @@ def test_telegram_login_explains_whitelist_denial(client):
         hashlib.sha256,
     ).hexdigest()
 
-    # Регистрация закрыта — только белый список.
+    # Регистрация закрыта — новых не пускаем, объясняем словами.
     settings.open_registration = False
     try:
         response = client.post("/api/auth/telegram", json=payload)
     finally:
         settings.open_registration = True
     assert response.status_code == 403
-    assert "Вам не разрешено входить в Talaria" in response.json()["detail"]
-    assert "списке доступа" in response.json()["detail"]
+    assert "Регистрация новых аккаунтов сейчас закрыта" in response.json()["detail"]
 
 
 def test_open_registration_grants_trial_without_sending(client):

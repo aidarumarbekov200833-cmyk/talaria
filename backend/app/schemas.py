@@ -1483,7 +1483,7 @@ class AdminLoginAttemptOut(BaseModel):
 
     Полей достаточно, чтобы ловить мультиаккаунты: один IP/устройство у разных
     telegram_id — повод присмотреться. Причина отклонения — сырой код из
-    security/access (ok, not_whitelisted, hash_mismatch и т.п.)."""
+    security/access (ok, registration_closed, hash_mismatch и т.п.)."""
 
     id: int
     telegram_id: int | None = None
@@ -1511,7 +1511,6 @@ class AdminUserDetailOut(BaseModel):
     monthly_used: int = 0
     recent_events: list[EventLogOut] = []
     login_attempts: list[AdminLoginAttemptOut] = []
-    whitelisted: bool = False
     first_purchase: bool = True  # ещё не покупал — действует скидка на первую покупку
     # подписка
     plan: str = "none"
@@ -1680,27 +1679,6 @@ class AdminNotificationOut(BaseModel):
 
 
 # ---------- админ: белый список доступа ----------
-
-
-class AdminWhitelistOut(BaseModel):
-    id: int
-    telegram_id: int | None = None
-    username: str = ""
-    name: str = ""  # имя, если человек уже заходил
-    note: str = ""
-    created_at: datetime | None = None
-
-
-class AdminWhitelistListOut(BaseModel):
-    entries: list[AdminWhitelistOut] = []
-
-
-class AdminWhitelistAddIn(BaseModel):
-    """Добавление в белый список. Хотя бы одно из полей id/username обязательно."""
-
-    telegram_id: int | None = None
-    username: str | None = None
-    note: str = ""
 
 
 class AdminAuditOut(BaseModel):

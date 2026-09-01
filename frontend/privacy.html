@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="index, follow" />
+    <title>Политика конфиденциальности — Talaria</title>
+    <meta
+      name="description"
+      content="Какие данные обрабатывает Talaria, зачем они нужны, где хранятся и как удалить свой аккаунт."
+    />
+    <!-- Страница намеренно самодостаточна, как 404.html: юридические страницы
+         должны открываться, даже если css кабинета не доехал. -->
+    <style>
+      :root {
+        --ink: #f5eef6;
+        --muted: #b6a9bb;
+        --bg: #08070a;
+        --accent: #ff2fa4;
+        --line: rgba(245, 238, 246, 0.14);
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font-family:
+          ui-sans-serif,
+          system-ui,
+          -apple-system,
+          'Segoe UI',
+          Roboto,
+          Arial,
+          sans-serif;
+        line-height: 1.65;
+        padding: 40px 20px 80px;
+      }
+      .wrap {
+        max-width: 720px;
+        margin: 0 auto;
+      }
+      .kicker {
+        font-family: ui-monospace, SFMono-Regular, 'JetBrains Mono', Menlo, monospace;
+        font-size: 12px;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin: 0 0 14px;
+      }
+      h1 {
+        font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
+        font-size: clamp(28px, 6vw, 40px);
+        line-height: 1.15;
+        margin: 0 0 10px;
+        font-weight: 600;
+      }
+      .updated {
+        color: var(--muted);
+        font-size: 13px;
+        margin: 0 0 34px;
+      }
+      h2 {
+        font-family: 'Playfair Display', Georgia, serif;
+        font-size: 21px;
+        margin: 36px 0 10px;
+        font-weight: 600;
+      }
+      p,
+      li {
+        color: var(--muted);
+        font-size: 15px;
+        margin: 0 0 12px;
+      }
+      ul {
+        padding-left: 22px;
+        margin: 0 0 12px;
+      }
+      li {
+        margin-bottom: 6px;
+      }
+      b {
+        color: var(--ink);
+        font-weight: 600;
+      }
+      a {
+        color: var(--ink);
+        text-decoration: underline;
+        text-decoration-color: var(--accent);
+        text-underline-offset: 3px;
+      }
+      .top {
+        display: inline-block;
+        margin-bottom: 26px;
+        font-size: 14px;
+        text-decoration: none;
+        color: var(--muted);
+        border: 1px solid var(--line);
+        border-radius: 999px;
+        padding: 7px 16px;
+      }
+      .top:hover {
+        color: var(--ink);
+        border-color: var(--accent);
+      }
+      footer {
+        margin-top: 48px;
+        padding-top: 18px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 13px;
+        display: flex;
+        gap: 18px;
+        flex-wrap: wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <a class="top" href="/">← На главную</a>
+      <p class="kicker">// talaria</p>
+      <h1>Политика конфиденциальности</h1>
+      <p class="updated">Действует с 1 сентября 2026 года</p>
+
+      <p>
+        Talaria — сервис поиска лидов на YouTube и персональных рассылок в Telegram. Эта страница
+        честно описывает, какие данные мы обрабатываем, зачем и что с ними происходит.
+      </p>
+
+      <h2>1. Какие данные мы получаем</h2>
+      <ul>
+        <li>
+          <b>Данные входа через Telegram:</b> идентификатор аккаунта, имя, username и ссылка на фото
+          профиля — их передаёт виджет входа Telegram после вашего подтверждения. Пароли мы не
+          получаем и не храним.
+        </li>
+        <li>
+          <b>Ключи YouTube Data API</b>, которые вы добавляете сами: они нужны для поиска каналов и
+          хранятся в вашей учётной записи в зашифрованном виде.
+        </li>
+        <li>
+          <b>Сессии подключённых Telegram-аккаунтов</b> для проверки контактов и отправки сообщений.
+          Подключение выполняете вы; сессию можно отключить в любой момент в разделе настроек.
+        </li>
+        <li>
+          <b>Рабочие данные кабинета:</b> собранные базы лидов, офферы, рассылки, их статистика и
+          переписка с поддержкой.
+        </li>
+        <li>
+          <b>Журнал входов:</b> IP-адрес и строка браузера при попытке входа. Он нужен для защиты от
+          взлома и массовой регистрации.
+        </li>
+      </ul>
+
+      <h2>2. Зачем мы их используем</h2>
+      <ul>
+        <li>Чтобы сервис работал: вход, поиск лидов, проверка контактов, рассылки, статистика.</li>
+        <li>Чтобы защищать аккаунты: журнал входов, ограничения на подозрительную активность.</li>
+        <li>Чтобы отвечать на обращения в поддержку.</li>
+      </ul>
+      <p>
+        Мы не продаём и не передаём ваши данные третьим лицам. Данные уходят только к API Telegram и
+        API YouTube — ровно в том объёме, который нужен для выполнения ваших действий.
+      </p>
+
+      <h2>3. Cookies и локальное хранилище</h2>
+      <p>
+        Сайт не использует рекламные cookies. В локальном хранилище браузера хранятся токен входа и
+        настройки интерфейса (тема, свёрнутое меню, выбранный раздел). Обезличенная статистика
+        посещений собирается собственным счётчиком без передачи данных на сторонние серверы.
+      </p>
+
+      <h2>4. Где и сколько хранятся данные</h2>
+      <p>
+        Данные хранятся на арендованном сервере в зашифрованном соединении (HTTPS) и в резервных
+        копиях. Рабочие данные кабинета хранятся, пока существует ваш аккаунт. Журнал входов
+        хранится ограниченное время и используется только для безопасности.
+      </p>
+
+      <h2>5. Ваши права</h2>
+      <ul>
+        <li>Посмотреть свои данные можно в кабинете — там всё, что мы о вас храним.</li>
+        <li>
+          Отключить подключённый Telegram-аккаунт или удалить ключ API можно самостоятельно в
+          настройках.
+        </li>
+        <li>
+          Чтобы удалить аккаунт целиком вместе с данными, напишите в поддержку из кабинета или
+          администратору в Telegram — удалим без лишних вопросов.
+        </li>
+      </ul>
+
+      <h2>6. Изменения политики</h2>
+      <p>
+        При изменении политики мы обновим дату вверху страницы. Существенные изменения анонсируем
+        уведомлением в кабинете.
+      </p>
+
+      <h2>7. Контакт</h2>
+      <p>
+        Вопросы о данных — в «Поддержку» из кабинета или администратору в Telegram:
+        <a href="https://t.me/talariaapp_bot" rel="noopener">@talariaapp_bot</a>.
+      </p>
+
+      <footer>
+        <span>Talaria 2026</span>
+        <a href="/terms.html">Условия использования</a>
+        <a href="/">talaria.mooo.com</a>
+      </footer>
+    </div>
+  </body>
+</html>

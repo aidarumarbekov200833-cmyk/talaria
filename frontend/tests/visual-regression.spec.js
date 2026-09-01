@@ -71,6 +71,15 @@ for (const [device, width, height] of viewports) {
       await preparePage(page, theme);
 
       for (const [name, selector] of scenes) {
+        // Липкая шапка (.lp-nav) едет вместе со скроллом и попадает в кадр
+        // pricing/finale на случайной высоте — единственный источник флака в
+        // этих эталонах. В hero шапка стоит на своём месте и является частью
+        // сцены, поэтому там она остаётся видимой.
+        await page.evaluate((sceneName) => {
+          const nav = document.querySelector('.lp-nav');
+          if (nav) nav.style.visibility = sceneName === 'hero' ? '' : 'hidden';
+        }, name);
+
         const target = page.locator(selector).first();
         await target.scrollIntoViewIfNeeded();
 

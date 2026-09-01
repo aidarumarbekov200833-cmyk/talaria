@@ -14,7 +14,7 @@ from app.security import create_jwt
 
 def _other_headers(db, models):
     other = models.User(telegram_id=3004, username="keys_other", first_name="Other")
-    db.add_all([other, models.AccessWhitelist(username="keys_other", note="test")])
+    db.add_all([other, ])
     db.commit()
     token, _ = create_jwt(other.id)
     return other, {"Authorization": f"Bearer {token}", "X-Request-Id": "keys-owner-404"}

@@ -32,7 +32,6 @@ def admin(db, monkeypatch):
     monkeypatch.setattr(settings, "admin_telegram_ids", str(ADMIN_TG_ID))
     row = models.User(telegram_id=ADMIN_TG_ID, username="boss")
     db.add(row)
-    db.add(models.AccessWhitelist(username="boss", note="фикстура"))
     db.commit()
     db.refresh(row)
     return row
@@ -72,16 +71,16 @@ def test_обычный_пользователь_не_может_смотрет�
     assert response.status_code == 403
 
 
-def test_просмотр_виден_владельцу_кабинета(client, db, admin, admin_headers, user):
-    """Тихий просмотр чужих данных — слежка, а не поддержка."""
+def test_просмотр_не_пугает_владельца_кабинета(client, db, admin, admin_headers, user):
+    """Клиенту событие не пишем (v43): запись «поддержка смотрела ваш кабинет»
+    пугала людей. След остаётся в журнале админа — см. следующий тест."""
     client.post(f"/api/admin/users/{user.id}/view-as", headers=admin_headers)
     owner_events = (
         db.query(models.EventLog)
         .filter(models.EventLog.owner_id == user.id, models.EventLog.scope == "security")
         .all()
     )
-    assert owner_events
-    assert any("просмотр" in row.message.lower() for row in owner_events)
+    assert not owner_events
 
 
 def test_просмотр_записан_и_админу(client, db, admin, admin_headers, user):
@@ -142,7 +141,6 @@ def test_админка_из_режима_просмотра_закрыта(clie
     """Даже если смотреть кабинет самого администратора."""
     second_admin = models.User(telegram_id=ADMIN_TG_ID + 1, username="boss2")
     db.add(second_admin)
-    db.add(models.AccessWhitelist(username="boss2", note="фикстура"))
     db.commit()
     db.refresh(second_admin)
     headers = _view_headers(admin.id, second_admin.id)
@@ -152,7 +150,6 @@ def test_админка_из_режима_просмотра_закрыта(clie
 def test_в_режиме_просмотра_нет_прав_администратора(client, db, admin):
     other_admin = models.User(telegram_id=ADMIN_TG_ID + 2, username="boss3")
     db.add(other_admin)
-    db.add(models.AccessWhitelist(username="boss3", note="фикстура"))
     db.commit()
     db.refresh(other_admin)
     body = client.get("/api/me", headers=_view_headers(admin.id, other_admin.id)).json()

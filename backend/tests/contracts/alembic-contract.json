@@ -1,7 +1,5 @@
 {
-  "heads": [
-    "0035"
-  ],
+  "heads": ["0037"],
   "indexes": [
     "ix_access_whitelist_telegram_id",
     "ix_access_whitelist_username",
@@ -20,6 +18,8 @@
     "ix_campaigns_owner_id",
     "ix_campaigns_scheduled_at",
     "ix_campaigns_scheduled_at",
+    "ix_chat_dialog_prefs_owner_account_peer",
+    "ix_chat_dialog_prefs_owner_id",
     "ix_event_logs_created_at",
     "ix_event_logs_ip",
     "ix_event_logs_owner_created",
@@ -83,6 +83,6 @@
     "ix_warmup_logs_account_id",
     "uq_warmup_primary_owner"
   ],
-  "schema_index_sha256": "b5088c05bd896813f782478bfa7fd834a95249ed63a7403d1ef4004931f5502c",
-  "schema_operations_sha256": "6a41e5da6c7413bd744f5bd744e0cab191a7be5d7027303c0e251976f0e1ef60"
+  "schema_index_sha256": "d5bfb4cf904dc0833e40937a09178c29d045a98146453ac721ea492ec1154475",
+  "schema_operations_sha256": "a69f721d4133de5411d1dc17e4c4db59240c5dfde640b771195223c7c7bd0346"
 }

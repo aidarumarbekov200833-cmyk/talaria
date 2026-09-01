@@ -1,14 +1,14 @@
 """Кто может войти, журнал попыток и защита от регистрации пачками.
 
 Вход открыт: любой честно подписанный Telegram-вход создаёт аккаунт с пробным
-тарифом (settings.open_registration). Белый список (models.AccessWhitelist) при
-этом остаётся — это способ выдать доступ вручную, и единственный способ войти,
-если открытую регистрацию выключить.
+тарифом (settings.open_registration). Если открытую регистрацию выключить,
+новые люди не входят, а те, кто уже зарегистрирован, продолжают пользоваться.
+Белого списка больше нет (v43): при бесплатном пробном тарифе для всех он был
+вторым, ручным способом сделать то же самое — и только путал.
 Здесь же пишется журнал попыток (models.LoginAttempt) — он нужен, чтобы видеть,
 кто стучится в дверь, и ловить мультиаккаунты по совпадению IP и устройства.
 
-Админ (settings.admin_username) проходит всегда: иначе, начав с пустой базы,
-некому было бы наполнить белый список.
+Админ (settings.admin_username) проходит всегда.
 """
 
 from __future__ import annotations
@@ -18,11 +18,10 @@ from contextvars import ContextVar
 from datetime import UTC, datetime, timedelta
 
 from fastapi import Request
-from sqlalchemy import or_
 from sqlalchemy.orm import Session
 
 from .config import settings
-from .models import AccessWhitelist, LoginAttempt, PlatformSettings, User
+from .models import LoginAttempt, PlatformSettings, User
 
 logger = logging.getLogger("outly.access")
 
@@ -83,23 +82,6 @@ def user_agent(request: Request | None) -> str:
     return (request.headers.get("user-agent") or "")[:500]
 
 
-def is_whitelisted(db: Session, telegram_id: int, username: str | None) -> bool:
-    """Есть ли человек в белом списке. Админ — всегда да.
-
-    Сверяем по telegram_id и по username: id надёжнее (его нельзя сменить), а
-    имя удобнее, когда человек ещё ни разу не входил и его id неизвестен.
-    """
-    if settings.is_admin(username, telegram_id):
-        return True
-
-    uname = normalize_username(username)
-    conditions = [AccessWhitelist.telegram_id == telegram_id]
-    if uname:
-        conditions.append(AccessWhitelist.username == uname)
-
-    row = db.query(AccessWhitelist.id).filter(or_(*conditions)).first()
-    return row is not None
-
 
 def registration_open(db: Session) -> bool:
     """Открыта ли самостоятельная регистрация.
@@ -136,11 +118,15 @@ def login_allowed(db: Session, telegram_id: int, username: str | None) -> bool:
 
     При открытой регистрации проверять нечего: подпись Telegram уже доказала,
     что аккаунт настоящий, а пробный тариф не умеет отправлять сообщения —
-    ломать через него нечего. Белый список нужен, когда регистрацию закрыли.
+    ломать через него нечего. Закрытая регистрация останавливает только НОВЫХ:
+    тот, кто уже зарегистрирован, продолжает входить, — иначе рубильник
+    «закрыть регистрацию» превращался бы в бан всех клиентов разом.
     """
+    if settings.is_admin(username, telegram_id):
+        return True
     if registration_open(db):
         return True
-    return is_whitelisted(db, telegram_id, username)
+    return db.query(User.id).filter(User.telegram_id == telegram_id).first() is not None
 
 
 def fresh_signups_from_ip(db: Session, ip: str, *, hours: int = 24) -> int:
@@ -173,27 +159,6 @@ def fresh_signups_from_ip(db: Session, ip: str, *, hours: int = 24) -> int:
         .filter(User.telegram_id.in_(ids), User.created_at >= since)
         .count()
     )
-
-
-def bind_whitelist_id(db: Session, telegram_id: int, username: str | None) -> None:
-    """Дописать telegram_id в запись, добавленную по одному username.
-
-    После первого входа id известен — сохраняем его, чтобы человек не потерял
-    доступ, сменив имя в Telegram. Коммит делает вызывающая сторона.
-    """
-    uname = normalize_username(username)
-    if not uname:
-        return
-    row = (
-        db.query(AccessWhitelist)
-        .filter(
-            AccessWhitelist.username == uname,
-            AccessWhitelist.telegram_id.is_(None),
-        )
-        .first()
-    )
-    if row is not None:
-        row.telegram_id = telegram_id
 
 
 def log_attempt(

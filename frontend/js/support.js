@@ -9,7 +9,7 @@
  */
 import { api } from './api.js';
 import { openModal, toast } from './ui.js?v=tal32';
-import { closeAccountMenu, paintSupportBadge, refreshSupportBadge } from './account.js?v=talaria14';
+import { closeAccountMenu, paintSupportBadge, refreshSupportBadge } from './account.js?v=talaria15';
 
 let loading = false;
 

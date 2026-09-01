@@ -112,7 +112,6 @@ def _admin(db) -> tuple:
 
     admin = models.User(telegram_id=772_000, username="admin_user", first_name="Админ")
     db.add(admin)
-    db.add(models.AccessWhitelist(username="admin_user", note="test"))
     db.flush()
     db.add(models.Subscription(owner_id=admin.id, plan="ultra", status="active"))
     db.commit()

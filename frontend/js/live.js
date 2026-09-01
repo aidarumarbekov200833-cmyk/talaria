@@ -18,7 +18,7 @@
  */
 import { getToken } from './api.js';
 import { toast } from './ui.js?v=tal32';
-import { loadNotifications, loadOfferStats } from './dashboard.js?v=tal32';
+import { loadNotifications, loadOfferStats } from './dashboard.js?v=tal33';
 // Тот же URL модуля, что и в main.js: иначе query-string создаёт второй
 // экземпляр campaigns.js со своим pendingTestReply, и реальный ответ не
 // завершает таймер теста в первом экземпляре.

@@ -103,17 +103,21 @@ def test_рубильник_регистрации_живёт_в_базе_и_п�
     assert access.registration_open(db) is True
 
 
-def test_закрытая_регистрация_не_пускает_нового_но_пускает_белый_список(client, db):
+def test_закрытая_регистрация_не_пускает_нового_но_пускает_своих(client, db):
+    """Рубильник закрывает дверь только новым: старые клиенты входят как раньше."""
+    existing = models.User(telegram_id=970002, username="invited")
+    db.add(existing)
+    db.commit()
     access.set_registration_open(db, False, admin_id=None)
     try:
         denied = client.post("/api/auth/telegram", json=_signed_login(970001, "stranger"))
         assert denied.status_code == 403
+        assert "закрыта" in denied.json()["detail"]
 
-        db.add(models.AccessWhitelist(username="invited", note="тест"))
-        db.commit()
         allowed = client.post("/api/auth/telegram", json=_signed_login(970002, "invited"))
         assert allowed.status_code == 200
-        # Регистрация закрыта — триал не выдаём, доступ выдал админ вручную.
+        # Регистрация закрыта — триал не выдаём: доступ либо уже есть, либо его
+        # включает админ вручную тарифом.
         owner = db.query(models.User).filter_by(telegram_id=970002).one()
         sub = db.query(models.Subscription).filter_by(owner_id=owner.id).one_or_none()
         assert sub is None or sub.plan != TRIAL_PLAN
@@ -141,7 +145,6 @@ def test_админский_список_делит_людей_на_группы
     # В тестах админ определяется по username (ADMIN_USERNAME_FALLBACK=1).
     admin = models.User(telegram_id=972000, username="admin_user")
     db.add(admin)
-    db.add(models.AccessWhitelist(username="admin_user", note="фикстура"))
     db.flush()
     db.add(models.Subscription(owner_id=admin.id, plan="zephyr", status="active"))
 

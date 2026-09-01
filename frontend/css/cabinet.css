@@ -78,7 +78,9 @@
 /* ── 1. Каркас ─────────────────────────────────────────────────────────── */
 
 #appWrapper .app {
-  grid-template-columns: 248px minmax(0, 1fr);
+  /* 208px вместо 248: меню из одного слова на пункт не заслуживает пятой части
+     экрана (просьба владельца, v43). */
+  grid-template-columns: 208px minmax(0, 1fr);
   transition: grid-template-columns var(--motion-base) var(--motion-ease);
 }
 #appWrapper .app.sidebar-collapsed {
@@ -92,7 +94,11 @@
   background: var(--surface);
 }
 
-/* Шапка меню: текстовое лого, как в понятных панелях, и кнопка сворачивания. */
+/* Шапка меню: текстовое лого, как в понятных панелях, и кнопка сворачивания.
+   Лого кликабельно и ведёт на «Главную» (v43). */
+#appWrapper .brand :is([data-act], [data-act] *) {
+  cursor: pointer;
+}
 #appWrapper .brand {
   display: flex;
   align-items: center;
@@ -257,8 +263,11 @@
   display: none;
 }
 #appWrapper .app.sidebar-collapsed .brand {
+  /* height:auto обязателен: у развёрнутой шапки height:28px, и в колонку лого
+     не влезало — сверху оставался виден только «кубик» кнопки сворачивания. */
   flex-direction: column;
   gap: 10px;
+  height: auto;
 }
 #appWrapper .app.sidebar-collapsed :is(.nav-group-label, .nav-count, .sidebar-session-copy) {
   display: none;
@@ -282,6 +291,13 @@
 
 #appWrapper .topbar {
   min-height: 64px;
+  /* Шапка липкая (top: 0), а раздел имеет padding-top: без отрицательного
+     верхнего поля над шапкой видна пустая полоса, которая исчезает после
+     прокрутки (v43). Значение обязано совпадать с padding-top раздела. */
+  margin-top: -18px;
+  /* Воздух между шапкой страницы и содержимым (v43): без него кнопки и панели
+     «липли» к заголовку на каждой странице. */
+  margin-bottom: 18px;
   /* Справа сверху висят кнопки ИИ и уведомлений (position: fixed), поэтому
      место под них резервируем отступом — иначе «Обновить» уезжает под них. */
   padding: 14px calc(clamp(16px, 2.2vw, 32px) + 104px) 14px clamp(16px, 2.2vw, 32px);
@@ -1100,8 +1116,10 @@
     padding: 14px 14px 24px;
   }
   /* Отрицательные поля шапки повторяют padding раздела и на телефоне: иначе
-     страница шире экрана на 2px и «дрожит» при горизонтальном свайпе. */
+     страница шире экрана на 2px и «дрожит» при горизонтальном свайпе.
+     Верхнее поле — тоже под мобильный padding-top раздела (14px). */
   #appWrapper .topbar {
+    margin-top: -14px;
     margin-inline: -14px;
   }
   #messages .chat-wrap {

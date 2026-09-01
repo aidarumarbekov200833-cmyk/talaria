@@ -88,6 +88,20 @@ async function installApi(page, { configError = '', stats } = {}) {
   });
 }
 
+/* Позиция кнопки оплаты относительно её карточки, снятая одним evaluate.
+ * Абсолютные координаты флачат: reveal-анимации и дорисовка блоков выше
+ * секции тарифов сдвигают всю страницу между двумя замерами. Промокод же
+ * обязан не двигать кнопку именно внутри карточки и не растить карточку. */
+function buyPlacement(page) {
+  return page.evaluate(() => {
+    const card = document.querySelector('#landingTariffGrid [data-plan-card]');
+    const buy = card.querySelector('[data-plan-buy]');
+    const cardRect = card.getBoundingClientRect();
+    const buyRect = buy.getBoundingClientRect();
+    return { buyOffset: buyRect.top - cardRect.top, cardHeight: cardRect.height };
+  });
+}
+
 function collectErrors(page) {
   const errors = [];
   page.on('pageerror', (error) => errors.push(error.message));
@@ -136,12 +150,13 @@ test('stats, promo reveal, and both native dialogs preserve keyboard and focus b
   await promoReveal.scrollIntoViewIfNeeded();
   const buy = page.locator('#landingTariffGrid [data-plan-buy]');
   await expect(buy).toBeEnabled();
-  const buyBefore = await buy.boundingBox();
+  const buyBefore = await buyPlacement(page);
   await promoReveal.click();
   await expect(page.locator('#landingTariffGrid [data-plan-promo-controls]')).toBeVisible();
   await expect(promoReveal).toBeHidden();
-  const buyAfter = await buy.boundingBox();
-  expect(Math.abs(buyAfter.y - buyBefore.y)).toBeLessThanOrEqual(4);
+  const buyAfter = await buyPlacement(page);
+  expect(Math.abs(buyAfter.buyOffset - buyBefore.buyOffset)).toBeLessThanOrEqual(4);
+  expect(Math.abs(buyAfter.cardHeight - buyBefore.cardHeight)).toBeLessThanOrEqual(4);
   await page.locator('#landingTariffGrid [data-plan-promo-close]').click();
   await expect(promoReveal).toBeVisible();
 

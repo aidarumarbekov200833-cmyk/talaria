@@ -1,6 +1,8 @@
 import { expect, test } from '@playwright/test';
 import { mockApi } from './helpers/mock-api.js';
-test.setTimeout(120_000);
+// v43: матрица кабинета потяжелела (графики и хитмап на дашборде, страница
+// «Помощь») — соло-прогон занимает ~2.5 мин, прежний лимит 120с не проходил.
+test.setTimeout(300_000);
 
 const landingMatrix = [
   ['landing-desktop', 1440, 1000],
@@ -170,6 +172,9 @@ test('captures the required landing and workspace visual matrix without overflow
     for (const theme of ['light', 'dark']) {
       await page.addInitScript(() => {
         localStorage.setItem('mf_token', 'visual-fixture-token');
+        // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+        // клики (гонка). В тестах он считается уже просмотренным.
+        localStorage.setItem('mf_onboarded', '1');
         // v38. Признак «кабинет уже открывали в этой вкладке» живёт в
         // sessionStorage и заставляет страницу входить сама (это и есть новое
         // поведение при F5). В тесте каждый прогон начинается с лендинга, поэтому
@@ -250,6 +255,9 @@ test('setup tasks live inside the notifications dropdown with an unread badge', 
     await page.setViewportSize({ width, height });
     await page.addInitScript(() => {
       localStorage.setItem('mf_token', 'visual-fixture-token');
+      // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+      // клики (гонка). В тестах он считается уже просмотренным.
+      localStorage.setItem('mf_onboarded', '1');
       // Отметка «прочитано» живёт в localStorage: на втором прогоне (другой
       // экран, тот же контекст) без сброса непрочитанных уже не будет.
       localStorage.removeItem('talaria_notif_seen');
@@ -314,6 +322,9 @@ test('ai chat keeps the composer on screen and scrolls its message feed', async 
     await page.setViewportSize({ width, height });
     await page.addInitScript(() => {
       localStorage.setItem('mf_token', 'visual-fixture-token');
+      // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+      // клики (гонка). В тестах он считается уже просмотренным.
+      localStorage.setItem('mf_onboarded', '1');
       sessionStorage.removeItem('talaria_in_app');
     });
     await page.goto('/index.html');
@@ -417,6 +428,9 @@ test('v39: выбранные снаружи страны видны на кно
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.addInitScript(() => {
     localStorage.setItem('mf_token', 'visual-fixture-token');
+    // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+    // клики (гонка). В тестах он считается уже просмотренным.
+    localStorage.setItem('mf_onboarded', '1');
     sessionStorage.removeItem('talaria_in_app');
     // Сохранённый фильтр с двумя странами: ровно то, что кладёт кабинет сам
     // при уходе со страницы.
@@ -447,6 +461,9 @@ test('v40: меню аккаунта собирает тариф, лимиты, 
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.addInitScript(() => {
     localStorage.setItem('mf_token', 'visual-fixture-token');
+    // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+    // клики (гонка). В тестах он считается уже просмотренным.
+    localStorage.setItem('mf_onboarded', '1');
     sessionStorage.removeItem('talaria_in_app');
   });
   await page.goto('/index.html');
@@ -479,7 +496,8 @@ test('v40: меню аккаунта собирает тариф, лимиты, 
   // Тариф и остаток лимитов — то, за чем в меню и приходят.
   await expect(page.locator('#accMenuPlan')).toHaveText('Talaria');
   await expect(page.locator('#usageText')).toHaveText(/осталось/);
-  await expect(page.locator('#accMenuLimits .acc-limit')).toHaveCount(2);
+  // v43: строка «Лидов в базах» убрана, остаётся один лимит сообщений.
+  await expect(page.locator('#accMenuLimits .acc-limit')).toHaveCount(1);
   // Курсор на нажимаемых элементах: отдельная просьба владельца.
   await expect(page.locator('#sessionUserCard')).toHaveCSS('cursor', 'pointer');
   await expect(page.locator('.acc-links button').first()).toHaveCSS('cursor', 'pointer');
@@ -506,6 +524,9 @@ test('v40: центр помощи ищет по разделам и ведёт 
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.addInitScript(() => {
     localStorage.setItem('mf_token', 'visual-fixture-token');
+    // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+    // клики (гонка). В тестах он считается уже просмотренным.
+    localStorage.setItem('mf_onboarded', '1');
     sessionStorage.removeItem('talaria_in_app');
   });
   await page.goto('/index.html');
@@ -521,7 +542,8 @@ test('v40: центр помощи ищет по разделам и ведёт 
 
   await page.locator('#sessionUserCard').click();
   await page.locator('.acc-links [data-act="openHelpCenter"]').click();
-  await expect(page.locator('#modalHelp')).toHaveClass(/show/);
+  // v43: помощь — отдельная страница, а не модалка.
+  await expect(page.locator('#help')).toHaveClass(/active/);
   const items = page.locator('#helpList .help-item');
   const total = await items.count();
   expect(total).toBeGreaterThan(5);
@@ -539,9 +561,8 @@ test('v40: центр помощи ищет по разделам и ведёт 
   await page.locator('#helpSearch').fill('такого слова нет нигде');
   await expect(page.locator('#helpList .dd-empty')).toBeVisible();
 
-  // Из справки можно написать в поддержку: справка закрывается, диалог открыт.
+  // Из справки можно написать в поддержку поверх страницы помощи.
   await page.locator('[data-act="helpToSupport"]').click();
-  await expect(page.locator('#modalHelp')).not.toHaveClass(/show/);
   await expect(page.locator('#modalSupport')).toHaveClass(/show/);
 });
 
@@ -550,6 +571,9 @@ test('v40: обращение в поддержку появляется в пе
   await page.setViewportSize({ width: 390, height: 844 });
   await page.addInitScript(() => {
     localStorage.setItem('mf_token', 'visual-fixture-token');
+    // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+    // клики (гонка). В тестах он считается уже просмотренным.
+    localStorage.setItem('mf_onboarded', '1');
     sessionStorage.removeItem('talaria_in_app');
   });
   await page.goto('/index.html');
@@ -590,6 +614,9 @@ test('v41: админка — тариф бинарный, деньги из а�
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.addInitScript(() => {
     localStorage.setItem('mf_token', 'visual-fixture-token');
+    // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+    // клики (гонка). В тестах он считается уже просмотренным.
+    localStorage.setItem('mf_onboarded', '1');
     sessionStorage.removeItem('talaria_in_app');
   });
   await page.goto('/index.html');
@@ -645,6 +672,9 @@ test('v42: переписка — меню диалога, закреплени�
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.addInitScript(() => {
     localStorage.setItem('mf_token', 'visual-fixture-token');
+    // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+    // клики (гонка). В тестах он считается уже просмотренным.
+    localStorage.setItem('mf_onboarded', '1');
     sessionStorage.removeItem('talaria_in_app');
   });
   await page.goto('/index.html');
@@ -694,4 +724,51 @@ test('v42: переписка — меню диалога, закреплени�
   await page.keyboard.press('Escape');
   await expect(page.locator('#chatCtxMenu')).toHaveCount(0);
   await expect(page.locator('#chatRoom')).toBeVisible();
+});
+
+test('v43: помощь-страница, узкое меню, клик по лого и свёрнутому меню', async ({ page }) => {
+  await mockApi(page);
+  await page.setViewportSize({ width: 1440, height: 1000 });
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    // Тур первого входа всплывает через 400мс после enterApp и перехватывает
+    // клики (гонка). В тестах он считается уже просмотренным.
+    localStorage.setItem('mf_onboarded', '1');
+    sessionStorage.removeItem('talaria_in_app');
+  });
+  await page.goto('/index.html');
+  await page.locator('[data-telegram-login-trigger]').first().click();
+  await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);
+  await page.locator('#loginScreen').evaluate((element) => {
+    element.style.display = 'none';
+  });
+  await page.locator('#appWrapper').evaluate((element) => {
+    element.style.display = 'block';
+  });
+  await hideOnboardingOnly(page);
+
+  // «Рабочего ритма» на дашборде больше нет, график остался.
+  await expect(page.locator('.dashboard-signal-panel')).toHaveCount(0);
+  await expect(page.locator('#chartBars')).toBeVisible();
+
+  // Помощь — отдельная страница, открывается из меню аккаунта.
+  await page.locator('#sessionUserCard').click();
+  await page.locator('.acc-links [data-act="openHelpCenter"]').click();
+  await expect(page.locator('#help')).toHaveClass(/active/);
+  await expect(page.locator('#helpList .help-item').first()).toBeVisible();
+
+  // Лого кликабельно и возвращает на «Главную».
+  await page.locator('#appWrapper .brand .brand-mark').click();
+  await expect(page.locator('#dashboard')).toHaveClass(/active/);
+
+  // Свёрнутое меню: лого видно, клик по пустому месту меню разворачивает.
+  await page.locator('.sidebar-collapse').click();
+  await expect(page.locator('#appWrapper .app')).toHaveClass(/sidebar-collapsed/);
+  await expect(page.locator('#appWrapper .brand .brand-mark svg')).toBeVisible();
+  await page.locator('#appWrapper .sidebar').click({ position: { x: 30, y: 600 } });
+  await expect(page.locator('#appWrapper .app')).not.toHaveClass(/sidebar-collapsed/);
+
+  // Профиль: строки «Лидов в базах» больше нет.
+  await page.locator('#sessionUserCard').click();
+  await expect(page.locator('#accMenuLimits')).not.toContainText('Лидов в базах');
 });

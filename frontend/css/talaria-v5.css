@@ -2737,7 +2737,11 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
 }
 #loginScreen .zp-access-pass [data-plan-promo-controls] > div {
   display: flex;
+  align-items: center;
   gap: 8px;
+  /* Та же высота, что у ссылки «У меня есть промокод» (44px): иначе при
+     раскрытии поля кнопка оплаты подпрыгивает на ~6px. */
+  min-height: 44px;
 }
 /* Подпись поля не нужна визуально (есть placeholder), но остаётся для
    скринридеров — иначе строка поля выше и карточка всё же подрастает. */
@@ -3588,6 +3592,22 @@ html[data-theme='light'] #loginScreen .pcard {
   padding: 16px clamp(14px, 3vw, 34px) 22px;
   border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
 }
+#loginScreen .fin-foot-links {
+  display: inline-flex;
+  gap: 18px;
+  flex-wrap: wrap;
+}
+#loginScreen .fin-foot-links a {
+  color: color-mix(in srgb, var(--ink) 62%, transparent);
+  font-size: 12.5px;
+  text-decoration: none;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  padding-bottom: 1px;
+  transition: color var(--motion-base) var(--motion-ease);
+}
+#loginScreen .fin-foot-links a:hover {
+  color: var(--ink);
+}
 #loginScreen .fin-foot-brand {
   display: inline-flex;
   align-items: center;
@@ -4380,13 +4400,28 @@ html {
   #loginScreen .fin-word {
     font-size: 21vw;
   }
-  /* Подвал остаётся строкой: слева лого, справа «Talaria 2026». */
+  /* Подвал остаётся строкой: слева лого, справа «Talaria 2026». Юридические
+     ссылки (v43) переносятся отдельной строкой на всю ширину — в общей строке
+     на 390px они ломались на два слова и наезжали на соседей. */
   #loginScreen .fin-foot {
     flex-direction: row;
+    flex-wrap: wrap;
     align-items: center;
     gap: 10px;
     margin-top: 0;
     padding: 13px 16px 16px;
+  }
+  #loginScreen .fin-foot-links {
+    order: 3;
+    width: 100%;
+    justify-content: center;
+    gap: 22px;
+  }
+  #loginScreen .fin-foot-links a {
+    white-space: nowrap;
+  }
+  #loginScreen .fin-foot-name {
+    margin-left: auto;
   }
   #loginScreen .fin-foot-copy small {
     display: none;
@@ -4462,6 +4497,51 @@ html {
   .notify-target-row .btn {
     width: 100%;
   }
+}
+
+/* --- Админка: таблица пользователей (v43) ---------------------------------
+   Пять колонок вместо одиннадцати, липкая шапка и ограниченная высота: при
+   сотнях пользователей таблица прокручивается внутри панели, а шапка и зебра
+   не дают потерять строку глазами. */
+.adm-users-wrap {
+  max-height: 560px;
+  overflow: auto;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--radius-small);
+}
+.adm-users-wrap .admin-table thead th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--surface);
+  box-shadow: 0 1px 0 var(--cab-line);
+}
+.adm-users-wrap .admin-table tbody tr:nth-child(even) td {
+  background: var(--cab-fill);
+}
+.adm-users-wrap .admin-table tbody tr:hover td {
+  background: var(--cab-fill-strong);
+}
+.adm-nums {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 10px;
+  max-width: 340px;
+}
+.adm-num {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 4px;
+  font-size: 11px;
+  color: var(--muted);
+  white-space: nowrap;
+}
+.adm-num b {
+  font-size: 12.5px;
+  font-variant-numeric: tabular-nums;
+}
+.adm-num.is-zero {
+  opacity: 0.38;
 }
 
 /* --- Админка: моноширинный IP и панель промокодов ------------------------- */
@@ -9714,4 +9794,34 @@ select optgroup {
 }
 #aiDrawer .msg:last-child {
   margin-bottom: 0;
+}
+
+/* --- Страница «Помощь по сервису» (v43): была модалкой, стала разделом. --- */
+#help .help-page {
+  max-width: 760px;
+}
+#help .help-list {
+  max-height: none;
+  overflow: visible;
+}
+#help .help-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding: 14px 16px;
+  border: 1px solid var(--cab-line);
+  border-radius: var(--radius-small);
+  background: var(--surface);
+}
+
+/* --- Дашборд (v43): график лидов на всю ширину. --- */
+#dashboard .panel-row-single {
+  display: block;
+}
+#dashboard .panel-row-single .chart-wrap {
+  width: 100%;
+}
+#dashboard .chart-bars {
+  height: 232px;
 }

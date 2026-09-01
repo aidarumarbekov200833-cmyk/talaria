@@ -1,5 +1,24 @@
 {
-  "http": {"body": {"detail": "Not Found", "request_id": "<request-id>"}, "header_matches_request_id": true, "status": 404},
-  "validation": {"body": {"detail": "Проверьте заполненные поля", "errors": [{"field": "id", "message": "Field required"}], "request_id": "<request-id>"}, "header_matches_request_id": true, "status": 422},
-  "unhandled": {"body": {"detail": "Внутренняя ошибка сервера. Сообщите код в поддержку.", "request_id": "<request-id>"}, "header_matches_request_id": true, "status": 500}
+  "http": {
+    "body": { "detail": "Not Found", "request_id": "<request-id>" },
+    "header_matches_request_id": true,
+    "status": 404
+  },
+  "validation": {
+    "body": {
+      "detail": "Проверьте заполненные поля",
+      "errors": [{ "field": "id", "message": "Field required" }],
+      "request_id": "<request-id>"
+    },
+    "header_matches_request_id": true,
+    "status": 422
+  },
+  "unhandled": {
+    "body": {
+      "detail": "Внутренняя ошибка сервера. Сообщите код в поддержку.",
+      "request_id": "<request-id>"
+    },
+    "header_matches_request_id": true,
+    "status": 500
+  }
 }

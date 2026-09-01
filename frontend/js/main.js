@@ -29,7 +29,7 @@ import {
   loadOfferStats,
   setChartDays,
   showAllNotifications,
-} from './dashboard.js?v=tal32';
+} from './dashboard.js?v=tal33';
 import {
   initDatabases,
   loadDatabases,
@@ -99,21 +99,21 @@ import {
   toggleChatMute,
   markChatDialogRead,
 } from './chat.js?v=tal34';
-import { initSidebar, toggleSidebar } from './sidebar.js?v=tal33';
+import { initSidebar, toggleSidebar } from './sidebar.js?v=tal34';
 import {
   initAccountMenu,
   toggleAccountMenu,
   closeAccountMenu,
   accountGoTo,
   setAccountTheme,
-} from './account.js?v=talaria14';
-import { initSupport, openSupport, sendSupportMessage } from './support.js?v=talaria14';
+} from './account.js?v=talaria15';
+import { initSupport, openSupport, sendSupportMessage } from './support.js?v=talaria15';
 import {
   openHelpCenter,
   openHelpForCurrentSection,
   helpToSupport,
   filterHelp,
-} from './help.js?v=talaria14';
+} from './help.js?v=talaria16';
 import { sendAi } from './ai.js?v=talaria13';
 import { initOnboarding, openKeyGuide, startOnboarding } from './onboarding.js?v=zephyr4';
 import { initActions, clearParseLogs } from './actions.js';
@@ -140,7 +140,6 @@ import {
   adminToggleRegistration,
   adminActivatePlan,
   adminToggleBlock,
-  addWhitelist,
   loadLoginAttempts,
   exportLoginAttempts,
   exportActivity,
@@ -160,7 +159,7 @@ import {
   loadSupportThreads,
   openSupportThread,
   replySupportThread,
-} from './admin.js?v=talaria14';
+} from './admin.js?v=talaria15';
 import {
   handlePlanAction,
   initPlans,
@@ -305,7 +304,6 @@ Object.assign(window, {
   adminToggleRegistration,
   adminActivatePlan,
   adminToggleBlock,
-  addWhitelist,
   loadLoginAttempts,
   exportLoginAttempts,
   exportActivity,

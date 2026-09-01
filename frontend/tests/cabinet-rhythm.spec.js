@@ -16,7 +16,11 @@ const LAYOUT_BOXES =
 test('кабинет: одна высота у полей и кнопок, конечный набор шагов сетки', async ({ page }) => {
   await mockApi(page);
   await page.setViewportSize({ width: 1440, height: 1000 });
-  await page.addInitScript(() => localStorage.setItem('mf_token', 'visual-fixture-token'));
+  await page.addInitScript(() => {
+    localStorage.setItem('mf_token', 'visual-fixture-token');
+    // Тур первого входа всплывает через 400мс и перехватывает клики — в тестах он просмотрен.
+    localStorage.setItem('mf_onboarded', '1');
+  });
   await page.goto('/index.html');
   await page.locator('[data-telegram-login-trigger]').first().click();
   await expect(page.locator('#appWrapper')).toHaveClass(/\bactive\b/);

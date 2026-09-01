@@ -83,7 +83,6 @@ export async function animateCounters() {
     console.log('Не удалось загрузить статистику:', e.message);
   }
   loadActivity();
-  loadMonthlyLimit();
 }
 
 /** Переключить окно графика (7/30 дней) и перерисовать его вместе со сравнением. */
@@ -165,12 +164,6 @@ export function buildFunnel(byStatus) {
     return `<div class="funnel-item"><span class="funnel-dot ${s.cls}"></span>${s.label}<b>${n.toLocaleString('ru-RU')}</b><span class="funnel-pct">${pct}%</span></div>`;
   }).join('');
   box.innerHTML = `<div class="funnel-bar">${seg}</div><div class="funnel-legend">${legend}</div>`;
-}
-
-/** Лимит рассылок за месяц — из /api/settings (ставит админ). */
-export async function loadMonthlyLimit() {
-  const wrap = document.getElementById('dashLimit');
-  if (wrap) wrap.hidden = true;
 }
 
 const WEEKDAYS = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'];
