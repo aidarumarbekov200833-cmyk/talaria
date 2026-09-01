@@ -454,96 +454,33 @@
     "tag": "div"
   },
   {
-    "classes": ["hero-chain", "rv", "on"],
+    "classes": ["hero-term", "rv", "on"],
     "tag": "div"
   },
   {
-    "classes": ["hc-card"],
+    "classes": ["ht-bar"],
     "tag": "div"
   },
   {
-    "classes": ["hc-step", "mono"],
-    "tag": "span"
-  },
-  {
-    "classes": ["hc-row"],
-    "tag": "div"
-  },
-  {
-    "classes": ["hc-ava"],
+    "classes": [],
     "tag": "i"
   },
   {
-    "classes": ["hc-body"],
-    "tag": "div"
+    "classes": [],
+    "tag": "i"
   },
   {
     "classes": [],
-    "tag": "b"
+    "tag": "i"
   },
   {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["hc-badge"],
+    "classes": ["mono"],
     "tag": "span"
   },
   {
-    "classes": ["hc-card"],
+    "classes": ["ht-body"],
+    "id": "heroTerm",
     "tag": "div"
-  },
-  {
-    "classes": ["hc-step", "mono"],
-    "tag": "span"
-  },
-  {
-    "classes": ["hc-row"],
-    "tag": "div"
-  },
-  {
-    "classes": ["hc-body"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["hc-tick"],
-    "tag": "span"
-  },
-  {
-    "classes": ["hc-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["hc-step", "mono"],
-    "tag": "span"
-  },
-  {
-    "classes": ["hc-row"],
-    "tag": "div"
-  },
-  {
-    "classes": ["hc-body"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["hc-badge", "hc-badge-live"],
-    "tag": "span"
   },
   {
     "classes": ["zp-control-grid"],
@@ -2959,6 +2896,22 @@
     "tag": "div"
   },
   {
+    "classes": ["faq-typing"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
     "classes": ["faq-bubble"],
     "tag": "div"
   },
@@ -3023,6 +2976,22 @@
   {
     "classes": ["faq-a-clip"],
     "tag": "div"
+  },
+  {
+    "classes": ["faq-typing"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
   },
   {
     "classes": ["faq-bubble"],
@@ -3091,6 +3060,22 @@
     "tag": "div"
   },
   {
+    "classes": ["faq-typing"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
     "classes": ["faq-bubble"],
     "tag": "div"
   },
@@ -3155,6 +3140,22 @@
   {
     "classes": ["faq-a-clip"],
     "tag": "div"
+  },
+  {
+    "classes": ["faq-typing"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
   },
   {
     "classes": ["faq-bubble"],
@@ -3223,6 +3224,22 @@
     "tag": "div"
   },
   {
+    "classes": ["faq-typing"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
     "classes": ["faq-bubble"],
     "tag": "div"
   },
@@ -3287,6 +3304,22 @@
   {
     "classes": ["faq-a-clip"],
     "tag": "div"
+  },
+  {
+    "classes": ["faq-typing"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "i"
   },
   {
     "classes": ["faq-bubble"],

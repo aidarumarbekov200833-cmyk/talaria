@@ -1886,8 +1886,8 @@ html[data-theme='light'] #loginScreen {
 #loginScreen .fin-word {
   font-family: var(--tal-font-display);
   font-weight: 800;
-  /* v46: Unbounded шире — 13.5vw вместо 17vw */
-  font-size: 13.5vw;
+  /* v51: 13.5vw упиралось в края окна — крайние буквы резались. */
+  font-size: 12.4vw;
   letter-spacing: 0.01em;
   line-height: 0.9;
   user-select: none;
@@ -5615,7 +5615,9 @@ html {
 }
 #loginScreen .ph-notice-mark svg {
   width: 18px;
-  fill: var(--on-ink);
+  /* На тёмной теме акцентный градиент почти белый — крыло цветом «на акценте»,
+     иначе лого пуша сливается с плашкой (белое на белом). */
+  fill: var(--on-accent);
 }
 #loginScreen .ph-notice-copy {
   display: grid;
@@ -5914,8 +5916,10 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
   color: var(--tal-white);
   font-weight: 600;
   font-family: var(--tal-font-display);
-  font-size: 21vw;
-  /* 1.25 — полная высота строки Playfair (ascent+descent). При 0.8 низ букв
+  /* v51: 21vw в Unbounded давало 1549px на 1280-окне — «TALARIA» обрезалось
+     до «TALARI». 16.6vw вписывает слово целиком с воздухом по краям. */
+  font-size: 16.6vw;
+  /* 1.25 — полная высота строки (ascent+descent). При 0.8 низ букв
      срезался на 122px, при 1 — на 24px; теперь буквы целиком внутри. */
   line-height: 1.25;
   letter-spacing: 0;
@@ -6012,7 +6016,8 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
    и во время приклейки постепенно накрывает буквы снизу вверх.
    --pmark-h: 21vw * 1.25 (line-height) + 10px воздуха. */
 #loginScreen {
-  --pmark-h: calc(26.25vw + 10px);
+  /* v51: шрифт pmark ужат до 16.6vw → высота 16.6 × 1.25 = 20.75vw. */
+  --pmark-h: calc(20.75vw + 10px);
 }
 /* Липкая панель не работала: у .zp-pricing в talaria.css стоит
    `overflow: hidden` (осталось от декорации ::before, которую V5 отключает
@@ -10075,133 +10080,103 @@ body,
 /* ── v50. Лендинг гуще: цепочка в герое, лента ниш, FAQ в два столбца,
    финал с фактами. Бейдж «Работает» убран по решению владельца. ───────── */
 
-/* Правая колонка героя пустовала (грид её резервировал, а внутри был только
-   канвас со звёздами). Цепочка «найден → доставлено → ответ» показывает путь
-   письма — то, за что продукт покупают. */
-/* Герой с v47 одноколонный — на широком экране возвращаем правую колонку
-   под цепочку (правило ниже v47-блока, поэтому побеждает в каскаде). */
+/* Терминал героя (v51, вместо цепочки карточек): фактура процесса.
+   Стеклянная плашка с маковскими точками, моноширинные строки, курсор. */
+/* Герой с v47 одноколонный — на широком экране правая колонка под терминал
+   (правило ниже v47-блока, поэтому побеждает в каскаде). */
 @media (min-width: 981px) {
   #loginScreen .zp-hero {
     grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
     gap: 52px;
   }
-  /* Крупная шкала заголовка v47 рассчитана на всю ширину — в две колонки
-     чуть скромнее, иначе «сообщений.» упирается в цепочку. */
   #loginScreen .zp-hero h1 {
     font-size: clamp(33px, 4.8vw, 72px);
   }
 }
-#loginScreen .hero-chain {
-  position: relative;
-  display: grid;
-  gap: 18px;
+@media (max-width: 980px) {
+  #loginScreen .hero-term {
+    margin-top: 34px;
+  }
+}
+#loginScreen .hero-term {
   align-self: center;
-  margin: 0;
-}
-/* Пунктирная нить между карточками: цепочка читается как маршрут. */
-#loginScreen .hero-chain::before {
-  content: '';
-  position: absolute;
-  top: 28px;
-  bottom: 28px;
-  left: 21px;
-  border-left: 1px dashed color-mix(in srgb, var(--ink) 26%, transparent);
-}
-#loginScreen .hc-card {
-  position: relative;
-  padding: 14px 18px 15px;
+  overflow: hidden;
+  border: 1px solid var(--line);
   border-radius: 16px;
-  background: color-mix(in srgb, var(--card) 88%, transparent);
-  box-shadow: 0 18px 44px -30px color-mix(in srgb, var(--ink) 34%, transparent);
-  opacity: 0;
-  animation: hcIn 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--hd, 0s) forwards;
+  background: color-mix(in srgb, var(--bg2) 92%, transparent);
+  box-shadow: 0 30px 70px -42px color-mix(in srgb, var(--tal-black) 60%, transparent);
 }
-/* Вторая и третья карточки сдвинуты вправо лесенкой — маршрут «летит». */
-#loginScreen .hc-card:nth-child(2) {
-  margin-left: 34px;
+#loginScreen .ht-bar {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding: 11px 14px;
+  border-bottom: 1px solid var(--line);
 }
-#loginScreen .hc-card:nth-child(3) {
-  margin-left: 68px;
+#loginScreen .ht-bar i {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--ink) 22%, transparent);
 }
-@keyframes hcIn {
+#loginScreen .ht-bar .mono {
+  margin-left: 8px;
+  color: var(--mut);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+#loginScreen .ht-body {
+  /* Высота под все семь строк: терминал не дёргает страницу, пока печатает. */
+  min-height: 236px;
+  padding: 16px 18px 18px;
+  font-family: var(--tal-font-mono);
+  font-size: 12.5px;
+  line-height: 1.5;
+}
+#loginScreen .ht-line {
+  margin-top: 7px;
+  overflow: hidden;
+  color: var(--mut);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  animation: htIn var(--tal-dur-350) ease both;
+}
+#loginScreen .ht-line:first-child {
+  margin-top: 0;
+}
+@keyframes htIn {
   from {
     opacity: 0;
-    transform: translateY(22px);
+    transform: translateY(5px);
   }
   to {
     opacity: 1;
     transform: none;
   }
 }
-#loginScreen .hc-step {
-  display: block;
-  margin-bottom: 9px;
-  color: var(--mut);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-#loginScreen .hc-row {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-#loginScreen .hc-ava {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 34px;
-  height: 34px;
-  flex: none;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--ink) 10%, transparent);
+#loginScreen .ht-cmd {
   color: var(--ink);
-  font-size: 13px;
-  font-style: normal;
+}
+#loginScreen .ht-cmd::before {
+  content: '$ ';
+  color: var(--mut);
+}
+#loginScreen .ht-ok {
+  color: var(--success);
+}
+#loginScreen .ht-reply {
+  color: var(--ink);
   font-weight: 600;
 }
-#loginScreen .hc-body {
-  min-width: 0;
-  flex: 1;
+#loginScreen .ht-caret::after {
+  content: '▋';
+  margin-left: 2px;
+  animation: htCaret 0.9s steps(1) infinite;
 }
-#loginScreen .hc-body b {
-  display: block;
-  font-size: 14px;
-}
-#loginScreen .hc-body small {
-  display: block;
-  margin-top: 2px;
-  color: var(--mut);
-  font-size: 12px;
-  line-height: 1.45;
-}
-#loginScreen .hc-badge {
-  flex: none;
-  padding: 4px 10px;
-  border-radius: 99px;
-  background: color-mix(in srgb, var(--ink) 8%, transparent);
-  color: var(--ink);
-  font-size: 11px;
-  white-space: nowrap;
-}
-#loginScreen .hc-badge-live {
-  background: color-mix(in srgb, var(--success) 16%, transparent);
-  color: var(--success);
-}
-#loginScreen .hc-tick {
-  flex: none;
-  color: var(--success);
-  font-size: 11.5px;
-  white-space: nowrap;
-}
-/* На узких экранах герой в одну колонку — цепочка уходит под текст. */
-@media (max-width: 980px) {
-  #loginScreen .hero-chain {
-    margin: 34px 28px 0;
-  }
-  #loginScreen .hc-card:nth-child(2),
-  #loginScreen .hc-card:nth-child(3) {
-    margin-left: 0;
+@keyframes htCaret {
+  50% {
+    opacity: 0;
   }
 }
 
@@ -10339,5 +10314,60 @@ body,
   }
   #loginScreen .fin-facts dt {
     font-size: 22px;
+  }
+}
+
+/* FAQ v51: перед ответом — «печатает…», как в живой переписке. Пузырь
+   с тремя точками занимает место ответа, потом сменяется самим ответом. */
+#loginScreen .faq-typing {
+  display: none;
+  width: 64px;
+  margin-top: 12px;
+  padding: 14px 18px;
+  border-radius: 20px 20px 20px 6px;
+  background: var(--bg2);
+}
+#loginScreen .faq-item.typing .faq-typing {
+  display: flex;
+  gap: 5px;
+}
+#loginScreen .faq-typing i {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--mut);
+  animation: faqDot 1s ease-in-out infinite;
+}
+#loginScreen .faq-typing i:nth-child(2) {
+  animation-delay: 0.16s;
+}
+#loginScreen .faq-typing i:nth-child(3) {
+  animation-delay: 0.32s;
+}
+@keyframes faqDot {
+  0%,
+  60%,
+  100% {
+    opacity: 0.35;
+    transform: none;
+  }
+  30% {
+    opacity: 1;
+    transform: translateY(-4px);
+  }
+}
+/* Пока «печатает» — ветка ответа приоткрыта на высоту индикатора. */
+#loginScreen .faq-item.typing .faq-a {
+  grid-template-rows: 1fr;
+}
+#loginScreen .faq-item.typing .faq-bubble {
+  display: none;
+}
+#loginScreen .faq-item.open .faq-typing {
+  display: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  #loginScreen .faq-typing i {
+    animation: none;
   }
 }

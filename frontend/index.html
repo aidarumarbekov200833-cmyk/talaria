@@ -90,7 +90,7 @@
       href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Unbounded:wght@400;500;600;700;800&amp;display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria25" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria26" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -263,42 +263,20 @@
               <p class="login-hint" id="loginHint" style="display: none"></p>
               <div class="hero-login-fallback-end" hidden></div>
             </div>
+            <!-- v51: цепочка карточек заменена терминалом — владелец попросил
+                 «не ИИ-слоп». Терминал показывает полёт письма как процесс:
+                 команда, скан, скоринг, доставка, ответ. Строки печатает
+                 talaria-landing.js, цикл бесконечный. -->
             <div
-              class="hero-chain rv on"
+              class="hero-term rv on"
               style="--d: 0.5s"
-              aria-label="Путь письма: от канала до ответа"
+              aria-label="Полёт письма в реальном времени"
             >
-              <div class="hc-card" style="--hd: 0.65s">
-                <span class="hc-step mono">01 · найден на youtube</span>
-                <div class="hc-row">
-                  <i class="hc-ava">И</i>
-                  <div class="hc-body">
-                    <b>Инвестируй Просто</b>
-                    <small>142 тыс. подписчиков · финансы</small>
-                  </div>
-                  <span class="hc-badge">Скоринг 92</span>
-                </div>
+              <div class="ht-bar">
+                <i></i><i></i><i></i>
+                <span class="mono">talaria · полёт письма</span>
               </div>
-              <div class="hc-card" style="--hd: 1.05s">
-                <span class="hc-step mono">02 · письмо доставлено</span>
-                <div class="hc-row">
-                  <div class="hc-body">
-                    <b>Личное вступление</b>
-                    <small>Первая строка — про последний ролик лида</small>
-                  </div>
-                  <span class="hc-tick">14:02 ✓✓</span>
-                </div>
-              </div>
-              <div class="hc-card" style="--hd: 1.45s">
-                <span class="hc-step mono">03 · ответ в ваш telegram</span>
-                <div class="hc-row">
-                  <div class="hc-body">
-                    <b>«Да, звучит интересно»</b>
-                    <small>Скиньте детали, посмотрю после съёмок 👍</small>
-                  </div>
-                  <span class="hc-badge hc-badge-live">за 7 мин</span>
-                </div>
-              </div>
+              <div class="ht-body" id="heroTerm"></div>
             </div>
           </section>
           <section class="zp-control-grid">
@@ -1170,6 +1148,7 @@
                   </button>
                   <div class="faq-a" id="faqA1" role="region" aria-labelledby="faqQ1">
                     <div class="faq-a-clip">
+                      <div class="faq-typing" aria-hidden="true"><i></i><i></i><i></i></div>
                       <div class="faq-bubble">
                         <span class="faq-ava" aria-hidden="true"
                           ><svg viewBox="0 0 52 44" aria-hidden="true">
@@ -1213,6 +1192,7 @@
                   </button>
                   <div class="faq-a" id="faqA2" role="region" aria-labelledby="faqQ2">
                     <div class="faq-a-clip">
+                      <div class="faq-typing" aria-hidden="true"><i></i><i></i><i></i></div>
                       <div class="faq-bubble">
                         <span class="faq-ava" aria-hidden="true"
                           ><svg viewBox="0 0 52 44" aria-hidden="true">
@@ -1257,6 +1237,7 @@
                   </button>
                   <div class="faq-a" id="faqA3" role="region" aria-labelledby="faqQ3">
                     <div class="faq-a-clip">
+                      <div class="faq-typing" aria-hidden="true"><i></i><i></i><i></i></div>
                       <div class="faq-bubble">
                         <span class="faq-ava" aria-hidden="true"
                           ><svg viewBox="0 0 52 44" aria-hidden="true">
@@ -1300,6 +1281,7 @@
                   </button>
                   <div class="faq-a" id="faqA4" role="region" aria-labelledby="faqQ4">
                     <div class="faq-a-clip">
+                      <div class="faq-typing" aria-hidden="true"><i></i><i></i><i></i></div>
                       <div class="faq-bubble">
                         <span class="faq-ava" aria-hidden="true"
                           ><svg viewBox="0 0 52 44" aria-hidden="true">
@@ -1343,6 +1325,7 @@
                   </button>
                   <div class="faq-a" id="faqA5" role="region" aria-labelledby="faqQ5">
                     <div class="faq-a-clip">
+                      <div class="faq-typing" aria-hidden="true"><i></i><i></i><i></i></div>
                       <div class="faq-bubble">
                         <span class="faq-ava" aria-hidden="true"
                           ><svg viewBox="0 0 52 44" aria-hidden="true">
@@ -1385,6 +1368,7 @@
                   </button>
                   <div class="faq-a" id="faqA6" role="region" aria-labelledby="faqQ6">
                     <div class="faq-a-clip">
+                      <div class="faq-typing" aria-hidden="true"><i></i><i></i><i></i></div>
                       <div class="faq-bubble">
                         <span class="faq-ava" aria-hidden="true"
                           ><svg viewBox="0 0 52 44" aria-hidden="true">
@@ -5880,7 +5864,7 @@
       </div>
     </div>
 
-    <script src="/js/talaria-landing.js?v=talaria7"></script>
+    <script src="/js/talaria-landing.js?v=talaria8"></script>
     <script type="module" src="/js/main.js?v=talaria14"></script>
     <!-- Просмотр картинки из переписки. <dialog> даёт бесплатно ESC, ловушку
          фокуса и подложку — руками это три обработчика и дыра в доступности. -->

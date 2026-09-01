@@ -541,14 +541,96 @@
   (function () {
     var chat = document.getElementById('faqChat');
     if (!chat) return;
+    var noWait = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     chat.addEventListener('click', function (e) {
       var q = e.target.closest ? e.target.closest('.faq-q') : null;
       if (!q) return;
       var item = q.closest('.faq-item');
       if (!item) return;
-      var open = item.classList.toggle('open');
-      q.setAttribute('aria-expanded', String(open));
+      if (item.classList.contains('open')) {
+        item.classList.remove('open', 'typing');
+        q.setAttribute('aria-expanded', 'false');
+        return;
+      }
+      if (item.classList.contains('typing')) return;
+      q.setAttribute('aria-expanded', 'true');
+      /* Сначала «печатает…» — ответ приходит, как от живого собеседника.
+         С reduced-motion пузырь открывается сразу. */
+      if (noWait) {
+        item.classList.add('open');
+        return;
+      }
+      item.classList.add('typing');
+      setTimeout(function () {
+        if (!item.classList.contains('typing')) return;
+        item.classList.remove('typing');
+        item.classList.add('open');
+      }, 650);
     });
+  })();
+
+  /* Терминал героя: полёт письма как процесс. Строки появляются по одной,
+     команда печатается посимвольно; цикл бесконечный. Содержимое честное:
+     те же цифры, что в секциях ниже (скоринг 92, ответ за 7 минут). */
+  (function () {
+    var body = document.getElementById('heroTerm');
+    if (!body) return;
+    var reduced =
+      window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var LINES = [
+      { c: 'ht-cmd', t: 'talaria fly --ниша финансы --оффер медиакит', type: true },
+      { c: 'ht-dim', t: 'скан YouTube: ru · активность 30 дней', d: 700 },
+      { c: 'ht-ok', t: '✓ Инвестируй Просто · 142 тыс. · скоринг 92', d: 900 },
+      { c: 'ht-dim', t: 'контекст: «Разбор портфеля на 2026»', d: 800 },
+      { c: 'ht-dim', t: 'вступление собрано — 2 предложения, не шаблон', d: 900 },
+      { c: 'ht-ok', t: '✓ доставлено с @maria_work · 14:02 ✓✓', d: 1100 },
+      { c: 'ht-reply', t: '← ответ через 7 мин: «Да, звучит интересно»', d: 1600 },
+    ];
+    function addLine(spec) {
+      var el = document.createElement('div');
+      el.className = 'ht-line ' + spec.c;
+      el.textContent = spec.t;
+      body.appendChild(el);
+      return el;
+    }
+    if (reduced) {
+      LINES.forEach(addLine);
+      return;
+    }
+    var timer = 0;
+    function restart() {
+      timer = setTimeout(function () {
+        body.innerHTML = '';
+        play(0);
+      }, 5200);
+    }
+    function typeCmd(spec, next) {
+      var el = document.createElement('div');
+      el.className = 'ht-line ht-caret ' + spec.c;
+      el.textContent = '';
+      body.appendChild(el);
+      var i = 0;
+      (function tick() {
+        if (i <= spec.t.length) {
+          el.textContent = spec.t.slice(0, i);
+          i += 2;
+          timer = setTimeout(tick, 34);
+        } else {
+          el.classList.remove('ht-caret');
+          next();
+        }
+      })();
+    }
+    function play(i) {
+      if (i >= LINES.length) return restart();
+      var spec = LINES[i];
+      if (spec.type) return typeCmd(spec, play.bind(null, i + 1));
+      timer = setTimeout(function () {
+        addLine(spec);
+        play(i + 1);
+      }, spec.d || 600);
+    }
+    play(0);
   })();
 
   /* Промо-модалка убрана: код скидки не публикуется в разметке, промокод
