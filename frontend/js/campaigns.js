@@ -460,6 +460,16 @@ function stopFollowing() {
   followSeenIds = new Set();
 }
 
+// После выхода журнал кампании и ожидание тестового ответа опрашивать нечем
+// (токен снят) — глушим таймеры, чтобы не сыпать тихими 401.
+window.addEventListener('talaria:logout', () => {
+  stopFollowing();
+  if (testReplyTimer) {
+    window.clearInterval(testReplyTimer);
+    testReplyTimer = null;
+  }
+});
+
 function followCampaign(id) {
   stopFollowing();
   const startedAt = Date.now();

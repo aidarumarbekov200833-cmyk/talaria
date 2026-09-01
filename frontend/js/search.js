@@ -766,6 +766,9 @@ function stopVerificationPolling() {
   verificationPollTimer = null;
 }
 
+// Выход из системы — опрос проверки базы больше не имеет права стучать в API.
+window.addEventListener('talaria:logout', stopVerificationPolling);
+
 function startVerificationPolling() {
   if (verificationPollTimer) return;
   verificationPollTimer = setInterval(() => {

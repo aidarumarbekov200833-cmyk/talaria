@@ -16,6 +16,11 @@ export function setToken(t) {
 }
 export function clearToken() {
   remove('mf_token');
+  // Резервный админский токен режима «смотреть глазами пользователя»
+  // (admin.js, VIEW_BACKUP_KEY). Конец сессии — по кнопке или по 401 — обязан
+  // убирать и его: иначе полноценный админский JWT переживал бы logout и
+  // доставался любому за этой машиной.
+  remove('mf_token_admin');
 }
 
 /* --------------------------- единый перехват 401 ---------------------------
@@ -73,6 +78,11 @@ function authHeaders() {
 /** Разбор ошибки ответа в читаемое сообщение. */
 async function errorMessage(res) {
   let msg = `HTTP ${res.status}`;
+  // 413 отдаёт сам nginx HTML-страницей, до JSON дело не доходит — без этой
+  // ветки человек видел голое «HTTP 413» при слишком тяжёлых картинках оффера.
+  if (res.status === 413) {
+    return 'Вложения слишком большие: суммарно допустимо около 10 МБ. Уменьшите или уберите часть картинок';
+  }
   try {
     const e = await res.json();
     // FastAPI кладёт текст в detail; у тела может быть любой тип
@@ -90,7 +100,11 @@ async function errorMessage(res) {
 async function ensureOk(res) {
   if (res.ok) return;
   if (res.status === 401) handleUnauthorized();
-  throw new Error(await errorMessage(res));
+  const err = new Error(await errorMessage(res));
+  // Код ответа нужен вызывающим, чтобы отличать «токен мёртв» (401/403) от
+  // «сервис прилёг» (5xx/сеть): реакции противоположные.
+  err.status = res.status;
+  throw err;
 }
 
 export async function api(method, path, body, options = {}) {

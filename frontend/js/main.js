@@ -21,7 +21,7 @@ import {
 import { initTheme } from './theme.js?v=zephyr3';
 import { initPolish } from './polish.js?v=phone3';
 import { initNav, goTo } from './nav.js?v=zephyr4';
-import { initAuth, enterApp, logout } from './auth.js?v=viewas1';
+import { initAuth, enterApp, logout } from './auth.js?v=viewas2';
 import {
   animateCounters,
   buildChart,
@@ -78,7 +78,7 @@ import {
   hideCampaignPreview,
   sendTestMessage,
   stopAllCampaigns,
-} from './campaigns.js?v=zephyr3';
+} from './campaigns.js?v=zephyr4';
 import {
   initChat,
   openChatDialog,
@@ -98,7 +98,7 @@ import {
   toggleChatPin,
   toggleChatMute,
   markChatDialogRead,
-} from './chat.js?v=tal34';
+} from './chat.js?v=tal35';
 import { initSidebar, toggleSidebar } from './sidebar.js?v=tal34';
 import {
   initAccountMenu,
@@ -107,7 +107,7 @@ import {
   accountGoTo,
   setAccountTheme,
 } from './account.js?v=talaria15';
-import { initSupport, openSupport, sendSupportMessage } from './support.js?v=talaria15';
+import { initSupport, openSupport, sendSupportMessage } from './support.js?v=talaria16';
 import {
   openHelpCenter,
   openHelpForCurrentSection,
@@ -186,7 +186,7 @@ import {
   setLeadFilterMode,
   runTelegramVerification,
   cancelTelegramVerification,
-} from './search.js?v=talaria17';
+} from './search.js?v=talaria18';
 
 /* Модалка оффера должна сбрасывать режим редактирования при открытии. */
 function openModalWithReset(id) {

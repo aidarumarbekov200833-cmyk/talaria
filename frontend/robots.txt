@@ -1,4 +1,4 @@
-# Talaria — https://zapp.westus2.cloudapp.azure.com
+# Talaria — https://talaria.mooo.com
 # Лендинг открыт для индексации. Кабинет живёт по тем же адресам за авторизацией,
 # но служебные пути закрываем явно, чтобы краулер не тратил бюджет и не ловил 401.
 
@@ -10,4 +10,4 @@ Allow: /js/
 Disallow: /api/
 Disallow: /tg-connect/
 
-Sitemap: https://zapp.westus2.cloudapp.azure.com/sitemap.xml
+Sitemap: https://talaria.mooo.com/sitemap.xml

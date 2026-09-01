@@ -9,7 +9,7 @@
  */
 import { api, apiDownload, apiUpload, esc, getToken } from './api.js';
 import { toast, showSkeleton, openModal, closeModal, confirmAction } from './ui.js?v=tal32';
-import { loadCampaignBases } from './campaigns.js?v=zephyr3';
+import { loadCampaignBases } from './campaigns.js?v=zephyr4';
 
 /* Состояние: какая база открыта и с какими фильтрами. */
 let databases = [];

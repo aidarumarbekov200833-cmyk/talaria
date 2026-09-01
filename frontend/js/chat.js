@@ -324,10 +324,16 @@ function paintAvatar(peerId, image) {
 
 async function loadHistory({ older = false } = {}) {
   if (!state.peerId) return;
+  const requestedPeer = state.peerId;
   const params = new URLSearchParams({ peer_id: state.peerId, limit: '50' });
   if (older && state.oldestCursor) params.set('offset_id', String(state.oldestCursor));
   if (state.accountId) params.set('account_id', String(state.accountId));
   const body = await api('GET', `/api/chat/history?${params.toString()}`);
+  // Гонка диалогов: пока ждали сеть, человек открыл другой чат. Дорисовать
+  // сюда чужую историю — значит показать переписку A в окне B и дать ответить
+  // «по контексту A» не тому человеку. Опоздавший ответ просто выбрасываем
+  // (тот же приём, что previewSeq в offers.js).
+  if (state.peerId !== requestedPeer) return [];
   const items = body.items || [];
   if (older) {
     state.messages = items.concat(state.messages);
@@ -494,7 +500,7 @@ function messageHtml(message, previous, next) {
   const media = message.media;
   const mediaHtml = media
     ? media.loadable
-      ? `<div class="cm-media" data-media="${message.id}"><span class="cm-load">Загрузка…</span></div>`
+      ? `<div class="cm-media" data-media="${esc(message.id)}"><span class="cm-load">Загрузка…</span></div>`
       : `<div class="cm-file">${esc(media.name || mediaLabel(media.kind))}${
           media.size ? ` · ${fileSize(media.size)}` : ''
         }</div>`
@@ -529,7 +535,7 @@ function messageHtml(message, previous, next) {
   chunks.push(`
     <div class="chat-msg${message.out ? ' out' : ''}${stacked ? ' is-stacked' : ''}${
       last ? ' is-last' : ''
-    }" data-msg="${message.id}">
+    }" data-msg="${esc(message.id)}">
       <div class="cm-bubble">
         ${author}
         ${quote}
@@ -842,8 +848,12 @@ export async function openChatDialog(peerId) {
   if (feed) feed.innerHTML = '<div class="chat-none">Загрузка…</div>';
   try {
     await loadHistory({});
+    // Пока грузили историю, человек мог кликнуть следующий диалог — рисовать
+    // и отмечать прочитанным тогда нужно уже его, а не этот.
+    if (state.peerId !== dialog.peer_id) return;
     renderFeed();
   } catch (error) {
+    if (state.peerId !== dialog.peer_id) return;
     if (feed) {
       feed.innerHTML = `<div class="chat-none chat-none-err">${esc(
         error && error.message ? error.message : 'Не удалось открыть диалог',
@@ -1043,6 +1053,14 @@ function stopPolling() {
   if (state.pollTimer) window.clearInterval(state.pollTimer);
   state.pollTimer = null;
 }
+
+// После выхода фоновые опросы чата обязаны замолчать: токена больше нет, и
+// каждый тик превращался бы в тихий 401 к API до перезагрузки страницы.
+window.addEventListener('talaria:logout', () => {
+  stopPolling();
+  if (state.dialogTimer) window.clearInterval(state.dialogTimer);
+  state.dialogTimer = null;
+});
 
 function startDialogPolling() {
   if (state.dialogTimer) return;
