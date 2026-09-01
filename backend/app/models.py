@@ -95,6 +95,14 @@ class Campaign(Base):
     spintax = Column(Boolean, default=False, nullable=False, server_default="0")
     # С каких подключённых аккаунтов шла рассылка (JSON-список id WarmupAccount).
     account_ids = Column(Text, default="[]")
+    # Полный список получателей, отобранных при запуске (JSON-список id Lead).
+    # Нужен для автовозобновления после рестарта: остаток = этот список минус
+    # те, у кого уже есть строка в campaign_sends. Без него после рестарта
+    # невозможно честно узнать, кому ещё не писали.
+    lead_ids = Column(Text, default="[]", nullable=False, server_default="[]")
+    # Сколько материалов канала ИИ читает перед генерацией оффера. Хранится при
+    # кампании, чтобы возобновление шло с теми же настройками, что и запуск.
+    ai_materials = Column(Integer, default=5, nullable=False, server_default="5")
     # Сколько лидов ответило. Счётчик колонкой, чтобы список кампаний не делал
     # подзапрос на каждую строку.
     reply_count = Column(Integer, default=0, nullable=False, server_default="0")
@@ -388,6 +396,48 @@ class LeadVerificationJob(Base):
     )
 
     database = relationship("LeadDatabase", back_populates="verification_jobs")
+
+
+class SearchJob(Base):
+    """Один прогон поиска каналов YouTube, живущий в БД, а не в HTTP-запросе.
+
+    Раньше поиск шёл синхронно внутри запроса: рестарт сервера терял всё, что
+    уже нашли (и потраченную квоту вместе с этим). Теперь HTTP-запрос только
+    создаёт запись и запускает worker; прогресс — найденные каналы и число
+    пройденных ключевых слов — коммитится по ходу, поэтому после рестарта
+    worker продолжает с первого непройденного слова, не теряя найденное.
+    """
+
+    __tablename__ = "search_jobs"
+    __table_args__ = (Index("ix_search_jobs_owner_status", "owner_id", "status"),)
+
+    id = Column(Integer, primary_key=True)
+    owner_id = Column(Integer, ForeignKey("users.id", ondelete="CASCADE"), nullable=False)
+    # queued | running | completed | error
+    status = Column(String(30), default="queued", nullable=False, server_default="queued")
+    # Снимок SearchIn целиком: фильтры и имя базы нужны воркеру и после рестарта.
+    payload = Column(Text, default="{}", nullable=False, server_default="{}")
+    # Сколько ключевых слов уже пройдено полностью. Возобновление стартует со
+    # следующего: прерванное слово идёт заново, но найденное не дублируется.
+    keywords_done = Column(Integer, default=0, nullable=False, server_default="0")
+    # Найденные каналы: channel_id -> ключевое слово. JSON, а не строки в
+    # отдельной таблице: список живёт минуты и нужен целиком одним куском.
+    found_json = Column(Text, default="{}", nullable=False, server_default="{}")
+    current_keyword = Column(String(200), default="")
+    stop_reason = Column(String(500), default="")
+    error = Column(String(1000), default="")
+    database_id = Column(Integer, ForeignKey("lead_databases.id", ondelete="SET NULL"))
+    leads_count = Column(Integer, default=0, nullable=False, server_default="0")
+    limit_total = Column(Integer, default=0, nullable=False, server_default="0")
+    per_keyword = Column(Integer, default=0, nullable=False, server_default="0")
+    started_at = Column(DateTime(timezone=True))
+    completed_at = Column(DateTime(timezone=True))
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(
+        DateTime(timezone=True),
+        server_default=func.now(),
+        onupdate=func.now(),
+    )
 
 
 class TopicRun(Base):

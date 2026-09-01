@@ -169,23 +169,30 @@ async def lifespan(app: FastAPI):
     loop = asyncio.get_running_loop()
     hub.bind_loop(loop)
 
-    # Рассылки, «идущие» с прошлого запуска, уже мертвы: поток отправки не
-    # переживает рестарт. Помечаем их прерванными, чтобы интерфейс не показывал
-    # вечное «Идёт». Ошибки здесь не должны мешать подъёму сервера: без БД
-    # приложение всё равно упадёт дальше более понятным образом.
+    # Фоновая работа с прошлого запуска: потоки не переживают рестарт, но её
+    # состояние лежит в БД. Рассылки со списком получателей и прогоны поиска
+    # продолжаются сами; верификация продолжалась и раньше. Ошибки здесь не
+    # должны мешать подъёму сервера: без БД приложение всё равно упадёт дальше
+    # более понятным образом.
     try:
         from .database import SessionLocal
-        from .routers.campaigns import recover_interrupted
+        from .routers.campaigns import recover_interrupted, resume_campaign
         from .routers.leads import recover_verification_jobs, spawn_verification_job
+        from .routers.search import recover_search_jobs, spawn_search_job
 
         db = SessionLocal()
         try:
-            stuck = recover_interrupted(db)
+            stuck, resume_ids = recover_interrupted(db)
             if stuck:
                 logger.warning("Помечено прерванными рассылок после рестарта: %d", stuck)
             verification_jobs = recover_verification_jobs(db)
+            search_jobs = recover_search_jobs(db)
         finally:
             db.close()
+        for campaign_id in resume_ids:
+            resume_campaign(campaign_id)
+        if resume_ids:
+            logger.warning("Продолжены рассылки после рестарта: %d", len(resume_ids))
         for job_id in verification_jobs:
             spawn_verification_job(job_id)
         if verification_jobs:
@@ -193,6 +200,10 @@ async def lifespan(app: FastAPI):
                 "Продолжена Telegram-верификация после рестарта: %d",
                 len(verification_jobs),
             )
+        for job_id in search_jobs:
+            spawn_search_job(job_id)
+        if search_jobs:
+            logger.warning("Продолжен поиск лидов после рестарта: %d", len(search_jobs))
     except Exception as exc:
         logger.warning("Восстановление фоновых задач не удалось: %s", exc)
 

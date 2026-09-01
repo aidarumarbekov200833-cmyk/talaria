@@ -10,7 +10,7 @@ import { api, getToken } from './api.js';
 import { goTo } from './nav.js?v=zephyr4';
 import { setTheme } from './theme.js?v=zephyr3';
 import { loadOffers } from './offers.js?v=aioffer1';
-import { applyAiSearchPrefill } from './search.js?v=talaria13';
+import { applyAiSearchPrefill } from './search.js?v=talaria17';
 
 // История для контекста. Системный промпт добавляет сервер — здесь только диалог.
 const history = [];

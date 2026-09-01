@@ -23,7 +23,7 @@ from sqlalchemy import func, or_
 from sqlalchemy.orm import Query as SQLQuery
 from sqlalchemy.orm import Session
 
-from .. import contacts, database
+from .. import alerts, contacts, database
 from ..account_health import release_expired
 from ..database import get_db
 from ..dependencies import get_current_user
@@ -927,6 +927,28 @@ def _finish_verification_job(
     if database_row is not None:
         _telegram_summary(db, database_row, job.owner_id)
     db.commit()
+
+    # Пуш владельцу в Telegram: проверка идёт в фоне и часами, вкладка может
+    # быть закрыта. Остановку руками не сообщаем — человек сам её нажал.
+    if status in {"completed", "error"} and database_row is not None:
+        owner = db.get(User, job.owner_id)
+        if owner is not None:
+            if status == "completed":
+                text = (
+                    f"Talaria: проверка базы «{database_row.name}» завершена — "
+                    f"личных Telegram-контактов {int(job.verified or 0)} "
+                    f"из {int(job.total or 0)}."
+                )
+            else:
+                text = (
+                    f"Talaria: проверка базы «{database_row.name}» остановлена ошибкой. "
+                    "Подробности в разделе «Поиск лидов»."
+                )
+            alerts.notify_user(
+                owner.telegram_id,
+                text,
+                dedupe_key=f"verification-finish:{job.id}",
+            )
 
 
 def _process_verification_job(db: Session, job_id: int) -> None:

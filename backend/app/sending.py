@@ -30,7 +30,16 @@ from . import spintax as spintax_mod
 from .account_health import apply_error, mark_success, release_expired
 from .config import settings
 from .events_hub import hub
-from .models import AppSettings, Campaign, CampaignLog, CampaignSend, Lead, Offer, WarmupAccount
+from .models import (
+    AppSettings,
+    Campaign,
+    CampaignLog,
+    CampaignSend,
+    Lead,
+    Offer,
+    User,
+    WarmupAccount,
+)
 from .placeholders import render
 from .plans import effective_plan_slug, get_plan
 from .services import get_settings, log_event, roll_month
@@ -263,6 +272,7 @@ def run_launch(
     *,
     ai_provider: tuple[str, str, str] | None = None,
     ai_materials: int = 5,
+    resume_from: int = 0,
 ) -> dict:
     """Отправить партию сообщений и вернуть итог: sent / failed / problems.
 
@@ -278,11 +288,14 @@ def run_launch(
       модель не должна обнулять запуск, за который уже списаны лимиты.
     * Прогресс пишем в БД и в живую ленту по ходу дела — запуск синхронный и
       длинный, и человек должен видеть движение, а не пустой экран.
+    * resume_from — сколько получателей было обработано до рестарта сервера.
+      Ненулевое значение означает продолжение: счётчики стартуют с сохранённых
+      в кампании, прогресс и ротация офферов/аккаунтов учитывают смещение.
     """
-    sent = 0
-    failed = 0
+    sent = int(campaign.sent_count or 0) if resume_from else 0
+    failed = int(campaign.error_count or 0) if resume_from else 0
     problems: list[str] = []
-    total = max(1, len(leads))
+    total = max(1, resume_from + len(leads))
     limit_row = roll_month(db, get_settings(db, campaign.owner_id))
     unlimited_messages = int(
         get_plan(effective_plan_slug(db, campaign.owner_id))["monthly_messages"]
@@ -319,6 +332,9 @@ def run_launch(
 
     cancelled = False
     for index, lead in enumerate(leads):
+        # Сквозная позиция получателя в кампании: при возобновлении ротация
+        # офферов и аккаунтов продолжается с того же места, что до рестарта.
+        position = resume_from + index
         db.refresh(campaign)
         if campaign.status == "cancel_requested":
             cancelled = True
@@ -327,7 +343,7 @@ def run_launch(
             break
         account = None
         for offset in range(len(accounts)):
-            candidate = accounts[(index + offset) % len(accounts)]
+            candidate = accounts[(position + offset) % len(accounts)]
             if account_left.get(candidate.id, 0) > 0:
                 account = candidate
                 break
@@ -376,7 +392,7 @@ def run_launch(
                 db.commit()
                 continue
         else:
-            offer = offers[index % len(offers)]
+            offer = offers[position % len(offers)]
             text = build_regular_text(offer, lead, bool(campaign.spintax))
 
         # --- отправка ---
@@ -522,7 +538,7 @@ def run_launch(
 
         campaign.sent_count = sent
         campaign.error_count = failed
-        campaign.progress = round((index + 1) * 100.0 / total, 1)
+        campaign.progress = round((position + 1) * 100.0 / total, 1)
         db.commit()
         hub.campaign_update(campaign.owner_id, campaign.id, campaign.progress, campaign.status)
 
@@ -575,10 +591,25 @@ def run_launch(
         "campaigns",
         f"Рассылка «{campaign.name}»: "
         + ("остановлена; " if cancelled else "")
-        + f"отправлено {sent} из {len(leads)}"
+        + f"отправлено {sent} из {total}"
         + (f", ошибок {failed}" if failed else ""),
         "success" if sent else "warn",
     )
+
+    # Пуш владельцу в Telegram: рассылка идёт в фоне, вкладка может быть давно
+    # закрыта. Бот сможет написать только тем, кто хоть раз нажимал ему Start —
+    # отказ Telegram уведомление глотает, отправку он сломать не должен.
+    owner = db.get(User, campaign.owner_id)
+    if owner is not None:
+        alerts.notify_user(
+            owner.telegram_id,
+            f"Talaria: рассылка «{campaign.name}» "
+            + ("остановлена — " if cancelled else "завершена — ")
+            + f"отправлено {sent} из {total}"
+            + (f", ошибок {failed}" if failed else "")
+            + ".",
+            dedupe_key=f"campaign-finish:{campaign.id}",
+        )
 
     # Полностью провалившийся запуск — это не «пользователь ошибся», а обычно
     # сломанный mini-client или провайдер ИИ. Об этом должен узнать админ.

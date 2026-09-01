@@ -754,6 +754,9 @@ class SearchIn(BaseModel):
     countries: list[str] = Field(default_factory=list, max_length=40)
     include_hidden_subscribers: bool = True
     require_telegram_link: bool = False
+    # Синхронный режим для API-тестов: ответ придёт после всего поиска.
+    # Интерфейс всегда шлёт wait=false и следит за прогрессом по job.
+    wait: bool = False
 
     @field_validator("countries")
     @classmethod
@@ -1054,6 +1057,30 @@ class LeadDatabaseOut(ORMModel):
 class LeadDatabaseListOut(BaseModel):
     databases: list[LeadDatabaseOut]
     total_leads: int
+
+
+class SearchJobOut(BaseModel):
+    """Состояние прогона поиска: интерфейс опрашивает его до завершения.
+
+    `database` заполняется только у завершённого прогона — это тот же объект,
+    который раньше возвращал синхронный /api/search, чтобы фронтенду не
+    пришлось ходить за базой отдельным запросом.
+    """
+
+    id: int
+    status: str = "queued"
+    mode: str = "custom"
+    keywords_total: int = 0
+    keywords_done: int = 0
+    found_count: int = 0
+    limit_total: int = 0
+    current_keyword: str = ""
+    stop_reason: str = ""
+    error: str = ""
+    database: LeadDatabaseOut | None = None
+    started_at: datetime | None = None
+    completed_at: datetime | None = None
+    created_at: datetime | None = None
 
 
 class LeadDatabaseRename(BaseModel):
