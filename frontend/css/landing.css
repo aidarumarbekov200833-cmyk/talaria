@@ -36,7 +36,8 @@
   align-items: center;
   gap: 10px;
   margin-right: auto;
-  font-weight: 800;
+  /* v48: шапка лендинга больше не кричит восьмёркой. */
+  font-weight: 500;
 }
 .login-logo {
   display: inline-grid;

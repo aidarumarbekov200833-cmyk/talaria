@@ -189,6 +189,19 @@ html[data-theme='graphite'],
   --cabp-ring: rgba(255, 255, 255, 0.2);
   --cabp-well: #0e0e10;
   --cabp-well-raised: #141417;
+  /* v48: обои и пузыри переписки в тёмной теме. Раньше --cabp-tg-* жили
+     только в светлом :root, и чат оставался белым пятном в тёмном кабинете. */
+  --cabp-tg-wall-a: #16161a;
+  --cabp-tg-wall-b: #101014;
+  --cabp-tg-doodle: rgba(255, 255, 255, 0.04);
+  --cabp-tg-header: #1f1f22;
+  --cabp-tg-out: #2b4a33;
+  --cabp-tg-out-tail: #24402c;
+  --cabp-tg-in: #26262a;
+  --cabp-tg-text: #f1f1f3;
+  --cabp-tg-time: #9fd39a;
+  --cabp-tg-check: #6fce6b;
+  --cabp-tg-sys: rgba(255, 255, 255, 0.14);
   --cabp-on-well: #ececef;
   --shadow: 0 24px 60px color-mix(in srgb, #000000 40%, transparent);
   --shadow-small: 0 8px 22px color-mix(in srgb, #000000 22%, transparent);

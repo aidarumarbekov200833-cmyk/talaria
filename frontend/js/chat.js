@@ -282,30 +282,56 @@ async function loadDialogs({ append = false } = {}) {
 }
 
 /**
- * Аватары подгружаем по одному и только для новых собеседников.
+ * Общая очередь на картинки: аватары и вложения ходят в один и тот же шлюз.
  *
- * Пачкой было бы быстрее, но каждый аватар — отдельный поход в Telegram, и
- * сорок параллельных запросов при первом открытии дают флуд-лимит вместо
- * картинок.
+ * Было: последовательный await в цикле — каждая следующая картинка ждала
+ * предыдущую. Двадцать вложений выстраивались в очередь, и последнее
+ * появлялось через десятки секунд — со стороны это выглядит как «чат виснет».
+ * Стало: несколько запросов одновременно. Полный Promise.all по всей ленте не
+ * годится: каждое вложение — отдельный поход в Telegram, и сорок параллельных
+ * запросов дают флуд-лимит вместо картинок. Поэтому ровно пул.
  */
-async function loadAvatars(dialogs) {
+const MEDIA_CONCURRENCY = 4;
+const mediaQueue = [];
+let mediaWorkers = 0;
+
+function pumpMediaQueue() {
+  while (mediaWorkers < MEDIA_CONCURRENCY && mediaQueue.length) {
+    const job = mediaQueue.shift();
+    mediaWorkers += 1;
+    job().finally(() => {
+      mediaWorkers -= 1;
+      pumpMediaQueue();
+    });
+  }
+}
+
+function enqueueMedia(job) {
+  mediaQueue.push(job);
+  pumpMediaQueue();
+}
+
+/** Аватары — только для новых собеседников, через тот же пул. */
+function loadAvatars(dialogs) {
   for (const dialog of dialogs) {
     if (!dialog.has_photo) continue;
     const key = `a:${dialog.peer_id}`;
     if (state.images.has(key)) continue;
     state.images.set(key, '');
-    try {
-      const body = await api(
-        'GET',
-        `/api/chat/avatar?peer_id=${encodeURIComponent(dialog.peer_id)}${accountQuery()}`,
-      );
-      if (body.image) {
-        state.images.set(key, body.image);
-        paintAvatar(dialog.peer_id, body.image);
+    enqueueMedia(async () => {
+      try {
+        const body = await api(
+          'GET',
+          `/api/chat/avatar?peer_id=${encodeURIComponent(dialog.peer_id)}${accountQuery()}`,
+        );
+        if (body.image) {
+          state.images.set(key, body.image);
+          paintAvatar(dialog.peer_id, body.image);
+        }
+      } catch (_) {
+        // Нет аватара — остаются инициалы. Ради картинки шуметь ошибкой незачем.
       }
-    } catch (_) {
-      // Нет аватара — остаются инициалы. Ради картинки шуметь ошибкой незачем.
-    }
+    });
   }
 }
 
@@ -649,34 +675,115 @@ export function cancelChatReply() {
   if (bar) bar.hidden = true;
 }
 
-/** Картинки сообщений — по одной, только видимые, только один раз. */
-async function loadMediaThumbs() {
+/** Вставить картинку и сделать её открываемой на полный экран. */
+function paintMedia(node, image, id) {
+  node.innerHTML = `<img src="${esc(image)}" alt="Изображение из переписки" loading="lazy" decoding="async" />`;
+  node.classList.add('is-ready');
+  node.setAttribute('role', 'button');
+  node.setAttribute('tabindex', '0');
+  node.setAttribute('aria-label', 'Открыть изображение');
+  // Через data-act, а не addEventListener: лента перерисовывается целиком через
+  // innerHTML, и личные слушатели умирали бы на каждом опросе сервера.
+  node.dataset.act = 'openChatImage';
+  node.dataset.enterAct = 'openChatImage';
+  node.dataset.args = JSON.stringify([String(id)]);
+}
+
+async function fetchMediaThumb(node, id, peerId) {
+  const key = `m:${peerId}:${id}`;
+  try {
+    const body = await api(
+      'GET',
+      `/api/chat/media?peer_id=${encodeURIComponent(peerId)}&message_id=${encodeURIComponent(id)}${accountQuery()}`,
+    );
+    // Пока ждали сеть, человек мог открыть другой чат: дорисовывать туда
+    // картинку из прошлой переписки нельзя — тот же приём, что в loadHistory.
+    if (state.peerId !== peerId) return;
+    if (body.image) {
+      state.images.set(key, body.image);
+      paintMedia(node, body.image, id);
+    } else {
+      node.innerHTML = '<span class="cm-load">Без превью</span>';
+    }
+  } catch (_) {
+    if (state.peerId !== peerId) return;
+    node.innerHTML = '<span class="cm-load">Не загрузилось</span>';
+    // Ключ снимаем: иначе одна сетевая осечка навсегда оставит плашку.
+    state.images.delete(key);
+  }
+}
+
+function queueMediaNode(node) {
+  const id = node.dataset.media;
+  const peerId = state.peerId;
+  const key = `m:${peerId}:${id}`;
+  if (state.images.has(key)) return;
+  state.images.set(key, '');
+  enqueueMedia(() => fetchMediaThumb(node, id, peerId));
+}
+
+let mediaObserver = null;
+
+/**
+ * Грузим только то, что вот-вот покажется. Запас в 600px — картинка
+ * успевает приехать до того, как до неё долистали, и лента не моргает
+ * пустыми плашками. Без этого открытие чата на тысячу сообщений тянуло бы
+ * сотни картинок, которых никто не увидит.
+ */
+function ensureMediaObserver() {
+  if (mediaObserver || typeof IntersectionObserver !== 'function') return mediaObserver;
+  mediaObserver = new IntersectionObserver(
+    (entries) => {
+      for (const entry of entries) {
+        if (!entry.isIntersecting) continue;
+        mediaObserver.unobserve(entry.target);
+        queueMediaNode(entry.target);
+      }
+    },
+    { root: el('chatFeed'), rootMargin: '600px 0px' },
+  );
+  return mediaObserver;
+}
+
+function loadMediaThumbs() {
   const nodes = [...document.querySelectorAll('#chatFeed [data-media]')];
+  const observer = ensureMediaObserver();
   for (const node of nodes) {
     const id = node.dataset.media;
     const key = `m:${state.peerId}:${id}`;
     const cached = state.images.get(key);
     if (cached) {
-      node.innerHTML = `<img src="${esc(cached)}" alt="" />`;
+      paintMedia(node, cached, id);
       continue;
     }
     if (state.images.has(key)) continue;
-    state.images.set(key, '');
-    try {
-      const body = await api(
-        'GET',
-        `/api/chat/media?peer_id=${encodeURIComponent(state.peerId)}&message_id=${encodeURIComponent(id)}${accountQuery()}`,
-      );
-      if (body.image) {
-        state.images.set(key, body.image);
-        node.innerHTML = `<img src="${esc(body.image)}" alt="" />`;
-      } else {
-        node.innerHTML = '<span class="cm-load">Без превью</span>';
-      }
-    } catch (_) {
-      node.innerHTML = '<span class="cm-load">Не загрузилось</span>';
-    }
+    // Без IntersectionObserver (старый браузер) грузим сразу — пул всё равно
+    // не даст завалить шлюз.
+    if (observer) observer.observe(node);
+    else queueMediaNode(node);
   }
+}
+
+/** Просмотр картинки целиком: в мессенджере вложение обязано открываться. */
+export function openChatImage(id) {
+  const image = state.images.get(`m:${state.peerId}:${id}`);
+  if (!image) return;
+  const box = el('chatLightbox');
+  const img = el('chatLightboxImg');
+  if (!box || !img) return;
+  img.src = image;
+  img.classList.remove('is-zoomed');
+  if (!box.open) box.showModal();
+}
+
+export function closeChatImage() {
+  const box = el('chatLightbox');
+  if (box?.open) box.close();
+}
+
+/** Клик по открытой картинке — приблизить или вернуть в размер экрана. */
+export function toggleChatImageZoom() {
+  el('chatLightboxImg')?.classList.toggle('is-zoomed');
 }
 
 function renderHead() {

@@ -266,7 +266,9 @@ th {
 .brand-name {
   font-family: var(--font-display);
   font-size: 19px;
-  font-weight: 600;
+  /* v48: логотип без жирного начертания. 500 есть и у Inter, и у Unbounded,
+     так что браузеру не придётся синтезировать вес. */
+  font-weight: 500;
   line-height: 1.05;
 }
 .brand-tag,
@@ -2886,7 +2888,7 @@ th {
   color: var(--ink);
   box-shadow: var(--shadow-small);
 }
-/* Плотные периоды (месяц, сутки): столбики тоньше, подписи мельче. */
+/* Плотные периоды (месяц, сутки): столбики тон��ше, подписи мельче. */
 .adm-chart.is-dense .adm-bar {
   width: 6px;
 }

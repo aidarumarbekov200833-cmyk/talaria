@@ -11,7 +11,7 @@
       id="appFavicon"
       rel="icon"
       type="image/svg+xml"
-      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 44"><rect width="48" height="44" rx="12" fill="%2318181b"/><g fill="%23ffffff" stroke="%23ffffff" stroke-width="1.3" stroke-linejoin="round"><path d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"/><path d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"/><path class="tl-f" d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"/><path class="tl-f" d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"/><path class="tl-f" d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"/></g></svg>'
+      href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 44"><rect width="48" height="44" rx="12" fill="%2318181b"/><g fill="%23ffffff" stroke="%23ffffff" stroke-width="0.5" stroke-linejoin="round"><path d="M18.6 13.4h5.6a1.6 1.6 0 0 1 1.6 1.6v22.4a2.8 2.8 0 0 1-5.6 0V15a1.6 1.6 0 0 1 1.6-1.6Z"/><path d="M7.4 13.4h13.2a1.9 1.9 0 0 1 0 3.8H7.4a1.9 1.9 0 0 1 0-3.8Z"/><path class="tl-f" d="M26.6 12.2c6.6-1.1 12.4-3.9 17.6-8.4-1.6 6.2-6.4 10.4-13.4 12.1l-4.2.7Z"/><path class="tl-f" d="M26.6 18.4c5.2-.7 9.8-2.7 13.8-6-1.2 4.7-4.9 7.9-10.5 9.2l-3.3.5Z"/><path class="tl-f" d="M26.6 24c3.7-.4 7-1.7 9.8-4-.9 3.4-3.5 5.7-7.5 6.6l-2.3.3Z"/></g></svg>'
     />
     <title>Talaria — крылья для холодных сообщений</title>
     <link rel="canonical" href="https://talaria.mooo.com/" />
@@ -119,6 +119,11 @@
               <a href="#features">Возможности</a><a href="#how">Как работает</a>
               <a href="#pulse">Динамика</a><a href="#pricing">Тариф</a>
               <a href="#faq">Вопросы</a>
+              <!-- Живой признак того, что за лендингом есть работающий сервис, а не
+                   одна только обещалка. Шапка была пустоватой именно слева. -->
+              <span class="nav-status" title="Сервис работает штатно">
+                <i class="nav-status-dot" aria-hidden="true"></i>Работает
+              </span>
             </nav>
             <a class="brand landing-brand" href="#top">
               <svg class="tl-logo" viewBox="0 0 52 44" aria-hidden="true">
@@ -194,6 +199,10 @@
               >
             </div>
           </div>
+          <!-- Полоса прокрутки на CSS scroll-timeline: без единого обработчика scroll,
+               то есть без дёрганья на слабых машинах. Где не поддерживается —
+               полосы просто нет, и ничего не ломается. -->
+          <div class="lp-progress" aria-hidden="true"><i></i></div>
         </header>
         <main id="zdTop" class="zp-main">
           <section class="zp-hero" id="top">
@@ -2426,96 +2435,109 @@
               <!-- Режим настроек. «Авто» ставит проверенный набор и запирает поля,
                    чтобы случайная правка не обнулила выдачу; «вручную» открывает всё. -->
               <div class="filter-mode" role="group" aria-label="Режим настроек поиска">
-                <button
-                  type="button"
-                  class="filter-mode-btn active"
-                  id="leadModeAuto"
-                  data-act="setLeadFilterMode"
-                  data-args='["auto"]'
-                  aria-pressed="true"
-                >
-                  Автоматически
-                </button>
-                <button
-                  type="button"
-                  class="filter-mode-btn"
-                  id="leadModeManual"
-                  data-act="setLeadFilterMode"
-                  data-args='["manual"]'
-                  aria-pressed="false"
-                >
-                  Вручную
-                </button>
+                <label class="filter-mode-btn filter-mode-switch" for="leadModeToggle">
+                  <input
+                    type="checkbox"
+                    id="leadModeToggle"
+                    data-change-act="toggleLeadFilterMode"
+                    data-args='["__EL__"]'
+                  />
+                  <span class="fms-track" aria-hidden="true"><i></i></span>
+                  <span class="fms-label">Настроить вручную</span>
+                </label>
                 <span class="filter-mode-note" id="leadModeNote"></span>
               </div>
-              <div class="lead-filter-grid">
-                <div class="field">
-                  <label>Подписчиков от</label
-                  ><input id="leadMinSubs" type="number" min="0" value="1000" inputmode="numeric" />
+              <div class="filter-collapse" id="leadFilterCollapse" aria-hidden="true">
+                <div class="filter-collapse-inner">
+                  <div class="lead-filter-grid">
+                    <div class="field">
+                      <label>Подписчиков от</label
+                      ><input
+                        id="leadMinSubs"
+                        type="number"
+                        min="0"
+                        value="1000"
+                        inputmode="numeric"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Подписчиков до</label
+                      ><input
+                        id="leadMaxSubs"
+                        type="number"
+                        min="0"
+                        placeholder="без ограничения"
+                        inputmode="numeric"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Просмотров от</label
+                      ><input
+                        id="leadMinViews"
+                        type="number"
+                        min="0"
+                        value="0"
+                        inputmode="numeric"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Средние просмотры</label
+                      ><input
+                        id="leadMinAverageViews"
+                        type="number"
+                        min="0"
+                        value="0"
+                        inputmode="numeric"
+                      /><span class="field-hint">Минимум на одно видео</span>
+                    </div>
+                    <div class="field">
+                      <label>Вовлечённость аудитории</label
+                      ><input
+                        id="leadMinViewRatio"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="0"
+                        inputmode="decimal"
+                      /><span class="field-hint">Просмотры / подписчики, от %</span>
+                    </div>
+                    <div class="field">
+                      <label>Видео от</label
+                      ><input
+                        id="leadMinVideos"
+                        type="number"
+                        min="0"
+                        value="3"
+                        inputmode="numeric"
+                      />
+                    </div>
+                    <div class="field">
+                      <label>Возраст канала, дней до</label
+                      ><input
+                        id="leadMaxAge"
+                        type="number"
+                        min="1"
+                        placeholder="любой"
+                        inputmode="numeric"
+                      />
+                    </div>
+                    <div class="field field-wide">
+                      <label>Страны каналов</label
+                      ><select id="leadCountry" multiple hidden></select>
+                      <span class="field-hint"
+                        >Можно выбрать несколько или не выбирать вовсе — тогда страна не
+                        важна.</span
+                      >
+                    </div>
+                  </div>
+                  <div class="filter-switches">
+                    <label class="check-row"
+                      ><input type="checkbox" id="leadIncludeHidden" /> Включать каналы со скрытыми
+                      подписчиками</label
+                    >
+                  </div>
                 </div>
-                <div class="field">
-                  <label>Подписчиков до</label
-                  ><input
-                    id="leadMaxSubs"
-                    type="number"
-                    min="0"
-                    placeholder="без ограничения"
-                    inputmode="numeric"
-                  />
-                </div>
-                <div class="field">
-                  <label>Просмотров от</label
-                  ><input id="leadMinViews" type="number" min="0" value="0" inputmode="numeric" />
-                </div>
-                <div class="field">
-                  <label>Средние просмотры</label
-                  ><input
-                    id="leadMinAverageViews"
-                    type="number"
-                    min="0"
-                    value="0"
-                    inputmode="numeric"
-                  /><span class="field-hint">Минимум на одно видео</span>
-                </div>
-                <div class="field">
-                  <label>Вовлечённость аудитории</label
-                  ><input
-                    id="leadMinViewRatio"
-                    type="number"
-                    min="0"
-                    max="100"
-                    step="0.1"
-                    value="0"
-                    inputmode="decimal"
-                  /><span class="field-hint">Просмотры / подписчики, от %</span>
-                </div>
-                <div class="field">
-                  <label>Видео от</label
-                  ><input id="leadMinVideos" type="number" min="0" value="3" inputmode="numeric" />
-                </div>
-                <div class="field">
-                  <label>Возраст канала, дней до</label
-                  ><input
-                    id="leadMaxAge"
-                    type="number"
-                    min="1"
-                    placeholder="любой"
-                    inputmode="numeric"
-                  />
-                </div>
-                <div class="field field-wide">
-                  <label>Страны каналов</label
-                  ><select id="leadCountry" multiple hidden></select>
-                  <span class="field-hint"
-                    >Можно выбрать несколько или не выбирать вовсе — тогда страна не важна.</span
-                  >
-                </div>
-              </div>
-              <div class="filter-switches">
-                <label class="check-row"
-                  ><input type="checkbox" id="leadIncludeHidden" /> Включать каналы со скрытыми
-                  подписчиками</label
-                >
               </div>
               <div class="field-hint">
                 YouTube не умеет фильтровать поиск по подписчикам: сервис получает найденные каналы,
@@ -3220,7 +3242,7 @@
               <button type="button" class="offer-tab" data-offer-tab="ai">ИИ-оффер</button>
             </div>
 
-            <!-- Шаблоны по нишам удалены: офферы создаются только пользователем и сохраняются через API. -->
+            <!-- Шаблоны ��о нишам удалены: офферы создаются только пользователем и сохраняются через API. -->
             <div class="creator-with-log offer-layout" style="margin-bottom: 22px">
               <div>
                 <!-- ВКЛАДКА: КОНСТРУКТОР -->
@@ -4546,7 +4568,7 @@
             <div class="field-hint" id="adminSummary" style="margin-bottom: 12px"></div>
 
             <!-- Сводка: что происходит в сервисе прямо сейчас. Стоит первой:
-             админу сначала нужна картина целиком, а потом уже конкретный человек. -->
+             админу сначала нужна картина целиком, а потом уже ко��к��етный человек. -->
             <div class="adm-cards" id="adminOverview"><div class="dd-empty">Загрузка…</div></div>
 
             <div class="panel admin-health-panel">
@@ -5313,7 +5335,7 @@
 
     <!-- МОДАЛКА: ЧТО ТАКОЕ БАЛЛ ЛИДА -->
     <!-- Заметка по лиду: свободный текст владельца («созвон в четверг»).
-     Отдельной модалкой, а не полем прямо в строке таблицы: строка и так
+     Отдельной модалкой, а не полем прямо в стро��е таблицы: строка и так
      плотная, а заметка нужна редко и требует места. -->
     <!-- Общее подтверждение опасных действий. Одна модалка на весь кабинет,
      а не confirm() браузера: системное окно нельзя ни оформить, ни объяснить
@@ -5746,5 +5768,32 @@
 
     <script src="/js/talaria-landing.js?v=talaria7"></script>
     <script type="module" src="/js/main.js?v=talaria13"></script>
+    <!-- Просмотр картинки из переписки. <dialog> даёт бесплатно ESC, ловушку
+         фокуса и подложку — руками это три обработчика и дыра в доступности. -->
+    <dialog class="chat-lightbox" id="chatLightbox" aria-label="Просмотр изображения">
+      <button
+        type="button"
+        class="chat-lightbox-close"
+        data-act="closeChatImage"
+        aria-label="Закрыть просмотр"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          aria-hidden="true"
+        >
+          <path d="M6 6l12 12M18 6L6 18" />
+        </svg>
+      </button>
+      <img
+        id="chatLightboxImg"
+        class="chat-lightbox-img"
+        alt="Изображение из переписки"
+        data-act="toggleChatImageZoom"
+      />
+    </dialog>
   </body>
 </html>

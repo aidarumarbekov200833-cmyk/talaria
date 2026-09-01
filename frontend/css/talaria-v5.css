@@ -257,7 +257,8 @@ html[data-theme='light'] #loginScreen {
   text-transform: none;
   /* v46: у Unbounded нет курсива, наклон был бы фальшивым */
   font-style: normal;
-  font-weight: 600;
+  /* v48: имя бренда без жирного. */
+  font-weight: 500;
 }
 #loginScreen .nl {
   display: flex;
@@ -1291,6 +1292,8 @@ html[data-theme='light'] #loginScreen {
 #loginScreen .aw-brand b {
   font-family: var(--tal-font-display);
   font-size: 10px;
+  /* v48: <b> по умолчанию жирный — гасим явно. */
+  font-weight: 500;
   letter-spacing: 0.24em;
 }
 #loginScreen .aw-brand small {
@@ -2412,7 +2415,8 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
 }
 #loginScreen .foot-name {
   font-family: var(--tal-font-display);
-  font-weight: 800;
+  /* v48: логотип в подвале тоже без жирного — разрядка держит его читаемым. */
+  font-weight: 500;
   font-size: 24px;
   letter-spacing: 0.06em;
   text-transform: uppercase;
@@ -2518,7 +2522,7 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
 #loginScreen .zp-access-pass .tariff-checkout-head .plan-currency {
   margin-top: 0;
 }
-/* Карточка тарифа — общий компонент с кабинетом: там уместна плотная
+/* Карточка тарифа — общий компо��ент с кабинетом: там уместна плотная
    двухколоночная касса, на лендинге она ломалась (цена переносилась, «₽»
    уезжал на вторую строку, буллеты дробились на три). Здесь раскладываем
    тот же DOM в одну колонку, как в макете.
@@ -2872,6 +2876,8 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
 #loginScreen .aw-brand-copy b {
   font-family: var(--tal-font-display);
   font-size: 12px;
+  /* v48: гасим жирный по умолчанию у <b>. */
+  font-weight: 500;
   letter-spacing: 0.22em;
 }
 #loginScreen .aw-brand-copy small {
@@ -3695,7 +3701,8 @@ html {
 #loginScreen .appwin .brand-name {
   font-family: inherit;
   font-size: 15px;
-  font-weight: 800;
+  /* v48: без жирного. */
+  font-weight: 500;
   letter-spacing: 0;
   text-transform: none;
 }
@@ -4147,7 +4154,7 @@ html {
 }
 
 @media (max-width: 700px) {
-  /* Сцена на телефоне снова абсолютная подложка, а рука и кнопки — абсолютные
+  /* Сцена на телефо��е снова абсолютная подложка, а рука и кнопки — абсолютные
      внутри неё. ВАЖНО: более ранний мобильный блок ставит им position:relative,
      и без явного возврата в absolute смещения bottom/left/right применяются к
      потоковой позиции — рука уезжала за верхний край, кнопки за правый. */
@@ -5305,7 +5312,7 @@ html {
   transform-origin: left center;
 }
 
-/* ── 3. Кнопка входа: аватар вместо слова, когда сессия ещё жива ────────── */
+/* ── 3. Кнопка входа: аватар вместо слова, когда сессия ещё жива ─────────��� */
 #loginScreen .lp-nav-cta {
   display: inline-flex;
   align-items: center;
@@ -5334,7 +5341,7 @@ html {
    срезало голову и письмо. Маской по элементу край тоже не растворить:
    радиусы radial-gradient считаются от размеров бокса, и при радиусе,
    достаточном чтобы показать фигуру, затухание кончается уже ЗА картинкой.
-   Поэтому герой стал такой же МАСКОЙ, как плашка тарифа и шесть перьев:
+   Поэтому герой стал такой же ��АСКОЙ, как плашка тарифа и шесть перьев:
    альфа вырезана в файле, цвет чернил даёт тема (--plate-ink). Чернила в обеих
    темах розовые; на светлой гравюра лежит на тёмной плашке — см. v28. */
 
@@ -5765,11 +5772,11 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
 }
 
 /* ══ Волна v13. Разбор списка: «лого тёмное на тёмном, сообщение на главном
-   тёмное, фотка фигово выглядит, шесть перьев тоже тёмные, батарейка, сумма
+   тёмное, фотка фигово выгляд��т, шесть перьев тоже тёмные, батарейка, сумма
    тарифа, письмо обрезано внизу — и то же на светлой». ══════════════════ */
 
 /* 1. Подвал финала: у путей в <svg class="fin-foot-logo"> нет атрибута fill,
-   и браузер рисует их чёрным по умолчанию — так это и приходит в computed.
+   и браузер рисует их чёрным по умолчанию — т��к это и приходит в computed.
    На розовой пилюле марка читалась как выломанная дырка — это и есть
    «лого тёмное». Пилюлю убираем, глиф красим самим брендовым розовым:
    --accent-ink на тёмной теме яркий, на светлой приглушён до читаемого. */
@@ -6052,7 +6059,7 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
   transform: none;
 }
 
-/* ── v15. Телефон: короче полотно ────────────────────────────────────────
+/* ── v15. Телефон: короче полотно ────────────���───────────────────────────
    Samat: «текста поменьше, а то на телефоне слишком долго листать; блоки
    крыльев по 2 штуки, чтобы 3 строки было». Текст урезан в разметке, здесь —
    вертикальный ритм: шесть карточек в две колонки (3 ряда), меньше отбивок,
@@ -6408,7 +6415,7 @@ html[data-theme='light'] #loginScreen .zp-pricing {
 /* ── 4. Тариф на компе: гравюра идёт рядом с кассой, а не висит по центру ──
    Было `align-items: center` при кассе ~1100px и гравюре ~700px: справа
    оставалось по 200px пустого розового сверху и снизу. Теперь колонка
-   прилипает к верху и следует за прокруткой — пустоты нет. */
+   прилипает к верху и следует за прокру��кой — пустоты нет. */
 @media (min-width: 901px) {
   #loginScreen .pgrid {
     align-items: start;
@@ -6417,7 +6424,7 @@ html[data-theme='light'] #loginScreen .zp-pricing {
 
 /* ── 5. Тариф на телефоне: касса во всю ширину, гравюра баннером сверху ───
    Раньше касса делила 390px с гравюрой (1.75fr/1fr) и получала 180px: пункты
-   тарифа ломались на три строки по два слова. Картинка остаётся НЕ снизу —
+   тарифа ломались на три строки ��о два слова. Картинка остаётся НЕ снизу —
    она уходит наверх широкой полосой над кассой. */
 @media (max-width: 700px) {
   #loginScreen .pgrid {
@@ -6538,7 +6545,7 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
 }
 
 /* ── 12. Подпись гравюры на розовом и длина шторки ───────────────────────
-   Кикер «// доставка в тот же день» шёл цветом --accent-ink: на светлом крае
+   Кикер «// доставка в тот же ��ень» шёл цветом --accent-ink: на светлом крае
    градиента он практически не читался. Красим тёмным, как заголовок секции.
    Ход шторки на компе сокращаем ещё: слово занимает 42vh, при 66vh над ним
    оставалось 24vh пустого розового. */
@@ -6771,7 +6778,7 @@ html[data-theme='light'] #loginScreen .zp-pricing {
    и слово «не доходило». Теперь у трека есть запас --hold сверх экрана, а
    вордмарк липнет по центру: он приезжает в центр кадра, замирает на весь
    --hold (экран целиком розовый, ничего не движется) и только потом штора
-   уходит вверх. Сцена догоняет слово снизу — sticky не может выйти за трек,
+   уходит вверх. Сцена ��огоняет слово снизу — sticky не может выйти за трек,
    поэтому слово уезжает вместе со стыком и никогда не оказывается на тёмном. */
 #loginScreen {
   --hold: 45vh;
@@ -7083,7 +7090,7 @@ html[data-theme='light'] #loginScreen .fcard .fim::after {
 }
 
 /* ── «Логи процесса»: у `.terminal` не было высоты, поэтому чёрная область
-      сжималась в полоску по числу строк. Даём полноценное окно с моношрифтом
+      сжималась в полоску по числу с��рок. Даём полноценное окно с моношрифтом
       и цветами по типу строки. ─────────────────────────────────────────── */
 #appWrapper .terminal {
   flex: 1 1 auto;
@@ -8777,7 +8784,7 @@ select optgroup {
   border-bottom-color: var(--accent);
 }
 
-/* Кружок-превью темы красился одним и тем же `--ink-surface`, поэтому «Светлая»
+/* Кружок-прев��ю темы красился одним и тем же `--ink-surface`, поэтому «Светлая»
    и «Тёмная» выглядели одинаково тёмными. Теперь это мини-макет: бумага против
    чернил, внутри строки текста и акцентная точка. */
 #themeGrid .theme-preview {
@@ -8886,7 +8893,7 @@ select optgroup {
 /* --- Подключение Telegram: окно входа встроено iframe'ом. ---------------
    Раньше у iframe не было ни одного правила, поэтому браузер давал ему
    дефолтные 300x150 — внутри модалки сидела крошечная рамка с двумя полосами
-   прокрутки и своей карточкой. Высоту присылает сама страница входа
+   прокрутки и своей карточкой. Высоту присылает ��ама страница входа
    (mf:tg-height), здесь только стартовое значение и снятая рамка. */
 #modalTgConnect .modal {
   width: min(520px, 100%);
@@ -8977,7 +8984,7 @@ select optgroup {
   background: var(--accent-gradient);
 }
 
-/* Индикатор непрочитанного. У класса .ping не было ни одного правила — то есть
+/* Индикатор непрочитанно��о. У класса .ping не было ни одного правила — то есть
    человек не видел, что уведомление пришло. Теперь это счётчик, который мигает,
    пока список не открыли. */
 .global-actions .ping {
@@ -9499,7 +9506,7 @@ html[data-theme='light'] #loginScreen .zp-pricing {
 
 /* =========================================================================
    v48: правки владельца (2026-09-01 вечер).
-   1) Тёмный цвет сайта — графит 24/24/27 (задан в токенах; хекс здесь
+   1) Тёмный цве�� сайта — графит 24/24/27 (задан в токенах; хекс здесь
       не пишем — его ловит css-architecture-тест).
    2) Анимации плавнее: мягкая кривая, плавный скролл, фейд смены темы.
    3) Телефон: реалистичный корпус (титановая грань, чёрный борт, блик).
@@ -9642,19 +9649,31 @@ body,
 }
 #loginScreen .landing-brand-name {
   text-transform: lowercase;
-  font-weight: 700;
+  /* v48: без жирного. Правка именно здесь: этот блок идёт ниже по файлу
+     и перекрывал вес, выставленный выше. */
+  font-weight: 500;
+  /* v48: вордмарк обрезало снизу. Причина — семейство var(--font-display)
+     из talaria.css: это 'Playfair Display', которого НЕТ среди подключаемых
+     шрифтов (грузятся Inter, JetBrains Mono, Unbounded). Строка рисовалась
+     подстановочной Georgia с чужими вертикальными метриками и без явного
+     line-height не умещалась в строку. Берём Unbounded — он реально загружен. */
+  font-family: var(--tal-font-display);
+  line-height: 1.3;
+  padding-block: 2px;
 }
 /* Жирность: у тонких перьев добавляется обводка тем же цветом — глиф
    набирает вес без перерисовки контуров. */
+/* v48: обводка утоньшена — при 1.3 перья слипались в пятно на малых размерах. */
 #loginScreen .tl-logo g {
   stroke: var(--ink);
-  stroke-width: 1.3;
+  stroke-width: 0.5;
   stroke-linejoin: round;
   paint-order: stroke fill;
 }
 #loginScreen .fin-foot-logo g {
   stroke: var(--fin-ink);
-  stroke-width: 1.3;
+  /* v48: та же толщина, что у шапки и фавиконки. */
+  stroke-width: 0.5;
   stroke-linejoin: round;
   paint-order: stroke fill;
 }
@@ -9931,4 +9950,155 @@ body,
    монохром), белая галка на нём пропадала — чернила берём от темы. */
 #loginScreen .dlist .dchk {
   color: var(--bg);
+}
+
+/* ══ v48. Шапка лендинга: того самого, чего не хватало ══════════════════ */
+
+/* Шапка висела над страницей без единой границы: на светлом герое она
+   просто растворялась. Градиентная волосянка даёт край, но не чертит линейку. */
+#loginScreen .lp-nav::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--accent) 34%, transparent) 30%,
+    color-mix(in srgb, var(--accent-strong) 34%, transparent) 70%,
+    transparent
+  );
+  opacity: 0.7;
+  pointer-events: none;
+}
+
+/* Полоса прокрутки. animation-timeline считается браузером в отдельном
+   потоке, поэтому она не трясётся на длинной странице, в отличие от ручного
+   обработчика scroll. Где нет поддержки — полоса остаётся пустой и невидимой. */
+#loginScreen .lp-progress {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  overflow: hidden;
+  pointer-events: none;
+}
+#loginScreen .lp-progress i {
+  display: block;
+  width: 100%;
+  height: 100%;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+}
+@supports (animation-timeline: scroll()) {
+  #loginScreen .lp-progress i {
+    animation: lpProgress linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+@keyframes lpProgress {
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Признак живого сервиса слева в меню. */
+#loginScreen .nav-status {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 10px 4px 8px;
+  border: 1px solid color-mix(in srgb, var(--success) 32%, transparent);
+  border-radius: 99px;
+  color: var(--muted);
+  font-size: 10px;
+  gap: 6px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+#loginScreen .nav-status-dot {
+  width: 6px;
+  height: 6px;
+  flex: none;
+  border-radius: 50%;
+  background: var(--success);
+  box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 60%, transparent);
+  animation: navPulse 2.4s ease-out infinite;
+}
+@keyframes navPulse {
+  70% {
+    box-shadow: 0 0 0 7px color-mix(in srgb, var(--success) 0%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0 color-mix(in srgb, var(--success) 0%, transparent);
+  }
+}
+
+/* Пункты меню были просто текстом, который меняет цвет. Подчёркивание,
+   выезжающее от левого края, даёт отклик без смещения соседей. */
+#loginScreen .nav-side a {
+  position: relative;
+}
+#loginScreen .nav-side a::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  bottom: -5px;
+  left: 0;
+  height: 1px;
+  background: var(--accent-gradient);
+  transform: scaleX(0);
+  transform-origin: 0 50%;
+  transition: transform var(--motion-fast) var(--motion-ease);
+}
+#loginScreen .nav-side a:hover::after,
+#loginScreen .nav-side a:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/* Кнопка входа — главное действие шапки, но выглядела как обычная плашка.
+   Блик пробегает только по наведению — вечная анимация в шапке утомляет. */
+#loginScreen .lp-nav-cta {
+  position: relative;
+  overflow: hidden;
+}
+#loginScreen .lp-nav-cta::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -60%;
+  width: 40%;
+  background: linear-gradient(
+    100deg,
+    transparent,
+    color-mix(in srgb, var(--fog) 55%, transparent),
+    transparent
+  );
+  pointer-events: none;
+}
+#loginScreen .lp-nav-cta:hover::after {
+  animation: ctaSheen 0.75s var(--motion-ease) 1;
+}
+@keyframes ctaSheen {
+  to {
+    left: 120%;
+  }
+}
+
+@media (max-width: 900px) {
+  #loginScreen .nav-status {
+    display: none;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  #loginScreen .nav-status-dot,
+  #loginScreen .lp-nav-cta:hover::after,
+  #loginScreen .lp-progress i {
+    animation: none;
+  }
 }

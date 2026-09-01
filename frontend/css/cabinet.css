@@ -133,7 +133,8 @@
   /* v47: Unbounded шире Poppins ~1.25x — кегль и трекинг пересчитаны,
      иначе подпись упиралась в край сайдбара. */
   font-size: 18px;
-  font-weight: 700;
+  /* v48: без жирного — у Unbounded вес 500 подключён. */
+  font-weight: 500;
   letter-spacing: -0.01em;
   line-height: 1;
   text-transform: lowercase;
@@ -256,7 +257,7 @@
   font-size: 11px;
 }
 
-/* Свёрнутое меню: только иконки, подписи и вспомогательные блоки скрыты. */
+/* Свёрнутое меню: только иконки, подписи и вспомогат��льные блоки скрыты. */
 #appWrapper .app.sidebar-collapsed .brand-mark {
   display: grid;
   margin: 0 auto;
@@ -2212,7 +2213,8 @@ body > .toast-wrap {
   font-family: var(--cabp-font-brand);
   /* v47: Unbounded — кегль ниже (шире Poppins). */
   font-size: 13px;
-  font-weight: 700;
+  /* v48: без жирного. */
+  font-weight: 500;
   letter-spacing: -0.01em;
   text-transform: lowercase;
 }
@@ -2312,4 +2314,286 @@ body > .toast-wrap {
 }
 #loginScreen .aw-app .brand-tag {
   display: none;
+}
+
+/* ══ v48. Переписка ближе к настоящему Telegram ═══════════════════════ */
+
+/* Обои: у Telegram лента лежит на фоне с узором, а не на плоской панели.
+   Узор собран из повторяющихся радиальных пятен, а не из картинки: лишний
+   файл ради текстуры грузился бы при каждом открытии раздела. */
+#messages .chat-feed {
+  background:
+    radial-gradient(circle at 18% 22%, var(--cabp-tg-doodle) 0 2px, transparent 2px),
+    radial-gradient(circle at 68% 74%, var(--cabp-tg-doodle) 0 2px, transparent 2px),
+    linear-gradient(160deg, var(--cabp-tg-wall-a), var(--cabp-tg-wall-b));
+  background-size:
+    74px 74px,
+    96px 96px,
+    100% 100%;
+}
+#messages .cm-bubble {
+  border-color: transparent;
+  background: var(--cabp-tg-in);
+  box-shadow: 0 1px 1px color-mix(in srgb, var(--cabp-well) 22%, transparent);
+  color: var(--cabp-tg-text);
+}
+#messages .chat-msg.out .cm-bubble {
+  border-color: transparent;
+  background: var(--cabp-tg-out);
+}
+#messages .cm-meta {
+  color: color-mix(in srgb, var(--cabp-tg-text) 55%, transparent);
+}
+#messages .chat-msg.out .cm-meta,
+#messages .chat-msg.out .cm-tick {
+  color: var(--cabp-tg-time);
+}
+#messages .chat-msg.out .cm-tick {
+  color: var(--cabp-tg-check);
+}
+
+/* Дата и служебные отметки — полупрозрачные пилюли поверх обоев. */
+#messages .chat-day {
+  width: fit-content;
+  border: 0;
+  border-radius: 99px;
+  margin-inline: auto;
+  background: var(--cabp-tg-sys);
+  color: var(--cabp-tg-text);
+}
+#messages .chat-service {
+  width: fit-content;
+  margin: 8px auto;
+  padding: 3px 12px;
+  border-radius: 99px;
+  background: var(--cabp-tg-sys);
+  color: var(--cabp-tg-text);
+  font-size: 11.5px;
+}
+
+/* Картинка занимает всю ширину пузыря, текст идёт под ней — как в Telegram.
+   Поля по бокам делали вложение похожим на карточку, а не на фото. */
+#messages .cm-media {
+  min-height: 120px;
+  margin: -8px -12px 6px;
+  border-radius: 14px 14px 6px 6px;
+  background: color-mix(in srgb, var(--cabp-well) 30%, transparent);
+}
+#messages .cm-media.is-ready {
+  min-height: 0;
+  cursor: zoom-in;
+}
+#messages .cm-media img {
+  width: 100%;
+  max-height: 340px;
+  border-radius: 14px 14px 6px 6px;
+  object-fit: cover;
+}
+#messages .cm-media:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Просмотр картинки. <dialog> даёт бесплатно ESC, ловушку фокуса и подложку —
+   руками это три обработчика и неизбежная дыра в доступности. */
+.chat-lightbox {
+  overflow: hidden;
+  width: min(94vw, 1200px);
+  max-width: none;
+  height: min(92vh, 900px);
+  max-height: none;
+  padding: 0;
+  border: 0;
+  border-radius: var(--cab-radius);
+  background: transparent;
+}
+.chat-lightbox::backdrop {
+  backdrop-filter: blur(6px);
+  background: color-mix(in srgb, var(--cabp-well) 90%, transparent);
+}
+.chat-lightbox-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: zoom-in;
+  object-fit: contain;
+  transition: transform var(--motion-base) var(--motion-ease);
+}
+.chat-lightbox-img.is-zoomed {
+  cursor: zoom-out;
+  transform: scale(2);
+}
+.chat-lightbox-close {
+  position: absolute;
+  z-index: 2;
+  top: 12px;
+  right: 12px;
+  display: grid;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--cabp-well) 62%, transparent);
+  color: var(--cabp-on-well);
+  cursor: pointer;
+  place-items: center;
+}
+.chat-lightbox-close svg {
+  width: 18px;
+  height: 18px;
+}
+
+/* ══ v48. Режим фильтров: один переключатель и плавное раскрытие ═══ */
+
+#appWrapper .filter-mode-switch {
+  display: inline-flex;
+  align-items: center;
+  cursor: pointer;
+  font-size: 13px;
+  gap: 10px;
+}
+#appWrapper .filter-mode-switch input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
+}
+#appWrapper .fms-track {
+  position: relative;
+  display: inline-block;
+  width: 42px;
+  height: 24px;
+  flex: none;
+  border: 1px solid var(--cab-line);
+  border-radius: 99px;
+  background: var(--cab-fill);
+  transition:
+    background var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease);
+}
+#appWrapper .fms-track i {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--surface);
+  box-shadow: var(--shadow-small);
+  transition: transform var(--motion-fast) var(--motion-ease);
+}
+#appWrapper .filter-mode-switch input:checked + .fms-track {
+  border-color: var(--accent);
+  background: var(--accent);
+}
+#appWrapper .filter-mode-switch input:checked + .fms-track i {
+  transform: translateX(18px);
+}
+#appWrapper .filter-mode-switch input:focus-visible + .fms-track {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Плавное раскрытие. grid-template-rows: 0fr → 1fr анимирует РЕАЛЬНУЮ высоту
+   содержимого. max-height с запасом дал бы рывок в конце и провал пустого
+   места, когда полей меньше, чем запас. */
+#appWrapper .filter-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition:
+    grid-template-rows var(--motion-base) var(--motion-ease),
+    opacity var(--motion-fast) var(--motion-ease);
+}
+#appWrapper .filter-collapse.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+#appWrapper .filter-collapse-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+/* ══ v48. Кабинет: мелкая детализация ═════════════════════════════════ */
+
+/* Световая кромка по верху панели: плоские прямоугольники без единого
+   блика читаются как недорисованные. Прячем её от печати и от тех, кто
+   просил меньше движения. */
+#appWrapper .panel {
+  position: relative;
+}
+#appWrapper .panel::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 18px;
+  left: 18px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    color-mix(in srgb, var(--cabp-ink) 14%, transparent) 22%,
+    color-mix(in srgb, var(--cabp-ink) 14%, transparent) 78%,
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Заголовок раздела получает короткую акцентную засечку — глазу есть за что
+   зацепиться при прокрутке длинной страницы. */
+#appWrapper .page-title {
+  position: relative;
+  padding-left: 12px;
+}
+#appWrapper .page-title::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 3px;
+  height: 1em;
+  border-radius: 2px;
+  background: var(--accent-gradient);
+  transform: translateY(-50%);
+}
+
+/* Карточки поднимаются под курсором на один пиксель: хватает, чтобы понять
+   «это кликабельно», и не превращает список в батут. */
+#appWrapper .stat-card,
+#appWrapper .offer-kind-card {
+  transition:
+    transform var(--motion-fast) var(--motion-ease),
+    border-color var(--motion-fast) var(--motion-ease);
+}
+#appWrapper .stat-card:hover,
+#appWrapper .offer-kind-card:hover {
+  border-color: color-mix(in srgb, var(--accent) 34%, var(--cab-line));
+  transform: translateY(-1px);
+}
+
+/* Активный диалог — акцентная полоска слева вместо одной только заливки:
+   на тёмной теме заливка в 14% почти не читалась. */
+#messages .chat-dialog {
+  position: relative;
+}
+#messages .chat-dialog.active::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 2px;
+  width: 3px;
+  border-radius: 2px;
+  background: var(--accent-gradient);
+}
+
+/* Класс filter-mode-btn остаётся на переключателе: он зафиксирован
+   DOM-контрактом и его нельзя просто убрать. Кнопочное оформление при этом
+   снимаем — иначе тумблер выглядит как нажатая кнопка. */
+#appWrapper .filter-mode-btn.filter-mode-switch {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-weight: 500;
 }

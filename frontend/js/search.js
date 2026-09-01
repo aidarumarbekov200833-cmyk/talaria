@@ -180,17 +180,20 @@ function paintFilterMode() {
   if (panel) panel.classList.toggle('is-auto', auto);
   const note = document.getElementById('leadModeNote');
   if (note) note.textContent = auto ? RECOMMENDED_NOTE : MANUAL_NOTE;
-  [
-    ['leadModeAuto', auto],
-    ['leadModeManual', !auto],
-  ].forEach(([id, on]) => {
-    const button = document.getElementById(id);
-    if (!button) return;
-    button.classList.toggle('active', on);
-    button.setAttribute('aria-pressed', String(on));
-  });
+  const toggle = document.getElementById('leadModeToggle');
+  if (toggle) toggle.checked = !auto;
+  // Плавное раскрытие вместо мгновенного показа: в авто-режиме десяток запертых
+  // полей занимали полэкрана и только отвлекали.
+  const collapse = document.getElementById('leadFilterCollapse');
+  if (collapse) {
+    collapse.classList.toggle('is-open', !auto);
+    // Свёрнутый блок остаётся в дереве, поэтому его надо явно убрать из чтения
+    // с экрана — иначе скринридер диктует невидимые поля.
+    collapse.setAttribute('aria-hidden', String(auto));
+  }
   // В авто-режиме поля только для чтения: набор проверен, случайная правка
-  // ломает выдачу молча. Кнопка «Вручную» открывает всё одним нажатием.
+  // ломает выдачу молча. disabled нужен и при свёрнутом блоке: скрытые
+  // через grid-template-rows поля остаются доступны с клавиатуры.
   document.querySelectorAll('.lead-filter-grid input').forEach((input) => {
     input.disabled = auto;
   });
@@ -229,6 +232,15 @@ export function setLeadFilterMode(mode) {
   if (leadFilterMode === 'auto') applyRecommendedFilters();
   paintFilterMode();
   writeFilterState();
+}
+
+/** Переключатель «вручную». Отдельный вход, а не setLeadFilterMode напрямую:
+ *  событие change даёт сам чекбокс, и режим должен браться из его состояния,
+ *  иначе галочка и режим разъедутся при быстрых кликах. */
+export function toggleLeadFilterMode(input) {
+  const manual =
+    input && typeof input.checked === 'boolean' ? input.checked : leadFilterMode !== 'manual';
+  setLeadFilterMode(manual ? 'manual' : 'auto');
 }
 
 function restoreFilterState() {

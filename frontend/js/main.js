@@ -98,7 +98,10 @@ import {
   toggleChatPin,
   toggleChatMute,
   markChatDialogRead,
-} from './chat.js?v=tal35';
+  openChatImage,
+  closeChatImage,
+  toggleChatImageZoom,
+} from './chat.js?v=tal36';
 import { initSidebar, toggleSidebar } from './sidebar.js?v=tal34';
 import {
   initAccountMenu,
@@ -184,9 +187,10 @@ import {
   runCustomSearch,
   resetLeadFilters,
   setLeadFilterMode,
+  toggleLeadFilterMode,
   runTelegramVerification,
   cancelTelegramVerification,
-} from './search.js?v=talaria18';
+} from './search.js?v=talaria19';
 
 /* Модалка оффера должна сбрасывать режим редактирования при открытии. */
 function openModalWithReset(id) {
@@ -198,6 +202,10 @@ Object.assign(window, {
   // UI
   // Переписка
   initChat,
+  openChatImage,
+  closeChatImage,
+  toggleChatImageZoom,
+  toggleLeadFilterMode,
   openChatDialog,
   openChatLead,
   closeChatRoom,
