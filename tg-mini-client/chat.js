@@ -25,13 +25,30 @@ const MAX_PAGE = 100;
 
 // Кеш аватаров и картинок: и то и другое неизменно для своего ключа, а
 // повторное скачивание — это лишний раунд к серверам Telegram на каждый
-// прокрут списка. Ограничение по числу записей, а не по времени: файлы мелкие,
-// а вот выпустить память на волю в долгоживущем процессе нельзя.
+// прокрут списка.
 const MEDIA_CACHE_LIMIT = 300;
+// Лимит только по числу записей не защищал память: 300 картинок по ~4 МБ
+// (data-URL оригинала до 3 МБ + base64 на треть тяжелее) — это уже больше
+// гигабайта в долгоживущем процессе с mem_limit 768 МБ. Считаем и байты.
+const MEDIA_CACHE_BYTES = Math.max(
+  8 * 1024 * 1024,
+  Number(process.env.MEDIA_CACHE_BYTES) || 96 * 1024 * 1024
+);
 
 /** Маленький LRU: Map в JS хранит порядок вставки, этого достаточно. */
-function createCache(limit = MEDIA_CACHE_LIMIT) {
+function createCache(limit = MEDIA_CACHE_LIMIT, byteLimit = MEDIA_CACHE_BYTES) {
   const store = new Map();
+  let bytes = 0;
+  // Строки в V8 — UTF-16, но data-URL целиком из ASCII, поэтому length ≈
+  // байты полезной нагрузки; точность до множителя здесь не нужна.
+  const weight = (value) => (typeof value === "string" ? value.length : 0);
+  const evictOldest = () => {
+    const oldest = store.keys().next();
+    if (oldest.done) return false;
+    bytes -= weight(store.get(oldest.value));
+    store.delete(oldest.value);
+    return true;
+  };
   return {
     get(key) {
       if (!store.has(key)) return null;
@@ -42,19 +59,23 @@ function createCache(limit = MEDIA_CACHE_LIMIT) {
       return value;
     },
     set(key, value) {
-      if (store.has(key)) store.delete(key);
-      store.set(key, value);
-      while (store.size > limit) {
-        const oldest = store.keys().next();
-        if (oldest.done) break;
-        store.delete(oldest.value);
+      if (store.has(key)) {
+        bytes -= weight(store.get(key));
+        store.delete(key);
       }
+      store.set(key, value);
+      bytes += weight(value);
+      while ((store.size > limit || bytes > byteLimit) && evictOldest());
     },
     clear() {
       store.clear();
+      bytes = 0;
     },
     get size() {
       return store.size;
+    },
+    get bytes() {
+      return bytes;
     },
   };
 }

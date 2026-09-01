@@ -2,6 +2,7 @@ require("dotenv").config();
 
 const fs = require("fs");
 const { classifyIncoming } = require("./reply-filter");
+const { safeEqual } = require("./safe-equal");
 const sessionCrypto = require("./session-crypto");
 const chat = require("./chat");
 const path = require("path");
@@ -24,7 +25,15 @@ const SESSIONS_DIR = path.join(__dirname, "sessions");
 // Общий секрет с бэкендом. Роли две: (1) серверные ручки требуют его в
 // X-Send-Secret, (2) им подписаны билеты — по ним форма подключения понимает,
 // чью сессию открыть.
-const SEND_SECRET = process.env.TG_CLIENT_SECRET || "";
+// trim() — бэкенд делает .strip() при подписи билетов; невидимый пробел из
+// .env иначе тихо ломает и билеты, и X-Send-Secret сразу для всех запросов.
+const SEND_SECRET = String(process.env.TG_CLIENT_SECRET || "").trim();
+// Короткий секрет подбирается перебором, а падение здесь дешевле компрометации:
+// compose так же громко валится на ${VAR:?} для паролей БД.
+if (SEND_SECRET && SEND_SECRET.length < 32) {
+  console.error("TG_CLIENT_SECRET короче 32 символов — задайте длинный случайный секрет.");
+  process.exit(1);
+}
 // Куда сообщать, кто именно вошёл: бэкенд подпишет аккаунт к карточке в
 // настройках, чтобы человек не вводил ник руками.
 const SITE_API_URL = (process.env.SITE_API_URL || "http://backend:8000").replace(/\/+$/, "");
@@ -155,11 +164,14 @@ function saveSession(ownerId, accountId, sessionString) {
   fs.mkdirSync(SESSIONS_DIR, { recursive: true });
   // 0600 остаётся и после шифрования: права на файл — вторая линия, а не
   // замена первой.
-  fs.writeFileSync(
-    sessionFile(ownerId, accountId),
-    sessionCrypto.encrypt(sessionString, SESSION_KEY),
-    { encoding: "utf8", mode: 0o600 }
-  );
+  const file = sessionFile(ownerId, accountId);
+  fs.writeFileSync(file, sessionCrypto.encrypt(sessionString, SESSION_KEY), {
+    encoding: "utf8",
+    mode: 0o600,
+  });
+  // mode в writeFileSync действует только при создании файла; при перезаписи
+  // существующего права не меняются — возвращаем 0600 явно.
+  fs.chmodSync(file, 0o600);
 }
 
 /**
@@ -182,6 +194,9 @@ function encryptExistingSessions() {
         encoding: "utf8",
         mode: 0o600,
       });
+      // Файл существовал (мы его перешифровываем), поэтому mode выше не
+      // применился — ужесточаем права явно.
+      fs.chmodSync(file, 0o600);
       converted += 1;
     } catch (err) {
       console.error(`Не удалось зашифровать ${name}: ${err.message}`);
@@ -232,15 +247,10 @@ function sign(payload) {
 function readToken(token) {
   if (!SEND_SECRET || typeof token !== "string") return null;
   const parts = token.split(".");
-  // Старый трёхчастный билет <owner>.<exp>.<sig> — вкладка, открытая до
-  // обновления. Приводим к главному аккаунту, чтобы не выкидывать человека.
-  if (parts.length === 3) {
-    const [ownerId, exp, sig] = parts;
-    if (!/^\d+$/.test(ownerId) || !/^\d+$/.test(exp)) return null;
-    if (!sigOk(`${ownerId}.${exp}`, sig)) return null;
-    if (Number(exp) < Math.floor(Date.now() / 1000)) return null;
-    return { ownerId, accountId: "0", primary: true };
-  }
+  // Бэкенд давно выдаёт только пятичастные билеты <owner>.<account>.<flags>.
+  // <exp>.<sig>. Поддержку старого трёхчастного формата убрали: вкладок,
+  // открытых до того обновления, не осталось, а лишний формат — лишняя
+  // поверхность разбора на неаутентифицированном входе.
   if (parts.length !== 5) return null;
   const [ownerId, accountId, flags, exp, sig] = parts;
   if (![ownerId, accountId, flags, exp].every((v) => /^\d+$/.test(v))) return null;
@@ -250,18 +260,13 @@ function readToken(token) {
 }
 
 function sigOk(payload, sig) {
-  const expected = sign(payload);
-  if (typeof sig !== "string" || sig.length !== expected.length) return false;
-  // timingSafeEqual — чтобы подпись нельзя было угадать по времени ответа.
-  return crypto.timingSafeEqual(Buffer.from(sig), Buffer.from(expected));
+  return safeEqual(sig, sign(payload));
 }
 
 /** Проверка серверного секрета для ручек, которые зовёт бэкенд. */
 function secretOk(req) {
   if (!SEND_SECRET) return false;
-  const got = req.get("X-Send-Secret") || "";
-  if (got.length !== SEND_SECRET.length) return false;
-  return crypto.timingSafeEqual(Buffer.from(got), Buffer.from(SEND_SECRET));
+  return safeEqual(req.get("X-Send-Secret") || "", SEND_SECRET);
 }
 
 /** Браузерный WebSocket принимаем только со страницы на том же host.
@@ -421,6 +426,11 @@ async function getEntry(ownerId, accountId, { requireSession = false } = {}) {
       autoReconnect: true,
       // Без этого GramJS сыплет в stdout служебные логи на каждый пакет.
       baseLogger: undefined,
+      // По умолчанию GramJS молча спит до 60 с на FLOOD_WAIT — HTTP-запрос
+      // бэкенда (таймаут 45 с) обрывался раньше, и исход отправки становился
+      // неизвестным. Короткие паузы пересиживаем, длинные отдаём ошибкой
+      // FLOOD_WAIT_N с retry_after — бэкенд умеет её обрабатывать.
+      floodSleepThreshold: 5,
     });
     client.setLogLevel("error");
     await client.connect();
@@ -437,6 +447,13 @@ async function getEntry(ownerId, accountId, { requireSession = false } = {}) {
       replyWatches: new Map(),
       bound: false,
       listeners: new Set(),
+      // Хвост последовательности операций аккаунта: MTProto-сессия одна, и
+      // параллельные вызовы к ней перемешиваются (вплоть до FLOOD_WAIT).
+      // withClient выстраивает вызовы к одному аккаунту в очередь.
+      opChain: Promise.resolve(),
+      // Признак идущего входа: два client.start() на одном клиенте (две
+      // вкладки формы подключения) перемешивают этапы авторизации.
+      authBusy: false,
     };
     registry.set(key, entry);
     return entry;
@@ -455,8 +472,16 @@ async function withClient(ownerId, accountId, fn, opts) {
   const entry = await getEntry(ownerId, accountId, opts);
   entry.refs += 1;
   cancelIdle(entry);
+  // Сериализация на аккаунт: вызовы к одной MTProto-сессии идут по очереди,
+  // к разным аккаунтам — параллельно. Ошибка предыдущей операции не должна
+  // рвать цепочку (catch), иначе одна неудача подвесила бы весь аккаунт.
+  const run = entry.opChain.then(() => fn(entry.client, entry));
+  entry.opChain = run.then(
+    () => undefined,
+    () => undefined
+  );
   try {
-    return await fn(entry.client, entry);
+    return await run;
   } finally {
     entry.refs = Math.max(0, entry.refs - 1);
     scheduleIdle(entry.key);
@@ -585,7 +610,9 @@ function exactServerContext(req, res) {
 }
 
 app.get("/health", (_req, res) => {
-  res.json({ ok: true, sessions: registry.size });
+  // Количество живых MTProto-сессий — внутренняя телеметрия; наружу ручка
+  // отдаёт только «жив». Число сессий доступно серверным ручкам по секрету.
+  res.json({ ok: true });
 });
 
 app.post("/session/status", async (req, res) => {
@@ -1592,8 +1619,19 @@ wss.on("connection", async (ws, req) => {
   };
 
   const runLogin = async () => {
-    await entry.client.start(authParams);
-    saveSession(ownerId, accountId, entry.client.session.save());
+    // Две вкладки формы подключения = два client.start() на одном клиенте:
+    // GramJS перемешивает этапы (лишний sendCode → FLOOD_WAIT). Второй
+    // конкурентный вход отклоняем сразу с понятным текстом.
+    if (entry.authBusy) {
+      throw new Error("Вход уже выполняется в другом окне — завершите его или закройте лишнюю вкладку");
+    }
+    entry.authBusy = true;
+    try {
+      await entry.client.start(authParams);
+      saveSession(ownerId, accountId, entry.client.session.save());
+    } finally {
+      entry.authBusy = false;
+    }
     await afterLogin();
   };
 

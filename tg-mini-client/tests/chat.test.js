@@ -186,6 +186,28 @@ test("кеш отличает пустую строку от отсутстви�
   assert.equal(cache.get("missing"), null);
 });
 
+test("кеш вытесняет по совокупному объёму, а не только по числу записей", () => {
+  // 300 записей по ~4 МБ съели бы больше гигабайта при mem_limit 768 МБ —
+  // байтовый лимит должен сработать раньше лимита записей.
+  const cache = chat.createCache(10, 10);
+  cache.set("a", "12345"); // 5 байт
+  cache.set("b", "12345"); // 10 байт — на пределе
+  cache.set("c", "1");     // 11 байт — «a» должна уйти
+  assert.equal(cache.get("a"), null);
+  assert.equal(cache.get("b"), "12345");
+  assert.equal(cache.get("c"), "1");
+  assert.equal(cache.bytes, 6);
+});
+
+test("кеш: перезапись ключа не раздувает счётчик байтов", () => {
+  const cache = chat.createCache(10, 100);
+  cache.set("a", "12345678");
+  cache.set("a", "12");
+  assert.equal(cache.bytes, 2);
+  cache.clear();
+  assert.equal(cache.bytes, 0);
+});
+
 // --- Списки через поддельный клиент ---------------------------------------
 
 function fakeDialog(overrides = {}) {
