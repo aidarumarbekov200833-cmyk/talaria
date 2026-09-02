@@ -169,24 +169,50 @@
     "tag": "div"
   },
   {
-    "classes": ["login-screen"],
+    "classes": ["login-screen", "tl"],
     "id": "loginScreen",
     "tag": "div"
   },
   {
-    "classes": ["login-page", "zd-page"],
-    "tag": "div"
-  },
-  {
-    "classes": ["lp-nav", "zd-nav"],
+    "classes": ["tl-nav"],
+    "id": "top",
     "tag": "header"
   },
   {
-    "classes": ["nav-in"],
-    "tag": "div"
+    "classes": ["tl-brand"],
+    "tag": "a"
   },
   {
-    "classes": ["nav-side", "nav-left"],
+    "classes": ["tl-mark"],
+    "tag": "svg"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": [],
+    "tag": "path"
+  },
+  {
+    "classes": ["landing-brand-name"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-links"],
+    "id": "tlLinks",
     "tag": "nav"
   },
   {
@@ -206,72 +232,11 @@
     "tag": "a"
   },
   {
-    "classes": [],
-    "tag": "a"
-  },
-  {
-    "classes": ["brand", "landing-brand"],
-    "tag": "a"
-  },
-  {
-    "classes": ["tl-logo"],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "defs"
-  },
-  {
-    "classes": [],
-    "id": "lgW",
-    "tag": "lineargradient"
-  },
-  {
-    "classes": [],
-    "tag": "stop"
-  },
-  {
-    "classes": [],
-    "tag": "stop"
-  },
-  {
-    "classes": [],
-    "tag": "stop"
-  },
-  {
-    "classes": [],
-    "tag": "g"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["tl-f"],
-    "tag": "path"
-  },
-  {
-    "classes": ["tl-f"],
-    "tag": "path"
-  },
-  {
-    "classes": ["tl-f"],
-    "tag": "path"
-  },
-  {
-    "classes": ["landing-brand-name"],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-side", "nav-right"],
+    "classes": ["tl-nav-right"],
     "tag": "div"
   },
   {
-    "classes": ["tswitch", "landing-theme-toggle"],
+    "classes": ["tl-icon", "landing-theme-toggle"],
     "id": "tsw",
     "tag": "button"
   },
@@ -296,7 +261,7 @@
     "tag": "path"
   },
   {
-    "classes": ["cta", "lp-nav-cta"],
+    "classes": ["tl-btn", "tl-btn-solid", "tl-nav-login"],
     "data-telegram-login-trigger": {
       "present": true,
       "value": null
@@ -310,83 +275,54 @@
     "tag": "span"
   },
   {
-    "classes": ["lp-nav-cta-label"],
+    "classes": [],
     "id": "navLoginLabel",
     "tag": "span"
   },
   {
-    "classes": ["lp-progress"],
-    "tag": "div"
+    "classes": ["tl-icon", "tl-burger"],
+    "id": "tlBurger",
+    "tag": "button"
   },
   {
     "classes": [],
     "tag": "i"
   },
   {
-    "classes": ["zp-main"],
-    "id": "zdTop",
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["tl-main"],
     "tag": "main"
   },
   {
-    "classes": ["zp-hero"],
-    "id": "top",
+    "classes": ["tl-hero"],
     "tag": "section"
   },
   {
-    "classes": [],
-    "id": "stars",
-    "tag": "canvas"
-  },
-  {
-    "classes": [],
+    "classes": ["tl-hero-copy"],
     "tag": "div"
   },
   {
-    "classes": ["mono", "rv", "on"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
+    "classes": ["tl-h1"],
+    "id": "tlHeroTitle",
     "tag": "h1"
   },
   {
-    "classes": ["ln"],
-    "tag": "span"
-  },
-  {
     "classes": [],
-    "tag": "span"
+    "tag": "br"
   },
   {
-    "classes": ["ln"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["ln"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["pinkt"],
-    "tag": "span"
-  },
-  {
-    "classes": ["rv", "on"],
+    "classes": ["tl-lead"],
     "tag": "p"
   },
   {
-    "classes": ["hbtns", "rv", "on"],
+    "classes": ["tl-cta-row"],
     "tag": "div"
   },
   {
-    "classes": ["cta"],
+    "classes": ["tl-btn", "tl-btn-solid", "tl-btn-lg"],
     "data-telegram-login-trigger": {
       "present": true,
       "value": null
@@ -394,72 +330,36 @@
     "tag": "a"
   },
   {
-    "classes": ["ghost"],
+    "classes": ["tl-btn", "tl-btn-ghost", "tl-btn-lg"],
     "tag": "a"
   },
   {
-    "classes": ["hero-free", "rv", "on"],
-    "tag": "p"
+    "classes": ["tl-hero-visual"],
+    "tag": "div"
   },
   {
-    "classes": [],
+    "classes": ["tl-phone"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-screen"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-ph-top"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-ph-time"],
     "tag": "span"
   },
   {
-    "classes": ["hero-snippet", "rv", "on"],
-    "tag": "div"
-  },
-  {
-    "classes": ["hero-snippet-head"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mono"],
+    "classes": ["tl-ph-island"],
     "tag": "span"
   },
   {
-    "classes": ["mono"],
+    "classes": ["tl-ph-sig"],
     "tag": "span"
-  },
-  {
-    "classes": ["hero-snippet-body"],
-    "tag": "p"
-  },
-  {
-    "classes": ["tg-login-slot", "zd-legacy-login-slot"],
-    "id": "tg-widget-container",
-    "tag": "div"
-  },
-  {
-    "classes": ["tg-btn"],
-    "data-telegram-login-trigger": {
-      "present": true,
-      "value": null
-    },
-    "id": "heroTelegramLoginBtn",
-    "tag": "button"
-  },
-  {
-    "classes": ["tg-btn"],
-    "id": "demoLoginBtn",
-    "tag": "button"
-  },
-  {
-    "classes": ["login-hint"],
-    "id": "loginHint",
-    "tag": "p"
-  },
-  {
-    "classes": ["hero-login-fallback-end"],
-    "tag": "div"
-  },
-  {
-    "classes": ["hero-term", "rv", "on"],
-    "tag": "div"
-  },
-  {
-    "classes": ["ht-bar"],
-    "tag": "div"
   },
   {
     "classes": [],
@@ -474,198 +374,12 @@
     "tag": "i"
   },
   {
-    "classes": ["mono"],
-    "tag": "span"
-  },
-  {
-    "classes": ["ht-body"],
-    "id": "heroTerm",
-    "tag": "div"
-  },
-  {
-    "classes": ["zp-control-grid"],
-    "tag": "section"
-  },
-  {
-    "classes": ["wrap"],
-    "tag": "div"
-  },
-  {
-    "classes": ["rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mono"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h2"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["dlist"],
-    "tag": "ul"
-  },
-  {
-    "classes": [],
-    "tag": "li"
-  },
-  {
-    "classes": ["dchk"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "li"
-  },
-  {
-    "classes": ["dchk"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "li"
-  },
-  {
-    "classes": ["dchk"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["ghost"],
-    "tag": "a"
-  },
-  {
-    "classes": ["ph-stage", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["phone"],
-    "tag": "div"
-  },
-  {
-    "classes": ["ph-key", "ph-key-mute"],
-    "tag": "span"
-  },
-  {
-    "classes": ["ph-key", "ph-key-up"],
-    "tag": "span"
-  },
-  {
-    "classes": ["ph-key", "ph-key-down"],
-    "tag": "span"
-  },
-  {
-    "classes": ["ph-key", "ph-key-power"],
-    "tag": "span"
-  },
-  {
-    "classes": ["ph-scr"],
-    "tag": "div"
-  },
-  {
-    "classes": ["ph-island"],
-    "tag": "div"
-  },
-  {
-    "classes": ["ph-cam"],
-    "tag": "i"
-  },
-  {
-    "classes": ["ph-status"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "id": "tgClock",
-    "tag": "span"
-  },
-  {
-    "classes": ["ph-sig"],
-    "tag": "span"
-  },
-  {
-    "classes": ["ph-i"],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": ["ph-i"],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": ["ph-bat"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["ph-notice"],
+    "classes": ["tl-ph-notice"],
     "id": "phNotice",
     "tag": "div"
   },
   {
-    "classes": ["ph-notice-mark"],
+    "classes": ["tl-ph-notice-mark"],
     "tag": "span"
   },
   {
@@ -685,7 +399,7 @@
     "tag": "path"
   },
   {
-    "classes": ["ph-notice-copy"],
+    "classes": ["tl-ph-notice-copy"],
     "tag": "span"
   },
   {
@@ -694,35 +408,19 @@
   },
   {
     "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["tg-head"],
-    "tag": "div"
-  },
-  {
-    "classes": ["tg-back"],
     "tag": "span"
   },
   {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["tg-unread"],
-    "tag": "i"
-  },
-  {
-    "classes": ["tg-title"],
+    "classes": ["tl-ph-head"],
     "tag": "div"
+  },
+  {
+    "classes": ["tl-ph-ava"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-ph-who"],
+    "tag": "span"
   },
   {
     "classes": [],
@@ -734,1860 +432,28 @@
     "tag": "small"
   },
   {
-    "classes": ["tg-ava"],
-    "tag": "span"
-  },
-  {
-    "classes": ["tg-body"],
+    "classes": ["tl-ph-chat"],
     "id": "chat",
     "tag": "div"
   },
   {
-    "classes": ["tg-input"],
+    "classes": ["tl-ph-input"],
     "tag": "div"
   },
   {
-    "classes": ["tg-clip"],
+    "classes": [],
     "tag": "span"
   },
   {
-    "classes": [],
-    "tag": "svg"
+    "classes": ["tl-hero-note"],
+    "tag": "p"
   },
   {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["fld"],
-    "tag": "span"
-  },
-  {
-    "classes": ["tg-sticker"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["tg-mic"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["ph-home"],
-    "tag": "div"
-  },
-  {
-    "classes": ["zp-niches"],
+    "classes": ["tl-pulse"],
     "tag": "section"
   },
   {
-    "classes": ["mq"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mq-track"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mq-row"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-row"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-item"],
-    "tag": "span"
-  },
-  {
-    "classes": ["mq-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-capabilities"],
-    "id": "features",
-    "tag": "section"
-  },
-  {
-    "classes": ["wrap"],
-    "tag": "div"
-  },
-  {
-    "classes": ["shead", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mono"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h2"
-  },
-  {
-    "classes": ["fgrid"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fb"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fn"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["fcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fb"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fn"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["fcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fb"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fn"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["fcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fb"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fn"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["fcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fb"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fn"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["fcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fb"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fn"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": [],
-    "tag": "p"
-  },
-  {
-    "classes": ["zp-workflow"],
-    "id": "how",
-    "tag": "section"
-  },
-  {
-    "classes": ["wrap"],
-    "tag": "div"
-  },
-  {
-    "classes": ["shead", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mono"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h2"
-  },
-  {
-    "classes": ["aw-swipe-hint"],
-    "tag": "p"
-  },
-  {
-    "classes": ["appwin-scale", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["aw-frame"],
-    "tag": "div"
-  },
-  {
-    "classes": ["aw-frame-tag"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["appwin"],
-    "tag": "div"
-  },
-  {
-    "classes": ["aw-bar"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["aw-url"],
-    "tag": "span"
-  },
-  {
-    "classes": ["awcur"],
-    "id": "awCur",
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["app", "aw-app"],
-    "tag": "div"
-  },
-  {
-    "classes": ["sidebar"],
-    "tag": "aside"
-  },
-  {
-    "classes": ["brand"],
-    "tag": "div"
-  },
-  {
-    "classes": ["brand-mark"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["tl-f"],
-    "tag": "path"
-  },
-  {
-    "classes": ["tl-f"],
-    "tag": "path"
-  },
-  {
-    "classes": ["tl-f"],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": ["brand-name"],
-    "tag": "div"
-  },
-  {
-    "classes": ["brand-tag"],
-    "tag": "div"
-  },
-  {
-    "classes": ["nav"],
-    "tag": "nav"
-  },
-  {
-    "classes": ["nav-group"],
-    "tag": "div"
-  },
-  {
-    "classes": ["nav-group-label"],
-    "tag": "div"
-  },
-  {
-    "classes": ["nav-item"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-item", "active"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-count"],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-item"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "ellipse"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-count"],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-group"],
-    "tag": "div"
-  },
-  {
-    "classes": ["nav-group-label"],
-    "tag": "div"
-  },
-  {
-    "classes": ["nav-item"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-count"],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-item"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "rect"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-count"],
-    "tag": "span"
-  },
-  {
-    "classes": ["nav-group"],
-    "tag": "div"
-  },
-  {
-    "classes": ["nav-group-label"],
-    "tag": "div"
-  },
-  {
-    "classes": ["nav-item"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "circle"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["sidebar-foot"],
-    "tag": "div"
-  },
-  {
-    "classes": ["aw-quota"],
-    "tag": "div"
-  },
-  {
-    "classes": ["aw-quota-top"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["aw-quota-bar"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["sidebar-session"],
-    "tag": "div"
-  },
-  {
-    "classes": ["sidebar-ava"],
-    "tag": "span"
-  },
-  {
-    "classes": ["sidebar-session-copy"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["sidebar-live"],
-    "tag": "i"
-  },
-  {
-    "classes": ["main"],
-    "tag": "main"
-  },
-  {
-    "classes": ["aw-scene", "on"],
-    "tag": "section"
-  },
-  {
-    "classes": ["topbar"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": ["page-title"],
-    "tag": "div"
-  },
-  {
-    "classes": ["page-sub"],
-    "tag": "div"
-  },
-  {
-    "classes": ["topbar-right"],
-    "tag": "div"
-  },
-  {
-    "classes": ["dashboard-clock"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": ["btn", "header-primary"],
-    "tag": "span"
-  },
-  {
-    "classes": ["content"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel-head"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["field-hint"],
-    "tag": "div"
-  },
-  {
-    "classes": ["btn", "ghost"],
-    "tag": "span"
-  },
-  {
-    "classes": ["lead-filter-grid"],
-    "tag": "div"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": ["input-mock"],
-    "tag": "span"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": ["input-mock"],
-    "tag": "span"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": ["input-mock"],
-    "tag": "span"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": ["input-mock"],
-    "tag": "span"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": ["input-mock"],
-    "tag": "span"
-  },
-  {
-    "classes": ["field"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "label"
-  },
-  {
-    "classes": ["input-mock"],
-    "tag": "span"
-  },
-  {
-    "classes": ["chip-row"],
-    "tag": "div"
-  },
-  {
-    "classes": ["chip", "accent"],
-    "tag": "span"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["grid", "grid-3", "demo-kpis"],
-    "tag": "div"
-  },
-  {
-    "classes": ["stat-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["stat-label"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-value"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["stat-label"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-value"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["stat-label"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-value"],
-    "tag": "span"
-  },
-  {
-    "classes": ["table-wrap"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "table"
-  },
-  {
-    "classes": [],
-    "tag": "thead"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "tbody"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["score"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge", "hot"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["score"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge", "hot"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["score"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge", "warm"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["score"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge", "warm"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["score"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge", "cold"],
-    "tag": "span"
-  },
-  {
-    "classes": ["aw-scene"],
-    "tag": "section"
-  },
-  {
-    "classes": ["topbar"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": ["page-title"],
-    "tag": "div"
-  },
-  {
-    "classes": ["page-sub"],
-    "tag": "div"
-  },
-  {
-    "classes": ["topbar-right"],
-    "tag": "div"
-  },
-  {
-    "classes": ["dashboard-clock"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": ["btn", "header-primary"],
-    "tag": "span"
-  },
-  {
-    "classes": ["content"],
-    "tag": "div"
-  },
-  {
-    "classes": ["offer-grid"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel", "offer-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel-head"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["field-hint"],
-    "tag": "div"
-  },
-  {
-    "classes": ["badge", "success"],
-    "tag": "span"
-  },
-  {
-    "classes": ["offer-preview"],
-    "tag": "p"
-  },
-  {
-    "classes": ["offer-foot"],
-    "tag": "div"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["btn", "ghost"],
-    "tag": "span"
-  },
-  {
-    "classes": ["panel", "offer-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel-head"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["field-hint"],
-    "tag": "div"
-  },
-  {
-    "classes": ["badge", "success"],
-    "tag": "span"
-  },
-  {
-    "classes": ["offer-preview"],
-    "tag": "p"
-  },
-  {
-    "classes": ["offer-foot"],
-    "tag": "div"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["btn", "ghost"],
-    "tag": "span"
-  },
-  {
-    "classes": ["panel", "offer-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel-head"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["field-hint"],
-    "tag": "div"
-  },
-  {
-    "classes": ["badge"],
-    "tag": "span"
-  },
-  {
-    "classes": ["offer-preview"],
-    "tag": "p"
-  },
-  {
-    "classes": ["offer-foot"],
-    "tag": "div"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["chip"],
-    "tag": "span"
-  },
-  {
-    "classes": ["btn", "ghost"],
-    "tag": "span"
-  },
-  {
-    "classes": ["aw-scene"],
-    "tag": "section"
-  },
-  {
-    "classes": ["topbar"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": ["page-title"],
-    "tag": "div"
-  },
-  {
-    "classes": ["page-sub"],
-    "tag": "div"
-  },
-  {
-    "classes": ["topbar-right"],
-    "tag": "div"
-  },
-  {
-    "classes": ["dashboard-clock"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": ["btn", "header-primary"],
-    "tag": "span"
-  },
-  {
-    "classes": ["content"],
-    "tag": "div"
-  },
-  {
-    "classes": ["grid", "grid-3", "demo-kpis"],
-    "tag": "div"
-  },
-  {
-    "classes": ["stat-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["stat-label"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-value"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["stat-label"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-value"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-card"],
-    "tag": "div"
-  },
-  {
-    "classes": ["stat-label"],
-    "tag": "span"
-  },
-  {
-    "classes": ["stat-value"],
-    "tag": "span"
-  },
-  {
-    "classes": ["panel"],
-    "tag": "div"
-  },
-  {
-    "classes": ["panel-head"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "h3"
-  },
-  {
-    "classes": ["field-hint"],
-    "tag": "div"
-  },
-  {
-    "classes": ["badge", "success"],
-    "tag": "span"
-  },
-  {
-    "classes": ["run-bar"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["run-legend"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["table-wrap"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "table"
-  },
-  {
-    "classes": [],
-    "tag": "thead"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "th"
-  },
-  {
-    "classes": [],
-    "tag": "tbody"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge", "success"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge", "success"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "tr"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["cell-lead"],
-    "tag": "span"
-  },
-  {
-    "classes": ["cell-ava"],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": [],
-    "tag": "td"
-  },
-  {
-    "classes": ["badge"],
-    "tag": "span"
-  },
-  {
-    "classes": ["aw-track"],
-    "tag": "ul"
-  },
-  {
-    "classes": ["aw-seg", "on"],
-    "tag": "li"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["aw-seg"],
-    "tag": "li"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["aw-seg"],
-    "tag": "li"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-stats"],
-    "id": "pulse",
-    "tag": "section"
-  },
-  {
-    "classes": ["wrap"],
-    "tag": "div"
-  },
-  {
-    "classes": ["shead", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mono"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h2"
-  },
-  {
-    "classes": ["pulse-g"],
-    "tag": "div"
-  },
-  {
-    "classes": ["rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["live-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["bignum"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["bigsub"],
-    "tag": "div"
-  },
-  {
-    "classes": ["minirow"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mini"],
+    "classes": ["tl-pulse-item"],
     "tag": "div"
   },
   {
@@ -2599,7 +465,7 @@
     "tag": "span"
   },
   {
-    "classes": ["mini"],
+    "classes": ["tl-pulse-item"],
     "tag": "div"
   },
   {
@@ -2611,7 +477,7 @@
     "tag": "span"
   },
   {
-    "classes": ["mini"],
+    "classes": ["tl-pulse-item"],
     "tag": "div"
   },
   {
@@ -2623,156 +489,95 @@
     "tag": "span"
   },
   {
-    "classes": ["pulse-note"],
+    "classes": ["tl-pulse-status"],
     "id": "publicStatsStatus",
     "tag": "p"
   },
   {
-    "classes": ["pulse-note"],
-    "tag": "p"
+    "classes": ["tl-how"],
+    "id": "how",
+    "tag": "section"
   },
   {
-    "classes": ["feed", "rv"],
+    "classes": ["tl-how-side"],
     "tag": "div"
   },
   {
-    "classes": ["feed-h"],
-    "tag": "div"
+    "classes": ["tl-h2"],
+    "id": "tlHowTitle",
+    "tag": "h2"
   },
   {
-    "classes": ["live-dot"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["feed-b"],
-    "id": "feedB",
-    "tag": "div"
-  },
-  {
-    "classes": ["fun"],
-    "id": "funList",
+    "classes": ["tl-steps"],
+    "id": "tlSteps",
     "tag": "ol"
   },
   {
-    "classes": ["fun-row"],
+    "classes": ["is-on"],
     "tag": "li"
   },
   {
-    "classes": ["fun-k"],
-    "tag": "span"
-  },
-  {
-    "classes": ["fun-bar"],
+    "classes": [],
     "tag": "span"
   },
   {
     "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["fun-v"],
-    "tag": "b"
-  },
-  {
-    "classes": ["fun-row"],
     "tag": "li"
   },
   {
-    "classes": ["fun-k"],
-    "tag": "span"
-  },
-  {
-    "classes": ["fun-bar"],
+    "classes": [],
     "tag": "span"
   },
   {
     "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["fun-v"],
-    "tag": "b"
-  },
-  {
-    "classes": ["fun-row"],
     "tag": "li"
   },
   {
-    "classes": ["fun-k"],
-    "tag": "span"
-  },
-  {
-    "classes": ["fun-bar"],
+    "classes": [],
     "tag": "span"
   },
   {
     "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["fun-v"],
-    "tag": "b"
-  },
-  {
-    "classes": ["fun-row"],
     "tag": "li"
   },
   {
-    "classes": ["fun-k"],
-    "tag": "span"
-  },
-  {
-    "classes": ["fun-bar"],
-    "tag": "span"
-  },
-  {
     "classes": [],
-    "tag": "i"
+    "tag": "span"
   },
   {
-    "classes": ["fun-v"],
-    "tag": "b"
-  },
-  {
-    "classes": ["fun-note"],
-    "id": "funnelNote",
-    "tag": "p"
-  },
-  {
-    "classes": ["zp-account-band"],
-    "tag": "section"
-  },
-  {
-    "classes": ["wrap"],
+    "classes": ["tl-how-flow"],
     "tag": "div"
   },
   {
-    "classes": ["ab-in", "rv"],
+    "classes": ["tl-panel", "rv"],
+    "tag": "article"
+  },
+  {
+    "classes": ["tl-panel-ui"],
     "tag": "div"
   },
   {
-    "classes": ["ab-copy"],
+    "classes": ["tl-chips"],
     "tag": "div"
   },
   {
-    "classes": ["mono"],
+    "classes": ["is-on"],
     "tag": "span"
   },
   {
     "classes": [],
-    "id": "zdAccountTitle",
-    "tag": "h2"
+    "tag": "span"
   },
   {
     "classes": [],
-    "tag": "p"
+    "tag": "span"
   },
   {
-    "classes": ["ab-list"],
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-found"],
     "tag": "ul"
   },
   {
@@ -2780,73 +585,56 @@
     "tag": "li"
   },
   {
+    "classes": ["tl-found-ava"],
+    "tag": "span"
+  },
+  {
     "classes": [],
     "tag": "b"
   },
   {
     "classes": [],
-    "tag": "span"
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "tag": "em"
+  },
+  {
+    "classes": [],
+    "tag": "i"
   },
   {
     "classes": [],
     "tag": "li"
   },
   {
+    "classes": ["tl-found-ava"],
+    "tag": "span"
+  },
+  {
     "classes": [],
     "tag": "b"
   },
   {
     "classes": [],
-    "tag": "span"
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "tag": "em"
+  },
+  {
+    "classes": [],
+    "tag": "i"
   },
   {
     "classes": [],
     "tag": "li"
   },
   {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": [],
+    "classes": ["tl-found-ava"],
     "tag": "span"
-  },
-  {
-    "classes": ["zp-faq"],
-    "id": "faq",
-    "tag": "section"
-  },
-  {
-    "classes": ["wrap", "faq-grid"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-side"],
-    "tag": "div"
-  },
-  {
-    "classes": ["shead", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mono"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h2"
-  },
-  {
-    "classes": ["faq-lede"],
-    "tag": "p"
-  },
-  {
-    "classes": ["faq-facts", "rv"],
-    "tag": "ul"
-  },
-  {
-    "classes": [],
-    "tag": "li"
   },
   {
     "classes": [],
@@ -2854,7 +642,47 @@
   },
   {
     "classes": [],
-    "tag": "li"
+    "tag": "small"
+  },
+  {
+    "classes": [],
+    "tag": "em"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["tl-panel-copy"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-panel", "rv"],
+    "tag": "article"
+  },
+  {
+    "classes": ["tl-panel-ui"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-ctx"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-ctx-head"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-found-ava"],
+    "tag": "span"
   },
   {
     "classes": [],
@@ -2862,685 +690,10 @@
   },
   {
     "classes": [],
-    "tag": "li"
-  },
-  {
-    "classes": [],
-    "tag": "b"
-  },
-  {
-    "classes": ["faq-chat", "rv"],
-    "id": "faqChat",
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-item"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-q"],
-    "id": "faqQ1",
-    "tag": "button"
-  },
-  {
-    "classes": ["faq-tick"],
-    "tag": "span"
-  },
-  {
-    "classes": ["faq-a"],
-    "id": "faqA1",
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-a-clip"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-typing"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["faq-bubble"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-ava"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "g"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["faq-body"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
     "tag": "small"
   },
   {
-    "classes": ["faq-item"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-q"],
-    "id": "faqQ2",
-    "tag": "button"
-  },
-  {
-    "classes": ["faq-tick"],
-    "tag": "span"
-  },
-  {
-    "classes": ["faq-a"],
-    "id": "faqA2",
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-a-clip"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-typing"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["faq-bubble"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-ava"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "g"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["faq-body"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["faq-item"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-q"],
-    "id": "faqQ3",
-    "tag": "button"
-  },
-  {
-    "classes": ["faq-tick"],
-    "tag": "span"
-  },
-  {
-    "classes": ["faq-a"],
-    "id": "faqA3",
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-a-clip"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-typing"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["faq-bubble"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-ava"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "g"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["faq-body"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["faq-item"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-q"],
-    "id": "faqQ4",
-    "tag": "button"
-  },
-  {
-    "classes": ["faq-tick"],
-    "tag": "span"
-  },
-  {
-    "classes": ["faq-a"],
-    "id": "faqA4",
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-a-clip"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-typing"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["faq-bubble"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-ava"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "g"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["faq-body"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["faq-item"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-q"],
-    "id": "faqQ5",
-    "tag": "button"
-  },
-  {
-    "classes": ["faq-tick"],
-    "tag": "span"
-  },
-  {
-    "classes": ["faq-a"],
-    "id": "faqA5",
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-a-clip"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-typing"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["faq-bubble"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-ava"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "g"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["faq-body"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["faq-item"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-q"],
-    "id": "faqQ6",
-    "tag": "button"
-  },
-  {
-    "classes": ["faq-tick"],
-    "tag": "span"
-  },
-  {
-    "classes": ["faq-a"],
-    "id": "faqA6",
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-a-clip"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-typing"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": [],
-    "tag": "i"
-  },
-  {
-    "classes": ["faq-bubble"],
-    "tag": "div"
-  },
-  {
-    "classes": ["faq-ava"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "svg"
-  },
-  {
-    "classes": [],
-    "tag": "g"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": [],
-    "tag": "path"
-  },
-  {
-    "classes": ["faq-body"],
-    "tag": "div"
-  },
-  {
-    "classes": [],
-    "tag": "small"
-  },
-  {
-    "classes": ["zp-pricing"],
-    "id": "pricing",
-    "tag": "section"
-  },
-  {
-    "classes": ["wrap"],
-    "tag": "div"
-  },
-  {
-    "classes": ["shead", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["mono"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "h2"
-  },
-  {
-    "classes": ["pricing-lede"],
-    "tag": "p"
-  },
-  {
-    "classes": ["pgrid"],
-    "tag": "div"
-  },
-  {
-    "classes": ["pcard", "rv"],
-    "tag": "div"
-  },
-  {
-    "classes": ["grid-4-tariff", "landing-tariffs"],
-    "id": "landingTariffGrid",
-    "tag": "div"
-  },
-  {
-    "classes": ["dd-empty"],
-    "tag": "div"
-  },
-  {
-    "classes": ["ptariff-note"],
-    "id": "landingTariffNote",
-    "tag": "p"
-  },
-  {
-    "classes": ["landing-tariff-foot"],
-    "id": "landingTariffFoot",
-    "tag": "div"
-  },
-  {
-    "classes": ["pmark-track"],
-    "tag": "div"
-  },
-  {
-    "classes": ["pmark-stick"],
-    "tag": "div"
-  },
-  {
-    "classes": ["pmark"],
-    "tag": "div"
-  },
-  {
-    "classes": ["pmark-word"],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": [],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-final"],
-    "id": "zephyrFinale",
-    "tag": "section"
-  },
-  {
-    "classes": ["zp-final-sticky"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fin-stage"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fin-mark"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fin-word", "zp-final-word"],
-    "id": "finWord",
-    "tag": "div"
-  },
-  {
-    "classes": ["zp-final-letter-char"],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-final-letter-char"],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-final-letter-char"],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-final-letter-char"],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-final-letter-char"],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-final-letter-char"],
-    "tag": "span"
-  },
-  {
-    "classes": ["zp-final-letter-char"],
-    "tag": "span"
-  },
-  {
-    "classes": ["fin-cta", "zp-final-login"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fin-kicker"],
-    "tag": "p"
-  },
-  {
-    "classes": ["fin-btns"],
-    "tag": "div"
-  },
-  {
-    "classes": ["fin-btn"],
-    "data-telegram-login-trigger": {
-      "present": true,
-      "value": null
-    },
-    "tag": "a"
-  },
-  {
-    "classes": ["fin-btn", "ghost"],
-    "tag": "a"
-  },
-  {
-    "classes": ["fin-note"],
-    "tag": "p"
-  },
-  {
-    "classes": ["fin-facts"],
+    "classes": ["tl-ctx-grid"],
     "tag": "dl"
   },
   {
@@ -3580,39 +733,60 @@
     "tag": "dd"
   },
   {
-    "classes": ["fin-foot"],
+    "classes": [],
     "tag": "div"
   },
   {
-    "classes": ["fin-foot-brand"],
-    "tag": "span"
-  },
-  {
-    "classes": ["fin-foot-logo"],
-    "tag": "svg"
+    "classes": [],
+    "tag": "dt"
   },
   {
     "classes": [],
-    "tag": "path"
+    "tag": "dd"
+  },
+  {
+    "classes": ["tl-panel-copy"],
+    "tag": "div"
   },
   {
     "classes": [],
-    "tag": "path"
+    "tag": "h3"
   },
   {
-    "classes": ["tl-f"],
-    "tag": "path"
+    "classes": [],
+    "tag": "p"
   },
   {
-    "classes": ["tl-f"],
-    "tag": "path"
+    "classes": ["tl-panel", "rv"],
+    "tag": "article"
   },
   {
-    "classes": ["tl-f"],
-    "tag": "path"
+    "classes": ["tl-panel-ui"],
+    "tag": "div"
   },
   {
-    "classes": ["fin-foot-copy"],
+    "classes": ["tl-compose"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-compose-to"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": ["tl-compose-text"],
+    "id": "tlCompose",
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-compose-bar"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
     "tag": "span"
   },
   {
@@ -3620,11 +794,287 @@
     "tag": "b"
   },
   {
-    "classes": [],
-    "tag": "small"
+    "classes": ["tl-panel-copy"],
+    "tag": "div"
   },
   {
-    "classes": ["fin-foot-links"],
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-panel", "rv"],
+    "tag": "article"
+  },
+  {
+    "classes": ["tl-panel-ui"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-track"],
+    "tag": "ol"
+  },
+  {
+    "classes": ["is-done"],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["is-done"],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["is-live"],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-panel-copy"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "h3"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-safe"],
+    "id": "safe",
+    "tag": "section"
+  },
+  {
+    "classes": ["tl-visually-hidden"],
+    "id": "tlSafeTitle",
+    "tag": "h2"
+  },
+  {
+    "classes": ["tl-safe-row", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-safe-word"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-safe-why"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-safe-row", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-safe-word"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-safe-why"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-safe-row", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-safe-word"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-safe-why"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-price"],
+    "id": "pricing",
+    "tag": "section"
+  },
+  {
+    "classes": ["tl-price-copy"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-h2"],
+    "id": "tlPriceTitle",
+    "tag": "h2"
+  },
+  {
+    "classes": ["tl-lead"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-price-foot"],
+    "id": "landingTariffFoot",
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-price-card"],
+    "tag": "div"
+  },
+  {
+    "classes": ["grid-4-tariff", "landing-tariffs"],
+    "id": "landingTariffGrid",
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-price-note"],
+    "id": "landingTariffNote",
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-faq"],
+    "id": "faq",
+    "tag": "section"
+  },
+  {
+    "classes": ["tl-h2"],
+    "id": "tlFaqTitle",
+    "tag": "h2"
+  },
+  {
+    "classes": ["tl-faq-list"],
+    "id": "tlFaq",
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": ["tl-a"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": ["tl-a"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": ["tl-a"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": ["tl-a"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": ["tl-a"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "details"
+  },
+  {
+    "classes": [],
+    "tag": "summary"
+  },
+  {
+    "classes": ["tl-a"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-final"],
+    "id": "go",
+    "tag": "section"
+  },
+  {
+    "classes": ["tl-h1"],
+    "id": "tlFinalTitle",
+    "tag": "h2"
+  },
+  {
+    "classes": [],
+    "tag": "br"
+  },
+  {
+    "classes": ["tl-btn", "tl-btn-solid", "tl-btn-lg"],
+    "data-telegram-login-trigger": {
+      "present": true,
+      "value": null
+    },
+    "tag": "a"
+  },
+  {
+    "classes": ["tl-foot"],
+    "tag": "footer"
+  },
+  {
+    "classes": [],
     "tag": "span"
   },
   {
@@ -3636,8 +1086,8 @@
     "tag": "a"
   },
   {
-    "classes": ["fin-foot-name"],
-    "tag": "span"
+    "classes": [],
+    "tag": "a"
   },
   {
     "classes": ["telegram-login-dialog"],

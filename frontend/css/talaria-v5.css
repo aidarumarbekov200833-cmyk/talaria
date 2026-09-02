@@ -1,29 +1,4 @@
 /* Talaria V5 landing — exact port of talaria_v5_design.html, scoped to #loginScreen */
-#loginScreen {
-  --pink: var(--tal-ff2fa4);
-  /* Розовый для ТЕКСТА: на светлой теме приглушается, чтобы подписи читались.
-     Заливки и свечения по-прежнему берут яркий --pink. */
-  --pink-ink: var(--tal-ff2fa4);
-  --pink2: var(--tal-ff8fe0);
-  --grad: linear-gradient(120deg, var(--tal-ff8fe0), var(--tal-ff2fa4) 55%, var(--tal-c22bff));
-  --bg: var(--tal-0b0a0e);
-  --bg2: var(--tal-121016);
-  --ink: var(--tal-f5eef6);
-  --mut: var(--tal-a99cad);
-  --line: var(--tal-ffffff-a14);
-  --card: var(--tal-151218);
-  --glow: var(--tal-ff2fa4-a35);
-}
-html[data-theme='light'] #loginScreen {
-  --pink-ink: var(--tal-c30074);
-  --bg: var(--tal-faf5fb);
-  --bg2: var(--tal-white);
-  --ink: var(--tal-171019);
-  --mut: var(--tal-6d5f72);
-  --line: var(--tal-171019-a14);
-  --card: var(--tal-white);
-  --glow: var(--tal-ff2fa4-a22);
-}
 /* ------------------------------------------------------------------
    Совместимость с прежним лендингом.
 
@@ -32,2222 +7,70 @@ html[data-theme='light'] #loginScreen {
    сетку и отступы, а ниже по файлу накладывается оформление V5. Правила стоят
    ДО оформления намеренно: у них та же специфичность, побеждает последнее.
    ------------------------------------------------------------------ */
-#loginScreen
-  :is(
-    .zp-main,
-    .zp-hero,
-    .zp-stats,
-    .zp-capabilities,
-    .zp-control-grid,
-    .zp-workflow,
-    .zp-account-band,
-    .zp-pricing,
-    .zp-faq,
-    .zp-final
-  ) {
-  display: block;
-  grid-template-columns: none;
-  grid-template-rows: none;
-  grid-template-areas: none;
-  gap: 0;
-  max-width: none;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-  text-align: initial;
-  place-items: initial;
-  align-items: initial;
-  justify-items: initial;
-  isolation: auto;
-}
 /* Светлая тема: landing.css задаёт этим секциям color:var(--on-ink) (они были
    тёмными плашками в прежнем лендинге). В V5 секции лежат на фоне страницы,
    поэтому на светлой теме заголовки и списки становились почти невидимыми
    (Samat: «на светлой теме текст фигово видно»). Возвращаем цвет темы. */
-#loginScreen :is(.zp-control-grid, .zp-workflow, .zp-account-band) {
-  color: inherit;
-}
-#loginScreen :is(.zp-control-grid, .zp-workflow, .zp-account-band) :is(p, li, dd, dt) {
-  color: inherit;
-}
 /* v47: правило-нейтрализатор legacy-стилей (landing.css/talaria.css) — стоит
    РАНО нарочно: оформление ниже по файлу его перебивает. Без него легаси
    `.zp-final-word span { opacity: 0 }` и таблетка .zp-final-login прятали
    вордмарк и CTA финала. Классы гравюр (.zp-final-hand, .zp-final-letter)
    убраны из списка вместе с разметкой. */
-#loginScreen
-  :is(
-    .zp-final-sticky,
-    .zp-final-word,
-    .zp-final-ghost,
-    .zp-final-login,
-    .zp-final-letter-char,
-    .lp-nav,
-    .zd-nav,
-    .landing-brand,
-    .landing-theme-toggle,
-    .lp-foot,
-    .zd-footer,
-    .terms-box,
-    .landing-terms,
-    .lp-faq,
-    .lp-q
-  ) {
-  display: revert;
-  position: static;
-  inset: auto;
-  width: auto;
-  height: auto;
-  max-width: none;
-  min-height: 0;
-  margin: 0;
-  padding: 0;
-  gap: 0;
-  border: 0;
-  border-radius: 0;
-  background: none;
-  box-shadow: none;
-  transform: none;
-  opacity: 1;
-  font-size: inherit;
-  letter-spacing: normal;
-  color: inherit;
-}
 /* То же для букв внутри вордмарка: легаси прятало каждую букву по span. */
-#loginScreen .zp-final-word span {
-  opacity: 1;
-  transform: none;
-}
-
-#loginScreen * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-#loginScreen {
-  scroll-behavior: smooth;
-}
-#loginScreen {
-  background: var(--bg);
-  color: var(--ink);
-  font-family: var(--tal-font-mono);
-  font-size: 15px;
-  line-height: 1.7;
-  overflow-x: hidden;
-  transition:
-    background var(--tal-dur-500),
-    color var(--tal-dur-500);
-}
-#loginScreen ::selection {
-  background: var(--pink);
-  color: var(--tal-white);
-}
-#loginScreen h1,
-#loginScreen h2,
-#loginScreen h3,
-#loginScreen .disp {
-  font-family: var(--tal-font-display);
-  font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.01em;
-}
-#loginScreen a {
-  color: inherit;
-  text-decoration: none;
-}
-#loginScreen img {
-  display: block;
-  max-width: 100%;
-}
-#loginScreen .mono {
-  font-size: 11.5px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--mut);
-}
-#loginScreen .pinkt {
-  background: var(--grad);
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-}
-#loginScreen .wrap {
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 28px;
-}
-#loginScreen .rv {
-  opacity: 0;
-  transform: translateY(34px);
-  transition:
-    opacity var(--tal-dur-900) cubic-bezier(0.2, 0.7, 0.2, 1),
-    transform var(--tal-dur-900) cubic-bezier(0.2, 0.7, 0.2, 1);
-  transition-delay: var(--d, 0s);
-}
-#loginScreen .rv.on {
-  opacity: 1;
-  transform: none;
-}
-#loginScreen .lp-nav {
-  position: fixed;
-  inset: 0 0 auto;
-  z-index: 60;
-  background: color-mix(in srgb, var(--bg) 82%, transparent);
-  backdrop-filter: blur(14px);
-  border-bottom: 1px solid var(--line);
-}
 /* Хедер: логотип по центру, навигация слева, действия справа (нестандартно,
    не «дефолтный» лого-слева). */
-#loginScreen .nav-in {
-  max-width: 1320px;
-  margin: 0 auto;
-  padding: 15px 34px;
-  display: grid;
-  grid-template-columns: 1fr auto 1fr;
-  align-items: center;
-  gap: 20px;
-}
-#loginScreen .nav-side {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
-#loginScreen .nav-left {
-  justify-self: start;
-}
-#loginScreen .nav-right {
-  justify-self: end;
-  gap: 16px;
-}
-#loginScreen .tl-logo {
-  width: 40px;
-  height: 34px;
-  overflow: visible;
-  transition: transform var(--tal-dur-500) cubic-bezier(0.34, 1.56, 0.64, 1);
-  cursor: pointer;
-}
-#loginScreen .tl-logo .tl-wing {
-  filter: drop-shadow(0 4px 16px var(--glow));
-  transform-origin: 44% 40%;
-  transition: transform var(--tal-dur-500) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-#loginScreen .brand:hover .tl-logo {
-  transform: translateY(-1px);
-}
-#loginScreen .brand:hover .tl-wing {
-  transform: rotate(-6deg) scale(1.06);
-}
 /* Логотип-вордмарк — редакционный serif (как в Hermes), по центру шапки. */
-#loginScreen .brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 13px;
-  justify-self: center;
-  font-family: var(--tal-font-display);
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  font-size: 25px;
-  color: var(--ink);
-}
-#loginScreen .landing-brand-name {
-  text-transform: none;
-  /* v46: у Unbounded нет курсива, наклон был бы фальшивым */
-  font-style: normal;
-  /* v48: имя бренда без жирного. */
-  font-weight: 500;
-}
-#loginScreen .nl {
-  display: flex;
-  gap: 22px;
-}
-#loginScreen .nl a {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mut);
-  transition: color var(--tal-dur-250);
-}
-#loginScreen .nl a:hover {
-  color: var(--pink-ink);
-}
-#loginScreen .landing-theme-toggle {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: 1px solid var(--line);
-  background: var(--card);
-  color: var(--ink);
-  cursor: pointer;
-  flex: none;
-  display: grid;
-  place-items: center;
-  transition:
-    border-color var(--tal-dur-250),
-    color var(--tal-dur-250),
-    transform var(--tal-dur-250);
-}
-#loginScreen .landing-theme-toggle:hover {
-  border-color: var(--pink-ink);
-  color: var(--pink-ink);
-  transform: translateY(-1px) rotate(-8deg);
-}
-#loginScreen .cta {
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  padding: 12px 22px;
-  border-radius: 99px;
-  background: var(--grad);
-  /* Градиент начинается со светло-розового: белая надпись на нём давала
-     контраст 2.05 при норме 4.5 и «пропадала» на левом крае кнопки. */
-  color: var(--on-accent);
-  border: none;
-  cursor: pointer;
-  box-shadow: 0 6px 24px var(--glow);
-  transition:
-    transform var(--tal-dur-250),
-    box-shadow var(--tal-dur-250);
-  display: inline-block;
-}
-#loginScreen .cta:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 10px 34px var(--glow);
-}
-#loginScreen .ghost {
-  padding: 12px 22px;
-  border-radius: 99px;
-  border: 1px solid var(--line);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  transition:
-    border-color var(--tal-dur-250),
-    color var(--tal-dur-250);
-  background: none;
-  color: var(--ink);
-  cursor: pointer;
-  font-family: var(--tal-font-mono);
-}
-#loginScreen .ghost:hover {
-  border-color: var(--pink-ink);
-  color: var(--pink-ink);
-}
-#loginScreen .zp-hero {
-  min-height: 100vh;
-  display: grid;
-  grid-template-columns: 1.1fr 0.9fr;
-  gap: 40px;
-  align-items: center;
-  max-width: 1240px;
-  margin: 0 auto;
-  padding: 120px 28px 60px;
-  position: relative;
-}
-#loginScreen #stars {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 0;
-  pointer-events: none;
-}
-#loginScreen .zp-hero > div {
-  position: relative;
-  z-index: 1;
-}
-#loginScreen .zp-hero h1 {
-  /* v46: Unbounded заметно шире Playfair — шкала ниже, вес 700 */
-  font-size: clamp(28px, 3.6vw, 52px);
-  font-weight: 700;
-  line-height: 1.08;
-  text-transform: uppercase;
-  margin: 18px 0 26px;
-}
-#loginScreen .zp-hero h1 .ln {
-  display: block;
-  overflow: hidden;
-}
-#loginScreen .zp-hero h1 .ln span {
-  display: inline-block;
-  transform: translateY(110%);
-  animation: rise 1s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
-  animation-delay: var(--d);
-}
 @keyframes rise {
   to {
     transform: none;
   }
-}
-#loginScreen .zp-hero p {
-  color: var(--mut);
-  max-width: 46ch;
-  margin-bottom: 34px;
-}
-#loginScreen .hbtns {
-  display: flex;
-  gap: 16px;
-  flex-wrap: wrap;
-  align-items: center;
-}
-
-#loginScreen .orbit {
-  position: absolute;
-  width: 120%;
-  aspect-ratio: 1;
-  border-radius: 50%;
-  border: 1px dashed var(--line);
-  animation: spin 40s linear infinite;
-}
-#loginScreen .orbit::after {
-  content: '✦';
-  position: absolute;
-  top: -11px;
-  left: 50%;
-  color: var(--pink-ink);
-  font-size: 18px;
 }
 @keyframes spin {
   to {
     transform: rotate(360deg);
   }
 }
-#loginScreen
-  :is(.zp-stats, .zp-capabilities, .zp-pricing, .zp-workflow, .zp-account-band, .zp-faq) {
-  padding: 120px 0;
-}
-#loginScreen .shead {
-  display: flex;
-  align-items: baseline;
-  gap: 26px;
-  margin-bottom: 64px;
-  flex-wrap: wrap;
-}
-#loginScreen .shead h2 {
-  font-size: clamp(26px, 3.4vw, 46px);
-  text-transform: uppercase;
-}
-#loginScreen .pulse-g {
-  display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 56px;
-  align-items: stretch;
-}
-#loginScreen .live-dot {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  color: var(--pink-ink);
-  font-size: 11px;
-  letter-spacing: 0.26em;
-  text-transform: uppercase;
-}
-#loginScreen .live-dot i {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--pink);
-  position: relative;
-}
-#loginScreen .live-dot i::after {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  border-radius: 50%;
-  border: 1px solid var(--pink);
-  animation: ping 1.6s cubic-bezier(0.2, 0.7, 0.3, 1) infinite;
-}
-@keyframes ping {
-  from {
-    transform: scale(0.4);
-    opacity: 1;
-  }
-  to {
-    transform: scale(1.5);
-    opacity: 0;
-  }
-}
-#loginScreen .bignum {
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  font-size: clamp(64px, 7.4vw, 118px);
-  line-height: 1;
-  margin: 18px 0 6px;
-  font-variant-numeric: tabular-nums;
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-}
 /* landing.css содержит `.zp-stats span { font-size: 12px }`. Под это правило
    попадал и сам счётчик — число выводилось размером подписи. Специфичности
    `.bignum` не хватало: правило старого лендинга бьёт по span напрямую,
    поэтому размер возвращаем явным правилом на потомка. */
-#loginScreen .bignum span {
-  font-size: inherit;
-  line-height: inherit;
-  letter-spacing: inherit;
-  color: inherit;
-}
-#loginScreen .bignum .plus {
-  font-size: 20px;
-  color: var(--pink-ink);
-  opacity: 0;
-  transform: translateY(8px);
-  transition: var(--tal-dur-350);
-}
-#loginScreen .bignum .plus.pop {
-  opacity: 1;
-  transform: none;
-}
-#loginScreen .bigsub {
-  color: var(--mut);
-  font-size: 12px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-#loginScreen .minirow {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
-  margin-top: 44px;
-}
-#loginScreen .mini {
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  padding: 18px 18px 15px;
-  background: var(--card);
-  transition:
-    box-shadow var(--tal-dur-400),
-    border-color var(--tal-dur-400);
-}
-#loginScreen .mini.blink {
-  border-color: var(--pink-ink);
-  box-shadow: 0 0 30px var(--glow);
-}
-#loginScreen .mini b {
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  font-size: 24px;
-  display: block;
-  font-variant-numeric: tabular-nums;
-}
-#loginScreen .mini span {
-  color: var(--mut);
-  font-size: 11px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-}
-#loginScreen .feed {
-  border: 1px solid var(--line);
-  border-radius: 22px;
-  background: var(--card);
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-  min-height: 430px;
-}
-#loginScreen .feed-h {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 15px 22px;
-  border-bottom: 1px solid var(--line);
-  color: var(--mut);
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-#loginScreen .feed-h .live-dot {
-  margin-left: auto;
-}
-#loginScreen .feed-b {
-  padding: 12px 14px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 9px;
-  flex: 1;
-  justify-content: flex-start;
-  overflow: hidden;
-}
-#loginScreen .fun {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 15px;
-}
-#loginScreen .fun-row {
-  display: grid;
-  grid-template-columns: 112px 1fr 92px;
-  gap: 14px;
-  align-items: center;
-}
-#loginScreen .fun-k {
-  font-size: 11px;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--mut);
-}
-#loginScreen .fun-bar {
-  position: relative;
-  display: block;
-  height: 10px;
-  border-radius: 999px;
-  background: var(--bg);
-  border: 1px solid var(--line);
-  overflow: hidden;
-}
-#loginScreen .fun-bar i {
-  position: absolute;
-  inset: 0 auto 0 0;
-  width: 0;
-  border-radius: 999px;
-  background: var(--grad);
-  box-shadow: 0 0 18px var(--glow);
-  transition: width var(--tal-dur-900) cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-#loginScreen .fun-v {
-  font-family: var(--tal-font-display);
-  font-weight: 600;
-  font-size: 21px;
-  text-align: right;
-  color: var(--ink);
-}
-#loginScreen .fun-row.zero .fun-v {
-  color: var(--mut);
-}
 /* Пустая воронка не должна читаться как «сервис мёртв»: полосы медленно
    дышат — видно, что система на связи и ждёт первый запуск. Числа при этом
    остаются честными нулями, подкрутки нет. */
-#loginScreen .fun.idle .fun-bar {
-  animation: funwait 2.6s ease-in-out infinite;
-}
-#loginScreen .fun.idle .fun-row:nth-child(2) .fun-bar {
-  animation-delay: 0.22s;
-}
-#loginScreen .fun.idle .fun-row:nth-child(3) .fun-bar {
-  animation-delay: 0.44s;
-}
-#loginScreen .fun.idle .fun-row:nth-child(4) .fun-bar {
-  animation-delay: 0.66s;
-}
-@keyframes funwait {
-  0%,
-  100% {
-    opacity: 0.4;
-  }
-  50% {
-    opacity: 1;
-  }
-}
-#loginScreen .fun-note {
-  margin-top: auto;
-  padding-top: 18px;
-  font-size: 12px;
-  line-height: 1.6;
-  color: var(--mut);
-}
-#loginScreen .zp-control-grid {
-  background: var(--bg2);
-  border-block: 1px solid var(--line);
-  position: relative;
-  overflow: hidden;
-}
-#loginScreen .zp-control-grid::before {
-  content: '';
-  position: absolute;
-  right: -10%;
-  top: 53%;
-  transform: translateY(-50%);
-  width: 60%;
-  aspect-ratio: 1;
-  background: radial-gradient(circle, var(--glow), transparent 65%);
-  pointer-events: none;
-  opacity: 0.7;
-}
-#loginScreen .zp-control-grid .wrap {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 70px;
-  align-items: center;
-  padding-block: 110px;
-  position: relative;
-}
-#loginScreen .dlist {
-  list-style: none;
-  margin: 26px 0 30px;
-  display: grid;
-  gap: 13px;
-  max-width: 52ch;
-}
-#loginScreen .dlist li {
-  display: flex;
-  gap: 13px;
-  align-items: flex-start;
-  font-size: 13px;
-  color: var(--mut);
-}
-#loginScreen .dlist li b {
-  color: var(--ink);
-  font-weight: 600;
-}
-#loginScreen .dlist .dchk {
-  flex: none;
-  width: 21px;
-  height: 21px;
-  border-radius: 50%;
-  background: var(--grad);
-  color: var(--tal-white);
-  display: grid;
-  place-items: center;
-  font-size: 10.5px;
-  margin-top: 2px;
-}
-#loginScreen .ph-stage {
-  position: relative;
-  justify-self: center;
-  width: 100%;
-  max-width: 360px;
-}
 /* Реалистичный корпус iPhone: тёмный титан, тонкая грань, скруглённые углы. */
-#loginScreen .phone {
-  max-width: 300px;
-  margin: 0 auto;
-  width: 100%;
-  border-radius: 50px;
-  padding: 11px;
-  position: relative;
-  z-index: 1;
-  background: linear-gradient(150deg, var(--ph-frame-edge), var(--ph-frame) 42%);
-  box-shadow:
-    0 50px 120px var(--tal-000000-a55),
-    0 0 90px var(--glow),
-    inset 0 0 0 1.5px var(--tal-ffffff-a09);
-}
-#loginScreen .ph-scr {
-  border-radius: 40px;
-  overflow: hidden;
-  background: var(--tg-in);
-  color: var(--tg-text);
-  position: relative;
-  font-family: -apple-system, 'Segoe UI', Roboto, sans-serif;
-}
 /* Dynamic Island + строка статуса */
-#loginScreen .ph-island {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 84px;
-  height: 24px;
-  border-radius: 14px;
-  background: var(--tal-black);
-  z-index: 6;
-}
-#loginScreen .ph-status {
-  display: flex;
-  justify-content: space-between;
-  padding: 11px 24px 6px;
-  font-size: 12px;
-  background: var(--tg-titlebar);
-  color: var(--tg-text);
-  font-weight: 600;
-}
-#loginScreen .ph-sig {
-  letter-spacing: 1px;
-}
 /* Домашний индикатор снизу */
-#loginScreen .ph-home {
-  position: absolute;
-  bottom: 6px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 108px;
-  height: 4px;
-  border-radius: 99px;
-  background: var(--tal-000000-a35);
-  z-index: 6;
-}
 /* Шапка чата: [назад+бейдж] · [имя+статус по центру] · [аватар] */
-#loginScreen .tg-head {
-  display: grid;
-  grid-template-columns: auto 1fr auto;
-  gap: 8px;
-  align-items: center;
-  padding: 7px 12px 8px;
-  background: var(--tg-header);
-  border-bottom: 1px solid var(--tg-shadow);
-}
-#loginScreen .tg-back {
-  color: var(--tg-blue);
-  font-size: 24px;
-  line-height: 1;
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-}
-#loginScreen .tg-unread {
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 700;
-  color: var(--tg-header);
-  background: var(--tg-blue);
-  border-radius: 99px;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 5px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-}
-#loginScreen .tg-title {
-  text-align: center;
-  overflow: hidden;
-}
-#loginScreen .tg-ava {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--tal-e05fa8), var(--tal-7b2bff));
-  display: grid;
-  place-items: center;
-  font-size: 13px;
-  font-weight: 700;
-  color: var(--tal-white);
-  flex: none;
-}
-#loginScreen .tg-head b {
-  font-size: 15px;
-  display: block;
-  line-height: 1.2;
-  color: var(--tg-text);
-  white-space: nowrap;
-}
-#loginScreen .tg-head small {
-  color: var(--tg-time-in);
-  font-size: 12px;
-  display: block;
-  min-height: 15px;
-}
-#loginScreen .tg-head small.typ {
-  color: var(--tg-blue);
-}
 /* Обои чата: тёмный градиент тёмной темы Telegram + лёгкий дудл-паттерн. */
-#loginScreen .tg-body {
-  padding: 14px 10px 10px;
-  height: 384px;
-  display: flex;
-  flex-direction: column;
-  gap: 5px;
-  justify-content: flex-end;
-  /* Старые сообщения уходят за верхний край, а не наезжают на шапку. */
-  overflow: hidden;
-  background:
-    url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="112" height="112"><g fill="none" stroke="%23ffffff" stroke-opacity="0.07" stroke-width="1.4"><circle cx="22" cy="24" r="8"/><path d="M62 16l7 13H55z"/><path d="M86 46c6 0 6 9 0 9"/><circle cx="94" cy="84" r="6"/><path d="M16 78h14v11H16z"/><path d="M46 96c4-6 12-6 16 0"/><path d="M72 72l10 10"/></g></svg>'),
-    linear-gradient(160deg, var(--tg-wall-a), var(--tg-wall-b));
-}
-#loginScreen .tg-date {
-  align-self: center;
-  background: var(--tg-sys);
-  border-radius: 99px;
-  padding: 3px 12px;
-  font-size: 12px;
-  font-weight: 600;
-  color: var(--tal-white);
-  margin-bottom: 4px;
-}
-#loginScreen .tg-msg {
-  max-width: 82%;
-  padding: 6px 10px 7px;
-  border-radius: 14px;
-  font-size: 13.5px;
-  line-height: 1.38;
-  position: relative;
-  box-shadow: 0 1px 1px var(--tg-shadow);
-  opacity: 0;
-  transform: translateY(12px) scale(0.97);
-  transition: var(--tal-dur-450) cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-#loginScreen .tg-msg.show {
-  opacity: 1;
-  transform: none;
-}
-#loginScreen .tg-msg .tm {
-  float: right;
-  font-size: 11px;
-  color: var(--tg-time);
-  margin: 8px -2px -2px 8px;
-}
-#loginScreen .tg-in .tm {
-  color: var(--tg-time-in);
-}
-#loginScreen .tg-msg .tm .chk {
-  color: var(--tg-check);
-  letter-spacing: -3px;
-  margin-left: 2px;
-}
-#loginScreen .tg-out {
-  align-self: flex-end;
-  background: var(--tg-out);
-  border-bottom-right-radius: 4px;
-  color: var(--tg-text);
-}
-#loginScreen .tg-in {
-  align-self: flex-start;
-  background: var(--tg-in);
-  border-bottom-left-radius: 4px;
-  color: var(--tg-text);
-}
-#loginScreen .tg-sys {
-  align-self: center;
-  background: var(--tg-sys);
-  border-radius: 99px;
-  padding: 3px 12px;
-  font-size: 11px;
-  color: var(--tal-white);
-  text-align: center;
-  max-width: 90%;
-}
-#loginScreen .tg-input {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 10px 14px;
-  background: var(--tg-header);
-  color: var(--tg-time-in);
-  font-size: 14px;
-}
-#loginScreen .tg-input .fld {
-  flex: 1;
-}
-#loginScreen .tg-clip,
-#loginScreen .tg-mic {
-  font-size: 17px;
-  opacity: 0.6;
-}
-#loginScreen .tg-typing {
-  display: inline-flex;
-  gap: 3px;
-  padding: 4px 0;
-}
-#loginScreen .tg-typing i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--tg-time-in);
-  animation: tp 1s infinite var(--td);
-}
-@keyframes tp {
-  30% {
-    opacity: 1;
-    transform: translateY(-3px);
-  }
-}
-#loginScreen .fgrid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
-#loginScreen .fcard {
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: var(--card);
-  overflow: hidden;
-  position: relative;
-  transition:
-    transform var(--tal-dur-350),
-    border-color var(--tal-dur-350),
-    box-shadow var(--tal-dur-350);
-}
-#loginScreen .fcard:hover {
-  transform: translateY(-8px);
-  border-color: var(--pink-ink);
-  box-shadow:
-    0 20px 50px var(--tal-000000-a30),
-    0 0 40px var(--glow);
-}
-#loginScreen .fcard .fim {
-  aspect-ratio: 1/1;
-  overflow: hidden;
-  position: relative;
-}
-#loginScreen .fcard .fim img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform var(--tal-dur-600) cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-#loginScreen .fcard:hover .fim img {
-  transform: scale(1.045);
-}
-#loginScreen .fcard .fim::after {
-  content: '';
-  position: absolute;
-  inset: auto 0 0;
-  height: 26%;
-  background: linear-gradient(180deg, transparent, var(--card));
-}
-#loginScreen .fcard .fb {
-  padding: 22px 24px 28px;
-}
-#loginScreen .fcard .fn {
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  font-size: 13px;
-  color: var(--pink-ink);
-  letter-spacing: 0.2em;
-}
-#loginScreen .fcard h3 {
-  font-size: 16.5px;
-  text-transform: uppercase;
-  margin: 8px 0 10px;
-}
-#loginScreen .fcard p {
-  color: var(--mut);
-  font-size: 13px;
-}
-#loginScreen .stats {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  overflow: hidden;
-  margin-top: 70px;
-}
-#loginScreen .stat {
-  padding: 38px 20px;
-  text-align: center;
-  background: var(--card);
-}
-#loginScreen .stat + .stat {
-  border-left: 1px solid var(--line);
-}
-#loginScreen .stat b {
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  font-size: clamp(26px, 3vw, 42px);
-  display: block;
-}
-#loginScreen .stat span {
-  color: var(--mut);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-#loginScreen .pgrid {
-  display: grid;
-  grid-template-columns: 0.92fr 1.08fr;
-  gap: 30px;
-  align-items: stretch;
-}
-#loginScreen .pcard {
-  border: 1px solid var(--line);
-  border-radius: 26px;
-  padding: 44px;
-  background: var(--card);
-  position: relative;
-  overflow: hidden;
-}
-#loginScreen .pcard::before {
-  content: '';
-  position: absolute;
-  inset: -1px;
-  border-radius: 26px;
-  padding: 1px;
-  background: var(--grad);
-  -webkit-mask:
-    linear-gradient(var(--tal-white) 0 0) content-box,
-    linear-gradient(var(--tal-white) 0 0);
-  -webkit-mask-composite: xor;
-  mask-composite: exclude;
-  pointer-events: none;
-}
-#loginScreen .prow {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  margin-bottom: 14px;
-  flex-wrap: wrap;
-}
-#loginScreen .curwrap {
-  display: flex;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  overflow: hidden;
-  margin-left: auto;
-}
-#loginScreen .curwrap button {
-  border: none;
-  background: none;
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 12px;
-  padding: 7px 16px;
-  cursor: pointer;
-  transition: var(--tal-dur-250);
-}
-#loginScreen .curwrap button.on {
-  background: var(--grad);
-  color: var(--tal-white);
-}
-#loginScreen .am {
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  font-size: 52px;
-  display: flex;
-  align-items: baseline;
-  flex-wrap: wrap;
-  gap: 6px;
-  min-height: 70px;
-}
-#loginScreen .am .cur {
-  font-size: 34px;
-}
-#loginScreen .am small {
-  font-size: 15px;
-  color: var(--mut);
-  font-weight: 300;
-  font-family: var(--tal-font-mono);
-  margin-left: 4px;
-}
-#loginScreen .od {
-  display: inline-block;
-  height: 1.08em;
-  overflow: hidden;
-  vertical-align: bottom;
-}
-#loginScreen .od .ods {
-  display: block;
-  transition: transform var(--tal-dur-900) cubic-bezier(0.25, 0.9, 0.25, 1);
-}
-#loginScreen .od .ods b {
-  display: block;
-  height: 1.08em;
-  line-height: 1.08em;
-  font-weight: 800;
-}
-#loginScreen .oldp {
-  color: var(--mut);
-  text-decoration: line-through;
-  font-size: 17px;
-  font-family: var(--tal-font-display);
-  font-weight: 400;
-  min-height: 24px;
-  display: block;
-}
-#loginScreen .pcard ul {
-  list-style: none;
-  margin: 20px 0 26px;
-  display: grid;
-  gap: 12px;
-}
-#loginScreen .pcard li {
-  padding-left: 26px;
-  position: relative;
-  font-size: 13.5px;
-}
-#loginScreen .pcard li::before {
-  content: '✦';
-  position: absolute;
-  left: 0;
-  color: var(--pink-ink);
-}
-#loginScreen .promo-in {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 22px;
-  flex-wrap: wrap;
-}
-#loginScreen .promo-in input {
-  flex: 1;
-  min-width: 170px;
-  background: var(--bg);
-  border: 1px dashed var(--line);
-  border-radius: 12px;
-  padding: 12px 16px;
-  color: var(--ink);
-  font-family: var(--tal-font-mono);
-  font-size: 12.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  outline: none;
-  transition: var(--tal-dur-300);
-}
-#loginScreen .promo-in input:focus {
-  border-color: var(--pink-ink);
-}
-#loginScreen .promo-in input.err {
-  border-color: var(--tal-ff4b4b);
-  animation: shk 0.45s;
-}
-@keyframes shk {
-  20%,
-  60% {
-    transform: translateX(-6px);
-  }
-  40%,
-  80% {
-    transform: translateX(6px);
-  }
-}
-#loginScreen .promo-ok {
-  display: none;
-  border: 1px dashed var(--pink);
-  border-radius: 12px;
-  padding: 10px 16px;
-  font-size: 12px;
-  margin-bottom: 22px;
-  color: var(--pink-ink);
-}
-#loginScreen .promo-ok.on {
-  display: block;
-  animation: pop 0.5s cubic-bezier(0.3, 1.5, 0.4, 1);
-}
-@keyframes pop {
-  from {
-    transform: scale(0.9);
-    opacity: 0;
-  }
-}
-#loginScreen .perr {
-  color: var(--tal-ff4b4b);
-  font-size: 11px;
-  display: none;
-  margin: -14px 0 18px;
-}
-#loginScreen .zp-workflow {
-  background: var(--bg2);
-  border-block: 1px solid var(--line);
-}
-#loginScreen .appwin {
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  overflow: hidden;
-  background: var(--card);
-  box-shadow: 0 40px 100px var(--tal-000000-a40);
-}
-#loginScreen .aw-bar {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 13px 18px;
-  border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--bg) 55%, var(--card));
-}
-#loginScreen .aw-bar i {
-  width: 11px;
-  height: 11px;
-  border-radius: 50%;
-  background: var(--line);
-}
-#loginScreen .aw-bar i:first-child {
-  background: var(--tal-ff5f57);
-}
-#loginScreen .aw-bar i:nth-child(2) {
-  background: var(--tal-febc2e);
-}
-#loginScreen .aw-bar i:nth-child(3) {
-  background: var(--tal-28c840);
-}
-#loginScreen .aw-url {
-  margin: 0 auto;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  padding: 4px 18px;
-  font-size: 11px;
-  color: var(--mut);
-  letter-spacing: 0.08em;
-}
-#loginScreen .aw-body {
-  display: grid;
-  grid-template-columns: 236px 1fr;
-  min-height: 540px;
-}
-#loginScreen .aw-side {
-  border-right: 1px solid var(--line);
-  padding: 14px 0 0;
-  display: flex;
-  flex-direction: column;
-  background: color-mix(in srgb, var(--bg) 72%, var(--card));
-}
-#loginScreen .aw-brand {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 4px 20px 14px;
-  border-bottom: 1px solid var(--line);
-  margin-bottom: 8px;
-}
-#loginScreen .aw-brand .tl-logo {
-  width: 22px;
-  height: 22px;
-  border-radius: 6px;
-  box-shadow: none;
-}
-#loginScreen .aw-brand b {
-  font-family: var(--tal-font-display);
-  font-size: 10px;
-  /* v48: <b> по умолчанию жирный — гасим явно. */
-  font-weight: 500;
-  letter-spacing: 0.24em;
-}
-#loginScreen .aw-brand small {
-  color: var(--mut);
-  font-size: 9px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-left: auto;
-}
-#loginScreen .aw-step,
-#loginScreen .aw-nav {
-  display: grid;
-  grid-template-columns: 16px 1fr auto;
-  align-items: center;
-  gap: 11px;
-  padding: 11px 20px;
-  cursor: pointer;
-  position: relative;
-  transition: var(--tal-dur-300);
-  border-left: 2px solid transparent;
-}
-#loginScreen .aw-step svg,
-#loginScreen .aw-nav svg {
-  width: 15px;
-  height: 15px;
-  stroke: currentColor;
-  fill: none;
-  stroke-width: 1.7;
-  color: var(--mut);
-  transition: var(--tal-dur-300);
-}
-#loginScreen .aw-step b,
-#loginScreen .aw-nav b {
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--mut);
-  transition: var(--tal-dur-300);
-}
-#loginScreen .aw-step.on {
-  border-left-color: var(--pink-ink);
-  background: color-mix(in srgb, var(--pink) 7%, transparent);
-}
-#loginScreen .aw-step.on b {
-  color: var(--ink);
-}
-#loginScreen .aw-step.on svg {
-  color: var(--pink-ink);
-}
-#loginScreen .nbadge {
-  font-size: 10px;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  padding: 2px 8px;
-  color: var(--mut);
-  transition: var(--tal-dur-300);
-}
-#loginScreen .aw-step.on .nbadge {
-  border-color: var(--pink-ink);
-  color: var(--pink-ink);
-}
-#loginScreen .aw-nav.dis {
-  cursor: default;
-  opacity: 0.45;
-}
-#loginScreen .aw-step .bar {
-  grid-column: 1/-1;
-  height: 2px;
-  background: var(--line);
-  border-radius: 2px;
-  margin-top: 8px;
-  overflow: hidden;
-  opacity: 0;
-}
-#loginScreen .aw-step.on .bar {
-  opacity: 1;
-}
-#loginScreen .aw-step .bar i {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: var(--grad);
-}
-#loginScreen .aw-step.on .bar i {
-  animation: awp var(--dur) linear forwards;
-}
-@keyframes awp {
-  to {
-    width: 100%;
-  }
-}
-#loginScreen .aw-user {
-  margin-top: auto;
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 13px 20px;
-  border-top: 1px solid var(--line);
-}
-#loginScreen .aw-user .aw-ava {
-  width: 30px;
-  height: 30px;
-}
-#loginScreen .aw-user b {
-  display: block;
-  font-size: 12px;
-}
-#loginScreen .aw-user small {
-  color: var(--mut);
-  font-size: 10px;
-}
-#loginScreen .aw-main {
-  position: relative;
-  overflow: hidden;
-  display: flex;
-  flex-direction: column;
-}
-#loginScreen .aw-top {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 20px;
-  border-bottom: 1px solid var(--line);
-}
-#loginScreen .aw-tt {
-  font-weight: 700;
-  font-size: 13px;
-}
-#loginScreen .aw-crumb {
-  color: var(--mut);
-  font-size: 11px;
-}
-#loginScreen .aw-search {
-  margin-left: auto;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  padding: 5px 14px;
-  font-size: 11px;
-  color: var(--mut);
-}
-#loginScreen .aw-bell {
-  position: relative;
-  width: 28px;
-  height: 28px;
-  border: 1px solid var(--line);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-}
-#loginScreen .aw-bell svg {
-  width: 13px;
-  height: 13px;
-  stroke: var(--mut);
-  fill: none;
-  stroke-width: 1.7;
-}
-#loginScreen .aw-bell i {
-  position: absolute;
-  top: 1px;
-  right: 1px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--pink);
-}
-#loginScreen .aw-ava {
-  width: 28px;
-  height: 28px;
-  border-radius: 50%;
-  background: var(--grad);
-  display: grid;
-  place-items: center;
-  font-size: 11px;
-  font-weight: 700;
-  color: var(--tal-white);
-}
-#loginScreen .aw-stage {
-  position: relative;
-  flex: 1;
-  overflow: hidden;
-}
-#loginScreen .kpis {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 10px;
-  margin-bottom: 16px;
-}
-#loginScreen .kpi {
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 10px 14px;
-  background: var(--bg);
-}
-#loginScreen .kpi b {
-  font-family: var(--tal-font-display);
-  font-size: 18px;
-  display: block;
-}
-#loginScreen .kpi small {
-  color: var(--mut);
-  font-size: 10px;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-}
-#loginScreen .scene {
-  position: absolute;
-  inset: 0;
-  padding: 28px;
-  opacity: 0;
-  transform: translateX(26px);
-  transition: var(--tal-dur-550) cubic-bezier(0.2, 0.8, 0.2, 1);
-  pointer-events: none;
-}
-#loginScreen .scene.on {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-#loginScreen .chips {
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-  margin-bottom: 18px;
-}
-#loginScreen .chip {
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  padding: 5px 13px;
-  font-size: 11px;
-  color: var(--mut);
-}
-#loginScreen .chip.hl {
-  border-color: var(--pink-ink);
-  color: var(--pink-ink);
-}
-#loginScreen .lead {
-  display: grid;
-  grid-template-columns: 38px 1fr 120px 92px;
-  gap: 12px;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 11px 14px;
-  margin-bottom: 10px;
-  background: var(--bg);
-  opacity: 0;
-  transform: translateY(14px);
-  transition: var(--tal-dur-500);
-}
-#loginScreen .scene.on .lead {
-  opacity: 1;
-  transform: none;
-}
-#loginScreen .lead .lav {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: var(--grad);
-  display: grid;
-  place-items: center;
-  color: var(--tal-white);
-  font-family: var(--tal-font-display);
-  font-size: 13px;
-}
-#loginScreen .lead b {
-  font-size: 12.5px;
-  display: block;
-  line-height: 1.3;
-}
-#loginScreen .lead small {
-  color: var(--mut);
-  font-size: 11px;
-}
-#loginScreen .lead .sc {
-  height: 5px;
-  border-radius: 5px;
-  background: var(--line);
-  overflow: hidden;
-}
-#loginScreen .lead .sc i {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: var(--grad);
-  transition: width var(--tal-dur-1100) cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-#loginScreen .lead .scv {
-  font-size: 11px;
-  color: var(--mut);
-  margin-top: 3px;
-  display: block;
-}
-#loginScreen .lead .st {
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--mut);
-  text-align: right;
-  transition: var(--tal-dur-300);
-}
-#loginScreen .lead .st.q {
-  color: var(--pink-ink);
-}
-#loginScreen .ctx {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 16px;
-}
-#loginScreen .ctxc {
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 18px;
-  background: var(--bg);
-}
-#loginScreen .ctxc h3 {
-  font-family: var(--tal-font-display);
-  font-size: 12px;
-  text-transform: uppercase;
-  margin-bottom: 12px;
-}
-#loginScreen .ctxc .row {
-  font-size: 11.5px;
-  color: var(--mut);
-  padding: 5px 0;
-  border-bottom: 1px dashed var(--line);
-}
-#loginScreen .ctxc .row b {
-  color: var(--ink);
-  font-weight: 600;
-}
-#loginScreen .gen {
-  border: 1px solid var(--pink);
-  border-radius: 14px;
-  padding: 18px;
-  background: var(--bg);
-  grid-column: 1/-1;
-  position: relative;
-}
-#loginScreen .gen h3 {
-  font-family: var(--tal-font-display);
-  font-size: 12px;
-  text-transform: uppercase;
-  margin-bottom: 10px;
-  color: var(--pink-ink);
-}
-#loginScreen .gen .txt {
-  font-size: 12.5px;
-  min-height: 66px;
-  line-height: 1.65;
-}
-#loginScreen .gen .txt::after {
-  content: '▊';
-  color: var(--pink-ink);
-  animation: bl 0.8s infinite;
-}
-#loginScreen .gen.done .txt::after {
-  content: '';
-}
-@keyframes bl {
-  50% {
-    opacity: 0;
-  }
-}
-#loginScreen .gen .ok {
-  position: absolute;
-  right: 16px;
-  bottom: 14px;
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--pink-ink);
-  opacity: 0;
-  transition: var(--tal-dur-400);
-}
-#loginScreen .gen.done .ok {
-  opacity: 1;
-}
-#loginScreen .qrow {
-  display: grid;
-  grid-template-columns: 1fr 130px;
-  gap: 12px;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  padding: 12px 16px;
-  margin-bottom: 10px;
-  background: var(--bg);
-}
-#loginScreen .qrow b {
-  font-size: 12.5px;
-}
-#loginScreen .qrow small {
-  color: var(--mut);
-  font-size: 11px;
-  display: block;
-}
-#loginScreen .qst {
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  text-align: right;
-  color: var(--mut);
-  transition: var(--tal-dur-300);
-}
-#loginScreen .qst.s1 {
-  color: var(--tal-e8b93c);
-}
-#loginScreen .qst.s2 {
-  color: var(--pink-ink);
-}
-#loginScreen .toast {
-  position: absolute;
-  left: 28px;
-  right: 28px;
-  bottom: 20px;
-  border: 1px solid var(--pink);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--pink) 12%, var(--card));
-  padding: 13px 18px;
-  font-size: 12.5px;
-  transform: translateY(140%);
-  transition: var(--tal-dur-600) cubic-bezier(0.2, 0.8, 0.2, 1);
-}
-#loginScreen .toast.on {
-  transform: none;
-}
-#loginScreen .appwin {
-  position: relative;
-}
-#loginScreen .awcur {
-  position: absolute;
-  z-index: 9;
-  width: 22px;
-  height: 22px;
-  left: 0;
-  top: 0;
-  pointer-events: none;
-  transition:
-    left var(--tal-dur-1100) cubic-bezier(0.45, 0.05, 0.2, 1),
-    top var(--tal-dur-1100) cubic-bezier(0.45, 0.05, 0.2, 1);
-  filter: drop-shadow(0 3px 8px var(--tal-000000-a50));
-}
-#loginScreen .awcur svg {
-  display: block;
-  transition: transform var(--tal-dur-250) ease;
-}
 /* Лёгкое «нажатие» курсора в момент клика — клики выглядят живее. */
-#loginScreen .awcur.clk svg {
-  transform: scale(0.82);
-}
 /* Демо — это запись: человек не может кликать по интерфейсу, всё делает
    авто-курсор. Отключаем указатель на «странице» кабинета (панель управления
    плеером ниже остаётся кликабельной). */
-#loginScreen .aw-body {
-  pointer-events: none;
-}
-#loginScreen .awcur::after {
-  content: '';
-  position: absolute;
-  left: -8px;
-  top: -8px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  border: 2px solid var(--pink);
-  opacity: 0;
-  transform: scale(0.3);
-}
-#loginScreen .awcur.clk::after {
-  animation: curclk 0.5s ease-out;
-}
-@keyframes curclk {
-  0% {
-    opacity: 0.9;
-    transform: scale(0.3);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1.2);
-  }
-}
-#loginScreen .aw-play {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 13px 20px;
-  border-top: 1px solid var(--line);
-  background: color-mix(in srgb, var(--bg) 55%, var(--card));
-}
-#loginScreen .aw-pp {
-  width: 38px;
-  height: 38px;
-  border-radius: 50%;
-  background: var(--grad);
-  border: none;
-  color: var(--tal-white);
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  flex: none;
-  box-shadow: 0 4px 18px var(--glow);
-  transition: transform var(--tal-dur-200);
-}
-#loginScreen .aw-pp:hover {
-  transform: scale(1.08);
-}
-#loginScreen .aw-pp svg {
-  width: 13px;
-  height: 13px;
-  display: block;
-}
-#loginScreen .aw-tc {
-  font-size: 11px;
-  color: var(--mut);
-  font-variant-numeric: tabular-nums;
-  letter-spacing: 0.08em;
-  flex: none;
-}
-#loginScreen .aw-track {
-  flex: 1;
-  display: flex;
-  gap: 6px;
-}
-#loginScreen .aw-seg {
-  flex: 1;
-  height: 5px;
-  border-radius: 5px;
-  background: var(--line);
-  overflow: hidden;
-  cursor: pointer;
-  position: relative;
-}
-#loginScreen .aw-seg i {
-  display: block;
-  height: 100%;
-  width: 0;
-  background: var(--grad);
-}
-#loginScreen .aw-seg:hover {
-  transform: scaleY(1.6);
-}
-#loginScreen .aw-cap {
-  flex: none;
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--mut);
-}
 /* ==== Финал: шторка + футер =============================================
    Слово TALARIA лежит на «шторке» цвета страницы. По скроллу шторка целиком
    (Samat: «уходит не по 1 букве, а всё слово») уезжает вверх и открывает
    футер (другой цвет, чем страница) с рукой, письмом и входом — как «шторка
    открывается» на hermes-agent. */
-#loginScreen .zp-final {
-  position: relative;
-  height: 320vh;
-  background: var(--tal-17091a);
-  color: var(--tal-f5eef6);
-}
-#loginScreen .zp-final-sticky {
-  position: sticky;
-  width: 100%;
-  top: 0;
-  height: 100vh;
-  overflow: hidden;
-}
 /* Сцена-футер (открывается из-под шторки). Всегда тёмно-сливовая — намеренно
    другого цвета, чем страница, в обеих темах. */
-#loginScreen .fin-stage {
-  position: absolute;
-  inset: 0;
-  z-index: 1;
-  overflow: hidden;
-  color: var(--tal-f5eef6);
-  background:
-    radial-gradient(120% 92% at 82% 120%, var(--tal-2a0f2e), transparent 60%),
-    radial-gradient(70% 55% at 72% 42%, var(--tal-ff2fa4-a18), transparent 72%), var(--tal-17091a);
-}
 
 /* Шторка: полноэкранная панель цвета страницы, слово по центру. */
-#loginScreen .fin-wclip {
-  position: absolute;
-  inset: 0;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--bg);
-  will-change: transform;
-}
-#loginScreen .fin-word {
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  /* v51: 13.5vw упиралось в края окна — крайние буквы резались. */
-  font-size: 12.4vw;
-  letter-spacing: 0.01em;
-  line-height: 0.9;
-  user-select: none;
-  white-space: nowrap;
-  display: flex;
-}
-#loginScreen .fin-word span {
-  display: inline-block;
-  color: var(--ink);
-  text-shadow: 0 0 90px var(--tal-ff2fa4-a40);
-}
 /* Призыв «Войти» и вторичная кнопка стоят слева внизу сцены, не поверх слова. */
 /* Кнопки стоят примерно на уровне руки (по вертикали середина сцены). */
-#loginScreen .fin-cta {
-  position: absolute;
-  left: 6%;
-  bottom: 40%;
-  z-index: 4;
-  max-width: 480px;
-  opacity: 0;
-  will-change: opacity;
-  /* Правка Samat: «убери сзади кнопок блюр». Он приходил не отсюда — на
-     блоке висит старый класс .zp-final-login (таблетка «войти» из первой
-     версии финала) с `backdrop-filter: blur(8px)`. Фон и тень того правила
-     мы уже перебили, а размытие протекало и мылило руку с вордмарком
-     прямоугольником по габариту блока. */
-  backdrop-filter: none;
-}
-#loginScreen .fin-kicker {
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.24em;
-  text-transform: uppercase;
-  color: var(--tal-ffd9f0);
-  margin: 0 0 18px;
-}
-#loginScreen .fin-btns {
-  display: flex;
-  gap: 14px;
-  flex-wrap: wrap;
-}
-#loginScreen .fin-btn {
-  font-family: var(--tal-font-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  padding: 16px 30px;
-  border-radius: 999px;
-  background: var(--grad);
-  color: var(--on-accent);
-  border: 1px solid transparent;
-  cursor: pointer;
-  text-decoration: none;
-  box-shadow: 0 14px 44px var(--tal-ff2fa4-a45);
-  transition:
-    transform var(--tal-dur-250),
-    box-shadow var(--tal-dur-250);
-}
-#loginScreen .fin-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 20px 60px var(--tal-ff2fa4-a50);
-}
-#loginScreen .fin-btn.ghost {
-  background: none;
-  color: var(--tal-f5eef6);
-  border-color: var(--tal-ffffff-a22);
-  box-shadow: none;
-}
-#loginScreen .fin-btn.ghost:hover {
-  border-color: var(--tal-ff2fa4);
-  color: var(--tal-ffd9f0);
-}
-
-#loginScreen .mdl {
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  display: grid;
-  place-items: center;
-  padding: 20px;
-  background: var(--tal-050308-a72);
-  backdrop-filter: blur(8px);
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity var(--tal-dur-450);
-}
-#loginScreen .mdl.on {
-  opacity: 1;
-  pointer-events: auto;
-}
-#loginScreen .mdl-c {
-  max-width: 640px;
-  width: 100%;
-  border-radius: 26px;
-  overflow: hidden;
-  background: var(--tal-151218);
-  color: var(--tal-f5eef6);
-  border: 1px solid var(--tal-ffffff-a14);
-  display: grid;
-  grid-template-columns: 240px 1fr;
-  position: relative;
-  box-shadow:
-    0 50px 140px var(--tal-000000-a70),
-    0 0 90px var(--tal-ff2fa4-a30);
-  transform: translateY(34px) scale(0.96);
-  transition: transform var(--tal-dur-500) cubic-bezier(0.2, 0.9, 0.3, 1.2);
-}
-#loginScreen .mdl.on .mdl-c {
-  transform: none;
-}
-#loginScreen .mdl-im {
-  position: relative;
-}
-#loginScreen .mdl-im img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-#loginScreen .mdl-im::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(90deg, transparent 60%, var(--tal-151218));
-}
-#loginScreen .mdl-b {
-  padding: 34px 30px;
-}
-#loginScreen .mdl-b h3 {
-  font-size: 20px;
-  text-transform: uppercase;
-  line-height: 1.3;
-  margin: 10px 0 12px;
-}
-#loginScreen .mdl-b p {
-  color: var(--tal-a99cad);
-  font-size: 12.5px;
-  margin-bottom: 18px;
-}
-#loginScreen .mdl-code {
-  border: 1px dashed var(--tal-ff2fa4);
-  border-radius: 12px;
-  padding: 10px 16px;
-  display: inline-block;
-  font-size: 13px;
-  letter-spacing: 0.2em;
-  color: var(--tal-ff2fa4);
-  margin-bottom: 22px;
-  cursor: pointer;
-}
-#loginScreen .mdl-btns {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-#loginScreen .mdl-x {
-  position: absolute;
-  top: 14px;
-  right: 18px;
-  background: none;
-  border: none;
-  color: var(--tal-a99cad);
-  font-size: 22px;
-  cursor: pointer;
-  z-index: 2;
-}
 @media (max-width: 1000px) {
-  #loginScreen .zp-hero {
-    grid-template-columns: 1fr;
-    padding-top: 110px;
-    gap: 54px;
-  }
-  #loginScreen .zp-control-grid .wrap {
-    grid-template-columns: 1fr;
-    gap: 60px;
-  }
-  #loginScreen .pgrid {
-    grid-template-columns: 1fr;
-  }
-  #loginScreen .pulse-g {
-    grid-template-columns: 1fr;
-    gap: 44px;
-  }
-  #loginScreen .fgrid {
-    grid-template-columns: 1fr 1fr;
-  }
-  #loginScreen .stats {
-    grid-template-columns: 1fr 1fr;
-  }
-  #loginScreen .stat:nth-child(3) {
-    border-left: none;
-  }
-  #loginScreen .stat:nth-child(n + 3) {
-    border-top: 1px solid var(--line);
-  }
   /* Мобилка: прячем левую навигацию (ссылки налезали на логотип), логотип по
      центру, справа тема + «Войти» — шапка помещается и не наезжает. */
-  #loginScreen .nl,
-  #loginScreen .nav-left {
-    display: none;
-  }
-  #loginScreen .nav-in {
-    padding: 11px 16px;
-    gap: 8px;
-    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
-  }
-  #loginScreen .nav-right {
-    gap: 10px;
-  }
-  #loginScreen .lp-nav-cta {
-    padding: 11px 16px;
-    font-size: 10px;
-  }
   /* Демо-окно на телефоне больше НЕ перестраиваем в мобильную раскладку:
      Samat просил «просто уменьшенное» — целиком масштабируем ниже
      (.appwin-scale), чтобы человек видел настоящую композицию кабинета. */
 }
-@media (max-width: 760px) {
-  #loginScreen .fun-row {
-    grid-template-columns: 88px 1fr 72px;
-    gap: 10px;
-  }
-  #loginScreen .fun-v {
-    font-size: 17px;
-  }
-  #loginScreen .aw-cap {
-    display: none;
-  }
-  #loginScreen .aw-tc {
-    font-size: 11px;
-  }
-}
 @media (max-width: 640px) {
   /* Мобилка: не растягиваем карточки на всю ширину — по 2 в ряд, компактнее. */
-  #loginScreen .fgrid {
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-  }
-  #loginScreen .fcard {
-    padding: 14px;
-  }
-  #loginScreen .fcard .fim {
-    border-radius: 12px;
-  }
-  #loginScreen .fcard h3 {
-    font-size: 15px;
-  }
-  #loginScreen .fcard p {
-    font-size: 12px;
-    line-height: 1.5;
-  }
-  #loginScreen
-    :is(.zp-stats, .zp-capabilities, .zp-pricing, .zp-workflow, .zp-account-band, .zp-faq) {
-    padding: 80px 0;
-  }
-  #loginScreen .fin-word {
-    font-size: 17.5vw;
-  }
-
-  #loginScreen .fin-cta {
-    left: 6%;
-    right: 6%;
-    bottom: 12%;
-    max-width: none;
-  }
-  #loginScreen .fin-btn {
-    padding: 15px 24px;
-    font-size: 11px;
-  }
-  #loginScreen .minirow {
-    grid-template-columns: 1fr 1fr;
-  }
-  #loginScreen .aw-main {
-    min-height: 680px;
-  }
-  #loginScreen .kpis {
-    gap: 8px;
-  }
-  #loginScreen .kpi b {
-    font-size: 15px;
-  }
-  #loginScreen .bignum {
-    font-size: clamp(56px, 17vw, 86px);
-  }
-  #loginScreen .brand {
-    font-size: 20px;
-    gap: 9px;
-  }
-  #loginScreen .tl-logo {
-    width: 33px;
-    height: 28px;
-  }
-  #loginScreen .pcard {
-    padding: 30px 22px;
-  }
-  #loginScreen .am {
-    font-size: 40px;
-    min-height: 56px;
-  }
-  #loginScreen .mdl-c {
-    grid-template-columns: 1fr;
-  }
-  #loginScreen .mdl-im {
-    height: 160px;
-  }
-  #loginScreen .mdl-im::after {
-    background: linear-gradient(180deg, transparent 40%, var(--tal-151218));
-  }
-  #loginScreen .lead {
-    grid-template-columns: 38px 1fr 80px;
-  }
-  #loginScreen .lead .st {
-    display: none;
-  }
-  #loginScreen .ctx {
-    grid-template-columns: 1fr;
-  }
-  #loginScreen .scene {
-    padding: 18px;
-  }
-  #loginScreen .toast {
-    left: 18px;
-    right: 18px;
-  }
 }
 
 /* ---- integration overrides: window-scroll landing, full-bleed, dark default ---- */
-#loginScreen {
-  position: static;
-  inset: auto;
-  z-index: auto;
-  min-height: 0;
-  overflow-x: clip;
-  overflow-y: visible;
-}
-#loginScreen.hidden {
-  display: none;
-}
-body:has(.login-screen:not(.hidden)) {
-  overflow-x: clip;
-  overflow-y: auto;
-}
-#loginScreen .login-page {
-  width: 100%;
-  max-width: none;
-  margin: 0;
-  padding: 0;
-  background: transparent;
-}
 
 /* Иконка показывает, КУДА переключит клик: в тёмной теме — солнце, в светлой — луну. */
-#loginScreen .landing-theme-toggle svg {
-  width: 18px;
-  height: 18px;
-}
-html[data-theme='dark'] #loginScreen .landing-theme-moon {
-  display: none;
-}
-html[data-theme='light'] #loginScreen .landing-theme-sun {
-  display: none;
-}
 
 /* ------------------------------------------------------------------
    Секции, которых не было в исходном макете V5, но которых требует
@@ -2258,270 +81,14 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
 /* Имя бренда — редакционный serif-вордмарк (стили в блоке .brand выше). */
 
 /* Подписи под счётчиками */
-#loginScreen .pulse-note {
-  color: var(--mut);
-  font-size: 13px;
-  max-width: 44ch;
-  margin-top: 22px;
-}
-#loginScreen #publicStatsStatus {
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  margin-top: 26px;
-}
 
 /* --- Полоса «пишет ваш Telegram» --------------------------------- */
-#loginScreen .zp-account-band {
-  padding-block: 120px;
-}
-#loginScreen .ab-in {
-  display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
-  gap: 56px;
-  align-items: center;
-  border: 1px solid var(--line);
-  border-radius: 30px;
-  background: var(--card);
-  padding: 54px 56px;
-}
-#loginScreen .ab-copy h2 {
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  font-size: clamp(24px, 2.7vw, 38px);
-  text-transform: uppercase;
-  line-height: 1.04;
-  margin: 14px 0 18px;
-}
-#loginScreen .ab-copy p {
-  color: var(--mut);
-  font-size: 14px;
-  max-width: 46ch;
-}
-#loginScreen .ab-list {
-  display: grid;
-  gap: 14px;
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
-#loginScreen .ab-list li {
-  display: flex;
-  align-items: baseline;
-  gap: 16px;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  padding: 18px 22px;
-  background: var(--bg2);
-}
-#loginScreen .ab-list b {
-  font-family: var(--tal-font-display);
-  font-weight: 700;
-  font-size: 19px;
-  color: var(--pink-ink);
-  flex: none;
-  min-width: 76px;
-}
-#loginScreen .ab-list span {
-  color: var(--mut);
-  font-size: 13px;
-}
 
 /* --- Вопросы ------------------------------------------------------ */
-#loginScreen .zp-faq {
-  padding-block: 120px;
-}
-#loginScreen .zp-faq .shead {
-  position: relative;
-}
-#loginScreen .zp-faq-state {
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  color: var(--mut);
-  display: inline-flex;
-  gap: 8px;
-  margin-left: auto;
-}
-#loginScreen #faqHint {
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--pink-ink);
-}
-#loginScreen .lp-faq {
-  display: grid;
-  gap: 12px;
-}
-#loginScreen .lp-q {
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: var(--card);
-  padding: 22px 26px;
-  transition: border-color var(--tal-dur-300);
-}
-#loginScreen .lp-q[open] {
-  border-color: var(--glow);
-}
-#loginScreen .lp-q summary {
-  cursor: pointer;
-  list-style: none;
-  font-family: var(--tal-font-display);
-  font-weight: 600;
-  font-size: clamp(15px, 1.5vw, 19px);
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-#loginScreen .lp-q summary::-webkit-details-marker {
-  display: none;
-}
-#loginScreen .lp-q summary::after {
-  content: '+';
-  margin-left: auto;
-  color: var(--pink-ink);
-  font-size: 22px;
-  line-height: 1;
-  flex: none;
-}
-#loginScreen .lp-q[open] summary::after {
-  content: '−';
-}
-#loginScreen .lp-q > div {
-  color: var(--mut);
-  font-size: 14px;
-  line-height: 1.65;
-  max-width: 74ch;
-  margin-top: 16px;
-}
 
 /* --- Подвал ------------------------------------------------------- */
-#loginScreen .lp-foot {
-  border-top: 1px solid var(--line);
-  padding-block: 64px 78px;
-  background: var(--bg);
-}
-#loginScreen .foot-in {
-  display: grid;
-  grid-template-columns: auto 1fr;
-  gap: 56px;
-  align-items: start;
-}
-#loginScreen .foot-brand {
-  display: grid;
-  gap: 10px;
-}
-#loginScreen .foot-name {
-  font-family: var(--tal-font-display);
-  /* v48: логотип в подвале тоже без жирного — разрядка держит его читаемым. */
-  font-weight: 500;
-  font-size: 24px;
-  letter-spacing: 0.06em;
-  text-transform: uppercase;
-}
-#loginScreen .terms-box.landing-terms {
-  display: grid;
-  gap: 12px;
-  justify-items: end;
-  text-align: right;
-}
-#loginScreen .terms-box.landing-terms p {
-  color: var(--mut);
-  font-size: 12px;
-  line-height: 1.7;
-  max-width: 62ch;
-}
 
 /* --- Карточка тарифа (её рисует tariffs.js) ----------------------- */
-#loginScreen .zp-access-pass {
-  position: relative;
-  border: 0;
-  background: none;
-  padding: 0;
-  color: var(--ink);
-}
-#loginScreen .zp-access-pass .tariff-name {
-  font-family: var(--tal-font-display);
-  font-weight: 700;
-  font-size: 20px;
-  text-transform: uppercase;
-}
-#loginScreen .zp-access-pass .tariff-tagline,
-#loginScreen .zp-access-pass .tariff-checkout p {
-  color: var(--mut);
-  font-size: 13px;
-}
-#loginScreen .zp-access-pass .tariff-price-live strong,
-#loginScreen .zp-access-pass [data-plan-checkout-price] {
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  font-size: clamp(38px, 5vw, 64px);
-  line-height: 1;
-  display: block;
-  /* «5 000 ₽» — единая цена, разрывать её между строк нельзя */
-  white-space: nowrap;
-}
-#loginScreen .zp-access-pass .tariff-price-live span,
-#loginScreen .zp-access-pass .tariff-checkout-kicker {
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--mut);
-}
-#loginScreen .zp-access-pass .tariff-feats {
-  display: grid;
-  gap: 12px;
-  list-style: none;
-  margin: 26px 0 0;
-  padding: 0;
-}
-#loginScreen .zp-access-pass .tariff-feats li {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 14px;
-  color: var(--mut);
-}
-#loginScreen .zp-access-pass .tariff-feats svg {
-  width: 18px;
-  height: 18px;
-  color: var(--pink-ink);
-  flex: none;
-}
-#loginScreen .zp-access-pass :is(.plan-period, .plan-currency) {
-  display: inline-flex;
-  gap: 6px;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  padding: 5px;
-  margin-top: 20px;
-}
-#loginScreen .zp-access-pass :is(.plan-period, .plan-currency) button {
-  border: 0;
-  background: none;
-  color: var(--mut);
-  cursor: pointer;
-  border-radius: 99px;
-  padding: 8px 16px;
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  transition: color var(--tal-dur-250);
-}
-#loginScreen .zp-access-pass :is(.plan-period, .plan-currency) button.active {
-  background: var(--grad);
-  color: var(--tal-white);
-}
-#loginScreen .zp-access-pass .plan-period i {
-  display: none;
-}
-#loginScreen .zp-access-pass .tariff-checkout-head .plan-currency {
-  margin-top: 0;
-}
 /* Карточка тарифа — общий компонент с кабинетом: там уместна плотная
    двухколоночная касса, на лендинге она ломалась (цена переносилась, «₽»
    уезжал на вторую строку, буллеты дробились на три). Здесь раскладываем
@@ -2530,323 +97,41 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
    display: contents на обёртках выпрямляет два столбца в один поток, и
    порядок блоков задаётся order — без правки разметки, то есть без риска
    для карточки тарифа внутри кабинета. */
-#loginScreen .zp-access-pass .tariff-body-grid {
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 0;
-}
-#loginScreen .zp-access-pass .tariff-value-column,
-#loginScreen .zp-access-pass .tariff-checkout {
-  display: contents;
-  /* `.tariff-checkout` в app.css красит текст в `--on-ink` — это касса в
-     кабинете, там под ней тёмная подложка. На лендинге подложку сняли, а цвет
-     остался: на тёмной теме белое по тёмному не бросалось в глаза, на светлой
-     заголовки внутри кассы становились белыми на белом. */
-  color: var(--ink);
-}
-#loginScreen .zp-access-pass .tariff-topline {
-  order: 1;
-}
 /* Тариф один, поэтому бейдж «Полная версия» на лендинге лишний — его место
    в макете занимает переключатель валюты в правом верхнем углу карточки. */
-#loginScreen .zp-access-pass .tariff-one-badge,
-#loginScreen .zp-access-pass .tariff-current {
-  display: none;
-}
-#loginScreen .zp-access-pass .tariff-checkout-head {
-  position: absolute;
-  top: 0;
-  right: 0;
-  margin: 0;
-  display: flex;
-  justify-content: flex-end;
-}
 /* Переключатель валюты вынут из потока, поэтому заголовок о нём не знает.
    Пока касса занимала всю ширину, места хватало; после переезда в левую
    колонку подзаголовок дорос до переключателя и полез под него. Резервируем
    место явно — ширина переключателя плюс воздух. */
-#loginScreen .zp-access-pass .tariff-topline {
-  padding-right: 178px;
-}
-#loginScreen .zp-access-pass .tariff-price-live {
-  order: 3;
-  display: flex;
-  align-items: baseline;
-  flex-wrap: nowrap;
-  gap: 12px;
-  margin-top: 10px;
-}
-#loginScreen .zp-access-pass .plan-period {
-  order: 4;
-  justify-self: start;
-  align-self: flex-start;
-}
-#loginScreen .zp-access-pass .tariff-feats {
-  order: 5;
-}
-#loginScreen .zp-access-pass .tariff-checkout > p {
-  order: 6;
-  margin-top: 22px;
-}
-#loginScreen .zp-access-pass .promo-box {
-  order: 7;
-}
-#loginScreen .zp-access-pass .tariff-pay {
-  order: 8;
-}
 /* Блок пробного доступа — последним. Без явного order он получает 0 и в потоке
    display:contents уезжает в самое начало карточки, выше названия тарифа. */
-#loginScreen .zp-access-pass .tariff-trial {
-  order: 9;
-}
 /* Цена в кассе — тот же quote.total_amount, что и крупная цена сверху.
    На лендинге второй такой заголовок читался как «ещё один тариф». */
-#loginScreen .zp-access-pass [data-plan-checkout-price],
-#loginScreen .zp-access-pass .tariff-checkout-kicker {
-  display: none;
-}
 /* Промокод: раскрытие поля НЕ должно менять высоту карточки (Samat: «блок
    тарифа чуть увеличивается»). Раньше поле добавлялось ПОД ссылкой и карточка
    росла. Теперь ссылка и поле занимают одну и ту же строку: при раскрытии
    ссылка прячется, а компактный ряд «поле + кнопки» встаёт на её место —
    высота остаётся прежней. */
-#loginScreen .zp-access-pass .promo-box {
-  display: grid;
-  gap: 8px;
-  margin-top: 6px;
-}
-#loginScreen .zp-access-pass .promo-ticket {
-  justify-self: start;
-  display: inline-flex;
-  align-items: center;
-  min-height: 44px;
-  border: 1px dashed var(--line);
-  background: none;
-  color: var(--mut);
-  border-radius: 99px;
-  padding: 0 18px;
-  cursor: pointer;
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-}
-#loginScreen .zp-access-pass .promo-ticket:hover {
-  color: var(--pink-ink);
-  border-color: var(--glow);
-}
 /* Пока поле промокода открыто, дублирующая ссылка не нужна. */
-#loginScreen
-  .zp-access-pass
-  .promo-box:has([data-plan-promo-controls]:not([hidden]))
-  .promo-ticket {
-  display: none;
-}
-#loginScreen .zp-access-pass [data-plan-promo-controls] {
-  display: grid;
-  gap: 8px;
-}
-#loginScreen .zp-access-pass [data-plan-promo-controls] > div {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  /* Та же высота, что у ссылки «У меня есть промокод» (44px): иначе при
-     раскрытии поля кнопка оплаты подпрыгивает на ~6px. */
-  min-height: 44px;
-}
 /* Подпись поля не нужна визуально (есть placeholder), но остаётся для
    скринридеров — иначе строка поля выше и карточка всё же подрастает. */
-#loginScreen .zp-access-pass [data-plan-promo-controls] label {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
-}
 /* Статус держит свою строку постоянно — сообщение «Промокод применён» не
    толкает кнопку оплаты вниз. */
-#loginScreen .zp-access-pass [data-plan-promo-status] {
-  min-height: 1.2em;
-}
-#loginScreen .zp-access-pass input {
-  flex: 1;
-  min-width: 0;
-  background: var(--bg2);
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  padding: 11px 14px;
-  color: var(--ink);
-  font-family: var(--tal-font-mono);
-  font-size: 12px;
-}
-#loginScreen .zp-access-pass .btn.ghost {
-  border: 1px solid var(--line);
-  background: none;
-  color: var(--ink);
-  border-radius: 12px;
-  padding: 11px 16px;
-  cursor: pointer;
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  text-transform: uppercase;
-}
-#loginScreen .zp-access-pass .tariff-pay {
-  margin-top: 10px;
-  border: 0;
-  border-radius: 99px;
-  padding: 16px 30px;
-  background: var(--grad);
-  color: var(--on-accent);
-  font-family: var(--tal-font-mono);
-  font-size: 12px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  cursor: pointer;
-}
-#loginScreen .zp-access-pass .tariff-pay[disabled] {
-  opacity: 0.55;
-  cursor: default;
-}
-#loginScreen .zp-access-pass [data-plan-promo-status] {
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  color: var(--mut);
-}
-#loginScreen :is(.tariff-one-badge, .tariff-current) {
-  font-family: var(--tal-font-mono);
-  font-size: 10px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  border: 1px solid var(--line);
-  border-radius: 99px;
-  padding: 6px 12px;
-  color: var(--mut);
-}
-#loginScreen .zp-access-pass .tariff-topline {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 20px;
-}
-#loginScreen .ptariff-note,
-#loginScreen .landing-tariff-foot {
-  color: var(--mut);
-  font-size: 12px;
-  margin-top: 22px;
-}
-#loginScreen .landing-tariff-foot a {
-  color: var(--pink-ink);
-}
-#loginScreen .dd-empty,
-#loginScreen .tariff-load-error {
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 12px;
-  display: grid;
-  gap: 10px;
-  justify-items: start;
-}
-
-@media (max-width: 900px) {
-  #loginScreen .ab-in,
-  #loginScreen .foot-in {
-    grid-template-columns: 1fr;
-    gap: 30px;
-  }
-  #loginScreen .ab-in {
-    padding: 34px 24px;
-  }
-  #loginScreen .terms-box.landing-terms {
-    justify-items: start;
-    text-align: left;
-  }
-  #loginScreen :is(.zp-account-band, .zp-faq) {
-    padding-block: 74px;
-  }
-}
 
 /* В списке тарифа галочку рисует сам компонент — свой маркер убираем. */
-#loginScreen .zp-access-pass .tariff-feats li::before {
-  content: none;
-}
 
 /* Прежний лендинг рисовал штриховку на .landing-tariffs и поворачивал маркер
    вопроса — в оформлении V5 этого нет. */
-#loginScreen .landing-tariffs {
-  background-color: transparent;
-  background-image: none;
-}
-#loginScreen .zp-pricing::before {
-  content: none;
-}
-#loginScreen .lp-q[open] > summary::after {
-  transform: none;
-}
-#loginScreen .lp-q summary::after {
-  box-shadow: none;
-}
 
 /* Декорации не должны вылезать за вьюпорт: на планшете орбита и плавающие
    чипы сужаются, иначе появляется горизонтальная прокрутка. */
-@media (max-width: 1200px) {
-  #loginScreen .orbit {
-    width: 100%;
-  }
-  #loginScreen .fc2 {
-    right: 0;
-  }
-  #loginScreen .fc3 {
-    left: 0;
-  }
-}
 
 /* Дорожка этапов — семантический список, служебные отступы списка убираем. */
-#loginScreen .aw-track {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-}
 
 /* Ничто не должно выходить за вьюпорт на узком экране: орбита, нижняя панель
    плеера кампании и рука финала на 390px раньше вылезали за край. */
-@media (max-width: 700px) {
-  #loginScreen .orbit {
-    width: 84%;
-  }
-  #loginScreen .aw-foot {
-    flex-wrap: wrap;
-    row-gap: 10px;
-  }
-  #loginScreen .aw-step {
-    min-width: 0;
-  }
-  #loginScreen .aw-track {
-    flex: 1 1 100%;
-    min-width: 0;
-  }
-}
 
 /* Превью-картинка в пузыре Telegram (одно сообщение + одна картинка). */
-#loginScreen .tg-photo {
-  display: block;
-  overflow: hidden;
-  margin: -2px -2px 7px;
-  border-radius: 13px;
-  line-height: 0;
-}
-#loginScreen .tg-photo svg {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-#loginScreen .tg-txt {
-  display: block;
-}
 
 /* ==== Демо «Полёт кампании» = снимок настоящего кабинета =================
    Samat: «где показывает как выглядит сайт — сделай прям реально как сайт,
@@ -2858,164 +143,12 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
    и полоса этапов кампании лежат снаружи `.appwin`, но на той же чёрной
    подложке. Пока они брали токены страницы, на светлой теме подпись была
    светло-серой на чёрном, а названия этапов — почти чёрными на чёрном. */
-#loginScreen .aw-frame,
-#loginScreen .appwin {
-  --bg: var(--tal-0b0a0e);
-  --bg2: var(--tal-121016);
-  --card: var(--tal-151218);
-  --ink: var(--tal-f5eef6);
-  --mut: var(--tal-a99cad);
-  --line: var(--tal-ffffff-a14);
-  --pink-ink: var(--tal-ff2fa4);
-  color: var(--ink);
-}
-#loginScreen .aw-brand-copy {
-  display: grid;
-  line-height: 1.25;
-}
-#loginScreen .aw-brand-copy b {
-  font-family: var(--tal-font-display);
-  font-size: 12px;
-  /* v48: гасим жирный по умолчанию у <b>. */
-  font-weight: 500;
-  letter-spacing: 0.22em;
-}
-#loginScreen .aw-brand-copy small {
-  margin: 0;
-  color: var(--mut);
-  font-size: 8.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-#loginScreen .aw-group {
-  padding: 14px 20px 6px;
-  color: var(--mut);
-  font-size: 8.5px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-}
-#loginScreen .aw-quota {
-  margin: 14px 14px 0;
-  padding: 10px 12px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-}
-#loginScreen .aw-quota-top {
-  display: flex;
-  justify-content: space-between;
-  color: var(--mut);
-  font-size: 9.5px;
-}
-#loginScreen .aw-quota-bar {
-  overflow: hidden;
-  height: 4px;
-  margin-top: 7px;
-  border-radius: 99px;
-  background: var(--line);
-}
-#loginScreen .aw-quota-bar i {
-  display: block;
-  height: 100%;
-  border-radius: 99px;
-  background: var(--grad);
-}
-#loginScreen .aw-tariff {
-  display: flex;
-  align-items: center;
-  margin: 10px 14px 0;
-  padding: 10px 12px;
-  border-radius: 12px;
-  gap: 9px;
-  color: var(--tal-white);
-  background: var(--grad);
-}
-#loginScreen .aw-tariff svg {
-  width: 14px;
-  height: 14px;
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.6;
-}
-#loginScreen .aw-tariff b {
-  font-size: 12px;
-}
-#loginScreen .aw-live {
-  width: 6px;
-  height: 6px;
-  margin-left: auto;
-  border-radius: 50%;
-  background: var(--tal-28c840);
-}
-#loginScreen .aw-top-copy {
-  display: grid;
-  margin-right: auto;
-  gap: 3px;
-}
-#loginScreen .aw-tt {
-  font-family: var(--tal-font-display);
-  font-size: 17px;
-  font-weight: 600;
-  letter-spacing: 0.01em;
-  text-transform: uppercase;
-}
-#loginScreen .aw-clock {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  color: var(--mut);
-  font-size: 10px;
-}
-#loginScreen .aw-clock i {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--pink);
-}
-#loginScreen .aw-cta {
-  padding: 7px 15px;
-  border-radius: 99px;
-  color: var(--tal-white);
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  background: var(--grad);
-}
 
 /* Телефон: то же окно, просто уменьшенное — без ломки колонок. */
-#loginScreen .appwin-scale {
-  position: relative;
-}
 @media (max-width: 860px) {
   /* Коэффициент — обычное число: в CSS нельзя поделить длину на длину, поэтому
      ступеньки задаём брейкпоинтами, а точное значение уточняет talaria-landing.js
      по фактической ширине (--aw-k). Без JS окно всё равно выглядит корректно. */
-  #loginScreen .appwin-scale {
-    --aw-k: 0.72;
-    overflow: hidden;
-    height: calc(690px * var(--aw-k));
-  }
-  #loginScreen .appwin-scale .appwin {
-    width: 1040px;
-    height: 690px;
-    transform: scale(var(--aw-k));
-    transform-origin: top left;
-  }
-}
-@media (max-width: 700px) {
-  #loginScreen .appwin-scale {
-    --aw-k: 0.6;
-  }
-}
-@media (max-width: 560px) {
-  #loginScreen .appwin-scale {
-    --aw-k: 0.46;
-  }
-}
-@media (max-width: 430px) {
-  #loginScreen .appwin-scale {
-    --aw-k: 0.34;
-  }
 }
 
 /* ==== Тариф: было «фигово» (Samat) ======================================
@@ -3023,17 +156,6 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
    два несвязанных прямоугольника, между ними пустота. Теперь секция —
    одна композиция: касса по центру и крупная гравюра за ней, растворённая
    в фоне. Картинка перестала быть «фоткой отдельно», касса стала главной. */
-#loginScreen .pgrid {
-  position: relative;
-  display: block;
-  padding: 10px 0 20px;
-}
-html[data-theme='light'] #loginScreen .pcard {
-  position: relative;
-  z-index: 1;
-  max-width: 660px;
-  margin: 0 auto;
-}
 
 /* Гравюрные плашки возможностей — вектор вместо шести AI-картинок в data-URI
    (было 936 КБ base64 в index.html: и «иишно», и главная причина тормозов на
@@ -3042,22 +164,6 @@ html[data-theme='light'] #loginScreen .pcard {
 /* Мобилка: карточки возможностей по одной в ряд — на 390px две колонки
    ломали текст в столбик по одному слову. И переключатель валют перестаёт
    быть абсолютным, иначе он наезжает на подзаголовок тарифа. */
-@media (max-width: 460px) {
-  #loginScreen .fgrid {
-    grid-template-columns: 1fr;
-  }
-  #loginScreen .fcard .fim {
-    aspect-ratio: 16/9;
-  }
-  #loginScreen .zp-access-pass .tariff-checkout-head {
-    position: static;
-    justify-content: flex-start;
-    margin-top: 12px;
-  }
-  #loginScreen .zp-access-pass .tariff-topline {
-    padding-right: 0;
-  }
-}
 
 /* ═══════════════════════════════════════════════════════════════════════
    v7. Правки Samat: демо = точная копия кабинета в рамке, начало в духе
@@ -3067,495 +173,31 @@ html[data-theme='light'] #loginScreen .pcard {
 /* ── ГЕРОЙ: раскладка как у Hermes — текст слева, гравюра прижата к правому
    краю экрана во всю высоту первого экрана. Раньше арт был «карточкой»
    по центру колонки и висел в воздухе. ─────────────────────────────────── */
-#loginScreen .zp-hero {
-  max-width: none;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 0.86fr);
-  gap: 0;
-  padding: 132px 0 72px;
-  align-items: center;
-}
-#loginScreen .zp-hero > div:first-of-type {
-  padding-left: max(28px, calc((100vw - 1240px) / 2 + 28px));
-  padding-right: 48px;
-}
-#loginScreen .zp-hero h1 {
-  /* v46: Unbounded шире Playfair ~1.24x — прежняя шкала рвала колонку */
-  font-size: clamp(30px, 4.2vw, 60px);
-  line-height: 0.98;
-  letter-spacing: -0.005em;
-  margin: 20px 0 24px;
-}
-#loginScreen .zp-hero p {
-  max-width: 52ch;
-}
 /* Сниппет как терминальная плашка у Hermes: показываем продукт, а не обещание. */
 /* Бесплатный доступ в карточке тарифа: отделён линией, чтобы не спорить с
    кнопкой оплаты, но стоял рядом с ценой — выбор делают здесь. */
-#loginScreen .zp-access-pass .tariff-trial {
-  margin-top: 18px;
-  padding-top: 16px;
-  border-top: 1px solid var(--line);
-}
-#loginScreen .zp-access-pass .tariff-trial b {
-  display: block;
-  margin-bottom: 6px;
-  font-size: 14px;
-}
-#loginScreen .zp-access-pass .tariff-trial p {
-  margin: 0 0 12px;
-  color: var(--mut);
-  font-size: 12.5px;
-  line-height: 1.6;
-}
-#loginScreen .zp-access-pass .tariff-trial .btn {
-  width: 100%;
-}
 
 /* Что даёт бесплатный доступ — прямо под кнопкой. Человек должен узнать про
    границу (рассылки нет) до входа, а не упереться в неё внутри. */
-#loginScreen .hero-free {
-  max-width: 52ch;
-  margin-top: 16px;
-  color: var(--mut);
-  font-size: 13px;
-  line-height: 1.6;
-}
-#loginScreen .hero-free span {
-  display: block;
-  color: var(--accent-ink);
-}
-#loginScreen .hero-snippet {
-  max-width: 520px;
-  margin-top: 30px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-  background: color-mix(in srgb, var(--card) 82%, transparent);
-  overflow: hidden;
-}
-#loginScreen .hero-snippet-head {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px 14px;
-  justify-content: space-between;
-  padding: 9px 14px;
-  border-bottom: 1px solid var(--line);
-  color: var(--mut);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-#loginScreen .hero-snippet-body {
-  margin: 0;
-  padding: 14px;
-  color: var(--ink);
-  font-family: var(--tal-font-mono);
-  font-size: 12.5px;
-  line-height: 1.65;
-}
 /* Арт во всю высоту секции, ровно по правому краю окна. Слева — мягкая
    растушёвка, чтобы гравюра не выглядела наклеенным прямоугольником. */
 
 /* ── ДЕМО: рамка вокруг окна (как обрамление демо у Hermes) ────────────── */
-#loginScreen .aw-frame {
-  position: relative;
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 20px;
-  background: color-mix(in srgb, var(--ink-surface) 80%, var(--card));
-  box-shadow: var(--shadow);
-}
-#loginScreen .aw-frame-tag {
-  display: flex;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 2px 6px 11px;
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-#loginScreen .appwin .aw-url {
-  margin-left: 12px;
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.08em;
-}
 
 /* Демо-окно теперь собрано из НАСТОЯЩИХ классов кабинета (.app/.sidebar/
    .nav-item/.topbar/.panel/.stat-card/table). Правим только геометрию: в
    кабинете шелл занимает весь экран, здесь — фиксированное окно. */
-#loginScreen .appwin .app {
-  min-height: 0;
-  height: 100%;
-  grid-template-columns: 226px minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr);
-}
-#loginScreen .appwin .sidebar {
-  position: static;
-  height: 100%;
-  grid-row: 1;
-  gap: 14px;
-  padding: 16px 10px;
-  overflow: hidden;
-}
-#loginScreen .appwin .main {
-  display: flex;
-  flex-direction: column;
-  grid-column: 2;
-  grid-row: 1;
-  min-width: 0;
-  overflow: hidden;
-}
-#loginScreen .appwin .topbar {
-  position: static;
-  min-height: 58px;
-  padding: 12px 20px;
-}
-#loginScreen .appwin .content {
-  width: 100%;
-  padding: 18px 20px 20px;
-}
-#loginScreen .appwin .page-title {
-  font-size: 21px;
-}
-#loginScreen .appwin .page-sub {
-  font-size: 12px;
-}
-#loginScreen .appwin .nav-count {
-  margin-left: auto;
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-}
-#loginScreen .appwin .sidebar-foot {
-  display: grid;
-  gap: 10px;
-  margin-top: auto;
-}
-#loginScreen .aw-scene {
-  display: none;
-}
-#loginScreen .aw-scene.on {
-  display: block;
-  animation: awScene var(--tal-dur-450) cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-@keyframes awScene {
-  from {
-    opacity: 0;
-    transform: translateY(8px);
-  }
-}
-#loginScreen .appwin .input-mock {
-  display: block;
-  padding: 9px 11px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--surface);
-  color: var(--ink);
-  font-size: 12.5px;
-}
-#loginScreen .appwin .chip-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 7px;
-  margin-top: 14px;
-}
-#loginScreen .appwin .chip.accent {
-  color: var(--ink-surface);
-  background: var(--accent-gradient);
-}
-#loginScreen .appwin .demo-kpis {
-  margin: 16px 0;
-}
-#loginScreen .appwin .stat-card {
-  min-height: 0;
-  padding: 14px;
-}
-#loginScreen .appwin .stat-label {
-  color: var(--mut);
-  font-size: 11.5px;
-}
-#loginScreen .appwin .stat-value {
-  margin-top: 6px;
-  font-family: var(--tal-font-display);
-  font-size: 27px;
-}
-#loginScreen .appwin th,
-#loginScreen .appwin td {
-  padding: 9px 12px;
-  font-size: 12.5px;
-}
-#loginScreen .appwin .cell-lead {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-}
-#loginScreen .appwin .cell-ava {
-  display: grid;
-  width: 24px;
-  height: 24px;
-  place-items: center;
-  border-radius: 8px;
-  color: var(--ink-surface);
-  background: var(--accent-gradient);
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 800;
-}
-#loginScreen .appwin .score {
-  font-family: var(--tal-font-mono);
-  font-weight: 700;
-}
-#loginScreen .appwin .badge.hot {
-  color: var(--accent-ink);
-  background: color-mix(in srgb, var(--accent) 16%, transparent);
-}
-#loginScreen .appwin .badge.warm {
-  color: var(--tal-e8b93c);
-  background: color-mix(in srgb, var(--tal-e8b93c) 15%, transparent);
-}
-#loginScreen .appwin .badge.cold {
-  color: var(--mut);
-}
-#loginScreen .appwin .offer-grid {
-  display: grid;
-  gap: 12px;
-}
-#loginScreen .appwin .offer-preview {
-  margin: 12px 0 0;
-  color: var(--mut);
-  font-size: 12.5px;
-  line-height: 1.6;
-}
-#loginScreen .appwin .offer-foot {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-top: 12px;
-}
-#loginScreen .appwin .offer-foot .btn {
-  margin-left: auto;
-}
-#loginScreen .appwin .run-bar {
-  height: 8px;
-  margin-top: 14px;
-  border-radius: 99px;
-  background: var(--surface-raised);
-  overflow: hidden;
-}
-#loginScreen .appwin .run-bar i {
-  display: block;
-  height: 100%;
-  border-radius: 99px;
-  background: var(--accent-gradient);
-}
-#loginScreen .appwin .run-legend {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 8px;
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 11.5px;
-}
 
 /* ── ФИНАЛ. Было: слово-шторка закрывало сцену, а гигантская подложка
    TALARIA не влезала в экран (27vw на десктопе и 46vw на телефоне для
    семи букв — это 113vw и 190vw). Теперь рука, письмо и кнопки видны
    сразу, а вордмарк стоит в самом низу и вписан по ширине. ────────────── */
-#loginScreen .zp-final-sticky {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-}
-#loginScreen .fin-stage {
-  flex: 1 1 auto;
-  min-height: 0;
-}
 /* Сцена появляется сразу, без ожидания прокрутки: плавное проявление. */
 
 /* v47: анимация проявления CTA (раньше жила в общем правиле с удалённой
    рукой .fin-hand). */
-#loginScreen .fin-cta {
-  animation: finIn var(--motion-metrics) var(--ease-smooth-out) both;
-  animation-delay: var(--tal-dur-250);
-}
-@keyframes finIn {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 /* Вордмарк: одна строка, ровно по ширине окна, посажен на нижний край. */
-#loginScreen .fin-mark {
-  position: relative;
-  z-index: 3;
-  padding: 0 clamp(14px, 3vw, 34px);
-  pointer-events: none;
-}
-#loginScreen .fin-word {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  font-family: var(--tal-font-display);
-  font-weight: 800;
-  /* v46: 7 букв Unbounded ≈ 0.82em каждая (шире Playfair) — 10vw держит
-     слово в одной строке и на 390px, и на 1920px; clamp — чтобы не 4K. */
-  font-size: min(10vw, 150px);
-  line-height: 0.94;
-  letter-spacing: 0;
-  color: var(--ink);
-  opacity: 0.96;
-  transform: none;
-}
-#loginScreen .fin-word .zp-final-letter-char {
-  display: inline-block;
-  animation: finLetter var(--motion-slow) var(--ease-smooth-out) both;
-}
-#loginScreen .fin-word .zp-final-letter-char:nth-child(1) {
-  animation-delay: 0.04s;
-}
-#loginScreen .fin-word .zp-final-letter-char:nth-child(2) {
-  animation-delay: 0.08s;
-}
-#loginScreen .fin-word .zp-final-letter-char:nth-child(3) {
-  animation-delay: 0.12s;
-}
-#loginScreen .fin-word .zp-final-letter-char:nth-child(4) {
-  animation-delay: 0.16s;
-}
-#loginScreen .fin-word .zp-final-letter-char:nth-child(5) {
-  animation-delay: 0.2s;
-}
-#loginScreen .fin-word .zp-final-letter-char:nth-child(6) {
-  animation-delay: 0.24s;
-}
-#loginScreen .fin-word .zp-final-letter-char:nth-child(7) {
-  animation-delay: 0.28s;
-}
-@keyframes finLetter {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 /* Подвал: слева лого сайта, справа — имя. */
-#loginScreen .fin-foot {
-  position: relative;
-  z-index: 3;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-top: 18px;
-  padding: 16px clamp(14px, 3vw, 34px) 22px;
-  border-top: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
-}
-#loginScreen .fin-foot-links {
-  display: inline-flex;
-  gap: 18px;
-  flex-wrap: wrap;
-}
-#loginScreen .fin-foot-links a {
-  color: color-mix(in srgb, var(--ink) 62%, transparent);
-  font-size: 12.5px;
-  text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--ink) 22%, transparent);
-  padding-bottom: 1px;
-  transition: color var(--motion-base) var(--motion-ease);
-}
-#loginScreen .fin-foot-links a:hover {
-  color: var(--ink);
-}
-#loginScreen .fin-foot-brand {
-  display: inline-flex;
-  align-items: center;
-  gap: 11px;
-}
-#loginScreen .fin-foot-logo {
-  width: 30px;
-  height: 30px;
-  padding: 6px;
-  border-radius: 10px;
-  color: var(--ink-surface);
-  background: var(--accent-gradient);
-  box-shadow: 0 6px 20px var(--glow);
-}
-#loginScreen .fin-foot-copy {
-  display: grid;
-}
-#loginScreen .fin-foot-copy b {
-  font-family: var(--tal-font-display);
-  font-size: 15px;
-}
-#loginScreen .fin-foot-copy small {
-  color: var(--mut);
-  font-size: 11px;
-}
-#loginScreen .fin-foot-name {
-  font-family: var(--tal-font-display);
-  font-size: clamp(14px, 1.6vw, 20px);
-  font-style: normal;
-  letter-spacing: 0.04em;
-  color: var(--mut);
-}
-
-html[data-theme='light'] 
-/* ── Масштабирование демо. Было: transform висел на .appwin, а высота обёртки
-   считалась от 690px — после появления рамки низ окна срезало («иногда демо
-   не полностью видно»). Теперь уменьшается вся рамка целиком, а точную
-   высоту ставит JS по измеренной, а не по зашитой. Ступеньки ниже — только
-   запасной вариант, если JS не отработал. ──────────────────────────────── */
-#loginScreen .appwin-scale {
-  --aw-k: 1;
-  position: relative;
-}
-#loginScreen .appwin-scale .appwin {
-  width: 1040px;
-  height: 690px;
-  transform: none;
-}
-#loginScreen .appwin-scale .aw-frame {
-  width: max-content;
-  transform: scale(var(--aw-k));
-  transform-origin: top left;
-}
-@media (max-width: 1120px) {
-  #loginScreen .appwin-scale {
-    --aw-k: 0.88;
-    overflow: hidden;
-    height: calc(772px * var(--aw-k));
-  }
-}
-@media (max-width: 940px) {
-  #loginScreen .appwin-scale {
-    --aw-k: 0.74;
-  }
-}
-@media (max-width: 780px) {
-  #loginScreen .appwin-scale {
-    --aw-k: 0.6;
-  }
-}
-@media (max-width: 620px) {
-  #loginScreen .appwin-scale {
-    --aw-k: 0.47;
-  }
-}
-@media (max-width: 470px) {
-  #loginScreen .appwin-scale {
-    --aw-k: 0.35;
-  }
-}
 
 /* ── Плавное листание: тяжёлые фильтры и большие blur при скролле — главная
    причина рывков на телефоне. Оставляем их только там, где реально видно. */
@@ -3569,55 +211,9 @@ html {
 }
 
 /* ── Мобильная раскладка героя и финала ──────────────────────────────── */
-@media (max-width: 900px) {
-  #loginScreen .zp-hero {
-    grid-template-columns: minmax(0, 1fr);
-    padding: 104px 0 40px;
-    gap: 26px;
-  }
-  #loginScreen .zp-hero > div:first-of-type {
-    padding-left: 20px;
-    padding-right: 20px;
-  }
-
-  #loginScreen .hero-snippet {
-    max-width: none;
-  }
-}
 @media (max-width: 700px) {
   /* Финал: сверху сцена с рукой, снизу — вордмарк и подвал. Раньше рука
      висела в середине, а кнопки прижимались к низу с большой дырой сверху. */
-  #loginScreen .zp-final-sticky {
-    justify-content: flex-start;
-    padding-top: 78px;
-  }
-  #loginScreen .fin-stage {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-  }
-
-  #loginScreen .fin-cta {
-    position: relative;
-    inset: auto;
-    padding: 0 20px;
-  }
-  #loginScreen .fin-btns {
-    display: grid;
-    gap: 10px;
-  }
-  #loginScreen .fin-btn {
-    justify-content: center;
-    text-align: center;
-  }
-  #loginScreen .fin-word {
-    font-size: 12.5vw;
-  }
-  #loginScreen .fin-foot {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 10px;
-  }
 }
 
 /* ── ЛОГОТИП. Было: «T» с двумя тонкими росчерками — на 22px росчерки
@@ -3625,340 +221,35 @@ html {
    (сандалии Гермеса). Анимация — перья взлетают по очереди со сдвигом
    40 мс (правило стаггера из references/transitions), при наведении
    веер раскрывается; закрытие без пружины. ────────────────────────── */
-#loginScreen .tl-logo {
-  width: 42px;
-  height: 36px;
-}
-#loginScreen .tl-logo .tl-f {
-  transform-origin: 26px 22px;
-  transition: transform var(--tal-dur-450) var(--ease-smooth-out);
-  animation: tlFeather var(--motion-slow) var(--ease-bounce) both;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(3) {
-  animation-delay: 0.06s;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(4) {
-  animation-delay: 0.1s;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(5) {
-  animation-delay: 0.14s;
-}
-@keyframes tlFeather {
-  from {
-    opacity: 0;
-    transform: translateX(-7px) rotate(-14deg);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(3) {
-  transform: rotate(-7deg) translateX(1.5px);
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(4) {
-  transform: rotate(-4deg) translateX(1px);
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(5) {
-  transform: rotate(-2deg);
-}
-#loginScreen .brand:hover .tl-logo {
-  transform: translateY(-1px);
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .tl-logo .tl-f {
-    animation: none;
-  }
-}
 
 /* ── Финал: сцена (.fin-stage) — абсолютная подложка, поэтому обычным
    flex-потоком идут только вордмарк и подвал. Прижимаем их к низу:
    надпись TALARIA стоит в самом конце, под ней — подвал. ─────────────── */
-#loginScreen .zp-final-sticky {
-  justify-content: flex-end;
-}
-#loginScreen .fin-mark {
-  margin-top: auto;
-}
 
 /* ── Демо: правки после первого прогона ──────────────────────────────── */
 /* Часы и кнопка налезали друг на друга. */
-#loginScreen .appwin .topbar-right {
-  display: flex;
-  flex: 0 0 auto;
-  align-items: center;
-  gap: 14px;
-}
-#loginScreen .appwin .dashboard-clock {
-  white-space: nowrap;
-}
-#loginScreen .appwin .btn {
-  flex: 0 0 auto;
-  white-space: nowrap;
-}
 /* Имя в сайдбаре наследовало парадный serif лендинга и распухало до
    «TALARIA» капслоком — в кабинете это обычная подпись. */
-#loginScreen .appwin .brand-name {
-  font-family: inherit;
-  font-size: 15px;
-  /* v48: без жирного. */
-  font-weight: 500;
-  letter-spacing: 0;
-  text-transform: none;
-}
-#loginScreen .appwin .brand-tag {
-  color: var(--mut);
-  font-size: 10.5px;
-  letter-spacing: 0.04em;
-  text-transform: uppercase;
-}
-#loginScreen .appwin .brand-mark {
-  width: 32px;
-  height: 32px;
-}
-#loginScreen .appwin .nav-group-label {
-  font-size: 10px;
-  letter-spacing: 0.14em;
-}
-#loginScreen .appwin .nav-item {
-  padding: 8px 10px;
-  font-size: 13px;
-}
-#loginScreen .appwin .panel h3 {
-  font-size: 15px;
-}
-#loginScreen .appwin .panel {
-  padding: 14px 16px;
-}
 /* Карточка сессии в подвале сайдбара пряталась за нижним краем окна. */
-#loginScreen .appwin .sidebar-session {
-  display: flex;
-  align-items: center;
-  gap: 9px;
-  padding: 9px 10px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--surface);
-}
-#loginScreen .appwin .sidebar-ava {
-  display: grid;
-  width: 26px;
-  height: 26px;
-  place-items: center;
-  border-radius: 9px;
-  color: var(--ink-surface);
-  background: var(--accent-gradient);
-  font-size: 12px;
-  font-weight: 800;
-}
-#loginScreen .appwin .sidebar-session-copy {
-  display: grid;
-  gap: 2px;
-  min-width: 0;
-}
-#loginScreen .appwin .sidebar-session-copy b {
-  font-size: 12.5px;
-}
-#loginScreen .appwin .sidebar-session-copy small {
-  color: var(--mut);
-  font-size: 10.5px;
-}
-#loginScreen .appwin .sidebar-live {
-  width: 7px;
-  height: 7px;
-  margin-left: auto;
-  border-radius: 50%;
-  background: var(--success);
-}
-#loginScreen .appwin .aw-quota-top {
-  display: flex;
-  justify-content: space-between;
-  color: var(--mut);
-  font-size: 10.5px;
-}
-#loginScreen .appwin .aw-quota-bar {
-  height: 5px;
-  margin-top: 6px;
-  border-radius: 99px;
-  background: var(--surface-raised);
-  overflow: hidden;
-}
-#loginScreen .appwin .aw-quota-bar i {
-  display: block;
-  height: 100%;
-  border-radius: 99px;
-  background: var(--accent-gradient);
-}
 
 /* ── Демо: окно как флекс-колонка. Было: .app занимал 100% высоты окна, но
    начинался ПОСЛЕ полоски-хрома (56px) — низ сайдбара с карточкой сессии
    уезжал на 54px за границу и срезался («иногда демо не полностью видно»). */
-#loginScreen .appwin {
-  display: flex;
-  flex-direction: column;
-}
-#loginScreen .appwin .aw-bar {
-  flex: 0 0 auto;
-}
-#loginScreen .appwin .app {
-  flex: 1 1 auto;
-  height: auto;
-  min-height: 0;
-}
-#loginScreen .appwin .sidebar,
-#loginScreen .appwin .main {
-  height: auto;
-  min-height: 0;
-}
 /* Подпись кнопки обрезалась: во флексе ей не хватало ширины под текст. */
-#loginScreen .appwin .btn {
-  width: max-content;
-}
-#loginScreen .appwin .topbar-right {
-  gap: 18px;
-}
 
 /* Вордмарк и подвал финала растягиваются на всю ширину: у .zp-final-sticky
    было align-items:center, из-за чего блоки ужимались по содержимому и
    TALARIA не разносилась по краям. */
-#loginScreen .zp-final-sticky {
-  align-items: stretch;
-}
 
 /* ── Отступы кабинета внутри демо. Лендинг сбрасывает `#loginScreen * {
    margin:0; padding:0 }`, а селектор с id бьёт классовые правила кабинета —
    поэтому у кнопок, бейджей и ячеек внутри демо пропадали поля (подпись
    кнопки вылезала за пилюлю). Возвращаем ровно то, что задаёт сам кабинет;
    сгенерировано из app.css/components.css. ──────────────────────────── */
-#loginScreen .appwin .btn {
-  padding: 10px 16px;
-}
-#loginScreen .appwin .panel {
-  padding: 24px;
-}
-#loginScreen .appwin .panel-head {
-  gap: 16px;
-}
-#loginScreen .appwin .field {
-  gap: 8px;
-}
-#loginScreen .appwin .sidebar {
-  gap: 18px;
-  padding: 22px 14px;
-}
-#loginScreen .appwin .brand {
-  gap: 10px;
-  padding: 0 8px;
-}
-#loginScreen .appwin .nav {
-  gap: 4px;
-}
-#loginScreen .appwin .nav a,
-#loginScreen .appwin .nav-item {
-  gap: 11px;
-  padding: 10px 12px;
-}
-#loginScreen .appwin .topbar {
-  gap: 16px;
-  padding: 14px clamp(18px, 3vw, 40px);
-}
-#loginScreen .appwin .content {
-  margin: 0 auto;
-  padding: clamp(20px, 3vw, 40px);
-}
-#loginScreen .appwin .grid-3 {
-  gap: 16px;
-}
-#loginScreen .appwin .stat-card {
-  padding: 18px;
-}
-#loginScreen .appwin .stat-value {
-  margin-top: 10px;
-}
-#loginScreen .appwin th,
-#loginScreen .appwin td {
-  padding: 12px 14px;
-}
-#loginScreen .appwin .badge,
-#loginScreen .appwin .chip {
-  padding: 4px 9px;
-}
-#loginScreen .appwin .nav-group {
-  gap: 4px;
-}
-#loginScreen .appwin .nav-group-label {
-  padding: 10px 10px 4px;
-}
-#loginScreen .appwin .sidebar-session {
-  gap: 8px;
-}
-#loginScreen .appwin .topbar-right {
-  gap: 10px;
-}
-#loginScreen .appwin .dashboard-clock {
-  gap: 8px;
-}
-#loginScreen .appwin .main {
-  padding-bottom: 84px;
-}
-#loginScreen .appwin .stat-card {
-  padding: 13px;
-}
-#loginScreen .appwin .stat-value {
-  margin-top: 6px;
-}
-#loginScreen .appwin .sidebar-session {
-  gap: 10px;
-}
-#loginScreen .appwin .sidebar-session-copy {
-  gap: 3px;
-}
-#loginScreen .appwin .lead-filter-grid {
-  gap: 14px;
-}
-#loginScreen .appwin .lead-filter-grid {
-  margin-top: 14px;
-}
-#loginScreen .appwin .main {
-  padding-bottom: 96px;
-}
-#loginScreen .appwin .lead-filter-grid {
-  gap: 10px;
-}
-#loginScreen .appwin .topbar-right {
-  gap: 8px;
-}
 
 /* Компактная посадка: окно демо меньше настоящего экрана, поэтому те же
    компоненты идут с уменьшенными полями (значения ниже — после блока выше,
    специфичность равная, побеждает порядок). */
-#loginScreen .appwin .panel {
-  padding: 14px 16px;
-}
-#loginScreen .appwin .nav-item {
-  gap: 10px;
-  padding: 8px 10px;
-}
-#loginScreen .appwin .topbar {
-  padding: 12px 20px;
-}
-#loginScreen .appwin .content {
-  padding: 18px 20px 20px;
-}
-#loginScreen .appwin .sidebar {
-  gap: 14px;
-  padding: 16px 10px;
-}
-#loginScreen .appwin th,
-#loginScreen .appwin td {
-  padding: 9px 12px;
-}
-#loginScreen .appwin .btn {
-  padding: 9px 15px;
-}
-#loginScreen .appwin .stat-card {
-  padding: 14px;
-}
 
 /* Гравюра героя теперь во всю высоту и прижата к краю окна, поэтому
    «дрейф» (медленный поворот) больше не нужен: у повёрнутого элемента
@@ -3974,73 +265,13 @@ html {
    (абсолютный блок не занимает высоту, и flex разносил остальное по краям).
    Фон переносим на саму шторку. Правила ниже идут ПОСЛЕ общих — иначе их
    перебивает более поздний источник при равной специфичности. ──────────── */
-@media (max-width: 700px) {
-  #loginScreen .zp-final-sticky {
-    justify-content: flex-start;
-    padding-top: 86px;
-    color: var(--tal-f5eef6);
-    background:
-      radial-gradient(120% 60% at 78% 18%, var(--tal-2a0f2e), transparent 62%),
-      radial-gradient(80% 42% at 66% 26%, var(--tal-ff2fa4-a18), transparent 74%), var(--tal-17091a);
-  }
-  #loginScreen .fin-stage {
-    position: static;
-    inset: auto;
-    background: none;
-    overflow: visible;
-  }
-  #loginScreen .fin-mark {
-    margin-top: 26px;
-  }
-  #loginScreen .fin-foot {
-    margin-top: auto;
-  }
-  #loginScreen .fin-foot-name {
-    display: none;
-  }
-}
 
 @media (max-width: 700px) {
   /* Рука занимает освободившийся верх, чтобы между кнопками и вордмарком
      не оставалось пустого экрана. */
-
-  #loginScreen .fin-cta {
-    margin-bottom: 8px;
-  }
 }
 
 /* Дорожка этапов под окном демо: видно, какая из трёх страниц играет. */
-#loginScreen .aw-track {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 10px;
-  margin-top: 12px;
-  padding: 0 6px;
-  list-style: none;
-}
-#loginScreen .aw-seg {
-  display: grid;
-  gap: 7px;
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 10px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  transition: color var(--tal-dur-350) var(--ease-smooth-out);
-}
-#loginScreen .aw-seg i {
-  display: block;
-  height: 2px;
-  border-radius: 99px;
-  background: var(--line);
-  overflow: hidden;
-}
-#loginScreen .aw-seg.on {
-  color: var(--ink);
-}
-#loginScreen .aw-seg.on i {
-  background: var(--grad);
-}
 
 /* ══ v8 ══ Правки Samat: гравюра тарифа уехала из-под карточки и встала
    ПОСЛЕ неё; вордмарк TALARIA вернулся в фон — за руку и кнопки, прозрачной
@@ -4048,178 +279,35 @@ html {
    следует теме. ═══════════════════════════════════════════════════════ */
 
 /* ── Тариф: касса, под ней — гравюра отдельным блоком ─────────────────── */
-#loginScreen .pgrid {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 0;
-  padding: 10px 0 0;
-}
-#loginScreen .pcard {
-  order: 1;
-  width: 100%;
-}
 
 /* Гравюра — не картинка, а МАСКА: цвет чернил задаёт тема, поэтому один
    файл одинаково работает и на тёмном, и на белом фоне. */
 
 /* ── Финал: сцена следует теме ───────────────────────────────────────── */
-#loginScreen .zp-final {
-  background: var(--fin-bg);
-  color: var(--fin-ink);
-}
-#loginScreen .fin-stage {
-  color: var(--fin-ink);
-  background:
-    radial-gradient(120% 92% at 82% 120%, var(--fin-halo-a), transparent 60%),
-    radial-gradient(70% 55% at 72% 42%, var(--fin-halo-b), transparent 72%), var(--fin-bg);
-}
-#loginScreen .fin-kicker {
-  color: var(--fin-kicker);
-}
-#loginScreen .fin-btn.ghost {
-  color: var(--fin-ink);
-  border-color: var(--fin-ghost-line);
-}
 
 /* ── Вордмарк: фоновая вырезка за рукой и кнопками ────────────────────
    Лежит внутри сцены с z-index 0 — ниже руки (2) и кнопок (4). Слово шире
    экрана и обрезается его краями, а низ букв уходит под нижний край: это
    и даёт эффект «вырезано в фоне», а не «строчка внизу». */
-#loginScreen .fin-mark {
-  position: absolute;
-  z-index: 0;
-  top: 53%;
-  left: 0;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-  transform: translateY(-50%);
-  pointer-events: none;
-}
 /* Слово разнесено по всей ширине окна: 7 букв Unbounded при 16.8vw дают
    ~97vw — надпись садится от края до края, целиком, без обрезки (v46). */
-#loginScreen .fin-word {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  padding: 0 clamp(8px, 1.4vw, 20px);
-  font-size: 16.8vw;
-  line-height: 0.74;
-  letter-spacing: 0;
-  white-space: nowrap;
-  opacity: 1;
-  -webkit-user-select: none;
-  user-select: none;
-}
 /* Цвет букв задавало правило `#loginScreen .fin-word span` (1,1,1) — оно
    красило их в сплошной var(--ink), поэтому вордмарк забивал кнопки.
    Перебиваем двумя классами (1,2,0): полупрозрачная вырезка. */
-#loginScreen .fin-word .zp-final-letter-char {
-  color: var(--fin-mark-ink);
-  text-shadow: none;
-  animation-name: finMarkIn;
-}
-@keyframes finMarkIn {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
 
 /* ── Подвал ───────────────────────────────────────────────────────────── */
-#loginScreen .fin-foot {
-  position: relative;
-  z-index: 5;
-  margin-top: 0;
-  border-top: 1px solid var(--fin-hairline);
-  color: var(--fin-ink);
-}
-#loginScreen .fin-foot-copy small,
-#loginScreen .fin-foot-name {
-  color: var(--fin-mut);
-}
-#loginScreen .fin-foot-name {
-  font-size: clamp(15px, 1.6vw, 20px);
-  letter-spacing: 0.06em;
-  white-space: nowrap;
-}
 /* Сцена — абсолютная подложка, подвал единственный в потоке: прижимаем вниз. */
-#loginScreen .zp-final-sticky {
-  justify-content: flex-end;
-}
 
 @media (max-width: 700px) {
   /* Сцена на телефоне снова абсолютная подложка, а рука и кнопки — абсолютные
      внутри неё. ВАЖНО: более ранний мобильный блок ставит им position:relative,
      и без явного возврата в absolute смещения bottom/left/right применяются к
      потоковой позиции — рука уезжала за верхний край, кнопки за правый. */
-  #loginScreen .zp-final-sticky {
-    position: sticky;
-    justify-content: flex-end;
-    padding-top: 0;
-    color: var(--fin-ink);
-    background:
-      radial-gradient(120% 60% at 78% 18%, var(--fin-halo-a), transparent 62%),
-      radial-gradient(80% 42% at 66% 26%, var(--fin-halo-b), transparent 74%), var(--fin-bg);
-  }
-  #loginScreen .fin-stage {
-    position: absolute;
-    inset: 0;
-    background: none;
-    overflow: hidden;
-  }
-
-  #loginScreen .fin-cta {
-    position: absolute;
-    inset: auto 22px 56% 22px;
-    max-width: none;
-    margin: 0;
-    padding: 0;
-  }
   /* На телефоне вордмарк поднят в пустую полосу над призывом: там он читается
      как фоновая вырезка, а не как обрезок под кнопками. */
-  #loginScreen .fin-mark {
-    top: 24%;
-    margin: 0;
-  }
-  #loginScreen .fin-word {
-    font-size: 16.8vw;
-  }
   /* Подвал остаётся строкой: слева лого, справа «Talaria 2026». Юридические
      ссылки (v43) переносятся отдельной строкой на всю ширину — в общей строке
      на 390px они ломались на два слова и наезжали на соседей. */
-  #loginScreen .fin-foot {
-    flex-direction: row;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 10px;
-    margin-top: 0;
-    padding: 13px 16px 16px;
-  }
-  #loginScreen .fin-foot-links {
-    order: 3;
-    width: 100%;
-    justify-content: center;
-    gap: 22px;
-  }
-  #loginScreen .fin-foot-links a {
-    white-space: nowrap;
-  }
-  #loginScreen .fin-foot-name {
-    margin-left: auto;
-  }
-  #loginScreen .fin-foot-copy small {
-    display: none;
-  }
-  #loginScreen .fin-foot-name {
-    display: block;
-    font-size: 13px;
-  }
 }
 
 /* ══════════════════════════════════════════════════════════════════════════
@@ -4231,9 +319,6 @@ html {
    между родителем и <img>, и проценты ширины начинают считаться от неё —
    ладонь в финале от этого схлопывалась. display: contents убирает коробку
    из раскладки: для CSS всё остаётся ровно как было, до обёртки. */
-#loginScreen picture {
-  display: contents;
-}
 
 /* Гравюра тарифа подключена маской, а не <img>, поэтому запасной формат
    выбирается через image-set: браузер сам берёт первый формат, который умеет
@@ -4373,37 +458,7 @@ html {
    выигрывает последняя в списке.
    Наведение по-прежнему главнее: hover задаёт transform напрямую и
    останавливает дыхание, чтобы движения не складывались. */
-#loginScreen .tl-logo .tl-f {
-  animation:
-    tlFeather var(--motion-slow) var(--ease-bounce) both,
-    tlFeatherIdle var(--motion-idle-feather) var(--motion-ease) infinite alternate;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(3) {
-  animation-delay: 0.06s, 0.7s;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(4) {
-  animation-delay: 0.1s, 0.95s;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(5) {
-  animation-delay: 0.14s, 1.2s;
-}
-@keyframes tlFeatherIdle {
-  from {
-    transform: none;
-  }
-  to {
-    transform: rotate(-3.2deg) translateX(1.1px);
-  }
-}
 /* Наведение отменяет дыхание: иначе перо дёргалось бы между двумя правилами. */
-#loginScreen .brand:hover .tl-logo .tl-f {
-  animation-play-state: paused;
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .tl-logo .tl-f {
-    animation: none;
-  }
-}
 
 /* --- Заметка по лиду -------------------------------------------------- */
 /* Кнопка в строке таблицы. Класс .mini-btn до сих пор не имел собственных
@@ -4699,26 +754,8 @@ html {
   font-weight: 600;
   text-align: center;
 }
-.cd-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-  grid-column: 2;
-}
-.cd-tags span {
-  padding: 1px 6px;
-  border-radius: 6px;
-  background: color-mix(in srgb, var(--ink) 7%, transparent);
-  color: var(--muted);
-  font-size: 10px;
-}
 /* Лид выделен цветом: рабочий контакт должно быть видно среди личных чатов
    без чтения списка целиком. */
-.cd-tags .cd-lead {
-  background: var(--accent-soft);
-  color: var(--accent-ink);
-  font-weight: 600;
-}
 .chat-more {
   width: 100%;
   padding: 10px;
@@ -5215,126 +1252,14 @@ html {
    ══════════════════════════════════════════════════════════════════════════ */
 
 /* ── 1. Логотип: перья бьют по очереди, как крыло ───────────────────────── */
-#loginScreen .tl-logo .tl-f {
-  transform-origin: 26px 20px;
-  animation:
-    tlFeather var(--motion-slow) var(--ease-bounce) both,
-    tlBeat 4.8s var(--motion-ease) infinite;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(3) {
-  animation-delay: 0.06s, 0s;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(4) {
-  animation-delay: 0.1s, 0.14s;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(5) {
-  animation-delay: 0.14s, 0.28s;
-}
-@keyframes tlBeat {
-  0%,
-  58%,
-  100% {
-    transform: none;
-    opacity: 1;
-  }
-  16% {
-    transform: rotate(-10deg) translateX(2px) scaleX(1.07);
-  }
-  32% {
-    transform: rotate(4deg) translateX(-1px) scaleX(0.96);
-    opacity: 0.8;
-  }
-}
 
 /* Вордмарк: по надписи медленно проходит блик. Разрезать «Talaria» на буквы
    нельзя — тест держит точную строку `landing-brand-name">Talaria<`, поэтому
    анимируем градиент, а не отдельные символы. */
-#loginScreen .landing-brand-name {
-  background-image: linear-gradient(
-    100deg,
-    var(--ink) 0 42%,
-    var(--pink) 50%,
-    var(--pink2) 54%,
-    var(--ink) 62% 100%
-  );
-  background-size: 280% 100%;
-  background-position: 130% 0;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: brandSheen 7.5s linear infinite;
-}
-@keyframes brandSheen {
-  from {
-    background-position: 130% 0;
-  }
-  to {
-    background-position: -70% 0;
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .tl-logo .tl-f,
-  #loginScreen .landing-brand-name {
-    animation: none;
-  }
-  #loginScreen .landing-brand-name {
-    color: var(--ink);
-  }
-}
 
 /* ── 2. Навигация: полоска выезжает под пунктом ─────────────────────────── */
-#loginScreen .nav-left a {
-  position: relative;
-  padding-block: 7px;
-  color: var(--mut);
-  transition: color var(--motion-fast) var(--ease-smooth-out);
-}
-#loginScreen .nav-left a::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  border-radius: 2px;
-  background: var(--accent-gradient);
-  transform: scaleX(0);
-  transform-origin: right center;
-  transition: transform var(--motion-base) var(--ease-smooth-out);
-}
-#loginScreen .nav-left a:hover,
-#loginScreen .nav-left a:focus-visible {
-  color: var(--ink);
-}
-#loginScreen .nav-left a:hover::after,
-#loginScreen .nav-left a:focus-visible::after {
-  transform: scaleX(1);
-  transform-origin: left center;
-}
 
 /* ── 3. Кнопка входа: аватар вместо слова, когда сессия ещё жива ────────── */
-#loginScreen .lp-nav-cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-}
-#loginScreen .lp-nav-ava {
-  display: none;
-  width: 24px;
-  height: 24px;
-  flex: none;
-  place-items: center;
-  border-radius: 50%;
-  background-color: var(--card);
-  background-position: center;
-  background-size: cover;
-  color: var(--ink);
-  font-size: 11px;
-  font-weight: 700;
-}
-#loginScreen .lp-nav-cta.has-session .lp-nav-ava {
-  display: grid;
-}
 
 /* ── 4. Герой: гравюра целиком, края растворяются со всех сторон ──────────
    Раньше картинка обрезалась по колонке (object-fit: cover) — у Гермеса
@@ -5345,40 +1270,13 @@ html {
    альфа вырезана в файле, цвет чернил даёт тема (--plate-ink). Чернила в обеих
    темах розовые; на светлой гравюра лежит на тёмной плашке — см. v28. */
 
-@keyframes heroLev {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-16px);
-  }
-}
-
 /* ── 6. Шесть гравюр вместо схем. Как и плашка тарифа — это МАСКА:
       цвет чернил даёт тема, один файл живёт и на тёмном, и на белом. ───── */
 
 /* ── 8. Демо: мышью не потрогать. Класса .aw-body в разметке нет (правило
       писалось вслепую и не работало) — гасим клики на самом окне. ─────── */
-#loginScreen .appwin,
-#loginScreen .aw-frame {
-  pointer-events: none;
-  user-select: none;
-}
 
 /* ── 11. Тариф: касса слева, гравюра справа ─────────────────────────────── */
-#loginScreen .pgrid {
-  display: grid;
-  grid-template-columns: minmax(0, 1.02fr) minmax(0, 0.98fr);
-  align-items: center;
-  gap: 44px;
-  padding-top: 10px;
-}
-#loginScreen .pcard {
-  order: 1;
-  max-width: none;
-  margin: 0;
-}
 
 /* Гравюра занимает свою колонку целиком: касса слева выросла (в неё добавился
    блок про пробный тариф), и прежние 360px рядом с ней читались как случайно
@@ -5386,310 +1284,27 @@ html {
    высота секции по-прежнему задаётся кассой и ничего не разъезжается. */
 
 /* ── 12. Вордмарк финала: читаемая вырезка, тёмная на светлом и наоборот ── */
-#loginScreen .fin-word .zp-final-letter-char {
-  color: var(--fin-mark-strong);
-}
 
 /* ── 13/14. Подвал: без разделительной полоски, лого медленно крутится ──── */
-#loginScreen .fin-foot {
-  border-top: 0;
-}
-#loginScreen .fin-foot-logo {
-  animation: finFootSpin 14s linear infinite;
-  transform-style: preserve-3d;
-}
-@keyframes finFootSpin {
-  from {
-    transform: rotateY(0deg);
-  }
-  to {
-    transform: rotateY(360deg);
-  }
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .fin-foot-logo {
-    animation: none;
-  }
-}
 
 /* ── 15. Телефон: настоящая рамка с кнопками, островом и камерой ────────── */
-#loginScreen .phone {
-  position: relative;
-  padding: 11px;
-  border: 1px solid var(--ph-frame-edge);
-  border-radius: 54px;
-  background: var(--ph-frame);
-  box-shadow: var(--ph-shadow);
-}
-#loginScreen .phone::before {
-  content: '';
-  position: absolute;
-  inset: 4px;
-  border: 1px solid var(--ph-frame-inner);
-  border-radius: 50px;
-  pointer-events: none;
-}
-#loginScreen .ph-key {
-  position: absolute;
-  width: 3px;
-  border-radius: 3px;
-  background: var(--ph-key);
-}
-#loginScreen .ph-key-mute {
-  top: 108px;
-  left: -3px;
-  height: 28px;
-}
-#loginScreen .ph-key-up {
-  top: 152px;
-  left: -3px;
-  height: 54px;
-}
-#loginScreen .ph-key-down {
-  top: 218px;
-  left: -3px;
-  height: 54px;
-}
-#loginScreen .ph-key-power {
-  top: 172px;
-  right: -3px;
-  height: 86px;
-}
-#loginScreen .ph-scr {
-  position: relative;
-  overflow: hidden;
-  border-radius: 43px;
-}
-#loginScreen .ph-island {
-  position: absolute;
-  top: 9px;
-  left: 50%;
-  z-index: 4;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  width: 96px;
-  height: 27px;
-  padding-right: 9px;
-  border-radius: 16px;
-  background: var(--tal-black);
-  transform: translateX(-50%);
-}
-#loginScreen .ph-cam {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--ph-cam);
-  box-shadow: inset 0 0 0 2px var(--ph-cam-ring);
-}
-#loginScreen .ph-status {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 13px 22px 7px;
-  color: var(--tg-text);
-  font-size: 12px;
-  font-weight: 700;
-  background: var(--tg-header);
-}
-#loginScreen .ph-sig {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-}
-#loginScreen .ph-sig .ph-i {
-  height: 11px;
-  width: auto;
-}
-#loginScreen .ph-bat {
-  position: relative;
-  display: inline-block;
-  width: 23px;
-  height: 11px;
-  padding: 2px;
-  border: 1px solid var(--tg-time);
-  border-radius: 3px;
-}
-#loginScreen .ph-bat::after {
-  content: '';
-  position: absolute;
-  top: 50%;
-  right: -3px;
-  width: 2px;
-  height: 4px;
-  border-radius: 0 2px 2px 0;
-  background: var(--tg-time);
-  transform: translateY(-50%);
-}
-#loginScreen .ph-bat i {
-  display: block;
-  height: 100%;
-  border-radius: 1px;
-  background: var(--tg-text);
-}
-#loginScreen .tg-back svg,
-#loginScreen .tg-clip svg,
-#loginScreen .tg-mic svg,
-#loginScreen .tg-sticker svg {
-  width: 22px;
-  height: 22px;
-}
-#loginScreen .tg-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 2px;
-  color: var(--tg-blue);
-}
-#loginScreen .tg-input {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  padding: 9px 14px calc(9px + var(--ph-home-gap));
-  background: var(--tg-header);
-}
-#loginScreen .tg-input .fld {
-  flex: 1;
-  min-width: 0;
-  color: var(--tg-time);
-}
-#loginScreen .tg-clip,
-#loginScreen .tg-mic,
-#loginScreen .tg-sticker {
-  display: inline-flex;
-  flex: none;
-  color: var(--tg-time);
-}
-#loginScreen .ph-home {
-  position: absolute;
-  bottom: 8px;
-  left: 50%;
-  width: 128px;
-  height: 5px;
-  border-radius: 3px;
-  background: var(--ph-home-ink);
-  transform: translateX(-50%);
-}
 
 /* ── 16. Пуш от бота — поверх экрана телефона ───────────────────────────── */
-#loginScreen .ph-stage {
-  position: relative;
-}
-#loginScreen .ph-notice {
-  /* Ровно так уведомление и приходит: карточка матового стекла съезжает
-     сверху поверх переписки, под «островом». Внутрь чата его класть нельзя —
-     собеседник таких сообщений не шлёт, их шлёт бот. */
-  position: absolute;
-  top: 46px;
-  right: 9px;
-  left: 9px;
-  z-index: 6;
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
-  padding: 10px 12px;
-  border: 1px solid var(--ph-push-line);
-  border-radius: 19px;
-  background: var(--ph-push-bg);
-  box-shadow: var(--ph-push-shadow);
-  backdrop-filter: blur(18px) saturate(140%);
-  color: var(--ph-push-text);
-  opacity: 0;
-  transform: translateY(-16px) scale(0.97);
-  transition:
-    opacity var(--motion-base) var(--ease-smooth-out),
-    transform var(--motion-base) var(--ease-smooth-out);
-  pointer-events: none;
-}
-#loginScreen .ph-notice.on {
-  opacity: 1;
-  transform: translateY(0) scale(1);
-}
-#loginScreen .ph-notice-mark {
-  display: grid;
-  width: 30px;
-  height: 30px;
-  flex: none;
-  place-items: center;
-  border-radius: 9px;
-  background: var(--accent-gradient);
-}
-#loginScreen .ph-notice-mark svg {
-  width: 18px;
-  /* На тёмной теме акцентный градиент почти белый — крыло цветом «на акценте»,
-     иначе лого пуша сливается с плашкой (белое на белом). */
-  fill: var(--on-accent);
-}
-#loginScreen .ph-notice-copy {
-  display: grid;
-  gap: 1px;
-  min-width: 0;
-}
-#loginScreen .ph-notice-copy b {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 8px;
-  color: var(--ph-push-text);
-  font-size: 12.5px;
-  letter-spacing: 0.01em;
-}
-#loginScreen .ph-notice-copy b i {
-  color: var(--ph-push-mut);
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 400;
-}
-#loginScreen .ph-notice-copy small {
-  color: var(--ph-push-mut);
-  font-size: 11.5px;
-  line-height: 1.35;
-}
 
 /* Плашка-гравюра прозрачная (это маска), поэтому под ней — мягкое свечение
    вместо прежней чёрной подложки: на белой теме чёрный прямоугольник в
    карточке выглядел дырой. */
-#loginScreen .fcard .fim {
-  background: radial-gradient(72% 64% at 50% 44%, var(--glow), transparent 74%);
-}
 
 /* ── Демо на узком экране: не ужимаем в нечитаемую марку, а оставляем
       разборчивый масштаб и даём листать вбок. Ширину потока подрезает
       --aw-trim из JS: transform не влияет на layout, и без подрезки полоса
       прокрутки уходила бы в пустоту на треть экрана. ───────────────────── */
-#loginScreen .appwin-scale .aw-frame {
-  margin-right: calc(-1 * var(--aw-trim, 0px));
-}
-#loginScreen .appwin-scale.is-scrollable {
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-width: none;
-}
-#loginScreen .appwin-scale.is-scrollable::-webkit-scrollbar {
-  display: none;
-}
-#loginScreen .aw-swipe-hint {
-  display: none;
-  margin: 0 0 8px;
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-#loginScreen .appwin-scale.is-scrollable ~ .aw-swipe-hint,
-body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
-  display: block;
-}
 
 /* ══ v12, телефон. Блок последний в файле, поэтому перебивает мобильные
       media-правила, стоящие выше: свои оверрайды класть только сюда. ══════ */
 @media (max-width: 900px) {
   /* Тариф на узком экране снова одной колонкой: в две касса складывается в
      столбик из обрубков («Безлим поиск на You…»). */
-  #loginScreen .pgrid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 30px;
-  }
 
   /* На одной колонке гравюра идёт под кассой во всю ширину — 260px там
      выглядели потерянно. Потолок по высоте экрана, чтобы на коротком
@@ -5697,61 +1312,14 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
 }
 @media (max-width: 700px) {
   /* Шапка: у пунктов меню нет места, полоска-подчёркивание там не нужна. */
-  #loginScreen .nav-left a::after {
-    display: none;
-  }
   /* Герой: гравюра не должна занимать целый экран до текста. */
 
   /* Карточки возможностей: гравюра чуть ниже квадрата — карточка перестаёт
      быть в полтора экрана высотой. */
-  #loginScreen .fcard .fim {
-    aspect-ratio: 4 / 3;
-  }
 
   /* Телефон: рамка тоньше, иначе экран внутри становится совсем узким. */
-  #loginScreen .phone {
-    padding: 8px;
-    border-radius: 44px;
-  }
-  #loginScreen .phone::before {
-    inset: 3px;
-    border-radius: 41px;
-  }
-  #loginScreen .ph-scr {
-    border-radius: 36px;
-  }
-  #loginScreen .ph-key-mute {
-    top: 84px;
-    height: 22px;
-  }
-  #loginScreen .ph-key-up {
-    top: 118px;
-    height: 42px;
-  }
-  #loginScreen .ph-key-down {
-    top: 170px;
-    height: 42px;
-  }
-  #loginScreen .ph-key-power {
-    top: 134px;
-    height: 68px;
-  }
   /* Пуш остаётся поверх экрана и на телефоне — просто чуть компактнее. */
-  #loginScreen .ph-notice {
-    top: 42px;
-    padding: 9px 11px;
-    border-radius: 17px;
-  }
-  #loginScreen .ph-notice-copy small {
-    font-size: 11px;
-  }
   /* Демо: подсказка про свайп и запас снизу под полосу прокрутки. */
-  #loginScreen .aw-swipe-hint {
-    display: block;
-  }
-  #loginScreen .appwin-scale.is-scrollable {
-    padding-bottom: 2px;
-  }
 }
 
 /* ══ Гравюры на светлой теме ══════════════════════════════════════════════
@@ -5769,9 +1337,6 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
    есть поверхность. На лендинге та же разметка получает `.zp-access-pass`,
    который снимает рамку, фон и отступы, а тень снять забыли: получалось серое
    пятно вокруг невидимого прямоугольника прямо на белой кассе. */
-#loginScreen .zp-access-pass {
-  box-shadow: none;
-}
 
 /* ══ Волна v13. Разбор списка: «лого тёмное на тёмном, сообщение на главном
    тёмное, фотка фигово выглядит, шесть перьев тоже тёмные, батарейка, сумма
@@ -5782,54 +1347,23 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
    На розовой пилюле марка читалась как выломанная дырка — это и есть
    «лого тёмное». Пилюлю убираем, глиф красим самим брендовым розовым:
    --accent-ink на тёмной теме яркий, на светлой приглушён до читаемого. */
-#loginScreen .fin-foot-logo {
-  width: 34px;
-  height: 34px;
-  padding: 0;
-  fill: var(--accent-ink);
-  background: none;
-  box-shadow: none;
-}
 
 /* 2. Шапка: марка собрана градиентом, который начинается с тёмно-фиолетового
    конца палитры. Рядом с белым словом Talaria на чёрном она выглядела
    погасшей. */
-html[data-theme='dark'] #loginScreen .landing-brand .tl-logo {
-  filter: saturate(1.12) brightness(1.3);
-}
 
 /* 3. Герой, «пример письма». Карточка брала --card под 82% прозрачности и на
    тёмной теме сливалась с фоном, а шапка карточки шла --mut 10.5px. Даём
    плотную подложку и полный контраст заголовку. */
-#loginScreen .hero-snippet {
-  background: color-mix(in srgb, var(--card) 96%, var(--ink) 4%);
-  box-shadow: var(--shadow-small);
-}
-#loginScreen .hero-snippet-head {
-  color: var(--ink);
-  background: color-mix(in srgb, var(--ink) 6%, transparent);
-}
 
 /* 7. Липкий хедер был полупрозрачным на 82%: крупная сумма тарифа и заголовки
    секций просвечивали сквозь него при прокрутке — «сумма тарифа на тёмной
    теме». Размытие оставляем, прозрачность убираем почти полностью. */
-#loginScreen .lp-nav {
-  background: color-mix(in srgb, var(--bg) 97%, transparent);
-}
 
 /* 9. Финал: письмо крутилось полным оборотом rotateY(360°) и половину цикла
    стояло к зрителю ребром — на телефоне это выглядело как обрезанный кусок
    бумаги, к тому же оно налезало на кнопки. Оставляем покачивание в пределах
    ±26°: письмо всегда лицом, «крутится» по-прежнему видно. */
-@keyframes finSwing {
-  0%,
-  100% {
-    transform: rotateY(-26deg);
-  }
-  50% {
-    transform: rotateY(26deg);
-  }
-}
 
 @media (max-width: 700px) {
   /* Письмо уходит правее и ниже — под кнопки «Войти» и «Смотреть тариф»
@@ -5841,9 +1375,6 @@ html[data-theme='dark'] #loginScreen .landing-brand .tl-logo {
    `.zp-access-pass … button.active` писало --tal-white в обход общего токена.
    Градиент начинается со светлого края, там белым контраст 2.05 — надпись
    «1 месяц» и «₽ RUB» размывалась. Переводим на общий --on-accent. */
-#loginScreen .zp-access-pass :is(.plan-period, .plan-currency) button.active {
-  color: var(--on-accent);
-}
 
 /* ── v14. Тариф — розовая полоса с вордмарком ──────────────────────────
    Правка по скрину Samat: фон секции тарифа и гравюра в ней = цвет надписи
@@ -5852,48 +1383,8 @@ html[data-theme='dark'] #loginScreen .landing-brand .tl-logo {
    Токены переопределяем на секции (приём тот же, что у демо-окна кабинета):
    всё, что стоит прямо на розовом, становится белым — включая абзац с
    инлайновым `color: var(--mut)`, до которого CSS-правилом не достать. */
-#loginScreen .zp-pricing {
-  --ink: var(--tal-white);
-  --mut: var(--tal-ffffff-a82);
-  --line: var(--tal-ffffff-a38);
-  --pink-ink: var(--tal-white);
-  --plate-ink: var(--tal-white);
-  --card: var(--bg);
-  color: var(--tal-white);
-  /* Правка Samat: «розовый как на сайте, а не прям розовый». Сплошной
-     сплошной брендовый розовый на весь экран кричал сильнее любой розовой
-     поверхности сайта —
-     там розовый всегда идёт градиентом (кнопка «Войти», логотип, --grad).
-     Берём тот же --grad: светлый край сверху, брендовый розовый в центре,
-     сиреневый снизу. Наклон 168° — почти вертикально, чтобы полоса
-     читалась как фон секции, а не как большая кнопка. */
-  background: linear-gradient(
-    168deg,
-    var(--tal-ff8fe0) 0%,
-    var(--tal-ff2fa4) 46%,
-    var(--tal-c22bff) 100%
-  );
-}
-html[data-theme='light'] #loginScreen .zp-pricing {
-  /* На светлой теме страница почти белая: касса берёт чистый белый (--bg2),
-     иначе карточка на розовом выглядит серой заплаткой. */
-  --card: var(--bg2);
-}
 /* Внутри кассы палитра снова обычная: белые чернила секции сделали бы текст
    на светлой теме невидимым (белое на белой карточке). */
-#loginScreen .zp-pricing .pcard {
-  --ink: var(--tal-f5eef6);
-  --mut: var(--tal-a99cad);
-  --line: var(--tal-ffffff-a14);
-  --pink-ink: var(--tal-ff2fa4);
-  color: var(--ink);
-}
-html[data-theme='light'] #loginScreen .zp-pricing .pcard {
-  --ink: var(--tal-171019);
-  --mut: var(--tal-6d5f72);
-  --line: var(--tal-171019-a14);
-  --pink-ink: var(--tal-c30074);
-}
 /* Гравюра доставки — тёмные чернила на розовом (маска та же, меняется только
    заливка под ней). Розовым по розовому фигура пропадала: у маски медиана
    альфы 0.3, и светлая заливка давала бледное пятно. */
@@ -5905,40 +1396,12 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
    `line-height: 0.8` и `margin-bottom: -0.14em` — вместе они отрезали низ
    букв на 122px (у слова scrollHeight 322 при высоте контейнера 200). Теперь
    строка получает свою полную высоту, а низ полосы даёт букве воздух. */
-#loginScreen .pmark {
-  margin-top: clamp(40px, 5vw, 80px);
-  padding: 0 12px 4px;
-}
-#loginScreen .pmark-word {
-  display: flex;
-  justify-content: space-between;
-  width: 100%;
-  color: var(--tal-white);
-  font-weight: 600;
-  font-family: var(--tal-font-display);
-  /* v51: 21vw в Unbounded давало 1549px на 1280-окне — «TALARIA» обрезалось
-     до «TALARI». 16.6vw вписывает слово целиком с воздухом по краям. */
-  font-size: 16.6vw;
-  /* 1.25 — полная высота строки (ascent+descent). При 0.8 низ букв
-     срезался на 122px, при 1 — на 24px; теперь буквы целиком внутри. */
-  line-height: 1.25;
-  letter-spacing: 0;
-}
 
 /* ── v14. Телефон: гравюры стоят РЯДОМ с текстом, а не под ним ──────────
    Samat: «сделай чтобы картинки возле главной и тарифа всегда стояли возле
    друг друга, а не снизу». Блок стоит в самом конце файла, поэтому
    перебивает мобильные раскладки выше (одинаковая специфичность). */
 @media (max-width: 900px) {
-  #loginScreen .zp-hero {
-    grid-template-columns: minmax(0, 1.55fr) minmax(0, 1fr);
-    gap: 10px;
-    align-items: start;
-  }
-  #loginScreen .zp-hero > div:first-of-type {
-    padding-right: 0;
-    padding-left: 16px;
-  }
   /* Гравюра больше не «экран до текста»: она занимает свою колонку и стоит
      на уровне заголовка. order сбрасываем — колонка вторая по потоку. */
 
@@ -5947,14 +1410,6 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
 
   /* Тариф: касса и гравюра рядом. Касса шире — внутри неё цена, кнопка и
      список, при 50/50 они сыпались в столбик из обрубков. */
-  #loginScreen .pgrid {
-    grid-template-columns: minmax(0, 1.75fr) minmax(0, 1fr);
-    gap: 12px;
-    align-items: start;
-  }
-  #loginScreen .pcard {
-    padding: 18px 14px;
-  }
   /* Касса на телефоне высокая (восемь пунктов тарифа), поэтому гравюра
      прилипает к верху своей колонки: она остаётся РЯДОМ с кассой всё время
      прокрутки, а не мелькает один раз в начале секции. */
@@ -5964,27 +1419,10 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
 
   /* Подпись под гравюрой — декоративная; в колонке 120px она рассыпалась в
      лестницу из двух слов. На широком экране она остаётся. */
-
-  #loginScreen .pcard .tariff-feats li,
-  #loginScreen .pcard .ptariff-note,
-  #loginScreen .pcard .tariff-trial p {
-    font-size: 11.5px;
-  }
 }
 @media (max-width: 700px) {
   /* Герой на узком экране: гравюра уже, заголовок мельче — текст в своей
      колонке не должен переноситься по слогам. */
-  #loginScreen .zp-hero {
-    grid-template-columns: minmax(0, 1.7fr) minmax(0, 1fr);
-  }
-  #loginScreen .zp-hero h1 {
-    /* v46: «сообщений.» в Unbounded = 9.1em — 6vw держит слово в колонке 55vw */
-    font-size: clamp(19px, 6vw, 34px);
-  }
-
-  #loginScreen .pmark {
-    margin-top: 56px;
-  }
 }
 
 /* ── v15. Рамка страницы и шторка на вордмарке тарифа ────────────────────
@@ -5992,77 +1430,29 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
    гигантский вордмарк обрезан нижним краем блока — обрезка там не статичная,
    её даёт шторка: слово стоит на месте, а следующая секция наезжает сверху.
    Ставим блок в конце файла, чтобы перебивать раскладки выше. */
-#loginScreen {
-  --frame: clamp(8px, 0.85vw, 13px);
-}
 /* Рамка — настоящий border, а не fixed-оверлей: оверлей резал бы клики и
    уезжал бы поверх модалок, а бордер просто сдвигает контент внутрь. */
-#loginScreen .zp-main {
-  border-right: var(--frame) solid var(--pink);
-  border-bottom: var(--frame) solid var(--pink);
-  border-left: var(--frame) solid var(--pink);
-}
 /* Шапка фиксированная и лежит вне .zp-main, поэтому рамку ей задаём отдельно —
    иначе полосы начинались бы только под навбаром и рамка выглядела бы рваной. */
-#loginScreen .lp-nav {
-  border-top: var(--frame) solid var(--pink);
-  border-right: var(--frame) solid var(--pink);
-  border-left: var(--frame) solid var(--pink);
-}
 /* Ход шторки. `position: sticky; bottom: 0` не годится: приклейка кончается
    ровно тогда, когда снизу появляется финальная секция, и наезда не видно.
    Схема такая: панель высотой в одну строку вордмарка липнет у нижнего края
    экрана, а финальная секция поднята отрицательным margin ровно на эту высоту
    и во время приклейки постепенно накрывает буквы снизу вверх.
    --pmark-h: 21vw * 1.25 (line-height) + 10px воздуха. */
-#loginScreen {
-  /* v51: шрифт pmark ужат до 16.6vw → высота 16.6 × 1.25 = 20.75vw. */
-  --pmark-h: calc(20.75vw + 10px);
-}
 /* Липкая панель не работала: у .zp-pricing в talaria.css стоит
    `overflow: hidden` (осталось от декорации ::before, которую V5 отключает
    через content: none), а любой overflow у предка делает его скролл-портом для
    sticky — панель уезжала вместе с секцией. Снимаем обрезку. Нижний отступ
    секции тоже в ноль: иначе он вклинивается между вордмарком и финалом, и
    шторка не доходит до верха букв. */
-#loginScreen .zp-pricing {
-  overflow: visible;
-  padding-bottom: 0;
-}
-#loginScreen .pmark-track {
-  height: calc(var(--pmark-h) + 500px);
-}
-#loginScreen .pmark-stick {
-  position: sticky;
-  top: calc(100vh - var(--pmark-h));
-  z-index: 0;
-  display: flex;
-  align-items: flex-end;
-  height: var(--pmark-h);
-}
-#loginScreen .pmark {
-  width: 100%;
-  /* Буквы упираются в рамку, как в референсе (там крайние H и S уходят под
-     синюю кромку): своих отступов у вордмарка больше нет. */
-  padding: 0;
-  margin-top: 0;
-}
 /* Финал наезжает на вордмарк: подъём равен высоте панели, поэтому к концу
    приклейки буквы закрыты полностью, а не наполовину.
    width/margin-left — снимаем legacy-фулблид из talaria.css (`width: 100vw`
    плюс `margin-left: calc(50% - 50vw)`): внутри рамки он вылезал на 12px за
    вьюпорт и ронял проверку горизонтального переполнения. */
-#loginScreen .zp-final {
-  width: 100%;
-  margin-top: calc(-1 * var(--pmark-h));
-  margin-left: 0;
-}
 /* Вордмарк финала (за рукой с письмом): «просто стоит + еле видный» —
    снимаем выезд снизу, прозрачность уводим в самый низ (см. tokens). */
-#loginScreen .fin-word .zp-final-letter-char {
-  animation-name: none;
-  transform: none;
-}
 
 /* ── v15. Телефон: короче полотно ────────────────────────────────────────
    Samat: «текста поменьше, а то на телефоне слишком долго листать; блоки
@@ -6071,61 +1461,11 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
    короче ход финальной шторки. Блок последний в файле: перебивает и правило
    `max-width: 460px`, которое ставило карточки в одну колонку. */
 @media (max-width: 700px) {
-  #loginScreen
-    :is(.zp-stats, .zp-capabilities, .zp-pricing, .zp-workflow, .zp-account-band, .zp-faq) {
-    padding-top: 58px;
-    padding-bottom: 58px;
-  }
-  #loginScreen .shead {
-    margin-bottom: 30px;
-  }
-  #loginScreen .fgrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 10px;
-  }
-  #loginScreen .fcard {
-    padding: 10px;
-    border-radius: 16px;
-  }
   /* Плашка ниже: в две колонки картинка 16/9 занимала бы половину карточки. */
-  #loginScreen .fcard .fim {
-    aspect-ratio: 5/3;
-    border-radius: 10px;
-  }
-  #loginScreen .fcard .fb {
-    padding: 10px 6px 6px;
-  }
-  #loginScreen .fcard .fn {
-    font-size: 9.5px;
-    letter-spacing: 0.14em;
-  }
-  #loginScreen .fcard h3 {
-    font-size: 12.5px;
-    margin: 5px 0 5px;
-    line-height: 1.25;
-  }
-  #loginScreen .fcard p {
-    font-size: 11px;
-    line-height: 1.42;
-  }
   /* Мини-строка динамики: три показателя в один ряд вместо колонки. */
-  #loginScreen .minirow {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 8px;
-    margin-top: 22px;
-  }
   /* Ход шторки на телефоне короче: лишние экраны прокрутки тут дороже.
      И группа выше вернула секции нижний отступ — снова снимаем. */
-  #loginScreen .zp-pricing {
-    padding-bottom: 0;
-  }
-  #loginScreen .pmark-track {
-    height: calc(var(--pmark-h) + 260px);
-  }
   /* Финал: 320vh на телефоне — почти четыре экрана прокрутки ради одной сцены. */
-  #loginScreen .zp-final {
-    height: 210vh;
-  }
 }
 
 /* -------------------------------------------------------------------------
@@ -6181,18 +1521,7 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
    1. Хедер: сплошной цвет страницы, без размытия и без разделительной линии —
       панель не должна читаться отдельной плашкой поверх лендинга.
    ------------------------------------------------------------------------- */
-#loginScreen .lp-nav {
-  background: var(--bg);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  border-bottom: 0;
-}
 /* Последнее свечение рядом с логотипами тоже снимаем: в шапке его быть не должно. */
-#loginScreen .login-logo,
-#loginScreen .brand-mark,
-#loginScreen .fin-foot-logo {
-  box-shadow: none;
-}
 
 /* 2. Шторка поднимается ВВЕРХ. Было наоборот: финальная секция наезжала снизу
       и съедала буквы. Теперь пиксельная логика такая:
@@ -6203,75 +1532,21 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
           сцену, как поднимающаяся шторка.
       Липкая панель вордмарка больше не нужна — слово просто стоит в конце
       секции тарифа и уезжает вместе со шторкой. */
-#loginScreen .zp-pricing {
-  position: relative;
-  z-index: 1;
-}
 /* Хвост секции тарифа — сама шторка: ровно экран розового с вордмарком у
    нижнего края. Экран, а не высота слова: иначе на телефоне (секция тарифа
    короче 100vh) поднятый финал вылезал бы выше секции и тёмная полоса
    просвечивала над тарифом. Высота хвоста = ходу шторки, поэтому лишней
    прокрутки этот приём не добавляет. */
-#loginScreen .pmark-track {
-  height: auto;
-  min-height: 100vh;
-  display: flex;
-  align-items: flex-end;
-}
-#loginScreen .pmark-stick {
-  position: static;
-  display: block;
-  height: auto;
-  width: 100%;
-}
-#loginScreen .pmark {
-  margin-top: 0;
-}
-#loginScreen .zp-final {
-  position: relative;
-  z-index: 0;
-  /* 100vh уходит под шторку, 100vh — сама сцена. Ни одного лишнего экрана:
-     полностью открытая сцена совпадает с концом страницы. */
-  height: 200vh;
-  margin-top: -100vh;
-}
-
-@media (max-width: 700px) {
-  #loginScreen .zp-final {
-    height: 200vh;
-  }
-}
 
 /* 4. Правка Samat «в хэдере убери, и чтобы цвет подходил»: по слову Talaria в
       шапке каждые 7.5с проходил розовый блик (brandSheen). В середине прохода
       слово читалось двухцветным — «Tal» цвета текста, «ari» розовым, будто
       сломан цвет. Блик убираем, слово — ровным цветом текста страницы. */
-#loginScreen .landing-brand-name {
-  animation: none;
-  background-image: none;
-  -webkit-background-clip: border-box;
-  background-clip: border-box;
-  color: var(--ink);
-}
 
 /* 5. Мобильная шапка: логотип и «Войти» налезали друг на друга. Причина —
       сетка в три колонки от десктопа: левая навигация скрыта, поэтому действия
       попадали в среднюю колонку и, прижатые к правому краю, выходили за неё
       поверх логотипа. На телефоне колонок ровно две. */
-@media (max-width: 700px) {
-  #loginScreen .nav-in {
-    grid-template-columns: minmax(0, 1fr) auto;
-  }
-  #loginScreen .landing-brand {
-    justify-self: start;
-  }
-  #loginScreen .nav-right {
-    justify-self: end;
-  }
-  #loginScreen .landing-brand-name {
-    letter-spacing: 0.16em;
-  }
-}
 
 /* -------------------------------------------------------------------------
    Правки Samat (2026-08-28, v18).
@@ -6283,38 +1558,13 @@ html[data-theme='light'] #loginScreen .zp-pricing .pcard {
       Высота шапки не меняется: сняли верхний бордюр той же толщины, что добавили
       снизу, — контент под шапкой не съезжает.
    ------------------------------------------------------------------------- */
-#loginScreen .lp-nav {
-  border-top: 0;
-  border-right: 0;
-  border-left: 0;
-  border-bottom: var(--frame) solid transparent;
-  border-image: var(--grad) 1;
-}
-#loginScreen .zp-main {
-  border-top: 0;
-  border-color: transparent;
-  border-image: var(--grad) 1;
-}
 /* 7. Секция тарифа — ровно цвет кнопки «Войти», без своего угла и стопов. */
-#loginScreen .zp-pricing,
-html[data-theme='light'] #loginScreen .zp-pricing {
-  background: var(--grad);
-}
 
 /* Абсолютная лента с отрицательными отступами давала 1px горизонтального
    переполнения на 1024px (тест visual-structure), поэтому ленту рисуем фоном
    в области нижнего бордюра: геометрия та же, лишней ширины нет.
    border-image-width с нулём внизу отключает картинку ТОЛЬКО на нижней кромке —
    тёмный конец градиента её больше не перекрывает. */
-#loginScreen .zp-main {
-  border-image-width: 1 1 0 1;
-  background-image: var(--grad);
-  background-origin: border-box;
-  background-clip: border-box;
-  background-repeat: no-repeat;
-  background-position: 50% 100%;
-  background-size: 100% var(--frame);
-}
 
 /* =========================================================================
    v20. Правки по дизайн-аудиту лендинга (Samat: «давай все сделай»).
@@ -6328,153 +1578,40 @@ html[data-theme='light'] #loginScreen .zp-pricing {
    строкой: первое доказательство на странице выглядело провалом, хотя цифры
    честные. Числа не трогаем — меняем способ показа: строгий реестр с
    разлиновкой, где вес держит само число. */
-#loginScreen .fun-bar {
-  display: none;
-}
-#loginScreen .fun {
-  gap: 0;
-}
-#loginScreen .fun-row {
-  grid-template-columns: minmax(0, 1fr) auto;
-  gap: 14px;
-  align-items: baseline;
-  padding: 13px 2px;
-  border-bottom: 1px solid var(--line);
-}
-#loginScreen .fun-row:first-child {
-  padding-top: 4px;
-}
-#loginScreen .fun-row:last-child {
-  border-bottom: 0;
-}
-#loginScreen .fun-v {
-  font-size: clamp(22px, 2.2vw, 30px);
-  font-variant-numeric: tabular-nums;
-}
 /* Панель больше не держит 430px «на всякий случай»: пустой низ под четырьмя
    строками читался как недогруженный блок. Высоту задаёт соседняя колонка
    (grid stretch), а подпись уходит к нижнему краю — панель выглядит собранной. */
-#loginScreen .feed {
-  min-height: 0;
-}
-#loginScreen .feed-b {
-  justify-content: space-between;
-  gap: 18px;
-}
 
 /* ── 2. Мини-показатели: одна сетка без лестницы из одного слова ─────────── */
-#loginScreen .mini {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-}
-#loginScreen .mini b {
-  white-space: nowrap;
-}
-#loginScreen .mini span {
-  hyphens: none;
-  letter-spacing: 0.14em;
-  font-size: 10.5px;
-  line-height: 1.35;
-}
 @media (max-width: 700px) {
   /* На 390px три колонки давали «88,4 / млн» в две строки и подписи в
      столбик по слову. Полосы читаются с одного взгляда и занимают вдвое
      меньше высоты. */
-  #loginScreen .minirow {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 6px;
-    margin-top: 18px;
-  }
-  #loginScreen .mini {
-    flex-direction: row;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 12px;
-    padding: 11px 14px;
-    border-radius: 12px;
-  }
-  #loginScreen .mini b {
-    font-size: 19px;
-  }
-  #loginScreen .mini span {
-    text-align: right;
-  }
 }
 
 /* ── 3. Шапка секции тарифа — тёмные чернила ─────────────────────────────
    Градиент кнопки «Войти» идёт под 120°, светлый край (--tal-ff8fe0)
    приходится ровно на левый верх секции, где стоит заголовок: белым по нему
    контраст ~2:1. Внутри кассы палитра остаётся своей — там фон страницы. */
-#loginScreen .zp-pricing .shead {
-  --ink: var(--tal-171019);
-  --mut: var(--tal-171019-a76);
-  --pink-ink: var(--tal-171019);
-  color: var(--tal-171019);
-}
-#loginScreen .zp-pricing .shead h2,
-#loginScreen .zp-pricing .shead .mono {
-  color: var(--tal-171019);
-}
 
 /* ── 4. Тариф на компе: гравюра идёт рядом с кассой, а не висит по центру ──
    Было `align-items: center` при кассе ~1100px и гравюре ~700px: справа
    оставалось по 200px пустого розового сверху и снизу. Теперь колонка
    прилипает к верху и следует за прокруткой — пустоты нет. */
-@media (min-width: 901px) {
-  #loginScreen .pgrid {
-    align-items: start;
-  }
-}
 
 /* ── 5. Тариф на телефоне: касса во всю ширину, гравюра баннером сверху ───
    Раньше касса делила 390px с гравюрой (1.75fr/1fr) и получала 180px: пункты
    тарифа ломались на три строки по два слова. Картинка остаётся НЕ снизу —
    она уходит наверх широкой полосой над кассой. */
-@media (max-width: 700px) {
-  #loginScreen .pgrid {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 14px;
-    align-items: start;
-  }
-  #loginScreen .pcard {
-    order: 1;
-    width: 100%;
-    padding: 20px 16px;
-  }
-
-  #loginScreen .pcard .tariff-feats li,
-  #loginScreen .pcard .ptariff-note,
-  #loginScreen .pcard .tariff-trial p {
-    font-size: 12.5px;
-  }
-}
 
 /* ── 6. Пустой розовый хвост под кассой ─────────────────────────────────
    Ход шторки был ровно 100vh, и почти весь он приходился на пустой розовый:
    слово занимает 26vw по высоте, остальное — воздух (на компе это выглядело
    как сломанная вёрстка, а не как приём). Ход выносим в переменную и
    укорачиваем; высота финала = ход + экран сцены, иначе шторка не доедет. */
-#loginScreen {
-  --curtain: 66vh;
-}
-#loginScreen .pmark-track {
-  min-height: var(--curtain);
-}
-#loginScreen .zp-final {
-  height: calc(100vh + var(--curtain));
-  margin-top: calc(-1 * var(--curtain));
-}
 @media (max-width: 700px) {
   /* На телефоне слово мельче (21vw ≈ 82px), поэтому и ход короче: розового
      воздуха над буквами хватает 40vh. */
-  #loginScreen {
-    --curtain: 42vh;
-  }
-  #loginScreen .zp-final {
-    height: calc(100vh + var(--curtain));
-  }
 }
 
 /* ── 7. Демо кабинета на телефоне: без бокового скролла ──────────────────
@@ -6482,26 +1619,6 @@ html[data-theme='light'] #loginScreen .zp-pricing {
    находка: страница дёргается, подсказка «проведите вбок» признаёт проблему
    вместо решения. Окно остаётся в читаемом масштабе, а правый край честно
    растворяется — понятно, что композиция продолжается. */
-#loginScreen .appwin-scale.is-scrollable {
-  overflow-x: hidden;
-}
-@media (max-width: 700px) {
-  #loginScreen .aw-swipe-hint {
-    display: none;
-  }
-  #loginScreen .appwin-scale.is-scrollable {
-    -webkit-mask-image: linear-gradient(
-      90deg,
-      var(--tal-black) 0%,
-      var(--tal-black) 82%,
-      transparent 100%
-    );
-    mask-image: linear-gradient(90deg, var(--tal-black) 0%, var(--tal-black) 82%, transparent 100%);
-  }
-}
-body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
-  display: none;
-}
 
 /* ── 8. Заголовок героя: «Й» упиралась в верхний край строки ──────────────
    У `.ln` стоит `overflow: hidden` (маска для выезда строк), а строка Playfair
@@ -6509,10 +1626,6 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
    сверху и снимаем его отрицательным margin, чтобы ритм строк не поехал;
    низ не трогаем — оттуда буквы выезжают, и лишний воздух показал бы их
    раньше времени. */
-#loginScreen .zp-hero h1 .ln {
-  padding-top: 0.14em;
-  margin-top: -0.14em;
-}
 
 /* ── 9. Гравюры на светлой теме: плотнее ────────────────────────────────
    В файле маски медиана альфы ~0.3, поэтому на белой бумаге фигура выцветала
@@ -6524,42 +1637,19 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
    Инлайновый `margin-top: -26px` подтягивал строку к заголовку на компе, а на
    телефоне слипал её с двухстрочным «Один тариф. Все крылья.» — перебить
    инлайн из CSS можно было только !important. Стиль переехал в класс. */
-#loginScreen .zp-pricing .shead .pricing-lede {
-  flex-basis: 100%;
-  max-width: 42ch;
-  margin-top: -26px;
-  color: var(--mut);
-  font-size: 13px;
-}
 @media (max-width: 700px) {
-  #loginScreen .zp-pricing .shead .pricing-lede {
-    margin-top: 10px;
-    font-size: 12.5px;
-  }
   /* Гравюра-баннер над кассой: 16/7 давала фигурку в 170px — полоса читалась
      как случайное пятно. 5/3 держит Гермеса разборчивым и не съедает экран. */
 }
 
 /* ── 11. Блок «Пишет ваш Telegram» на компе: воздух по 250px сверху и снизу
       вокруг одной карточки читался как пустой экран между секциями. */
-@media (min-width: 901px) {
-  #loginScreen .zp-account-band {
-    padding-top: 66px;
-    padding-bottom: 66px;
-  }
-}
 
 /* ── 12. Подпись гравюры на розовом и длина шторки ───────────────────────
    Кикер «// доставка в тот же день» шёл цветом --accent-ink: на светлом крае
    градиента он практически не читался. Красим тёмным, как заголовок секции.
    Ход шторки на компе сокращаем ещё: слово занимает 42vh, при 66vh над ним
    оставалось 24vh пустого розового. */
-
-@media (min-width: 701px) {
-  #loginScreen {
-    --curtain: 54vh;
-  }
-}
 
 /* =========================================================================
    v21. Правки Samat (2026-08-28): конец прокрутки, симметричная рамка,
@@ -6573,36 +1663,11 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
    Ленту переносим ВНУТРЬ липкого кадра финала: высота документа уменьшается
    ровно на толщину рамки, максимум прокрутки совпадает с открытой сценой,
    а полоса теперь всегда закрывает рамку по низу экрана. */
-#loginScreen .zp-main {
-  border-bottom: 0;
-  background-image: none;
-}
-#loginScreen .zp-final-sticky::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  height: var(--frame);
-  /* .fin-stage — абсолютная подложка со своим фоном (z-index 1), поэтому
-     ленту рисуем отдельным слоем поверх сцены. */
-  z-index: 9;
-  background: var(--grad);
-  pointer-events: none;
-}
 
 /* ── 2. «Цвета разные по сторонам» ──────────────────────────────────────
    border-image режет одну картинку на четыре кромки: у диагонального 120°
    левой доставался розовый край, правой — сиреневый. Берём тот же градиент
    по вертикали: обе стороны получают одинаковую заливку сверху вниз. */
-#loginScreen .zp-main {
-  border-image-source: linear-gradient(
-    180deg,
-    var(--tal-ff8fe0),
-    var(--tal-ff2fa4) 55%,
-    var(--tal-c22bff)
-  );
-}
 
 /* ── 3. Письмо снова крутится ────────────────────────────────────────────
    Стояло качание ±26° (finSwing) — на глаз это «дрожит», а не вращается.
@@ -6612,80 +1677,17 @@ body:has(#loginScreen .appwin-scale.is-scrollable) #loginScreen .aw-swipe-hint {
    Раньше тут была розовая пилюля, но глиф на ней читался как дырка. Плашка
    нейтральная, полупрозрачная — марка остаётся розовой и при обороте
    выглядит монетой. */
-#loginScreen .fin-foot-logo {
-  width: 40px;
-  height: 40px;
-  padding: 7px;
-  border-radius: 14px;
-  background: var(--tal-ffffff-a09);
-  border: 1px solid var(--fin-hairline);
-}
-html[data-theme='light'] #loginScreen .fin-foot-logo {
-  background: var(--tal-171019-a14);
-}
 
 /* ── 5. Лого в шапке: покой по умолчанию, движение по наведению ──────────
    Было наоборот: перья непрерывно бились (tlBeat), а блик по слову мы сняли
    совсем. Теперь перо стоит после появления, а взмах и блик включаются
    только под курсором. */
-#loginScreen .tl-logo .tl-f {
-  animation: tlFeather var(--motion-slow) var(--ease-bounce) both;
-}
-#loginScreen .brand:hover .tl-logo .tl-f,
-#loginScreen .landing-brand:hover .tl-logo .tl-f {
-  /* tlFeather заканчивается на transform: none, поэтому его можно снять —
-     взмах стартует с нейтрального состояния. play-state перебиваем явно:
-     правило выше ставит paused, чтобы не складывать движения. */
-  animation: tlBeat 1.5s var(--motion-ease) infinite;
-  animation-play-state: running;
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(3) {
-  animation-delay: 0s;
-  transform: none;
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(4) {
-  animation-delay: 0.12s;
-  transform: none;
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(5) {
-  animation-delay: 0.24s;
-  transform: none;
-}
-#loginScreen .landing-brand:hover .landing-brand-name {
-  background-image: linear-gradient(
-    100deg,
-    var(--ink) 0 42%,
-    var(--pink) 50%,
-    var(--pink2) 54%,
-    var(--ink) 62% 100%
-  );
-  background-size: 280% 100%;
-  -webkit-background-clip: text;
-  background-clip: text;
-  color: transparent;
-  animation: brandSheen 2.2s linear infinite;
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .brand:hover .tl-logo .tl-f,
-  #loginScreen .landing-brand:hover .landing-brand-name {
-    animation: none;
-  }
-}
 
 /* ── 6. Рамка: тоньше на компе, без боковин на телефоне ──────────────────
    Samat: боковые кромки оставляем, но 13px градиента с четырёх сторон
    конкурировали с контентом, а на 390px две кромки съедали 7% ширины экрана.
    На компе толщина фиксируется на 8px (заодно тоньше полоса под шапкой и
    нижняя лента), на телефоне рамку держат только две горизонтали. */
-#loginScreen {
-  --frame: 8px;
-}
-@media (max-width: 700px) {
-  #loginScreen .zp-main {
-    border-left: 0;
-    border-right: 0;
-  }
-}
 
 /* ── 7. Гравюра тарифа: кремовые чернила вместо почти чёрных ──────────────
    Samat: «картинка у тарифа при тёмной теме какого-то тёмного цвета почему».
@@ -6706,9 +1708,6 @@ html[data-theme='light'] #loginScreen .fin-foot-logo {
       половина была не видна и слово «не закрывало» руку. Поднимаем слово над
       рукой (письмо — ещё выше) и добираем альфу в токенах: сквозь 16% белого
       штриховка руки читается насквозь, но само слово идёт от края до края. */
-#loginScreen .fin-mark {
-  z-index: 3;
-}
 
 /* ── 9. Финал на светлой теме: рука и письмо читаются как рисунок ─────────
    Ассет один на обе темы: розовые чернила по прозрачному фону. На белой
@@ -6730,17 +1729,6 @@ html[data-theme='light'] #loginScreen .fin-foot-logo {
    Высота хода от этого не меняется: стык по-прежнему приходит к верху экрана
    ровно в конце страницы (min-height считается по border-box, лишнего экрана
    не появляется). */
-#loginScreen {
-  --curtain-pad: 24vh;
-}
-#loginScreen .pmark-track {
-  padding-bottom: var(--curtain-pad);
-}
-@media (max-width: 700px) {
-  #loginScreen {
-    --curtain-pad: 15vh;
-  }
-}
 
 /* =========================================================================
    v26. «Всё ещё половину закрывает — шторка должна закрыть полностью»
@@ -6754,15 +1742,9 @@ html[data-theme='light'] #loginScreen .fin-foot-logo {
    виден полный розовый экран и на нём только вордмарк.
    Наезд финала (--curtain) не трогаем: тёмная сцена — sticky-кадр в 100vh, она
    и так подстелена под всей плитой, а её подъём задаёт лишь запас снизу. */
-#loginScreen .pmark-track {
-  min-height: 100vh;
-}
 @media (max-width: 700px) {
   /* Слово на телефоне мельче (21vw ≈ 13vh), поэтому воздуха под ним нужно
      больше — иначе на полном розовом экране вордмарк прижат к низу. */
-  #loginScreen {
-    --curtain-pad: 30vh;
-  }
 }
 
 /* =========================================================================
@@ -6773,10 +1755,6 @@ html[data-theme='light'] #loginScreen .fin-foot-logo {
    ========================================================================= */
 
 /* а) Цвет плиты и её гравюры теперь берётся из темы, а не жёстко из --grad. */
-#loginScreen .zp-pricing,
-html[data-theme='light'] #loginScreen .zp-pricing {
-  background: var(--pricing-plate-grad);
-}
 
 /* в) Пауза перед открытием шторы. Раньше слово ехало вверх непрерывно: как
    только розовое закрывало экран, тёмная сцена сразу же начинала открываться,
@@ -6785,29 +1763,6 @@ html[data-theme='light'] #loginScreen .zp-pricing {
    --hold (экран целиком розовый, ничего не движется) и только потом штора
    уходит вверх. Сцена догоняет слово снизу — sticky не может выйти за трек,
    поэтому слово уезжает вместе со стыком и никогда не оказывается на тёмном. */
-#loginScreen {
-  --hold: 45vh;
-}
-#loginScreen .pmark-track {
-  display: block;
-  min-height: calc(100vh + var(--hold));
-  padding-top: 24vh;
-  padding-bottom: 0;
-}
-#loginScreen .pmark-stick {
-  position: sticky;
-  /* --pmark-h = высота строки вордмарка, значит это ровно центр экрана. */
-  top: calc(50vh - var(--pmark-h) / 2);
-  height: auto;
-}
-@media (max-width: 700px) {
-  #loginScreen {
-    --hold: 38vh;
-  }
-  #loginScreen .pmark-track {
-    padding-top: 30vh;
-  }
-}
 
 /* =========================================================================
    v28. «На светлом фоне так же как на чёрном — розовый, и всё»
@@ -6821,9 +1776,6 @@ html[data-theme='light'] #loginScreen .zp-pricing {
 
 /* Растворение низа картинки в карточке: на тёмной плашке оно должно уходить в
    чёрный, а не в белый цвет карточки. */
-html[data-theme='light'] #loginScreen .fcard .fim::after {
-  background: linear-gradient(180deg, transparent, var(--tal-0b0a0e));
-}
 
 /* =========================================================================
    v28-b. «Где выбор лидов, ниши — там стилей нету»
@@ -9205,11 +4157,6 @@ select optgroup {
    поэтому перекрываем fill правилом. Светлая тема сохраняет розовый бренд. */
 /* v47: логотип в чернилах на ОБЕИХ темах — розовый градиент из инлайнового
    SVG (#lgW) в графитовом редизайне не участвует. */
-#loginScreen .tl-logo g,
-#loginScreen .fin-foot-logo g {
-  /* Литерал запрещён css-architecture-тестом: цвет берём из токена. */
-  fill: var(--ink);
-}
 
 /* v45: финальная гравюра (ладонь + письмо) — розовые растровые webp/avif,
    токенами не красятся. В графитовой теме обесцвечиваем фильтром; лёгкий
@@ -9226,288 +4173,34 @@ select optgroup {
    специфичность — побеждает поздний. */
 
 /* ── Общий ритм ────────────────────────────────────────────────────────── */
-#loginScreen {
-  --card-r: 18px;
-}
-#loginScreen .zp-capabilities,
-#loginScreen .zp-workflow,
-#loginScreen .zp-stats,
-#loginScreen .zp-account-band {
-  border-top: 1px solid var(--line);
-}
-#loginScreen .shead {
-  display: block;
-  margin-bottom: 56px;
-}
-#loginScreen .shead .mono {
-  display: block;
-  margin-bottom: 16px;
-}
-#loginScreen .shead h2 {
-  font-size: clamp(26px, 3.2vw, 44px);
-  letter-spacing: -0.005em;
-}
 
 /* ── Герой: одна колонка, крупная типографика, звёздный canvas скрыт ───── */
-#loginScreen #stars {
-  display: none;
-}
-#loginScreen .zp-hero {
-  grid-template-columns: minmax(0, 1fr);
-  gap: 0;
-  max-width: 1240px;
-  margin: 0 auto;
-  min-height: 92vh;
-  align-items: center;
-  padding: 150px 28px 72px;
-}
-#loginScreen .zp-hero > div:first-of-type {
-  padding: 0;
-}
-#loginScreen .zp-hero h1 {
-  font-size: clamp(33px, 6.4vw, 94px);
-  line-height: 0.98;
-  letter-spacing: -0.01em;
-  margin: 22px 0 30px;
-  max-width: 12em;
-}
-#loginScreen .zp-hero p {
-  max-width: 54ch;
-  font-size: 16px;
-  line-height: 1.7;
-}
-#loginScreen .hero-snippet {
-  max-width: 640px;
-  border: 1px solid var(--line);
-  border-radius: var(--card-r);
-  background: var(--bg2);
-  box-shadow: none;
-}
 
 /* ── Карточки возможностей: сетка на линиях, без гравюр ────────────────── */
-#loginScreen .fgrid {
-  gap: 1px;
-  background: var(--line);
-  border: 1px solid var(--line);
-  border-radius: var(--card-r);
-  overflow: hidden;
-}
-#loginScreen .fcard {
-  border: 0;
-  border-radius: 0;
-  background: var(--bg);
-  box-shadow: none;
-}
-#loginScreen .fcard:hover {
-  transform: none;
-  border-color: transparent;
-  box-shadow: none;
-  background: var(--bg2);
-}
-#loginScreen .fcard .fb {
-  padding: 30px 28px 34px;
-}
-#loginScreen .fcard .fn {
-  font-family: var(--tal-font-mono);
-  font-size: 11px;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  color: var(--mut);
-  margin-bottom: 46px;
-}
-#loginScreen .fcard h3 {
-  font-size: 16.5px;
-  margin-bottom: 10px;
-}
-#loginScreen .fcard p {
-  color: var(--mut);
-  font-size: 13.5px;
-  line-height: 1.65;
-}
 
 /* ── Живая доставка и демо-окно: панели одного радиуса ─────────────────── */
-#loginScreen .ph-scr,
-#loginScreen .phone,
-#loginScreen .aw-frame,
-#loginScreen .feed,
-#loginScreen .ab-in,
-#loginScreen .hero-snippet,
-#loginScreen .mini {
-  border-radius: var(--card-r);
-}
 
 /* ── Пульс: цифры без розовых свечений уже в токенах; рамка ленты ──────── */
-#loginScreen .feed {
-  border: 1px solid var(--line);
-  background: var(--bg2);
-  box-shadow: none;
-}
 
 /* ── Полоса аккаунта ───────────────────────────────────────────────────── */
-#loginScreen .ab-in {
-  border: 1px solid var(--line);
-  background: var(--bg2);
-  box-shadow: none;
-}
 
 /* ── Тариф: карточка по центру, полоса-шторка цвета страницы ───────────── */
-#loginScreen .zp-pricing {
-  --ink: var(--tal-f5eef6);
-  --mut: var(--tal-a99cad);
-  --line: var(--tal-ffffff-a14);
-  --pink-ink: var(--tal-f5eef6);
-  --card: var(--bg2);
-  background: var(--bg);
-  border-top: 1px solid var(--line);
-  color: var(--ink);
-}
-html[data-theme='light'] #loginScreen .zp-pricing {
-  --ink: var(--tal-171019);
-  --mut: var(--tal-6d5f72);
-  --line: var(--tal-171019-a14);
-  --pink-ink: var(--tal-171019);
-  --card: var(--bg2);
-}
-#loginScreen .pgrid {
-  display: grid;
-  grid-template-columns: minmax(0, 760px);
-  justify-content: center;
-}
-#loginScreen .pcard {
-  border-radius: var(--card-r);
-  border: 1px solid var(--line);
-}
-#loginScreen .pcard::before {
-  display: none;
-}
 /* Вордмарк на шторке: тихая вырезка тоном чернил, а не белым по розовому. */
-#loginScreen .pmark-word {
-  color: color-mix(in srgb, var(--ink) 14%, transparent);
-  font-weight: 800;
-}
 
 /* ── Финал: инверсия — светлая сцена на тёмной теме и наоборот ─────────── */
-#loginScreen .zp-final {
-  background: var(--fin-bg);
-  color: var(--fin-ink);
-}
-#loginScreen .fin-stage {
-  background: var(--fin-bg);
-  color: var(--fin-ink);
-}
-#loginScreen .fin-kicker {
-  color: var(--fin-mut);
-}
 /* CTA-блок: рука убрана — призыв стоит по центру сцены, над вордмарком. */
-#loginScreen .fin-cta {
-  left: 50%;
-  right: auto;
-  top: 40%;
-  bottom: auto;
-  transform: translate(-50%, -50%);
-  max-width: min(92vw, 560px);
-  text-align: center;
-  animation-name: finCtaIn;
-}
-@keyframes finCtaIn {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
-  }
-}
-#loginScreen .fin-btns {
-  justify-content: center;
-}
-#loginScreen .fin-btn {
-  background: var(--fin-accent);
-  color: var(--fin-on-accent);
-  box-shadow: none;
-}
-#loginScreen .fin-btn:hover {
-  transform: translateY(-2px);
-  box-shadow: none;
-}
-#loginScreen .fin-btn.ghost {
-  background: none;
-  color: var(--fin-ink);
-  border-color: var(--fin-ghost-line);
-}
-#loginScreen .fin-btn.ghost:hover {
-  border-color: var(--fin-ink);
-  color: var(--fin-ink);
-}
-#loginScreen .fin-word .zp-final-letter-char {
-  color: var(--fin-mark-ink);
-}
-#loginScreen .fin-foot {
-  color: var(--fin-ink);
-  border-top-color: color-mix(in srgb, var(--fin-ink) 16%, transparent);
-}
-#loginScreen .fin-foot-links a,
-#loginScreen .fin-foot-name,
-#loginScreen .fin-foot-copy small {
-  color: var(--fin-mut);
-}
-#loginScreen .fin-foot-links a:hover {
-  color: var(--fin-ink);
-}
-#loginScreen .fin-foot-logo,
-#loginScreen .fin-foot-logo g {
-  fill: var(--fin-ink);
-}
 
 /* Полоса тарифа: правило v27 (плита из --pricing-plate-grad) заявлено и на
    светлую тему с селектором выше нашего — перебиваем той же парой селекторов:
    в v47 полоса-шторка везде цвета страницы. */
-#loginScreen .zp-pricing,
-html[data-theme='light'] #loginScreen .zp-pricing {
-  background: var(--bg);
-}
 /* Подводка тарифа: отрицательный margin был рассчитан на flex-строку старого
    shead; в блочном shead v47 он налезал на заголовок. */
-#loginScreen .zp-pricing .shead .pricing-lede {
-  margin-top: 14px;
-  max-width: 52ch;
-  font-size: 13.5px;
-}
 
 /* Заголовок тарифа: правило эпохи розовой полосы красило его в тёмные
    чернила (белым по розовому был контраст 2:1). Полоса теперь цвета
    страницы — заголовок возвращается к чернилам темы. */
-#loginScreen .zp-pricing .shead {
-  --ink: inherit;
-  --mut: inherit;
-  --pink-ink: inherit;
-  color: var(--ink);
-}
-#loginScreen .zp-pricing .shead h2,
-#loginScreen .zp-pricing .shead .mono {
-  color: var(--ink);
-}
-#loginScreen .zp-pricing .shead .mono {
-  color: var(--mut);
-}
 
 /* ── Мобильная сетка ───────────────────────────────────────────────────── */
-@media (max-width: 900px) {
-  #loginScreen .fgrid {
-    grid-template-columns: 1fr 1fr;
-  }
-}
-@media (max-width: 620px) {
-  #loginScreen .fgrid {
-    grid-template-columns: 1fr;
-  }
-  #loginScreen .zp-hero {
-    min-height: auto;
-    padding-top: 120px;
-  }
-  #loginScreen .fin-cta {
-    top: 36%;
-  }
-}
 
 /* =========================================================================
    v48: правки владельца (2026-09-01 вечер).
@@ -9525,13 +4218,6 @@ html[data-theme='light'] #loginScreen .zp-pricing {
 /* scroll-behavior: smooth сюда НЕ добавлять: у лендинга свой инерционный
    скролл (talaria-landing.js крутит scrollTo покадрово — CSS-плавность
    превратила бы каждый кадр в отдельную анимацию). */
-#loginScreen .rv {
-  transform: translateY(26px);
-  transition:
-    opacity var(--tal-dur-900) cubic-bezier(0.16, 1, 0.3, 1),
-    transform var(--tal-dur-900) cubic-bezier(0.16, 1, 0.3, 1);
-  transition-delay: var(--d, 0s);
-}
 /* Смена темы: цвета переезжают мягко, а не скачком. Список точечный —
    транзишен на «*» заставляет перерисовывать всю страницу. */
 body,
@@ -9552,41 +4238,6 @@ body,
 }
 
 /* ── 4. Без рамок: подложка и мягкая тень вместо контура ──────────────── */
-#loginScreen .fgrid {
-  gap: 14px;
-  background: none;
-  border: 0;
-  border-radius: 0;
-  overflow: visible;
-}
-#loginScreen .fcard {
-  background: var(--bg2);
-  border-radius: var(--card-r);
-  box-shadow: 0 10px 30px color-mix(in srgb, var(--tal-black) 7%, transparent);
-  transition:
-    background-color var(--tal-dur-400) ease,
-    transform var(--tal-dur-500) cubic-bezier(0.16, 1, 0.3, 1);
-}
-#loginScreen .fcard:hover {
-  background: var(--card);
-  transform: translateY(-4px);
-}
-#loginScreen .hero-snippet,
-#loginScreen .feed,
-#loginScreen .ab-in,
-#loginScreen .mini {
-  border: 0;
-  background: var(--bg2);
-  box-shadow: 0 10px 30px color-mix(in srgb, var(--tal-black) 7%, transparent);
-}
-#loginScreen .pcard {
-  border: 0;
-  background: var(--bg2);
-  box-shadow: 0 24px 70px color-mix(in srgb, var(--tal-black) 14%, transparent);
-}
-#loginScreen .aw-frame {
-  border: 0;
-}
 
 /* ── 3. Телефон: корпус ─────────────────────────────────────────────────
    Титановая грань со светом сверху-слева, глубокий чёрный борт вокруг
@@ -9594,159 +4245,13 @@ body,
    блик поверх. Прежний вид владелец назвал фиговым — остров-блоб и плоская
    рамка. Референс — стоковый мокап «front view black iphone», он платный,
    поэтому корпус собран кодом по нему. */
-#loginScreen .phone {
-  padding: 5px;
-  border: 0;
-  border-radius: 58px;
-  background: linear-gradient(
-    155deg,
-    var(--ph-frame-edge),
-    var(--ph-frame) 24%,
-    var(--ph-frame) 72%,
-    var(--ph-frame-edge)
-  );
-  box-shadow:
-    inset 0 0 0 1px var(--tal-ffffff-a09),
-    0 60px 120px var(--tal-000000-a55),
-    0 22px 44px var(--tal-000000-a35);
-}
-#loginScreen .phone::before {
-  content: none;
-}
-#loginScreen .ph-scr {
-  border: 9px solid var(--ph-frame-inner);
-  border-radius: 53px;
-}
-#loginScreen .ph-scr::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 9;
-  pointer-events: none;
-  background: linear-gradient(118deg, var(--ph-glass), transparent 36%);
-}
-#loginScreen .ph-island {
-  top: 11px;
-  width: 84px;
-  height: 23px;
-  border-radius: 13px;
-}
-#loginScreen .ph-key {
-  width: 3px;
-  border-radius: 2px;
-  background: linear-gradient(180deg, var(--ph-key-hi), var(--ph-key) 30%, var(--ph-key));
-}
-#loginScreen .ph-key-mute,
-#loginScreen .ph-key-up,
-#loginScreen .ph-key-down {
-  left: -2px;
-}
-#loginScreen .ph-key-power {
-  right: -2px;
-}
 
 /* ── 5. Вордмарк и лого ────────────────────────────────────────────────── */
-#loginScreen .brand {
-  gap: 11px;
-  font-size: 18px;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-}
-#loginScreen .landing-brand-name {
-  text-transform: lowercase;
-  /* v48: без жирного. Правка именно здесь: этот блок идёт ниже по файлу
-     и перекрывал вес, выставленный выше. */
-  font-weight: 500;
-  /* v48: вордмарк обрезало снизу. Причина — семейство var(--font-display)
-     из talaria.css: это 'Playfair Display', которого НЕТ среди подключаемых
-     шрифтов (грузятся Inter, JetBrains Mono, Unbounded). Строка рисовалась
-     подстановочной Georgia с чужими вертикальными метриками и без явного
-     line-height не умещалась в строку. Берём Unbounded — он реально загружен. */
-  font-family: var(--tal-font-display);
-  line-height: 1.3;
-  padding-block: 2px;
-}
 /* Жирность: у тонких перьев добавляется обводка тем же цветом — глиф
    набирает вес без перерисовки контуров. */
 /* v48: обводка утоньшена — при 1.3 перья слипались в пятно на малых размерах. */
-#loginScreen .tl-logo g {
-  stroke: var(--ink);
-  stroke-width: 0.5;
-  stroke-linejoin: round;
-  paint-order: stroke fill;
-}
-#loginScreen .fin-foot-logo g {
-  stroke: var(--fin-ink);
-  /* v48: та же толщина, что у шапки и фавиконки. */
-  stroke-width: 0.5;
-  stroke-linejoin: round;
-  paint-order: stroke fill;
-}
 /* Анимация: вместо сдвига слева — перья раскрываются веером от основания
    крыла с пружиной, потом раз в восемь секунд холостой взмах. */
-#loginScreen .tl-logo .tl-f {
-  transform-origin: 27px 13px;
-  animation:
-    tlFan 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) both,
-    tlIdleBeat 8s ease-in-out 2.4s infinite;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(3) {
-  animation-delay: 0.05s, 2.4s;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(4) {
-  animation-delay: 0.13s, 2.48s;
-}
-#loginScreen .tl-logo .tl-f:nth-of-type(5) {
-  animation-delay: 0.21s, 2.56s;
-}
-@keyframes tlFan {
-  from {
-    opacity: 0;
-    transform: rotate(-26deg);
-  }
-  62% {
-    opacity: 1;
-    transform: rotate(5deg);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes tlIdleBeat {
-  0%,
-  88%,
-  100% {
-    transform: none;
-  }
-  92% {
-    transform: rotate(-8deg);
-  }
-  96% {
-    transform: rotate(2.5deg);
-  }
-}
-#loginScreen .brand:hover .tl-logo {
-  transform: translateY(-2px);
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(3) {
-  transform: rotate(-10deg) translateY(-0.5px);
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(4) {
-  transform: rotate(-6deg);
-}
-#loginScreen .brand:hover .tl-logo .tl-f:nth-of-type(5) {
-  transform: rotate(-3deg);
-}
-#loginScreen .brand:hover .tl-logo .tl-f {
-  animation-play-state: paused, paused;
-  transition: transform var(--tal-dur-500) cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .tl-logo .tl-f {
-    animation: none;
-  }
-}
 
 /* ── 6а. Радужная полоса загрузки (вне #loginScreen — живёт и в кабинете) */
 .load-rail {
@@ -9815,267 +4320,27 @@ body,
   }
 }
 /* Скелет кассы тарифа: силуэт будущей карточки, а не спиннер. */
-#loginScreen .tariff-skeleton {
-  display: grid;
-  gap: 16px;
-  padding: 34px 30px 38px;
-}
-#loginScreen .tariff-skeleton .skl {
-  display: block;
-  height: 14px;
-}
-#loginScreen .tariff-skeleton .skl:nth-child(1) {
-  width: 34%;
-  height: 22px;
-}
-#loginScreen .tariff-skeleton .skl:nth-child(2) {
-  width: 58%;
-}
-#loginScreen .tariff-skeleton .skl:nth-child(3) {
-  width: 46%;
-  height: 44px;
-}
-#loginScreen .tariff-skeleton .skl:nth-child(n + 4) {
-  width: 72%;
-}
 
 /* ── 7. FAQ-переписка ──────────────────────────────────────────────────── */
-#loginScreen .zp-faq {
-  border-top: 1px solid var(--line);
-  padding: 96px 0 110px;
-}
-#loginScreen .faq-chat {
-  max-width: 720px;
-  display: grid;
-  gap: 18px;
-}
-#loginScreen .faq-q {
-  justify-self: end;
-  max-width: 86%;
-  padding: 13px 18px;
-  border: 0;
-  border-radius: 20px 20px 6px 20px;
-  background: var(--ink);
-  color: var(--bg);
-  font: inherit;
-  font-size: 14.5px;
-  text-align: left;
-  cursor: pointer;
-  transition:
-    transform var(--tal-dur-400) cubic-bezier(0.16, 1, 0.3, 1),
-    opacity var(--tal-dur-250) ease;
-}
-#loginScreen .faq-q:hover {
-  transform: translateY(-2px);
-}
-#loginScreen .faq-q .faq-tick {
-  margin-left: 8px;
-  font-size: 11.5px;
-  opacity: 0.55;
-  letter-spacing: -0.28em;
-}
-#loginScreen .faq-a {
-  display: grid;
-  grid-template-rows: 0fr;
-  transition: grid-template-rows var(--tal-dur-550) cubic-bezier(0.22, 1, 0.36, 1);
-}
-#loginScreen .faq-a-clip {
-  overflow: hidden;
-  min-height: 0;
-}
-#loginScreen .faq-item.open .faq-a {
-  grid-template-rows: 1fr;
-}
-#loginScreen .faq-bubble {
-  display: grid;
-  grid-template-columns: auto minmax(0, 1fr);
-  gap: 12px;
-  align-items: end;
-  max-width: 86%;
-  margin-top: 12px;
-  opacity: 0;
-  transform: translateY(8px);
-  transition:
-    opacity var(--tal-dur-450) ease,
-    transform var(--tal-dur-450) cubic-bezier(0.16, 1, 0.3, 1);
-}
-#loginScreen .faq-item.open .faq-bubble {
-  opacity: 1;
-  transform: none;
-  transition-delay: 0.12s;
-}
-#loginScreen .faq-ava {
-  width: 30px;
-  height: 30px;
-  border-radius: 50%;
-  background: var(--bg2);
-  display: grid;
-  place-items: center;
-  box-shadow: 0 4px 14px color-mix(in srgb, var(--tal-black) 10%, transparent);
-}
-#loginScreen .faq-ava svg {
-  width: 17px;
-  height: 15px;
-}
-#loginScreen .faq-ava g {
-  fill: var(--ink);
-}
-#loginScreen .faq-body {
-  padding: 14px 18px;
-  border-radius: 20px 20px 20px 6px;
-  background: var(--bg2);
-  box-shadow: 0 10px 30px color-mix(in srgb, var(--tal-black) 7%, transparent);
-  font-size: 14.5px;
-  line-height: 1.65;
-  color: var(--ink);
-}
-#loginScreen .faq-body small {
-  display: block;
-  margin-top: 8px;
-  font-family: var(--tal-font-mono);
-  font-size: 10.5px;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--mut);
-}
-#loginScreen .faq-lede {
-  color: var(--mut);
-  max-width: 52ch;
-  margin-top: 14px;
-  font-size: 13.5px;
-}
-@media (max-width: 620px) {
-  #loginScreen .faq-q,
-  #loginScreen .faq-bubble {
-    max-width: 100%;
-  }
-}
 
 /* Галочки списка доставки: кружок теперь серебряный (--grad погашен в
    монохром), белая галка на нём пропадала — чернила берём от темы. */
-#loginScreen .dlist .dchk {
-  color: var(--bg);
-}
 
 /* ══ v48. Шапка лендинга: того самого, чего не хватало ══════════════════ */
 
 /* Шапка висела над страницей без единой границы: на светлом герое она
    просто растворялась. Градиентная волосянка даёт край, но не чертит линейку. */
-#loginScreen .lp-nav::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    transparent,
-    color-mix(in srgb, var(--accent) 34%, transparent) 30%,
-    color-mix(in srgb, var(--accent-strong) 34%, transparent) 70%,
-    transparent
-  );
-  opacity: 0.7;
-  pointer-events: none;
-}
 
 /* Полоса прокрутки. animation-timeline считается браузером в отдельном
    потоке, поэтому она не трясётся на длинной странице, в отличие от ручного
    обработчика scroll. Где нет поддержки — полоса остаётся пустой и невидимой. */
-#loginScreen .lp-progress {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  overflow: hidden;
-  pointer-events: none;
-}
-#loginScreen .lp-progress i {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: var(--accent-gradient);
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-}
-@supports (animation-timeline: scroll()) {
-  #loginScreen .lp-progress i {
-    animation: lpProgress linear both;
-    animation-timeline: scroll(root block);
-  }
-}
-@keyframes lpProgress {
-  to {
-    transform: scaleX(1);
-  }
-}
-
-#loginScreen .nav-side a {
-  position: relative;
-}
-#loginScreen .nav-side a::after {
-  content: '';
-  position: absolute;
-  right: 0;
-  bottom: -5px;
-  left: 0;
-  height: 1px;
-  background: var(--accent-gradient);
-  transform: scaleX(0);
-  transform-origin: 0 50%;
-  transition: transform var(--motion-fast) var(--motion-ease);
-}
-#loginScreen .nav-side a:hover::after,
-#loginScreen .nav-side a:focus-visible::after {
-  transform: scaleX(1);
-}
 
 /* Кнопка входа — главное действие шапки, но выглядела как обычная плашка.
    Блик пробегает только по наведению — вечная анимация в шапке утомляет. */
-#loginScreen .lp-nav-cta {
-  position: relative;
-  overflow: hidden;
-}
-#loginScreen .lp-nav-cta::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: -60%;
-  width: 40%;
-  background: linear-gradient(
-    100deg,
-    transparent,
-    color-mix(in srgb, var(--fog) 55%, transparent),
-    transparent
-  );
-  pointer-events: none;
-}
-#loginScreen .lp-nav-cta:hover::after {
-  animation: ctaSheen 0.75s var(--motion-ease) 1;
-}
-@keyframes ctaSheen {
-  to {
-    left: 120%;
-  }
-}
-
-@media (max-width: 900px) {
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .lp-nav-cta:hover::after,
-  #loginScreen .lp-progress i {
-    animation: none;
-  }
-}
 
 /* Пункты меню шапки переносились на две строки («Как / работает»), когда
    бейдж «Работает» отъел ширину колонки. Слову в пункте меню переноситься
    некуда и незачем. */
-#loginScreen .nav-side a {
-  white-space: nowrap;
-}
 
 /* ── v50. Лендинг гуще: цепочка в герое, лента ниш, FAQ в два столбца,
    финал с фактами. Бейдж «Работает» убран по решению владельца. ───────── */
@@ -10084,347 +4349,26 @@ body,
    Стеклянная плашка с маковскими точками, моноширинные строки, курсор. */
 /* Герой с v47 одноколонный — на широком экране правая колонка под терминал
    (правило ниже v47-блока, поэтому побеждает в каскаде). */
-@media (min-width: 981px) {
-  #loginScreen .zp-hero {
-    grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-    gap: 52px;
-  }
-  #loginScreen .zp-hero h1 {
-    font-size: clamp(33px, 4.8vw, 72px);
-  }
-}
-@media (max-width: 980px) {
-  #loginScreen .hero-term {
-    margin-top: 34px;
-  }
-}
-#loginScreen .hero-term {
-  align-self: center;
-  overflow: hidden;
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: color-mix(in srgb, var(--bg2) 92%, transparent);
-  box-shadow: 0 30px 70px -42px color-mix(in srgb, var(--tal-black) 60%, transparent);
-}
-#loginScreen .ht-bar {
-  display: flex;
-  align-items: center;
-  gap: 7px;
-  padding: 11px 14px;
-  border-bottom: 1px solid var(--line);
-}
-#loginScreen .ht-bar i {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  background: color-mix(in srgb, var(--ink) 22%, transparent);
-}
-#loginScreen .ht-bar .mono {
-  margin-left: 8px;
-  color: var(--mut);
-  font-size: 10px;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-}
-#loginScreen .ht-body {
-  /* Высота под все семь строк: терминал не дёргает страницу, пока печатает. */
-  min-height: 236px;
-  padding: 16px 18px 18px;
-  font-family: var(--tal-font-mono);
-  font-size: 12.5px;
-  line-height: 1.5;
-}
-#loginScreen .ht-line {
-  margin-top: 7px;
-  overflow: hidden;
-  color: var(--mut);
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  animation: htIn var(--tal-dur-350) ease both;
-}
-#loginScreen .ht-line:first-child {
-  margin-top: 0;
-}
-@keyframes htIn {
-  from {
-    opacity: 0;
-    transform: translateY(5px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-#loginScreen .ht-cmd {
-  color: var(--ink);
-}
-#loginScreen .ht-cmd::before {
-  content: '$ ';
-  color: var(--mut);
-}
-#loginScreen .ht-ok {
-  color: var(--success);
-}
-#loginScreen .ht-reply {
-  color: var(--ink);
-  font-weight: 600;
-}
-#loginScreen .ht-caret::after {
-  content: '▋';
-  margin-left: 2px;
-  animation: htCaret 0.9s steps(1) infinite;
-}
-@keyframes htCaret {
-  50% {
-    opacity: 0;
-  }
-}
 
 /* Лента ниш: одна строка фактуры между «вживую» и возможностями. */
-#loginScreen .zp-niches {
-  padding: 26px 0;
-  border-top: 1px solid var(--line);
-  border-bottom: 1px solid var(--line);
-  background: color-mix(in srgb, var(--card) 55%, transparent);
-}
-#loginScreen .mq {
-  overflow: hidden;
-  /* Края растворяются, чтобы строка не обрубалась о границы окна. */
-  /* Цвет маски не рисуется — важна только альфа, токен взят для линтера. */
-  -webkit-mask-image: linear-gradient(
-    90deg,
-    transparent,
-    var(--tal-0b0a0e) 12%,
-    var(--tal-0b0a0e) 88%,
-    transparent
-  );
-  mask-image: linear-gradient(
-    90deg,
-    transparent,
-    var(--tal-0b0a0e) 12%,
-    var(--tal-0b0a0e) 88%,
-    transparent
-  );
-}
-#loginScreen .mq-track {
-  display: flex;
-  width: max-content;
-  animation: mqRun 46s linear infinite;
-}
-#loginScreen .mq:hover .mq-track {
-  animation-play-state: paused;
-}
-#loginScreen .mq-row {
-  display: flex;
-  align-items: center;
-  flex: none;
-}
-@keyframes mqRun {
-  to {
-    transform: translateX(-50%);
-  }
-}
-#loginScreen .mq-item {
-  padding: 0 22px;
-  color: var(--mut);
-  font-family: var(--tal-font-mono);
-  font-size: 12px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  white-space: nowrap;
-}
-#loginScreen .mq-dot {
-  color: color-mix(in srgb, var(--mut) 55%, transparent);
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .mq-track {
-    animation: none;
-  }
-}
 
 /* FAQ: чат уезжает вправо, слева — заголовок и три коротких «не».
    Раньше правая половина секции была пустой. */
-#loginScreen .faq-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
-  gap: 48px;
-  align-items: start;
-}
-#loginScreen .faq-grid .shead {
-  margin-bottom: 26px;
-}
-#loginScreen .faq-facts {
-  display: grid;
-  gap: 14px;
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-#loginScreen .faq-facts li {
-  padding: 13px 16px;
-  border-left: 2px solid color-mix(in srgb, var(--ink) 30%, transparent);
-  border-radius: 0 12px 12px 0;
-  background: color-mix(in srgb, var(--card) 70%, transparent);
-  color: var(--mut);
-  font-size: 13px;
-  line-height: 1.6;
-}
-#loginScreen .faq-facts li b {
-  color: var(--ink);
-}
-@media (max-width: 900px) {
-  #loginScreen .faq-grid {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 10px;
-  }
-}
 
 /* Финал: под кнопками — подпись про бесплатный период и живые счётчики
    (те же data-public-stat, что в «Динамике»). Сцена перестаёт быть пустой. */
-#loginScreen .fin-note {
-  margin: 18px 0 0;
-  color: var(--fin-mut);
-  font-size: 13px;
-}
-#loginScreen .fin-facts {
-  display: flex;
-  gap: 38px;
-  justify-content: center;
-  margin: 26px 0 0;
-}
-#loginScreen .fin-facts > div {
-  text-align: center;
-}
-#loginScreen .fin-facts dt {
-  font-family: var(--tal-font-display);
-  font-size: 30px;
-  font-weight: 500;
-  line-height: 1.1;
-}
-#loginScreen .fin-facts dd {
-  margin: 4px 0 0;
-  color: var(--fin-mut);
-  font-size: 11px;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-}
-@media (max-width: 700px) {
-  #loginScreen .fin-facts {
-    gap: 22px;
-  }
-  #loginScreen .fin-facts dt {
-    font-size: 22px;
-  }
-}
 
 /* FAQ v51: перед ответом — «печатает…», как в живой переписке. Пузырь
    с тремя точками занимает место ответа, потом сменяется самим ответом. */
-#loginScreen .faq-typing {
-  display: none;
-  width: 64px;
-  margin-top: 12px;
-  padding: 14px 18px;
-  border-radius: 20px 20px 20px 6px;
-  background: var(--bg2);
-}
-#loginScreen .faq-item.typing .faq-typing {
-  display: flex;
-  gap: 5px;
-}
-#loginScreen .faq-typing i {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--mut);
-  animation: faqDot 1s ease-in-out infinite;
-}
-#loginScreen .faq-typing i:nth-child(2) {
-  animation-delay: 0.16s;
-}
-#loginScreen .faq-typing i:nth-child(3) {
-  animation-delay: 0.32s;
-}
-@keyframes faqDot {
-  0%,
-  60%,
-  100% {
-    opacity: 0.35;
-    transform: none;
-  }
-  30% {
-    opacity: 1;
-    transform: translateY(-4px);
-  }
-}
 /* Пока «печатает» — ветка ответа приоткрыта на высоту индикатора. */
-#loginScreen .faq-item.typing .faq-a {
-  grid-template-rows: 1fr;
-}
-#loginScreen .faq-item.typing .faq-bubble {
-  display: none;
-}
-#loginScreen .faq-item.open .faq-typing {
-  display: none;
-}
-@media (prefers-reduced-motion: reduce) {
-  #loginScreen .faq-typing i {
-    animation: none;
-  }
-}
 
 /* ── v52: рамки долой ─────────────────────────────────────────────────────
    Просьба владельца: убрать контурные рамки на лендинге. border-color
    становится прозрачным (а не border: 0), чтобы не дёргать layout;
    читаемость карточек держат фон и мягкая тень. Секционные разделители
    и корпус телефона — не рамки, их не трогаем. */
-#loginScreen .hero-term,
-#loginScreen .hero-snippet,
-#loginScreen .feed,
-#loginScreen .ab-in,
-#loginScreen .stats,
-#loginScreen .pcard,
-#loginScreen .mini,
-#loginScreen .fun-bar,
-#loginScreen .aw-frame,
-#loginScreen .appwin {
-  border-color: transparent;
-  box-shadow: 0 26px 60px -44px color-mix(in srgb, var(--tal-black) 55%, transparent);
-}
-#loginScreen :is(.hero-snippet, .feed, .ab-in, .stats, .mini, .fun-bar) {
-  background: color-mix(in srgb, var(--ink) 4%, var(--bg2));
-}
 /* Шапки панелей: вместо линии — чуть более плотный фон. */
-#loginScreen .ht-bar,
-#loginScreen .hero-snippet-head,
-#loginScreen .feed-h {
-  border-bottom-color: transparent;
-  background: color-mix(in srgb, var(--ink) 5%, transparent);
-}
 /* Возможности: сетку на линиях меняем на отдельные карточки без рамок. */
-#loginScreen .fgrid {
-  border-color: transparent;
-  background: transparent;
-  gap: 14px;
-  overflow: visible;
-}
-#loginScreen .fcard {
-  border-radius: var(--card-r);
-  background: color-mix(in srgb, var(--ink) 4%, var(--bg2));
-}
 /* Пульс: перегородки между цифрами убираем. */
-#loginScreen .stat + .stat {
-  border-left-color: transparent;
-}
-#loginScreen .stat:nth-child(n + 3) {
-  border-top-color: transparent;
-}
 /* FAQ-факты: без полоски слева, скругление со всех сторон. */
-#loginScreen .faq-facts li {
-  border-left-color: transparent;
-  border-radius: 12px;
-}
 /* Лента ниш: без линий сверху и снизу. */
-#loginScreen .zp-niches {
-  border-top-color: transparent;
-  border-bottom-color: transparent;
-}

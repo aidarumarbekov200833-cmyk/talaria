@@ -11,6 +11,9 @@ test('styles entrypoint keeps the base cascade and applies the approved theme la
   assert.equal(
     css('styles.css').trim(),
     [
+      // v53: шрифты self-hosted (fonts.css) первыми, лендинг v53 — последним,
+      // чтобы его правила побеждали остатки кабинетного каскада.
+      "@import url('./fonts.css');",
       "@import url('./tokens.css');",
       "@import url('./base.css');",
       "@import url('./components.css');",
@@ -19,6 +22,7 @@ test('styles entrypoint keeps the base cascade and applies the approved theme la
       "@import url('./talaria.css');",
       "@import url('./talaria-v5.css');",
       "@import url('./cabinet.css');",
+      "@import url('./landing-v53.css');",
     ].join('\n'),
   );
 });
@@ -32,6 +36,7 @@ test('only tokens define CSS colour literals and motion uses shared tokens', () 
     'talaria.css',
     'talaria-v5.css',
     'cabinet.css',
+    'landing-v53.css',
   ];
   const forbidden = /#[0-9a-f]{3,8}\b|\b(?:rgb|hsl)a?\(/i;
   for (const name of names) assert.doesNotMatch(css(name), forbidden, name);
@@ -162,16 +167,18 @@ test('landing sections retain the required sentinel order through the finale', (
   // v20: порядок пересобран по дизайн-аудиту — сначала продукт («так выглядит
   // доставка», возможности, полёт кампании), и только потом фактические цифры
   // сервиса. Раньше «Динамика» стояла вторым экраном, до объяснения продукта.
+  // v53 (2026-09-02): лендинг собран с нуля — одна сюжетная линия письма:
+  // герой с переписко́й → живые цифры → четыре шага → безопасность → тариф →
+  // вопросы → финал с подвалом.
   const sentinels = [
-    '<header class="lp-nav zd-nav">',
-    '<section class="zp-hero"',
-    '<section class="zp-control-grid"',
-    '<section class="zp-capabilities"',
-    '<section class="zp-workflow"',
-    '<section class="zp-stats"',
-    '<section class="zp-account-band"',
-    '<section class="zp-pricing"',
-    '<section class="zp-final"',
+    '<header class="tl-nav"',
+    '<section class="tl-hero"',
+    '<section class="tl-pulse"',
+    '<section class="tl-how"',
+    '<section class="tl-safe"',
+    '<section class="tl-price"',
+    '<section class="tl-faq"',
+    '<section class="tl-final"',
   ];
   let previous = -1;
   for (const sentinel of sentinels) {

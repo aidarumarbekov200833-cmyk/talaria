@@ -223,7 +223,7 @@ test('dialog opener binding is idempotent and restores the actual clicked opener
 test('auth and CSS integrations retain safe rendering and shared motion contracts', () => {
   const auth = readFileSync(new URL('../../js/auth.js', import.meta.url), 'utf8');
   const tokens = readFileSync(new URL('../../css/tokens.css', import.meta.url), 'utf8');
-  const landing = readFileSync(new URL('../../css/landing.css', import.meta.url), 'utf8');
+  const landing = readFileSync(new URL('../../css/landing-v53.css', import.meta.url), 'utf8');
   const components = readFileSync(new URL('../../css/components.css', import.meta.url), 'utf8');
 
   assert.match(auth, /bindDialogOpeners/);
@@ -239,8 +239,9 @@ test('auth and CSS integrations retain safe rendering and shared motion contract
   ]) {
     assert.match(tokens, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
-  assert.match(landing, /\.zd-motion-ready \.zd-reveal/);
-  assert.match(landing, /--zd-reveal-delay/);
-  assert.match(landing, /\.lp-q\[open\][\s\S]*summary::after/);
+  // v53: reveal-контракт живёт в landing-v53.css (класс is-inview ставит
+  // js/landing.js), FAQ стал переписко́й на <details class="tl-q">.
+  assert.match(landing, /\.rv\.is-inview/);
+  assert.match(landing, /\.tl-q summary/);
   assert.match(components, /dialog\[open\][\s\S]*var\(--motion-dialog\)/);
 });

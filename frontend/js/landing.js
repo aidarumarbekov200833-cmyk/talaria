@@ -92,19 +92,7 @@ import { renderText } from './shared/dom.js';
 import { railDone, railStart } from './shared/topbar.js';
 
 const REDUCED_MOTION_QUERY = '(prefers-reduced-motion: reduce)';
-const REVEAL_SELECTOR = [
-  '.zp-hero-copy > *',
-  '.zp-phone-stage',
-  '.zp-stats > *',
-  '.zp-section-head',
-  '.zp-capability-list > article',
-  '.zp-control-card',
-  '.zp-account-band > *',
-  '#landingTariffGrid',
-  '.zp-faq .lp-q',
-  '.landing-terms',
-  '.zd-footer',
-].join(',');
+const REVEAL_SELECTOR = ['#loginScreen .rv'].join(',');
 
 function addClass(node, name) {
   node?.classList?.add?.(name);

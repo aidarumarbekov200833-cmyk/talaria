@@ -1,3 +1,4 @@
+@import url('./fonts.css');
 @import url('./tokens.css');
 @import url('./base.css');
 @import url('./components.css');
@@ -6,3 +7,4 @@
 @import url('./talaria.css');
 @import url('./talaria-v5.css');
 @import url('./cabinet.css');
+@import url('./landing-v53.css');
