@@ -41,8 +41,14 @@
 		#    Если где-то снова появится onclick, он просто не сработает — это ожидаемо;
 		#  * в style-src 'unsafe-inline' пока остаётся: в разметке есть style="…",
 		#    риск от inline-стилей несравнимо ниже, чем от inline-скриптов;
-		#  * frame-ancestors 'self' дублирует X-Frame-Options для современных браузеров.
-		Content-Security-Policy "default-src 'self'; script-src 'self' https://telegram.org; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' wss:; frame-src 'self' https://oauth.telegram.org; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
+		#  * frame-ancestors 'self' дублирует X-Frame-Options для современных браузеров;
+		#  * img-src — только откуда картинки реально приходят: аватарки Telegram
+		#    (t.me и CDN), превью каналов и видео YouTube. Раньше стояло «любой
+		#    https», что сводило директиву на нет;
+		#  * шрифты Google убраны: с v53 шрифты лежат в assets/fonts.
+		# СВЯЗКА: та же строка в frontend/nginx.conf ($outly_csp) — менять вместе,
+		# наружу уходит эта (Caddy перезаписывает заголовок nginx).
+		Content-Security-Policy "default-src 'self'; script-src 'self' https://telegram.org; style-src 'self' 'unsafe-inline'; font-src 'self'; img-src 'self' data: https://t.me https://*.telegram-cdn.org https://*.cdn-telegram.org https://*.ggpht.com https://*.ytimg.com https://*.googleusercontent.com; connect-src 'self' wss:; frame-src 'self' https://oauth.telegram.org; frame-ancestors 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"
 	}
 
 	# Форма подключения Telegram: nginx выставляет для неё БОЛЕЕ строгие
