@@ -107,7 +107,7 @@
       crossorigin
       href="/assets/fonts/inter-400-cyrillic.woff2"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria29" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria31" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -563,6 +563,33 @@
               места и автосписаний.
             </p>
           </div>
+          <!-- v55: цена как заголовок. Цифра зеркалит [data-plan-price] карточки (серверный расчёт),
+               переключатели проксируют клики в карточку — источник цены один. -->
+          <div class="tl-price-big rv" id="tlPriceBig" hidden>
+            <div class="tl-price-big-num">
+              <b id="tlBigPrice" aria-live="polite">—</b>
+              <span id="tlBigCap">за 1 месяц</span>
+            </div>
+            <div class="tl-price-big-ctl">
+              <div class="tl-seg" role="group" aria-label="Период оплаты">
+                <button type="button" class="is-on" data-big-period="1" aria-pressed="true">
+                  1 месяц
+                </button>
+                <button type="button" data-big-period="3" aria-pressed="false">
+                  3 месяца <em>−15%</em>
+                </button>
+              </div>
+              <div class="tl-seg" role="group" aria-label="Валюта">
+                <button type="button" class="is-on" data-big-currency="RUB" aria-pressed="true">
+                  ₽ рубли
+                </button>
+                <button type="button" data-big-currency="KZT" aria-pressed="false">₸ тенге</button>
+              </div>
+              <p class="tl-price-big-note">
+                Одна цена за всё: поиск, базы, рассылка, ИИ-помощник. Без автосписаний.
+              </p>
+            </div>
+          </div>
           <div class="tl-price-grid">
             <div class="tl-price-side">
               <!-- Пробный: что открыто сразу и что ждёт оплаты. -->
@@ -613,53 +640,95 @@
           </div>
         </section>
 
-        <!-- ВОПРОСЫ: переписка. Вопрос — ваш пузырь, ответ печатается после клика. -->
+        <!-- ВОПРОСЫ: чат с Talaria. Без JS — обычный список вопрос/ответ (dl). С JS — окно чата:
+             тап по вопросу слева → пузырь в чат → «печатает…» → ответ печатается посимвольно. -->
         <section class="tl-faq" id="faq" aria-labelledby="tlFaqTitle">
-          <h2 id="tlFaqTitle" class="tl-h2">Вопросы, которые задают до входа</h2>
-          <div class="tl-faq-list" id="tlFaq">
-            <details class="tl-q">
-              <summary>Это спам-рассылка?</summary>
-              <div class="tl-a">
-                Нет. Каждое письмо одному автору, с его контекстом, отправляется с паузами и только
-                после вашего подтверждения текста.
+          <div class="tl-faq-grid">
+            <div class="tl-faq-side">
+              <h2 id="tlFaqTitle" class="tl-h2">Спросите, как в чате</h2>
+              <p class="tl-lead">
+                Девять вопросов, которые задают до входа. Нажимайте на любой, ответ придёт в чат.
+              </p>
+            </div>
+            <div class="tl-faq-ask">
+              <div class="tl-faq-qs" id="tlFaqQs" role="group" aria-label="Вопросы"></div>
+              <p class="tl-faq-more">
+                Свой вопрос —
+                <a href="https://t.me/Cxentrall" target="_blank" rel="noopener">@Cxentrall</a>
+              </p>
+            </div>
+            <div class="tl-chat rv" id="tlChat" hidden>
+              <div class="tl-chat-head">
+                <span class="tl-chat-ava" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none">
+                    <path
+                      d="M4 12.5 20 5l-3.2 14.2-4.9-3.5-2.6 2.5.1-4.2L16.2 8"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linejoin="round"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </span>
+                <span class="tl-chat-who">
+                  <b>Talaria</b>
+                  <small id="tlChatStatus">отвечает быстро</small>
+                </span>
+                <span class="tl-chat-count" id="tlChatCount" aria-live="polite"></span>
               </div>
-            </details>
-            <details class="tl-q">
-              <summary>Мой Telegram-аккаунт не забанят?</summary>
-              <div class="tl-a">
-                Очередь держит интервалы, при FloodWait отправка встаёт на паузу сама. Аккаунты и
-                прогрев вы контролируете в кабинете.
+              <div class="tl-chat-log" id="tlChatLog" role="log" aria-live="polite">
+                <span class="tl-chat-date">Сегодня</span>
               </div>
-            </details>
-            <details class="tl-q">
-              <summary>Откуда берутся лиды?</summary>
-              <div class="tl-a">
-                Из открытых данных YouTube по вашим фильтрам: ниша, регион, подписчики, просмотры,
-                вовлечённость, активность за 30 дней.
-              </div>
-            </details>
-            <details class="tl-q">
-              <summary>Нужна ли карта, чтобы попробовать?</summary>
-              <div class="tl-a">
-                Нет. Вход через Telegram, 14 дней пробного доступа без карты. Платный тариф включает
-                рассылку и ИИ-помощника.
-              </div>
-            </details>
-            <details class="tl-q">
-              <summary>Что вы получаете при входе?</summary>
-              <div class="tl-a">
-                Имя, @ник и аватар из Telegram. Пароль и почта не нужны, рабочее пространство
-                создаётся при первом входе.
-              </div>
-            </details>
-            <details class="tl-q">
-              <summary>Куда приходят ответы?</summary>
-              <div class="tl-a">
-                В кабинет, в раздел переписки, и пушем от бота. Дальше диалог ведёте вы, Talaria
-                только помечает статус.
-              </div>
-            </details>
+              <div class="tl-chat-foot" id="tlChatFoot" aria-hidden="true">Выберите вопрос</div>
+            </div>
           </div>
+          <dl class="tl-faq-src" id="tlFaq">
+            <dt>Это спам-рассылка?</dt>
+            <dd>
+              Нет. Одно письмо уходит одному автору, и в нём его ролик, а не «уважаемый партнёр».
+              Между письмами паузы, а текст отправляется только после вашего «ок».
+            </dd>
+            <dt>Мой Telegram-аккаунт не забанят?</dt>
+            <dd>
+              Очередь держит интервалы сама. Поймали FloodWait — отправка встаёт на паузу без вашего
+              участия. Какие аккаунты слать и как их греть, решаете вы в кабинете.
+            </dd>
+            <dt>Откуда берутся лиды?</dt>
+            <dd>
+              Из открытых данных YouTube. Вы задаёте нишу, регион, подписчиков, просмотры,
+              вовлечённость и активность за 30 дней, Talaria собирает каналы, которые подходят.
+            </dd>
+            <dt>Сколько стоит?</dt>
+            <dd data-price>
+              Один тариф за всё: {rub} в месяц или {kzt}. Берёте сразу три месяца — минус 15%.
+              Уровней и доплат за места нет.
+            </dd>
+            <dt>Нужна ли карта, чтобы попробовать?</dt>
+            <dd>
+              Нет. Вход через Telegram и 14 дней пробного доступа, карту не спрашиваем. Рассылка и
+              ИИ-помощник открываются в платном тарифе.
+            </dd>
+            <dt>Что видит автор канала?</dt>
+            <dd>
+              Обычное личное сообщение в Telegram от вашего аккаунта. Ни бота, ни пометки «реклама»,
+              ни ссылки на Talaria, только текст, который вы подтвердили.
+            </dd>
+            <dt>Что вы получаете при входе?</dt>
+            <dd>
+              Имя, @ник и аватар из Telegram, и всё. Пароля и почты нет, рабочее пространство
+              создаётся при первом входе.
+            </dd>
+            <dt>Куда приходят ответы?</dt>
+            <dd>
+              В кабинет, в раздел переписки, плюс пуш от бота. Дальше диалог ведёте вы сами, Talaria
+              только ставит статус «ответил».
+            </dd>
+            <dt>Как отменить?</dt>
+            <dd>
+              Отменять нечего: автосписаний нет. Оплатили месяц — пользуетесь месяц, потом решаете
+              заново. Пробный период заканчивается сам.
+            </dd>
+          </dl>
         </section>
 
         <!-- ФИНАЛ + подвал одним экраном. -->
@@ -5026,7 +5095,7 @@
       </div>
     </div>
 
-    <script src="/js/landing-v53.js?v=talaria2"></script>
+    <script src="/js/landing-v53.js?v=talaria3"></script>
     <script type="module" src="/js/main.js?v=talaria14"></script>
     <!-- Просмотр картинки из переписки. <dialog> даёт бесплатно ESC, ловушку
          фокуса и подложку — руками это три обработчика и дыра в доступности. -->

@@ -240,8 +240,9 @@ test('auth and CSS integrations retain safe rendering and shared motion contract
     assert.match(tokens, new RegExp(token.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')));
   }
   // v53: reveal-контракт живёт в landing-v53.css (класс is-inview ставит
-  // js/landing.js), FAQ стал переписко́й на <details class="tl-q">.
+  // js/landing.js), FAQ (v55) — чат: кнопки .tl-fq → пузыри .tl-cm в #tlChatLog.
   assert.match(landing, /\.rv\.is-inview/);
-  assert.match(landing, /\.tl-q summary/);
+  assert.match(landing, /\.tl-fq\b/);
+  assert.match(landing, /\.tl-cm\.is-out/);
   assert.match(components, /dialog\[open\][\s\S]*var\(--motion-dialog\)/);
 });

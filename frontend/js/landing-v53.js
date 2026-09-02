@@ -334,52 +334,256 @@
     } else start();
   })();
 
-  /* --- FAQ как переписка: клик по вопросу → «печатает…» → ответ --- */
-  (function faq() {
-    var list = document.getElementById('tlFaq');
-    if (!list) return;
-    var items = Array.prototype.slice.call(list.querySelectorAll('.tl-q'));
-    items.forEach(function (d) {
-      var summary = d.querySelector('summary');
-      var answer = d.querySelector('.tl-a');
-      if (!summary || !answer) return;
-      var typing = null;
-      var timer = null;
-      summary.addEventListener('click', function (e) {
-        e.preventDefault();
-        if (d.open) {
-          clearTimeout(timer);
-          if (typing) {
-            typing.remove();
-            typing = null;
-          }
-          d.open = false;
-          return;
-        }
-        items.forEach(function (o) {
-          if (o !== d && o.open) o.open = false;
-        });
-        answer.hidden = true;
-        d.open = true;
-        if (noMotion()) {
-          answer.hidden = false;
-          return;
-        }
-        typing = document.createElement('div');
-        typing.className = 'tl-typing';
-        typing.setAttribute('aria-hidden', 'true');
-        typing.innerHTML =
-          '<i style="--td:0s"></i><i style="--td:.15s"></i><i style="--td:.3s"></i>';
-        d.appendChild(typing);
-        timer = setTimeout(function () {
-          if (typing) {
-            typing.remove();
-            typing = null;
-          }
-          answer.hidden = false;
-        }, 650);
+  /* --- цены тарифа: один запрос на страницу, делят FAQ и блок тарифа --- */
+  var plansPromise = null;
+  function loadPlans() {
+    if (plansPromise) return plansPromise;
+    plansPromise = fetch('/api/plans', { headers: { Accept: 'application/json' } })
+      .then(function (r) {
+        return r.ok ? r.json() : null;
+      })
+      .then(function (data) {
+        return (data && data.plans && data.plans[0]) || null;
+      })
+      .catch(function () {
+        return null;
+      });
+    return plansPromise;
+  }
+  function money(v) {
+    return Number(v || 0).toLocaleString('ru-RU');
+  }
+
+  /* --- v55: цена как заголовок — зеркало карточки tariffs.js. Ждём, пока карточка
+     отрисуется, копируем [data-plan-price]/[data-plan-caption], клики по большим
+     переключателям проксируем в её кнопки, чтобы расчёт был один (серверный). --- */
+  (function priceBig() {
+    var big = document.getElementById('tlPriceBig');
+    var grid = document.getElementById('landingTariffGrid');
+    var num = document.getElementById('tlBigPrice');
+    var cap = document.getElementById('tlBigCap');
+    var section = document.getElementById('pricing');
+    if (!big || !grid || !num || !cap || !section) return;
+    var card = null;
+    function sync() {
+      var p = card.querySelector('[data-plan-price]');
+      var c = card.querySelector('[data-plan-caption]');
+      if (p) num.textContent = p.textContent;
+      if (c) cap.textContent = c.textContent;
+      big.classList.toggle('is-swapping', card.classList.contains('is-swapping'));
+      Array.prototype.forEach.call(big.querySelectorAll('[data-big-period]'), function (b) {
+        var src = card.querySelector('[data-plan-period="' + b.dataset.bigPeriod + '"]');
+        var on = Boolean(src && src.classList.contains('active'));
+        b.classList.toggle('is-on', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+      Array.prototype.forEach.call(big.querySelectorAll('[data-big-currency]'), function (b) {
+        var src = card.querySelector('[data-plan-currency="' + b.dataset.bigCurrency + '"]');
+        var on = Boolean(src && src.classList.contains('active'));
+        b.classList.toggle('is-on', on);
+        b.setAttribute('aria-pressed', String(on));
+      });
+    }
+    function attach(found) {
+      card = found;
+      big.hidden = false;
+      section.classList.add('has-big');
+      sync();
+      new MutationObserver(sync).observe(card, {
+        subtree: true,
+        childList: true,
+        characterData: true,
+        attributes: true,
+        attributeFilter: ['class'],
+      });
+    }
+    big.addEventListener('click', function (e) {
+      var b = e.target.closest('[data-big-period],[data-big-currency]');
+      if (!b || !card) return;
+      var sel = b.dataset.bigPeriod
+        ? '[data-plan-period="' + b.dataset.bigPeriod + '"]'
+        : '[data-plan-currency="' + b.dataset.bigCurrency + '"]';
+      var src = card.querySelector(sel);
+      if (src && !src.classList.contains('active')) src.click();
+    });
+    var existing = grid.querySelector('[data-plan-card]');
+    if (existing) {
+      attach(existing);
+      return;
+    }
+    var mo = new MutationObserver(function () {
+      var found = grid.querySelector('[data-plan-card]');
+      if (!found) return;
+      mo.disconnect();
+      attach(found);
+    });
+    mo.observe(grid, { childList: true });
+  })();
+
+  /* --- v55: FAQ как чат. Список dl — источник; с JS он скрыт, вопросы становятся кнопками,
+     ответ приходит в окно: пузырь вопроса → «печатает…» → посимвольная печать ответа. --- */
+  (function faqChat() {
+    var src = document.getElementById('tlFaq');
+    var qs = document.getElementById('tlFaqQs');
+    var chat = document.getElementById('tlChat');
+    var log = document.getElementById('tlChatLog');
+    var status = document.getElementById('tlChatStatus');
+    var count = document.getElementById('tlChatCount');
+    var foot = document.getElementById('tlChatFoot');
+    if (!src || !qs || !chat || !log) return;
+    var items = [];
+    var dts = Array.prototype.slice.call(src.querySelectorAll('dt'));
+    dts.forEach(function (dt) {
+      var dd = dt.nextElementSibling;
+      if (!dd || dd.tagName !== 'DD') return;
+      items.push({
+        q: dt.textContent.trim(),
+        a: dd.textContent.replace(/\s+/g, ' ').trim(),
+        price: dd.hasAttribute('data-price'),
       });
     });
+    if (!items.length) return;
+    src.hidden = true;
+    chat.hidden = false;
+    var asked = 0;
+    var busy = false;
+    var timers = [];
+    function later(fn, ms) {
+      timers.push(setTimeout(fn, ms));
+    }
+    function clock() {
+      var d = new Date();
+      return (
+        (d.getHours() < 10 ? '0' : '') +
+        d.getHours() +
+        ':' +
+        (d.getMinutes() < 10 ? '0' : '') +
+        d.getMinutes()
+      );
+    }
+    function scrollDown() {
+      log.scrollTop = log.scrollHeight;
+    }
+    function bubble(cls, text) {
+      var el = document.createElement('div');
+      el.className = 'tl-cm ' + cls;
+      var t = document.createElement('span');
+      t.className = 'tl-cm-txt';
+      t.textContent = text;
+      var m = document.createElement('span');
+      m.className = 'tl-cm-time';
+      m.textContent = clock() + (cls === 'is-out' ? ' \u2713\u2713' : '');
+      el.appendChild(t);
+      el.appendChild(m);
+      log.appendChild(el);
+      requestAnimationFrame(function () {
+        el.classList.add('show');
+        scrollDown();
+      });
+      return { el: el, txt: t };
+    }
+    function setCount() {
+      if (count) count.textContent = asked + ' из ' + items.length;
+    }
+    function priceText(item, plan) {
+      if (!item.price) return item.a;
+      if (!plan)
+        return 'Один тариф за всё. Цена в рублях и тенге показана в блоке «Тариф» выше, за три месяца сразу — минус 15%.';
+      return item.a
+        .replace('{rub}', money(plan.price_rub) + ' \u20bd')
+        .replace('{kzt}', money(plan.price_kzt) + ' \u20b8');
+    }
+    function ask(item, btn) {
+      if (busy || btn.disabled) return;
+      busy = true;
+      btn.disabled = true;
+      btn.classList.add('is-asked');
+      asked += 1;
+      setCount();
+      if (foot)
+        foot.textContent = asked >= items.length ? 'Остальное — @Cxentrall' : 'Следующий вопрос?';
+      var r = chat.getBoundingClientRect();
+      if (r.top < 0 || r.bottom > window.innerHeight) {
+        chat.scrollIntoView({ block: 'start', behavior: noMotion() ? 'auto' : 'smooth' });
+      }
+      bubble('is-out', item.q);
+      var instant = noMotion();
+      var typing = document.createElement('div');
+      typing.className = 'tl-cm is-in tl-cm-typing';
+      typing.setAttribute('aria-hidden', 'true');
+      typing.innerHTML = '<i style="--td:0s"></i><i style="--td:.15s"></i><i style="--td:.3s"></i>';
+      var answer = function (text) {
+        typing.remove();
+        if (status) status.textContent = 'отвечает быстро';
+        var b = bubble('is-in', instant ? text : '');
+        if (instant) {
+          busy = false;
+          return;
+        }
+        var i = 0;
+        var step = function () {
+          i += text.length > 160 ? 3 : 2;
+          b.txt.textContent = text.slice(0, i);
+          scrollDown();
+          if (i < text.length) later(step, 14);
+          else busy = false;
+        };
+        step();
+      };
+      var plan = loadPlans();
+      later(
+        function () {
+          if (status) status.textContent = 'печатает\u2026';
+          log.appendChild(typing);
+          requestAnimationFrame(function () {
+            typing.classList.add('show');
+            scrollDown();
+          });
+          later(
+            function () {
+              plan.then(function (p) {
+                answer(priceText(item, p));
+              });
+            },
+            instant ? 0 : 700,
+          );
+        },
+        instant ? 0 : 420,
+      );
+    }
+    items.forEach(function (item, i) {
+      var btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = 'tl-fq';
+      btn.textContent = item.q;
+      btn.style.setProperty('--i', String(i));
+      btn.addEventListener('click', function () {
+        ask(item, btn);
+      });
+      qs.appendChild(btn);
+    });
+    setCount();
+    /* первый вопрос задаётся сам, когда окно попадает в кадр */
+    var auto = function () {
+      var first = qs.querySelector('.tl-fq:not(.is-asked)');
+      if (first) ask(items[0], first);
+    };
+    if (!('IntersectionObserver' in window)) {
+      auto();
+      return;
+    }
+    var seen = false;
+    new IntersectionObserver(
+      function (entries, obs) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting || seen) return;
+          seen = true;
+          obs.disconnect();
+          later(auto, noMotion() ? 0 : 500);
+        });
+      },
+      { threshold: 0.35 },
+    ).observe(chat);
   })();
 
   /* --- v54: письмо по нишам — вкладки, печать, автосмена до первого клика --- */

@@ -928,6 +928,95 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
   gap: 14px;
   max-width: 40em;
 }
+/* цена как заголовок (v55) */
+#loginScreen.tl .tl-price-big {
+  display: grid;
+  grid-template-columns: minmax(0, auto) minmax(0, 1fr);
+  align-items: end;
+  gap: 18px clamp(24px, 4vw, 56px);
+  padding-bottom: clamp(20px, 3vh, 32px);
+  border-bottom: 1px solid var(--tl-line);
+}
+#loginScreen.tl .tl-price-big[hidden] {
+  display: none;
+}
+#loginScreen.tl .tl-price-big-num {
+  display: grid;
+  gap: 6px;
+}
+#loginScreen.tl .tl-price-big-num b {
+  font: 600 clamp(56px, 9.6vw, 148px) / 0.95 var(--tl-font-display);
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+  transition: opacity var(--motion-fast) var(--tl-ease);
+}
+#loginScreen.tl .tl-price-big.is-swapping .tl-price-big-num b {
+  opacity: 0.45;
+}
+#loginScreen.tl .tl-price-big-num span {
+  font: 500 13px/1.4 var(--tl-font-mono);
+  letter-spacing: 0.04em;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-price-big-ctl {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 14px;
+  padding-bottom: 6px;
+}
+#loginScreen.tl .tl-seg {
+  display: inline-flex;
+  padding: 4px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tl-ink) 7%, var(--tl-bg));
+}
+#loginScreen.tl .tl-seg button {
+  appearance: none;
+  min-height: 40px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tl-ink);
+  font: inherit;
+  font-size: 14.5px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color var(--motion-fast) var(--tl-ease),
+    color var(--motion-fast) var(--tl-ease);
+}
+#loginScreen.tl .tl-seg button em {
+  font-style: normal;
+  font-size: 12.5px;
+  opacity: 0.7;
+}
+#loginScreen.tl .tl-seg button:hover {
+  background: color-mix(in srgb, var(--tl-ink) 8%, transparent);
+}
+#loginScreen.tl .tl-seg button.is-on {
+  color: var(--tl-on-btn);
+  background: var(--tl-btn);
+}
+#loginScreen.tl .tl-seg button:focus-visible {
+  outline: 2px solid var(--tl-ink);
+  outline-offset: 2px;
+}
+#loginScreen.tl .tl-price-big-note {
+  flex-basis: 100%;
+  max-width: 34em;
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--tl-mut);
+}
+/* когда цена крупно — в карточке её и период не дублируем */
+#loginScreen.tl .tl-price.has-big .landing-tariffs .tariff-price-live,
+#loginScreen.tl .tl-price.has-big .landing-tariffs .plan-period {
+  display: none;
+}
+
 #loginScreen.tl .tl-price-grid {
   display: grid;
   grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
@@ -1105,77 +1194,225 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
   background: var(--tl-btn);
 }
 
-/* ---------- вопросы: переписка ---------- */
+/* ---------- вопросы: чат с Talaria ---------- */
 #loginScreen.tl .tl-faq {
   padding-top: clamp(56px, 9vh, 120px);
   padding-bottom: clamp(56px, 9vh, 120px);
   border-top: 1px solid var(--tl-line);
 }
-#loginScreen.tl .tl-faq .tl-h2 {
-  max-width: 18em;
-}
-#loginScreen.tl .tl-faq-list {
+#loginScreen.tl .tl-faq-grid {
   display: grid;
-  gap: 14px;
-  max-width: 760px;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 520px);
+  grid-template-areas:
+    'side chat'
+    'qs chat';
+  gap: 0 clamp(28px, 5vw, 72px);
+  align-items: start;
+}
+#loginScreen.tl .tl-faq-side {
+  grid-area: side;
+}
+#loginScreen.tl .tl-faq-ask {
+  grid-area: qs;
+}
+#loginScreen.tl .tl-chat {
+  grid-area: chat;
+}
+#loginScreen.tl .tl-faq-side .tl-h2 {
+  max-width: 14em;
+}
+#loginScreen.tl .tl-faq-side .tl-lead {
+  max-width: 30em;
+  margin-top: 16px;
+}
+#loginScreen.tl .tl-faq-qs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
   margin-top: 28px;
 }
-#loginScreen.tl .tl-q {
-  display: grid;
-  gap: 10px;
-}
-#loginScreen.tl .tl-q summary {
-  justify-self: end;
-  max-width: 84%;
-  padding: 12px 16px;
-  border-radius: 18px 18px 6px 18px;
-  color: var(--tl-on-btn);
-  background: var(--tl-btn);
+#loginScreen.tl .tl-fq {
+  appearance: none;
+  min-height: 44px;
+  padding: 10px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tl-ink) 7%, var(--tl-bg));
+  color: var(--tl-ink);
+  font: inherit;
   font-size: 15px;
   font-weight: 500;
+  text-align: left;
   cursor: pointer;
-  list-style: none;
-  user-select: none;
-  transition: transform var(--motion-fast) var(--tl-ease);
+  transition:
+    background-color var(--motion-fast) var(--tl-ease),
+    color var(--motion-fast) var(--tl-ease),
+    opacity var(--motion-fast) var(--tl-ease),
+    transform var(--motion-fast) var(--tl-ease);
 }
-#loginScreen.tl .tl-q summary::-webkit-details-marker {
-  display: none;
-}
-#loginScreen.tl .tl-q summary:hover {
+#loginScreen.tl .tl-fq:hover {
+  background: color-mix(in srgb, var(--tl-ink) 13%, var(--tl-bg));
   transform: translateY(-1px);
 }
-#loginScreen.tl .tl-a,
-#loginScreen.tl .tl-typing {
-  justify-self: start;
-  max-width: 84%;
-  padding: 12px 16px;
-  border-radius: 18px 18px 18px 6px;
-  background: color-mix(in srgb, var(--tl-ink) 6%, var(--tl-bg));
-  font-size: 15px;
-  line-height: 1.5;
-  animation: tl-bubble var(--motion-base) var(--tl-ease) both;
+#loginScreen.tl .tl-fq:focus-visible {
+  outline: 2px solid var(--tl-ink);
+  outline-offset: 2px;
 }
-#loginScreen.tl .tl-typing {
+#loginScreen.tl .tl-fq.is-asked {
+  opacity: 0.38;
+  cursor: default;
+  transform: none;
+}
+#loginScreen.tl .tl-fq.is-asked::before {
+  content: '\2713\00a0';
+}
+#loginScreen.tl .tl-faq-more {
+  margin-top: 20px;
+  font-size: 14px;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-faq-more a {
+  color: var(--tl-ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--tl-line);
+}
+
+/* окно чата */
+#loginScreen.tl .tl-chat {
+  scroll-margin-top: calc(var(--tl-nav-h) + 12px);
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: clamp(440px, 62vh, 620px);
+  border-radius: 24px;
+  background: color-mix(in srgb, var(--tl-ink) 4%, var(--tl-bg));
+  overflow: hidden;
+}
+#loginScreen.tl .tl-chat-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px;
+  border-bottom: 1px solid var(--tl-line);
+}
+#loginScreen.tl .tl-chat-ava {
+  display: grid;
+  place-items: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  color: var(--tl-on-btn);
+  background: var(--tl-btn);
+}
+#loginScreen.tl .tl-chat-who {
+  display: grid;
+  line-height: 1.2;
+}
+#loginScreen.tl .tl-chat-who b {
+  font-size: 15px;
+  font-weight: 600;
+}
+#loginScreen.tl .tl-chat-who small {
+  font-size: 12.5px;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-chat-count {
+  margin-left: auto;
+  font: 500 12px/1 var(--tl-font-mono);
+  letter-spacing: 0.04em;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-chat-log {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 16px 8px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+#loginScreen.tl .tl-chat-date {
+  align-self: center;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tl-ink) 8%, transparent);
+  font-size: 12px;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-cm {
+  position: relative;
+  max-width: 82%;
+  padding: 10px 14px 7px;
+  border-radius: 18px;
+  font-size: 15px;
+  line-height: 1.45;
+  opacity: 0;
+  transform: translate3d(0, 8px, 0) scale(0.98);
+  transition:
+    opacity var(--motion-base) var(--tl-ease),
+    transform var(--motion-base) var(--tl-ease);
+}
+#loginScreen.tl .tl-cm.show {
+  opacity: 1;
+  transform: none;
+}
+#loginScreen.tl .tl-cm.is-out {
+  align-self: flex-end;
+  color: var(--tl-on-btn);
+  background: var(--tl-btn);
+  border-bottom-right-radius: 6px;
+}
+#loginScreen.tl .tl-cm.is-in {
+  align-self: flex-start;
+  background: color-mix(in srgb, var(--tl-ink) 9%, var(--tl-bg));
+  border-bottom-left-radius: 6px;
+}
+#loginScreen.tl .tl-cm-txt {
+  display: block;
+  min-height: 1.45em;
+}
+#loginScreen.tl .tl-cm-time {
+  display: block;
+  margin-top: 3px;
+  font-size: 11px;
+  text-align: right;
+  opacity: 0.6;
+}
+#loginScreen.tl .tl-cm-typing {
   display: inline-flex;
   gap: 5px;
   padding: 14px 16px;
 }
-#loginScreen.tl .tl-typing i {
+#loginScreen.tl .tl-cm-typing i {
   width: 7px;
   height: 7px;
   border-radius: 50%;
   background: var(--tl-mut);
   animation: tl-dot 1.1s var(--td, 0s) infinite ease-in-out;
 }
-@keyframes tl-bubble {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 6px, 0) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
+#loginScreen.tl .tl-chat-foot {
+  margin: 8px 16px 16px;
+  padding: 11px 16px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--tl-ink) 8%, transparent);
+  font-size: 14px;
+  color: var(--tl-mut);
+}
+/* без JS: список виден, окна нет */
+#loginScreen.tl .tl-faq-src {
+  display: grid;
+  gap: 10px 24px;
+  max-width: 760px;
+  margin: 28px 0 0;
+}
+#loginScreen.tl .tl-faq-src dt {
+  font-weight: 600;
+}
+#loginScreen.tl .tl-faq-src dd {
+  margin: 0 0 14px;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-faq-src[hidden] {
+  display: none;
 }
 
 /* ---------- финал + подвал ---------- */
@@ -1806,10 +2043,29 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
   #loginScreen.tl .tl-found em {
     display: none;
   }
-  #loginScreen.tl .tl-q summary,
-  #loginScreen.tl .tl-a,
-  #loginScreen.tl .tl-typing {
-    max-width: 94%;
+  #loginScreen.tl .tl-price-big {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: start;
+  }
+  #loginScreen.tl .tl-price-big-num b {
+    font-size: clamp(44px, 14vw, 72px);
+  }
+  #loginScreen.tl .tl-faq-grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+      'side'
+      'chat'
+      'qs';
+  }
+  #loginScreen.tl .tl-chat {
+    margin-top: 24px;
+    height: clamp(360px, 56vh, 520px);
+  }
+  #loginScreen.tl .tl-faq-ask {
+    margin-top: 20px;
+  }
+  #loginScreen.tl .tl-cm {
+    max-width: 90%;
   }
   #loginScreen.tl .tl-foot span {
     width: 100%;
@@ -1820,10 +2076,12 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
 /* ---------- reduced motion ---------- */
 @media (prefers-reduced-motion: reduce) {
   #loginScreen.tl .tl-hero-copy,
-  #loginScreen.tl .tl-hero-visual,
-  #loginScreen.tl .tl-a,
-  #loginScreen.tl .tl-typing {
+  #loginScreen.tl .tl-hero-visual {
     animation: none;
+  }
+  #loginScreen.tl .tl-cm {
+    opacity: 1;
+    transform: none;
   }
   #loginScreen.tl .rv {
     opacity: 1;
@@ -1836,7 +2094,7 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
     transform: none;
   }
   #loginScreen.tl .tg-typing i,
-  #loginScreen.tl .tl-typing i,
+  #loginScreen.tl .tl-cm-typing i,
   #loginScreen.tl .tl-track li.is-live::before,
   #loginScreen.tl .tl-compose-text::after {
     animation: none;
