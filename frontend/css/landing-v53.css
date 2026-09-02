@@ -915,25 +915,154 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
 /* ---------- тариф ---------- */
 #loginScreen.tl .tl-price {
   display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-  align-items: start;
-  gap: clamp(28px, 5vw, 80px);
+  gap: clamp(28px, 4vh, 48px);
   padding-top: clamp(56px, 9vh, 120px);
   padding-bottom: clamp(56px, 9vh, 120px);
   border-top: 1px solid var(--tl-line);
 }
-#loginScreen.tl .tl-price-copy {
-  position: sticky;
-  top: calc(var(--tl-nav-h) + 40px);
+#loginScreen.tl .tl-price-head {
   display: grid;
   gap: 14px;
+  max-width: 40em;
 }
-#loginScreen.tl .tl-price-foot {
+#loginScreen.tl .tl-price-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  align-items: start;
+  gap: 18px;
+}
+#loginScreen.tl .tl-price-side {
+  position: sticky;
+  top: calc(var(--tl-nav-h) + 18px);
+  display: grid;
+  gap: 18px;
+}
+#loginScreen.tl .tl-tile {
+  margin: 0;
+  padding: 22px;
+  border-radius: var(--tl-r);
+  background: color-mix(in srgb, var(--tl-ink) 4%, var(--tl-bg));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tl-ink) 7%, transparent);
+}
+#loginScreen.tl .tl-tile-top {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+#loginScreen.tl .tl-tile-top span {
+  font-size: 14px;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-tile-top b {
+  font-family: var(--tl-font-display);
+  font-weight: 600;
+  font-size: clamp(30px, 3vw, 40px);
+  line-height: 1;
+  letter-spacing: -0.03em;
+}
+#loginScreen.tl .tl-inc {
+  display: grid;
+  gap: 8px;
+  margin: 0 0 20px;
+  padding: 0;
+  list-style: none;
+}
+#loginScreen.tl .tl-inc li {
+  position: relative;
+  padding-left: 26px;
+  font-size: 15px;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-inc li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 5px;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--tl-ink) 22%, transparent);
+}
+#loginScreen.tl .tl-inc li.is-on {
+  color: var(--tl-ink);
+}
+#loginScreen.tl .tl-inc li.is-on::before {
+  border-color: var(--tl-ink);
+  background: var(--tl-ink);
+  -webkit-mask: none;
+}
+#loginScreen.tl .tl-inc li.is-on::after {
+  content: '';
+  position: absolute;
+  left: 4px;
+  top: 8px;
+  width: 6px;
+  height: 3.5px;
+  border-left: 1.6px solid var(--tl-bg);
+  border-bottom: 1.6px solid var(--tl-bg);
+  transform: rotate(-45deg);
+}
+#loginScreen.tl .tl-rail {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  list-style: none;
+  counter-reset: none;
+}
+#loginScreen.tl .tl-rail li {
+  position: relative;
+  display: grid;
+  gap: 8px;
+  padding-top: 18px;
+}
+#loginScreen.tl .tl-rail li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: -12px;
+  top: 4px;
+  height: 2px;
+  background: color-mix(in srgb, var(--tl-ink) 14%, transparent);
+}
+#loginScreen.tl .tl-rail li:last-child::before {
+  right: 0;
+}
+#loginScreen.tl .tl-rail li::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--tl-ink);
+}
+#loginScreen.tl .tl-rail li:last-child::after {
+  background: var(--tl-bg);
+  box-shadow: inset 0 0 0 2px var(--tl-ink);
+}
+#loginScreen.tl .tl-rail b {
+  font: 500 12px/1 var(--tl-font-mono);
+  letter-spacing: 0.02em;
+}
+#loginScreen.tl .tl-rail span {
+  font-size: 13px;
+  line-height: 1.4;
+  color: var(--tl-mut);
+}
+#loginScreen.tl .tl-tile-note {
+  display: grid;
+  gap: 8px;
   font-size: 14px;
   color: var(--tl-mut);
 }
 #loginScreen.tl .tl-price-foot a {
   color: var(--tl-ink);
+}
+#loginScreen.tl .tl-price-foot:empty {
+  display: none;
 }
 #loginScreen.tl .tl-price-note {
   margin-top: 12px;
@@ -943,8 +1072,10 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
 #loginScreen.tl .tl-price-note:empty {
   display: none;
 }
-/* Карточку рисует tariffs.js классами кабинета; здесь только вписываем её в
-   систему форм лендинга (радиусы, фон, кнопка-пилюля). */
+/* Карточку рисует tariffs.js классами кабинета; здесь вписываем её в систему
+   форм лендинга. Пробный доступ описан плиткой слева, поэтому дубль
+   .tariff-trial внутри карточки скрыт; внутренние колонки складываем в одну,
+   чтобы цена и список читались крупно, а не тесной сеткой. */
 #loginScreen.tl .landing-tariffs {
   display: block;
 }
@@ -955,6 +1086,13 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
   border: 0;
   background: color-mix(in srgb, var(--tl-ink) 4%, var(--tl-bg));
   box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--tl-ink) 7%, transparent);
+  overflow: hidden;
+}
+#loginScreen.tl .landing-tariffs .tariff-body-grid {
+  grid-template-columns: 1fr;
+}
+#loginScreen.tl .landing-tariffs .tariff-trial {
+  display: none;
 }
 #loginScreen.tl .landing-tariffs .btn {
   border-radius: 999px;
@@ -1110,11 +1248,15 @@ html[data-theme='light'] #loginScreen .landing-theme-sun {
   #loginScreen.tl .tl-steps {
     display: none;
   }
-  #loginScreen.tl .tl-price {
+  #loginScreen.tl .tl-price-grid {
     grid-template-columns: 1fr;
   }
-  #loginScreen.tl .tl-price-copy {
+  #loginScreen.tl .tl-price-side {
     position: static;
+  }
+  #loginScreen.tl .tl-rail {
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 12px;
   }
   #loginScreen.tl .tl-safe-row {
     grid-template-columns: 1fr;

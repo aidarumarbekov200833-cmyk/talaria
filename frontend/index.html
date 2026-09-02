@@ -437,21 +437,60 @@
 
         <!-- ТАРИФ: карточку рисует js/tariffs.js в #landingTariffGrid, цены живые. -->
         <section class="tl-price" id="pricing" aria-labelledby="tlPriceTitle">
-          <div class="tl-price-copy">
+          <div class="tl-price-head">
             <h2 id="tlPriceTitle" class="tl-h2">Один тариф. 14 дней бесплатно.</h2>
             <p class="tl-lead">
-              Карта на старте не нужна. Поиск лидов и базы открыты сразу, рассылка и ИИ-помощник
-              включаются на платном.
+              Сначала пробный доступ без карты, потом одна цена за всё. Никаких уровней, доплат за
+              места и автосписаний.
             </p>
-            <p class="tl-price-foot" id="landingTariffFoot"></p>
           </div>
-          <div class="tl-price-card">
-            <div
-              class="grid-4-tariff landing-tariffs"
-              id="landingTariffGrid"
-              aria-busy="true"
-            ></div>
-            <p class="tl-price-note" id="landingTariffNote"></p>
+          <div class="tl-price-grid">
+            <div class="tl-price-side">
+              <!-- Пробный: что открыто сразу и что ждёт оплаты. -->
+              <div class="tl-tile tl-tile-trial rv">
+                <div class="tl-tile-top">
+                  <span>Пробный, 14 дней</span>
+                  <b>0 ₽</b>
+                </div>
+                <ul class="tl-inc">
+                  <li class="is-on">Поиск лидов на YouTube</li>
+                  <li class="is-on">Базы лидов и фильтры</li>
+                  <li class="is-on">Проверка контакта в Telegram</li>
+                  <li class="is-on">Карточки контекста</li>
+                  <li>Рассылка сообщений</li>
+                  <li>ИИ-помощник</li>
+                </ul>
+                <a
+                  class="tl-btn tl-btn-ghost"
+                  href="#telegramLoginDialog"
+                  data-telegram-login-trigger
+                  >Начать бесплатно</a
+                >
+              </div>
+              <!-- Путь двух недель: что происходит и когда решаете. -->
+              <ol class="tl-tile tl-rail rv" aria-label="Как проходят 14 дней">
+                <li><b>День 0</b><span>Вход через Telegram, кабинет создаётся сам</span></li>
+                <li><b>День 1</b><span>Первая база: ниша, регион, пороги</span></li>
+                <li><b>До дня 14</b><span>Смотрите лидов и контекст, оцениваете качество</span></li>
+                <li><b>День 14</b><span>Оплата или стоп. Автосписаний нет</span></li>
+              </ol>
+              <div class="tl-tile tl-tile-note rv">
+                <p>
+                  Оплата в рублях или тенге, счёт за 1 или 3 месяца, промокод вводится перед
+                  оплатой.
+                </p>
+                <p class="tl-price-foot" id="landingTariffFoot"></p>
+              </div>
+            </div>
+            <!-- Полный тариф: карточку с живыми ценами рисует js/tariffs.js. -->
+            <div class="tl-price-card">
+              <div
+                class="grid-4-tariff landing-tariffs"
+                id="landingTariffGrid"
+                aria-busy="true"
+              ></div>
+              <p class="tl-price-note" id="landingTariffNote"></p>
+            </div>
           </div>
         </section>
 

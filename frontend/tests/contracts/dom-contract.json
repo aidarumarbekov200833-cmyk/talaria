@@ -929,7 +929,7 @@
     "tag": "section"
   },
   {
-    "classes": ["tl-price-copy"],
+    "classes": ["tl-price-head"],
     "tag": "div"
   },
   {
@@ -939,6 +939,126 @@
   },
   {
     "classes": ["tl-lead"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-price-grid"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-price-side"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-tile", "tl-tile-trial", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-tile-top"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": ["tl-inc"],
+    "tag": "ul"
+  },
+  {
+    "classes": ["is-on"],
+    "tag": "li"
+  },
+  {
+    "classes": ["is-on"],
+    "tag": "li"
+  },
+  {
+    "classes": ["is-on"],
+    "tag": "li"
+  },
+  {
+    "classes": ["is-on"],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": ["tl-btn", "tl-btn-ghost"],
+    "data-telegram-login-trigger": {
+      "present": true,
+      "value": null
+    },
+    "tag": "a"
+  },
+  {
+    "classes": ["tl-tile", "tl-rail", "rv"],
+    "tag": "ol"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-tile", "tl-tile-note", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
     "tag": "p"
   },
   {
