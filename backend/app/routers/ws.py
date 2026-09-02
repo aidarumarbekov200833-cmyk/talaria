@@ -17,6 +17,7 @@ import logging
 
 from fastapi import APIRouter, WebSocket, WebSocketDisconnect, status
 
+from ..access import login_allowed
 from ..database import SessionLocal
 from ..events_hub import hub
 from ..models import TokenBlacklist, User
@@ -52,6 +53,10 @@ def _authenticate(token: str) -> int | None:
             return None
         if is_blocked(db, user.id):
             return None  # доступ приостановлен админом
+        # Как в get_current_user: убрали из допуска при закрытой регистрации —
+        # живая лента закрывается сразу, а не когда истечёт JWT.
+        if not login_allowed(db, user.telegram_id, user.username):
+            return None
         return user.id
     finally:
         db.close()

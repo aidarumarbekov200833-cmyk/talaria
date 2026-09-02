@@ -2,6 +2,7 @@
 
 import asyncio
 import logging
+import os
 import re
 import time
 from contextlib import asynccontextmanager
@@ -145,6 +146,32 @@ async def _expiry_notice_loop() -> None:
             logger.warning("Обход напоминаний о тарифе не удался: %s", type(exc).__name__)
 
 
+# Уборка раз в сутки; первый проход через минуту после старта, чтобы не
+# грузить базу в момент, когда контейнер только поднимается и идут миграции.
+MAINTENANCE_INTERVAL_SECONDS = 24 * 3600
+MAINTENANCE_FIRST_DELAY_SECONDS = 60
+
+
+async def _maintenance_loop() -> None:
+    """Фоновая уборка token_blacklist / login_attempts (см. services/maintenance)."""
+    from .database import SessionLocal
+    from .services.maintenance import sweep_expired
+
+    delay = MAINTENANCE_FIRST_DELAY_SECONDS
+    while True:
+        try:
+            await asyncio.sleep(delay)
+            delay = MAINTENANCE_INTERVAL_SECONDS
+            with SessionLocal() as session:
+                removed = await asyncio.to_thread(sweep_expired, session)
+            if any(removed.values()):
+                logger.info("Уборка БД: %s", removed)
+        except asyncio.CancelledError:
+            raise
+        except Exception as exc:  # noqa: BLE001 — цикл обязан пережить любую ошибку
+            logger.warning("Уборка БД не удалась: %s", type(exc).__name__)
+
+
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     _register_configured_secrets()
@@ -156,6 +183,20 @@ async def lifespan(app: FastAPI):
     # Fail-fast: TRUSTED_PROXY_HOPS вне 1..3 — почти наверняка опечатка,
     # причём завышение эксплуатируемо (подмена IP одним заголовком).
     settings.validate_trusted_proxy_hops()
+    # Fail-fast: без собственного ключа шифрования данных прод не поднимаем —
+    # иначе ротация JWT_SECRET молча испортит сохранённые ключи YouTube.
+    settings.validate_data_encryption_key()
+    # Лимиты запросов считаются в памяти процесса: при нескольких воркерах
+    # uvicorn каждый ведёт свой счётчик, и реальный лимит = N × заявленный.
+    # Не падаем (это не дыра, а ослабление), но говорим об этом громко.
+    workers = os.environ.get("WEB_CONCURRENCY") or os.environ.get("UVICORN_WORKERS") or "1"
+    if settings.rate_limit_enabled and workers.strip().isdigit() and int(workers) > 1:
+        logger.warning(
+            "WEB_CONCURRENCY=%s: rate-limit хранится в памяти процесса и делится "
+            "между воркерами — фактические лимиты в %s раз выше заявленных.",
+            workers,
+            workers,
+        )
     _init_sentry()
 
     # init_db() убран намеренно: Base.metadata.create_all() создавал таблицы в
@@ -177,6 +218,19 @@ async def lifespan(app: FastAPI):
     # продолжаются сами; верификация продолжалась и раньше. Ошибки здесь не
     # должны мешать подъёму сервера: без БД приложение всё равно упадёт дальше
     # более понятным образом.
+    # Ключи YouTube, сохранённые до шифрования (миграция 0041), дошифровываем
+    # здесь: идемпотентно, секунды, не требует отдельной команды у владельца.
+    try:
+        from .database import SessionLocal
+        from .services.api_keys import reencrypt_legacy
+
+        with SessionLocal() as session:
+            migrated = reencrypt_legacy(session)
+        if migrated:
+            logger.warning("Зашифровано ключей YouTube, лежавших открытым текстом: %d", migrated)
+    except Exception as exc:  # noqa: BLE001 — не мешаем подъёму сервера
+        logger.warning("Перешифровка ключей YouTube не удалась: %s", type(exc).__name__)
+
     try:
         from .database import SessionLocal
         from .routers.campaigns import recover_interrupted, resume_campaign
@@ -211,15 +265,17 @@ async def lifespan(app: FastAPI):
         logger.warning("Восстановление фоновых задач не удалось: %s", exc)
 
     notices_task = asyncio.create_task(_expiry_notice_loop(), name="expiry-notices")
+    maintenance_task = asyncio.create_task(_maintenance_loop(), name="db-maintenance")
 
     try:
         yield
     finally:
-        notices_task.cancel()
-        try:
-            await notices_task
-        except asyncio.CancelledError:
-            pass
+        for task in (notices_task, maintenance_task):
+            task.cancel()
+            try:
+                await task
+            except asyncio.CancelledError:
+                pass
 
 
 app = FastAPI(
@@ -253,6 +309,9 @@ async def readonly_view_guard(request: Request, call_next):
         header = request.headers.get("authorization") or ""
         raw = header[7:].strip() if header[:7].lower() == "bearer " else ""
         claims = decode_claims(raw) if raw else None
+        if raw:
+            # Тот же разбор переиспользуют зависимости (dependencies._claims_cached).
+            request.state.jwt_claims = (raw, claims)
         if claims and claims.get("ro"):
             return JSONResponse(
                 status_code=403,

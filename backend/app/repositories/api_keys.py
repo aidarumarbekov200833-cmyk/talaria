@@ -26,9 +26,13 @@ class ApiKeyRepository:
         )
 
     def find_owned_value(self, owner_id: int, value: str) -> ApiKey | None:
-        return (
-            self._db.query(ApiKey).filter(ApiKey.owner_id == owner_id, ApiKey.key == value).first()
-        )
+        # Сравнение в Python, а не в WHERE: колонка зашифрована с случайным
+        # IV, одинаковые ключи дают разный шифртекст. Ключей у владельца
+        # единицы, полный проход дешевле любой схемы с отпечатком.
+        for row in self.list_owned(owner_id):
+            if row.key == value:
+                return row
+        return None
 
     def stage_key(self, row: ApiKey) -> None:
         self._db.add(row)

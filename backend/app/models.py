@@ -17,7 +17,9 @@ from sqlalchemy import (
     text,
 )
 from sqlalchemy.orm import relationship
+from sqlalchemy.types import TypeDecorator
 
+from . import secretbox
 from .database import Base
 
 
@@ -142,6 +144,27 @@ class CampaignLog(Base):
     campaign = relationship("Campaign", back_populates="logs")
 
 
+class EncryptedSecret(TypeDecorator):
+    """Колонка-секрет: в БД лежит `enc1:…` (см. secretbox), в коде — открытый текст.
+
+    Прозрачно для ORM: присвоение шифрует при flush, чтение расшифровывает.
+    Старые открытые значения читаются как есть и дошифровываются фоновой
+    перешифровкой при старте. Сравнивать такую колонку в WHERE нельзя —
+    шифртекст каждый раз разный (см. ApiKeyRepository.find_owned_value).
+    """
+
+    impl = Text
+    cache_ok = True
+
+    def process_bind_param(self, value, dialect):
+        if value is None:
+            return None
+        return secretbox.encrypt(value)
+
+    def process_result_value(self, value, dialect):
+        return secretbox.decrypt(value)
+
+
 class ApiKey(Base):
     """A YouTube Data API key.
 
@@ -158,7 +181,8 @@ class ApiKey(Base):
     id = Column(Integer, primary_key=True)
     owner_id = Column(Integer, ForeignKey("users.id"), index=True, nullable=False)
     label = Column(String(120), default="")
-    key = Column(String(200), nullable=False)
+    # Зашифровано (secretbox, миграция 0041 расширила до Text под шифртекст).
+    key = Column(EncryptedSecret, nullable=False)
     project_label = Column(String(120), default="")
     daily_quota = Column(Integer, default=10_000)
     enabled = Column(Boolean, default=True)

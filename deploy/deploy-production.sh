@@ -68,3 +68,9 @@ echo "    Миграция: $(tr '\n' ' ' < "$BACKUP_DIR/migration-after-$STAMP.
 # *.sql.gz — формат до перехода на -Fc, дочищаем и его.
 ls -1t "$BACKUP_DIR"/pre-deploy-*.dump 2>/dev/null | tail -n +11 | xargs -r rm -f
 ls -1t "$BACKUP_DIR"/pre-deploy-*.sql.gz 2>/dev/null | tail -n +11 | xargs -r rm -f
+
+# Кеш сборки docker после каждого деплоя разрастается (на 29-гигабайтном
+# диске он доходил до 3 ГБ). Чистим слои старше суток: свежие остаются для
+# быстрой пересборки, а диск не кончается тихо посреди ночи. Ошибка здесь
+# не должна ронять удавшийся деплой.
+docker builder prune -f --filter "until=24h" >/dev/null 2>&1 || true

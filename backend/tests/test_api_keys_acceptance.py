@@ -180,7 +180,9 @@ def test_event_failure_does_not_undo_committed_create_or_delete(db, user):
             ApiKeyIn(key="event-survives"),
             record_event_fn=lambda *_args: (_ for _ in ()).throw(RuntimeError("event")),
         )
-    key = db.query(models.ApiKey).filter_by(key="event-survives").one()
+    # Колонка зашифрована со случайным IV — равенство в WHERE не работает,
+    # ищем расшифрованное значение в Python (как ApiKeyRepository).
+    key = next(k for k in db.query(models.ApiKey).all() if k.key == "event-survives")
     with pytest.raises(RuntimeError):
         api_keys.delete_api_key(
             db,

@@ -59,6 +59,14 @@ class Settings(BaseSettings):
     bot_username: str = ""
 
     jwt_secret: str = "change-me"
+    # Ключ шифрования секретов, которые лежат в БД (сейчас — ключи YouTube
+    # Data API, см. secretbox.py). Отдельный от JWT_SECRET намеренно: подпись
+    # токенов ротируют без последствий, а ключ шифрования данных потерять
+    # нельзя — иначе все сохранённые ключи станут нечитаемыми. Любая строка
+    # от 32 символов; сгенерировать: python -c "import secrets; print(secrets.token_urlsafe(48))".
+    # В проде обязателен (fail-fast в lifespan). В демо-режиме и тестах
+    # производный от JWT_SECRET — этого хватает для локального запуска.
+    data_encryption_key: str = ""
     database_url: str = "postgresql+psycopg2://outly:outly@db:5432/outly"
 
     # Username (Telegram, без @) владельца проекта. Используется ТОЛЬКО как
@@ -147,6 +155,10 @@ class Settings(BaseSettings):
     log_level: str = "INFO"
 
     # Простой in-memory rate limit (окно/лимиты). Значения — «запросов за window_seconds».
+    # Сколько дней хранить журнал попыток входа (login_attempts). Старше —
+    # удаляет ночная уборка (services/maintenance.py).
+    login_attempts_retention_days: int = 90
+
     rate_limit_enabled: bool = True
     rate_limit_window_seconds: int = 60
     rate_limit_auth: int = 20  # /api/auth/telegram
@@ -309,6 +321,33 @@ class Settings(BaseSettings):
             "и впишите его в .env (переменная JWT_SECRET). Текущее значение не "
             "показываем и не логируем. ВАЖНО: если бот не настроен (демо-режим), "
             "проверка пропускается."
+        )
+
+    @property
+    def data_encryption_material(self) -> str:
+        """Строка, из которой secretbox выводит ключ шифрования данных."""
+        explicit = (self.data_encryption_key or "").strip()
+        if explicit:
+            return explicit
+        return f"derived-from-jwt:{(self.jwt_secret or '').strip()}"
+
+    def validate_data_encryption_key(self) -> None:
+        """Упасть при старте прода без собственного DATA_ENCRYPTION_KEY.
+
+        Производный от JWT_SECRET ключ в проде запрещён: следующая ротация
+        JWT_SECRET (а она штатная и безопасная) молча превратила бы все
+        сохранённые ключи YouTube в мусор. Демо-режим пропускаем, как и для
+        JWT_SECRET.
+        """
+        if self.demo_mode:
+            return
+        if len((self.data_encryption_key or "").strip()) >= _MIN_JWT_SECRET_LEN:
+            return
+        raise RuntimeError(
+            "DATA_ENCRYPTION_KEY не задан или короче 32 символов. Сгенерируйте:\n"
+            '  python -c "import secrets; print(secrets.token_urlsafe(48))"\n'
+            "и впишите в .env. Ключ НЕ ротировать без перешифровки: им зашифрованы "
+            "ключи YouTube API в таблице api_keys."
         )
 
     def validate_trusted_proxy_hops(self) -> None:

@@ -3,6 +3,7 @@ require("dotenv").config();
 const fs = require("fs");
 const { classifyIncoming } = require("./reply-filter");
 const { safeEqual } = require("./safe-equal");
+const { TicketGuard } = require("./ticket-guard");
 const sessionCrypto = require("./session-crypto");
 const chat = require("./chat");
 const path = require("path");
@@ -272,6 +273,17 @@ function readToken(token) {
 function sigOk(payload, sig) {
   return safeEqual(sig, sign(payload));
 }
+
+// Билет одноразовый. Подпись верна и срок не вышел — этого мало: билет живёт
+// в URL iframe (история вкладки, скриншот, плечо соседа), и в пределах TTL
+// (5 минут) его мог бы открыть кто-то ещё. Первое WebSocket-подключение
+// «сжигает» билет; повторное с тем же билетом отклоняется. Страница
+// подключения не переподключается сама, а кабинет берёт свежий билет при
+// каждом открытии настроек, так что честный сценарий не страдает.
+// Один процесс = одна карта; при рестарте карта пустая, но билеты живут
+// всего 5 минут. Протухшие записи вычищаются раз в минуту.
+const ticketGuard = new TicketGuard();
+setInterval(() => ticketGuard.prune(), 60 * 1000).unref();
 
 /** Проверка серверного секрета для ручек, которые зовёт бэкенд. */
 function secretOk(req) {
@@ -1504,12 +1516,20 @@ wss.on("connection", async (ws, req) => {
     return;
   }
   const url = new URL(req.url || "/", "http://localhost");
-  const info = readToken(url.searchParams.get("t"));
+  const rawTicket = url.searchParams.get("t");
+  const info = readToken(rawTicket);
   if (!info) {
     try {
       ws.send(JSON.stringify({ type: "error", error: "Билет подключения не принят или истёк. Откройте настройки заново" }));
     } catch (_) {}
     ws.close(4003, "bad ticket");
+    return;
+  }
+  if (!ticketGuard.consume(rawTicket)) {
+    try {
+      ws.send(JSON.stringify({ type: "error", error: "Этот билет подключения уже использован. Откройте настройки заново" }));
+    } catch (_) {}
+    ws.close(4003, "ticket reused");
     return;
   }
 

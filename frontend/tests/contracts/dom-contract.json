@@ -232,6 +232,10 @@
     "tag": "a"
   },
   {
+    "classes": [],
+    "tag": "a"
+  },
+  {
     "classes": ["tl-nav-right"],
     "tag": "div"
   },
@@ -294,7 +298,7 @@
   },
   {
     "classes": ["tl-main"],
-    "tag": "main"
+    "tag": "div"
   },
   {
     "classes": ["tl-hero"],
@@ -332,6 +336,22 @@
   {
     "classes": ["tl-btn", "tl-btn-ghost", "tl-btn-lg"],
     "tag": "a"
+  },
+  {
+    "classes": ["tl-trust"],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "li"
   },
   {
     "classes": ["tl-hero-visual"],
@@ -878,6 +898,267 @@
     "tag": "p"
   },
   {
+    "classes": ["tl-proof"],
+    "id": "letters",
+    "tag": "section"
+  },
+  {
+    "classes": ["tl-proof-head", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-h2"],
+    "id": "tlProofTitle",
+    "tag": "h2"
+  },
+  {
+    "classes": ["tl-lead"],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-proof-grid"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-letter", "rv"],
+    "id": "tlLetter",
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-letter-tabs"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": [],
+    "tag": "button"
+  },
+  {
+    "classes": ["tl-letter-ctx"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-letter-ava"],
+    "id": "tlLetterAva",
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-letter-who"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "id": "tlLetterName",
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "id": "tlLetterMeta",
+    "tag": "small"
+  },
+  {
+    "classes": ["tl-chips", "tl-letter-chips"],
+    "id": "tlLetterChips",
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["is-on"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-letter-body"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-letter-text"],
+    "id": "tlLetterText",
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-letter-cursor"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-letter-actions"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-letter-act", "is-solid"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-letter-act"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-letter-act"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-letter-foot"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-mono"],
+    "id": "tlLetterCount",
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-mono"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-proof-side"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-vs", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-vs-item", "is-bad"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-vs-tag"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-vs-state"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-vs-item", "is-good"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-vs-tag"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "p"
+  },
+  {
+    "classes": ["tl-vs-state"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-report", "rv"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-tile-top"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": ["tl-mono"],
+    "tag": "span"
+  },
+  {
+    "classes": ["tl-bars"],
+    "tag": "ul"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": ["tl-report-note"],
+    "tag": "p"
+  },
+  {
     "classes": ["tl-safe"],
     "id": "safe",
     "tag": "section"
@@ -897,7 +1178,35 @@
   },
   {
     "classes": ["tl-safe-why"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
     "tag": "p"
+  },
+  {
+    "classes": ["tl-mech", "tl-mech-ctx"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "b"
   },
   {
     "classes": ["tl-safe-row", "rv"],
@@ -909,7 +1218,71 @@
   },
   {
     "classes": ["tl-safe-why"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
     "tag": "p"
+  },
+  {
+    "classes": ["tl-mech", "tl-mech-queue"],
+    "tag": "div"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "em"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "em"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": ["is-pause"],
+    "tag": "em"
+  },
+  {
+    "classes": ["tl-q"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
+  },
+  {
+    "classes": [],
+    "tag": "em"
+  },
+  {
+    "classes": ["tl-q", "is-next"],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "i"
   },
   {
     "classes": ["tl-safe-row", "rv"],
@@ -921,7 +1294,31 @@
   },
   {
     "classes": ["tl-safe-why"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
     "tag": "p"
+  },
+  {
+    "classes": ["tl-mech", "tl-mech-status"],
+    "tag": "div"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": ["is-live"],
+    "tag": "span"
   },
   {
     "classes": ["tl-price"],
@@ -1180,6 +1577,46 @@
   {
     "classes": [],
     "tag": "br"
+  },
+  {
+    "classes": ["tl-final-rail", "rv"],
+    "tag": "ol"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
+  },
+  {
+    "classes": [],
+    "tag": "li"
+  },
+  {
+    "classes": [],
+    "tag": "b"
+  },
+  {
+    "classes": [],
+    "tag": "span"
   },
   {
     "classes": ["tl-btn", "tl-btn-solid", "tl-btn-lg"],

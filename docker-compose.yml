@@ -10,15 +10,17 @@ x-logging: &default-logging
 services:
   frontend:
     build: ./frontend
-    # По умолчанию nginx публикуется на 80 — обычный запуск без TLS.
-    # При запуске с профилем tls впереди встаёт Caddy (80/443), поэтому фронтенд
-    # надо убрать с внешнего порта: FRONTEND_HTTP_PORT=127.0.0.1:8080 в .env.
+    # По умолчанию nginx слушает ТОЛЬКО localhost:8080. Раньше дефолт был
+    # «0.0.0.0:80»: потеря одной строки в .env выставляла nginx в интернет
+    # мимо Caddy/TLS, а вместе с ним ломала и логику реального IP. Локальный
+    # запуск без TLS: http://localhost:8080. Нужен голый 80 наружу — задайте
+    # FRONTEND_HTTP_PORT=80 в .env осознанно.
     ports:
-      # ВАЖНО: в проде FRONTEND_HTTP_PORT=127.0.0.1:8080 — nginx доступен
-      # только через Caddy. На этой привязке держится вся логика реального IP
-      # (real_ip в nginx.conf и отсчёт X-Forwarded-For «с конца» в backend):
-      # открой порт наружу — и любой сможет подделать цепочку заголовков.
-      - "${FRONTEND_HTTP_PORT:-80}:80"
+      # ВАЖНО: в проде nginx доступен только через Caddy. На этой привязке
+      # держится вся логика реального IP (real_ip в nginx.conf и отсчёт
+      # X-Forwarded-For «с конца» в backend): открой порт наружу — и любой
+      # сможет подделать цепочку заголовков.
+      - "${FRONTEND_HTTP_PORT:-127.0.0.1:8080}:80"
     # Форма /tg-connect/ доступна только по подписанному билету backend.
     # Ждём именно здоровых соседей, а не просто «запущенных»: nginx резолвит
     # имена backend и web-tg при старте и падает, если их ещё нет.
@@ -133,6 +135,16 @@ services:
       BACKUP_KEEP_DAYS: ${BACKUP_KEEP_DAYS:-30}
     volumes:
       - ./backups:/backups:ro
+      # Всё, без чего машину не поднять заново, но чего нет в дампах:
+      # .env (секреты, ключ шифрования данных) и состояние Caddy (сертификаты
+      # и учётка ACME — без них Let's Encrypt выпускает заново и упирается в
+      # лимиты). restic шифрует репозиторий целиком, так что .env в B2 лежит
+      # не открытым текстом.
+      - ./.env:/extra/env:ro
+      - caddy-data:/extra/caddy-data:ro
+      # Маркер последнего удачного прогона для healthcheck (том на запись —
+      # /backups смонтирован read-only).
+      - offsite-state:/state
     entrypoint: ["/bin/sh", "-c"]
     command:
       - |
@@ -143,7 +155,8 @@ services:
           else
             restic init || echo "restic init пропущен (репозиторий уже есть)" >&2;
           fi;
-          if restic backup /backups --verbose --tag outly; then
+          if restic backup /backups /extra --verbose --tag outly; then
+            date +%s > /state/last-ok;
             echo "Off-site бэкап готов: $$(date +%Y%m%d-%H%M%S)";
           else
             echo "Off-site бэкап НЕ удался ($$(date +%Y%m%d-%H%M%S))" >&2;
@@ -151,6 +164,19 @@ services:
           restic forget --keep-daily $${BACKUP_KEEP_DAYS:-30} --keep-weekly 12 --keep-monthly 12 --prune >/dev/null 2>&1 || true;
           sleep 3600;
         done
+    # unhealthy, если удачного прогона не было больше 3 часов (штатно — каждый
+    # час). Раньше отвал B2 был виден только в логах контейнера, куда никто
+    # не смотрит; теперь его видно в `docker compose ps` и мониторинге.
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "test -f /state/last-ok && [ $$(( $$(date +%s) - $$(cat /state/last-ok) )) -lt 10800 ] || exit 1",
+        ]
+      interval: 5m
+      timeout: 10s
+      start_period: 15m
+      retries: 3
     restart: unless-stopped
     logging: *default-logging
 
@@ -164,13 +190,24 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-outly}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?задайте POSTGRES_PASSWORD в .env (см. .env.example)}
       POSTGRES_DB: ${POSTGRES_DB:-outly}
+      # Для scripts/db-init/10-umami.sh: роль и база аналитики создаются при
+      # первой инициализации тома, а не руками по памяти при переезде.
+      UMAMI_DB_USER: ${UMAMI_DB_USER:-umami}
+      UMAMI_DB_PASSWORD: ${UMAMI_DB_PASSWORD:-}
+      UMAMI_DB_NAME: ${UMAMI_DB_NAME:-umami}
     volumes:
       - pgdata:/var/lib/postgresql/data
+      - ./scripts/db-init:/docker-entrypoint-initdb.d:ro
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-outly}"]
       interval: 5s
       timeout: 3s
       retries: 10
+    # Потолок памяти: без него OOM-killer при нехватке выбирает самый большой
+    # процесс — а это Postgres. С лимитом убьют контейнер БД, а не хост целиком,
+    # и restart вернёт его за секунды. 1.5 ГБ — с запасом при shared_buffers
+    # по умолчанию (128 МБ) и десятке соединений бэкенда.
+    mem_limit: 1536m
     restart: unless-stopped
     logging: *default-logging
 
@@ -292,6 +329,8 @@ services:
       # блокировщиков рекламы, и статистика получилась бы заниженной в разы.
       TRACKER_SCRIPT_NAME: s
       DISABLE_TELEMETRY: "1"
+    # Как у остальных сервисов: аналитика не должна отъедать память у БД.
+    mem_limit: 512m
     healthcheck:
       test:
         [
@@ -318,3 +357,6 @@ volumes:
     name: ${OUTLY_CADDY_DATA_VOLUME:-outly-caddy-data}
   caddy-config:
     name: ${OUTLY_CADDY_CONFIG_VOLUME:-outly-caddy-config}
+  # Маркер свежести off-site бэкапа (см. offsite-backup.healthcheck).
+  offsite-state:
+    name: ${OUTLY_OFFSITE_STATE_VOLUME:-outly-offsite-state}

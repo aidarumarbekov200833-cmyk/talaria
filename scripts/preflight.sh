@@ -21,7 +21,7 @@ env_value() {
   ' "$ENV_FILE" | tr -d '\r'
 }
 
-required="BOT_TOKEN BOT_USERNAME JWT_SECRET DATABASE_URL POSTGRES_PASSWORD API_ID API_HASH TG_CLIENT_SECRET ADMIN_TELEGRAM_IDS"
+required="BOT_TOKEN BOT_USERNAME JWT_SECRET DATA_ENCRYPTION_KEY DATABASE_URL POSTGRES_PASSWORD API_ID API_HASH TG_CLIENT_SECRET ADMIN_TELEGRAM_IDS"
 if [ "$MODE" = "production" ]; then
   required="$required DOMAIN METRICS_TOKEN"
 fi
@@ -40,6 +40,9 @@ jwt_secret="$(env_value JWT_SECRET)"
 tg_secret="$(env_value TG_CLIENT_SECRET)"
 db_password="$(env_value POSTGRES_PASSWORD)"
 [ ${#jwt_secret} -ge 32 ] || fail "JWT_SECRET должен быть не короче 32 символов"
+data_key="$(env_value DATA_ENCRYPTION_KEY)"
+[ ${#data_key} -ge 32 ] || fail "DATA_ENCRYPTION_KEY должен быть не короче 32 символов (шифрование ключей YouTube в БД)"
+[ "$data_key" != "$jwt_secret" ] || fail "DATA_ENCRYPTION_KEY не должен совпадать с JWT_SECRET"
 [ ${#tg_secret} -ge 32 ] || fail "TG_CLIENT_SECRET должен быть не короче 32 символов"
 [ "$db_password" != "madiflow" ] && [ "$db_password" != "outly" ] || fail "POSTGRES_PASSWORD не должен совпадать с публичным шаблоном"
 

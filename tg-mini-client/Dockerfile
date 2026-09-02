@@ -10,6 +10,7 @@ RUN npm ci --omit=dev --ignore-scripts
 
 COPY server.js ./server.js
 COPY safe-equal.js ./safe-equal.js
+COPY ticket-guard.js ./ticket-guard.js
 COPY reply-filter.js ./reply-filter.js
 COPY session-crypto.js ./session-crypto.js
 COPY chat.js ./chat.js

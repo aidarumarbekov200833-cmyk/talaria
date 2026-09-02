@@ -31,7 +31,29 @@ def current_jti(authorization: str = Header(None)) -> str:
     return decoded[1]
 
 
-def current_view_actor(authorization: str = Header(None)) -> int | None:
+def _claims_cached(request: Request | None, authorization: str | None) -> dict | None:
+    """Разобрать JWT один раз на запрос.
+
+    Подпись проверяют и middleware readonly_view_guard, и get_current_user, и
+    current_view_actor — раньше это было три HMAC-проверки на каждый вызов.
+    Результат живёт в request.state; ключ — сам токен, чтобы подмена
+    заголовка внутри одного запроса (тесты, внутренние вызовы) не отдавала
+    чужие claims.
+    """
+    token = _token_from_header(authorization)
+    if request is None:
+        return decode_claims(token)
+    cached = getattr(request.state, "jwt_claims", None)
+    if cached is not None and cached[0] == token:
+        return cached[1]
+    claims = decode_claims(token)
+    request.state.jwt_claims = (token, claims)
+    return claims
+
+
+def current_view_actor(
+    request: Request = None, authorization: str = Header(None)
+) -> int | None:
     """id администратора, если кабинет открыт в режиме просмотра, иначе None.
 
     Читает заголовок сама, а не берёт значение из contextvars: синхронные
@@ -39,7 +61,7 @@ def current_view_actor(authorization: str = Header(None)) -> int | None:
     установленное в зависимости значение до обработчика не доезжает — признак
     молча оказывался бы «обычный вход».
     """
-    claims = decode_claims(_token_from_header(authorization)) or {}
+    claims = _claims_cached(request, authorization) or {}
     if not claims.get("ro"):
         return None
     actor = claims.get("act")
@@ -50,13 +72,15 @@ def current_view_actor(authorization: str = Header(None)) -> int | None:
 
 
 def get_current_user(
+    request: Request = None,
     authorization: str = Header(None),
     db: Session = Depends(get_db),
 ) -> User:
-    decoded = decode_jwt(_token_from_header(authorization))
-    if not decoded:
-        raise HTTPException(401, "Невалидный токен")
-    user_id, jti = decoded
+    claims = _claims_cached(request, authorization)
+    try:
+        user_id, jti = int(claims["sub"]), str(claims["jti"])
+    except (TypeError, KeyError, ValueError):
+        raise HTTPException(401, "Невалидный токен") from None
 
     # Токен отозван (logout)? Подпись всё ещё верна, но доступ закрыт.
     if db.query(TokenBlacklist).filter(TokenBlacklist.jti == jti).first():
@@ -81,7 +105,6 @@ def get_current_user(
 
     # Режим просмотра: у такого токена нет записи сеанса и он не должен
     # оживлять чужой список входов.
-    claims = decode_claims(_token_from_header(authorization)) or {}
     if not claims.get("ro"):
         # Отметка активности сеанса. Внутри стоит защёлка на несколько минут,
         # поэтому запись в базу случается редко, а не на каждый запрос.

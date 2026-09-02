@@ -1301,8 +1301,9 @@ export async function loadAccountRisk() {
 
 export function initSettings() {
   initAccountHealthCenter();
-  loadSessions();
-  loadAccountRisk();
+  // loadSessions() и loadAccountRisk() отсюда убраны: init идёт при загрузке
+  // страницы, ещё до входа, и каждый посетитель лендинга получал два 401 в
+  // консоль и в access-лог. Их зовёт loadUserData() в auth.js после входа.
   // Окно подключения сообщает об удачном входе (mf:tg-account-connected из
   // mini-client): закрываем модалку сами и сразу показываем @ник в карточке —
   // раньше человек оставался наедине с формой и не знал, что уже всё.

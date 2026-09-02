@@ -6,6 +6,7 @@ from collections.abc import Callable
 from datetime import UTC, datetime
 
 import httpx
+from sqlalchemy import update
 from sqlalchemy.orm import Session
 
 from .. import quota as q
@@ -45,6 +46,33 @@ def check_key_live(key_value: str) -> tuple[str, str]:
     }:
         return "invalid", f"{reason}: {message}" if message else reason
     return "error", f"HTTP {response.status_code} {reason}: {message}".strip()
+
+
+def reencrypt_legacy(db: Session) -> int:
+    """Дошифровать ключи, сохранённые до появления шифрования. Идемпотентно.
+
+    Читаем сырые значения колонки мимо ORM-типа (иначе открытый текст и
+    шифртекст неразличимы после расшифровки), затем присваиваем через ORM —
+    EncryptedSecret зашифрует при flush. Вызывается при старте приложения.
+    """
+    from sqlalchemy import text
+
+    from ..secretbox import PREFIX
+
+    rows = db.execute(
+        text("SELECT id FROM api_keys WHERE key NOT LIKE :prefix"),
+        {"prefix": f"{PREFIX}%"},
+    ).fetchall()
+    if not rows:
+        return 0
+    ids = [int(row[0]) for row in rows]
+    table = ApiKey.__table__
+    for key in db.query(ApiKey).filter(ApiKey.id.in_(ids)).all():
+        # Core-UPDATE, а не присваивание того же значения: для ORM оно
+        # «не изменилось» и в базу не уйдёт. Тип колонки зашифрует при bind.
+        db.execute(update(table).where(table.c.id == key.id).values(key=key.key))
+    db.commit()
+    return len(ids)
 
 
 def _quota_out(repository: ApiKeyRepository, owner_id: int) -> QuotaOut:

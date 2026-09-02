@@ -30,7 +30,7 @@ test('landing remains scrollable and every CTA on the page has one signup intent
     /body:has\(\.login-screen\.tl:not\(\.hidden\)\)[^{]*\{[^}]*overflow-y:\s*auto/s,
   );
   const screen = html.match(
-    /<div class="login-screen tl" id="loginScreen">[\s\S]*?<main class="tl-main">[\s\S]*?<\/main>/,
+    /<div class="login-screen tl" id="loginScreen">[\s\S]*?<div class="tl-main"[\s\S]*?<\/footer>/,
   )?.[0];
   assert.ok(screen);
   const ctas = screen.match(/data-telegram-login-trigger[\s\S]*?>([^<]+)</g) || [];

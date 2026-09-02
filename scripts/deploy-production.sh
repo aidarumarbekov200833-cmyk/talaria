@@ -14,6 +14,8 @@ compose config --quiet
 compose up -d --build --remove-orphans
 compose exec -T backend alembic current
 compose ps
+# Кеш сборки старше суток — под нож, иначе диск кончается тихо (см. deploy/).
+docker builder prune -f --filter "until=24h" >/dev/null 2>&1 || true
 
 domain="$(awk 'index($0,"DOMAIN=")==1{sub("^[^=]*=",""); value=$0} END{print value}' .env | tr -d '\r')"
 printf '\nOutly развёрнут: https://%s\n' "$domain"

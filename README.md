@@ -27,7 +27,7 @@
 # 1. Копируем переменные
 cp .env.example .env
 # Открываем .env и обязательно заполняем:
-#   BOT_TOKEN, BOT_USERNAME, JWT_SECRET, POSTGRES_PASSWORD,
+#   BOT_TOKEN, BOT_USERNAME, JWT_SECRET, DATA_ENCRYPTION_KEY, POSTGRES_PASSWORD,
 #   API_ID, API_HASH, TG_CLIENT_SECRET
 # ВАЖНО: тот же POSTGRES_PASSWORD впишите в DATABASE_URL.
 
@@ -42,7 +42,7 @@ docker compose logs --tail=100 backend
 docker compose exec backend python scripts/seed.py
 
 # Если .env скопирован без изменений: http://localhost:8080
-# Если FRONTEND_HTTP_PORT не задан: http://localhost
+# Если FRONTEND_HTTP_PORT не задан: http://localhost:8080 (наружу nginx не публикуется)
 ```
 
 ### Вход через ngrok
@@ -113,6 +113,7 @@ docker compose logs --tail=150 backend
 | `BOT_TOKEN` | Токен бота в формате `1234567890:AAF…` |
 | `BOT_USERNAME` | Узернейм бота без `@` |
 | `JWT_SECRET` | Случайная строка ≥ 32 символов |
+| `DATA_ENCRYPTION_KEY` | Случайная строка ≥ 32 символов; шифрует ключи YouTube в БД. Не ротировать без перешифровки |
 | `POSTGRES_PASSWORD` | Пароль пользователя PostgreSQL |
 | `API_ID` | Telegram API ID для GramJS |
 | `API_HASH` | Telegram API Hash для GramJS |
@@ -123,7 +124,7 @@ docker compose logs --tail=150 backend
 | Переменная | Умолчание | Описание |
 |---|---|---|
 | `DOMAIN` | `""` | Домен для Caddy (TLS). Пусто — основные порты без TLS |
-| `FRONTEND_HTTP_PORT` | `80` в Compose; `127.0.0.1:8080` в `.env.example` | Порт/адрес фронтенда без TLS |
+| `FRONTEND_HTTP_PORT` | `127.0.0.1:8080` | Порт/адрес фронтенда без TLS. Голый `80` наружу — только осознанно |
 | `ADMIN_TELEGRAM_IDS` | `""` | Телеграм-id админов через запятую: `123,456` |
 | `ADMIN_USERNAME` | `Cxentrall` | публичный контакт владельца на странице тарифов |
 | `ADMIN_USERNAME_FALLBACK` | `false` | локальный fallback прав по username; в production всегда `false` |
@@ -455,6 +456,7 @@ Scope: `backend`, `frontend`, `db`, `infra`, `ci`.
 - [ ] `bash scripts/preflight.sh .env production` завершён с кодом `0`
 - [ ] `POSTGRES_PASSWORD` не равен публичным шаблонам `outly` / `madiflow`
 - [ ] `JWT_SECRET` длиной ≥ 32 символа и случайный
+- [ ] `DATA_ENCRYPTION_KEY` задан (≥ 32 символа) и лежит в off-site бэкапе вместе с `.env`
 - [ ] `TG_CLIENT_SECRET` длинный, случайный и одинаковый у backend/gateway
 - [ ] `AI_API_KEY`, `AI_BASE_URL`, `AI_MODEL` заданы в окружении, если нужен AI
 - [ ] `BOT_TOKEN` живой (не отозван, убедитесь через `/api/config`)

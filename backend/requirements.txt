@@ -10,3 +10,7 @@ httpx==0.27.*
 # с UploadFile/Form падает при старте приложения. Нужен для импорта лидов из CSV.
 python-multipart==0.0.*
 sentry-sdk==2.*
+# Шифрование чужих секретов в БД (ключи YouTube Data API): Fernet (AES-128-CBC
+# + HMAC) ключом из DATA_ENCRYPTION_KEY. Без этого дамп базы = чужие оплачиваемые
+# Google-ключи открытым текстом.
+cryptography==46.*

@@ -965,6 +965,13 @@ export async function cancelTelegramVerification() {
   }
 }
 
+/** Данные раздела поиска, которым нужен токен. Зовётся из auth.loadUserData(). */
+export async function loadSearchUserData() {
+  await loadVerificationDatabases();
+  // Поиск, запущенный до перезагрузки, продолжается на сервере — подхватываем.
+  await resumeActiveSearchJob();
+}
+
 export function initSearch() {
   const grid = document.getElementById('nicheGrid');
   if (!grid) return;
@@ -972,9 +979,10 @@ export function initSearch() {
   initRegionPicker('leadCountry', { multi: true, emptyLabel: 'Любая страна' });
   loadNiches();
   restoreFilterState();
-  loadVerificationDatabases();
-  // Поиск, запущенный до перезагрузки, продолжается на сервере — подхватываем.
-  resumeActiveSearchJob();
+  // loadVerificationDatabases() и resumeActiveSearchJob() отсюда убраны: они
+  // требуют токен, а init идёт при загрузке страницы до входа (у анонима на
+  // лендинге это были два 401). Обе зовёт loadUserData() после входа —
+  // см. loadSearchUserData().
   document.getElementById('verificationDatabase')?.addEventListener('change', async (event) => {
     verificationDatabaseId = Number(event.target.value || 0);
     if (verificationDatabaseId) await loadVerificationSummary();

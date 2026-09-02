@@ -60,6 +60,15 @@ $COMPOSE exec -T db psql -U "$PGUSER_" -d "$TARGET_DB" -c "
   UNION ALL SELECT 'campaigns', count(*) FROM campaigns
   UNION ALL SELECT 'offers', count(*) FROM offers;"
 
+# Роль и база Umami в дампе приложения не лежат (отдельная база, отдельная
+# роль). На новой машине без этого шага аналитика не поднимется. Скрипт
+# идемпотентен и берёт пароль из окружения контейнера db (.env).
+if $COMPOSE exec -T db sh /docker-entrypoint-initdb.d/10-umami.sh; then
+  :
+else
+  echo "Роль Umami не создана — выполните вручную: $COMPOSE exec -T db sh /docker-entrypoint-initdb.d/10-umami.sh" >&2
+fi
+
 if [ "$TARGET_DB" = "${POSTGRES_DB:-outly}" ]; then
   $COMPOSE start backend
   echo "Бэкенд запущен обратно."

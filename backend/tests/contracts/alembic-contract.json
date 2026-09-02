@@ -1,6 +1,6 @@
 {
   "heads": [
-    "0040"
+    "0041"
   ],
   "indexes": [
     "ix_access_whitelist_telegram_id",
@@ -89,5 +89,5 @@
     "uq_warmup_primary_owner"
   ],
   "schema_index_sha256": "f5a7de3afac33e6f0627b08dab95cdcbfb55fff04aac786ce276c7e1a93487ad",
-  "schema_operations_sha256": "8b8b954db85ca56c9988fccc3e99803071ef6c82d7322657cb02cd576a381d31"
+  "schema_operations_sha256": "728623d97a452ba0c5e30264fdfb0c49162c0e636e9cd8933dfeed85634129f4"
 }

@@ -107,7 +107,7 @@
       crossorigin
       href="/assets/fonts/inter-400-cyrillic.woff2"
     />
-    <link rel="stylesheet" href="/css/styles.css?v=talaria28" />
+    <link rel="stylesheet" href="/css/styles.css?v=talaria29" />
     <script src="/js/theme-boot.js?v=talaria6"></script>
 
     <!-- Аналитика посещений. Скрипт отдаётся с нашего же домена, поэтому CSP
@@ -151,6 +151,7 @@
         </a>
         <nav class="tl-links" id="tlLinks" aria-label="Разделы лендинга">
           <a href="#how">Как летит</a>
+          <a href="#letters">Письма</a>
           <a href="#safe">Безопасность</a>
           <a href="#pricing">Тариф</a>
           <a href="#faq">Вопросы</a>
@@ -210,7 +211,7 @@
         </div>
       </header>
 
-      <main class="tl-main">
+      <div class="tl-main" role="region" aria-label="Лендинг Talaria">
         <!-- ГЕРОЙ: слева обещание, справа настоящий экран переписки (цикл). -->
         <section class="tl-hero" aria-labelledby="tlHeroTitle">
           <div class="tl-hero-copy">
@@ -228,6 +229,11 @@
               >
               <a class="tl-btn tl-btn-ghost tl-btn-lg" href="#how">Как это летит</a>
             </div>
+            <ul class="tl-trust" aria-label="Условия старта">
+              <li>Без карты</li>
+              <li>14 дней бесплатно</li>
+              <li>Вход через Telegram</li>
+            </ul>
           </div>
 
           <div class="tl-hero-visual">
@@ -411,27 +417,140 @@
           </div>
         </section>
 
+        <!-- ПИСЬМА: доказательство продукта — письмо по нишам (печатается), шаблон против
+             контекста, и отчёт таким, каким его видит кабинет. Все данные — иллюстрация. -->
+        <section class="tl-proof" id="letters" aria-labelledby="tlProofTitle">
+          <div class="tl-proof-head rv">
+            <h2 id="tlProofTitle" class="tl-h2">Письмо, которое читают до конца</h2>
+            <p class="tl-lead">
+              Talaria не подставляет имя в шаблон. Она берёт последний ролик, тему канала и ваш
+              оффер — и собирает вступление, которое автор узнаёт как своё.
+            </p>
+          </div>
+
+          <div class="tl-proof-grid">
+            <div class="tl-letter rv" id="tlLetter">
+              <div class="tl-letter-tabs" role="tablist" aria-label="Ниша канала">
+                <button type="button" role="tab" aria-selected="true" data-niche="0">
+                  Финансы
+                </button>
+                <button type="button" role="tab" aria-selected="false" data-niche="1">
+                  Фитнес
+                </button>
+                <button type="button" role="tab" aria-selected="false" data-niche="2">IT</button>
+                <button type="button" role="tab" aria-selected="false" data-niche="3">
+                  Кулинария
+                </button>
+                <button type="button" role="tab" aria-selected="false" data-niche="4">
+                  Психология
+                </button>
+              </div>
+              <div class="tl-letter-ctx" aria-label="Контекст канала">
+                <span class="tl-letter-ava" id="tlLetterAva" aria-hidden="true">И</span>
+                <span class="tl-letter-who"
+                  ><b id="tlLetterName">Инвестируй Просто</b
+                  ><small id="tlLetterMeta">142 тыс. · RU · @invest_prosto</small></span
+                >
+              </div>
+              <div class="tl-chips tl-letter-chips" id="tlLetterChips">
+                <span>ролик: «Разбор портфеля на 2026»</span><span>тема: облигации</span
+                ><span class="is-on">Telegram найден</span>
+              </div>
+              <div class="tl-letter-body">
+                <p class="tl-letter-text" id="tlLetterText" aria-live="polite"></p>
+                <span class="tl-letter-cursor" aria-hidden="true"></span>
+                <div class="tl-letter-actions" aria-hidden="true">
+                  <span class="tl-letter-act is-solid">В очередь</span>
+                  <span class="tl-letter-act">Изменить</span>
+                  <span class="tl-letter-act">Пропустить</span>
+                </div>
+              </div>
+              <div class="tl-letter-foot">
+                <span class="tl-mono" id="tlLetterCount">0 знаков</span>
+                <span class="tl-mono">черновик · подтверждаете вы</span>
+              </div>
+            </div>
+
+            <div class="tl-proof-side">
+              <div class="tl-vs rv" aria-label="Шаблон против письма с контекстом">
+                <div class="tl-vs-item is-bad">
+                  <span class="tl-vs-tag">Шаблон</span>
+                  <p>
+                    Здравствуйте! Предлагаем взаимовыгодное сотрудничество. Ознакомьтесь с нашим
+                    коммерческим предложением…
+                  </p>
+                  <span class="tl-vs-state">не прочитано</span>
+                </div>
+                <div class="tl-vs-item is-good">
+                  <span class="tl-vs-tag">Talaria</span>
+                  <p>
+                    Привет! Смотрел ваш разбор портфеля на 2026, зашла часть про облигации. Собрали
+                    медиакит под ваш канал…
+                  </p>
+                  <span class="tl-vs-state">прочитано · ответ</span>
+                </div>
+              </div>
+
+              <div class="tl-report rv" aria-label="Отчёт по рассылке в кабинете">
+                <div class="tl-tile-top">
+                  <b>Отчёт по рассылке</b>
+                  <span class="tl-mono">демо-данные</span>
+                </div>
+                <ul class="tl-bars">
+                  <li style="--v: 100%"><span>Отправлено</span><i></i><b>38</b></li>
+                  <li style="--v: 100%"><span>Доставлено</span><i></i><b>38</b></li>
+                  <li style="--v: 76%"><span>Прочитано</span><i></i><b>29</b></li>
+                  <li style="--v: 24%"><span>Ответили</span><i></i><b>9</b></li>
+                </ul>
+                <p class="tl-report-note">
+                  Цифры честные до единицы: статусы берутся из Telegram, а не рисуются.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <!-- БЕЗОПАСНОСТЬ: три строки крупным набором, каждая раскрывается по скроллу. -->
         <section class="tl-safe" id="safe" aria-labelledby="tlSafeTitle">
           <h2 id="tlSafeTitle" class="tl-visually-hidden">Почему аккаунт не улетит в бан</h2>
           <div class="tl-safe-row rv">
             <p class="tl-safe-word">Не спам.</p>
-            <p class="tl-safe-why">
-              Одно письмо одному человеку, с контекстом его канала. Массовых шаблонов нет.
-            </p>
+            <div class="tl-safe-why">
+              <p>Одно письмо одному человеку, с контекстом его канала. Массовых шаблонов нет.</p>
+              <div class="tl-mech tl-mech-ctx" aria-hidden="true">
+                <span>последний ролик</span><span>тема канала</span><span>ваш оффер</span>
+                <i></i>
+                <b>1 письмо → 1 автор</b>
+              </div>
+            </div>
           </div>
           <div class="tl-safe-row rv">
             <p class="tl-safe-word">Не бан.</p>
-            <p class="tl-safe-why">
-              Очередь, интервалы и автопауза при FloodWait. Лимиты Telegram уважаются раньше, чем он
-              их напомнит.
-            </p>
+            <div class="tl-safe-why">
+              <p>
+                Очередь, интервалы и автопауза при FloodWait. Лимиты Telegram уважаются раньше, чем
+                он их напомнит.
+              </p>
+              <div class="tl-mech tl-mech-queue" aria-hidden="true">
+                <span class="tl-q"><i></i><em>4 мин</em></span>
+                <span class="tl-q"><i></i><em>7 мин</em></span>
+                <span class="tl-q"><i></i><em class="is-pause">пауза · FloodWait</em></span>
+                <span class="tl-q"><i></i><em>5 мин</em></span>
+                <span class="tl-q is-next"><i></i></span>
+              </div>
+            </div>
           </div>
           <div class="tl-safe-row rv">
             <p class="tl-safe-word">Не молчанка.</p>
-            <p class="tl-safe-why">
-              Каждый статус отправки виден как есть, ответы собираются в кабинет и приходят пушем.
-            </p>
+            <div class="tl-safe-why">
+              <p>
+                Каждый статус отправки виден как есть, ответы собираются в кабинет и приходят пушем.
+              </p>
+              <div class="tl-mech tl-mech-status" aria-hidden="true">
+                <span>отправлено</span><span>доставлено ✓✓</span><span>прочитано</span
+                ><span class="is-live">ответ · пуш от бота</span>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -546,6 +665,11 @@
         <!-- ФИНАЛ + подвал одним экраном. -->
         <section class="tl-final" id="go" aria-labelledby="tlFinalTitle">
           <h2 id="tlFinalTitle" class="tl-h1">Первое письмо можно<br />отправить сегодня.</h2>
+          <ol class="tl-final-rail rv" aria-label="Что будет после входа">
+            <li><b>1</b><span>Вход через Telegram, кабинет создаётся сам</span></li>
+            <li><b>2</b><span>Первая база: ниша, регион, пороги</span></li>
+            <li><b>3</b><span>Письмо уходит после вашего «да»</span></li>
+          </ol>
           <a
             class="tl-btn tl-btn-solid tl-btn-lg"
             href="#telegramLoginDialog"
@@ -559,7 +683,7 @@
             <a href="https://t.me/Cxentrall" target="_blank" rel="noopener">@Cxentrall</a>
           </footer>
         </section>
-      </main>
+      </div>
     </div>
 
     <!-- Любой CTA лендинга открывает Telegram Login сразу, без прокрутки к
@@ -4902,7 +5026,7 @@
       </div>
     </div>
 
-    <script src="/js/landing-v53.js?v=talaria1"></script>
+    <script src="/js/landing-v53.js?v=talaria2"></script>
     <script type="module" src="/js/main.js?v=talaria14"></script>
     <!-- Просмотр картинки из переписки. <dialog> даёт бесплатно ESC, ловушку
          фокуса и подложку — руками это три обработчика и дыра в доступности. -->

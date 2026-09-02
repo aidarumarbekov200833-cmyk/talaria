@@ -36,13 +36,22 @@ import {
   fillTestSendOffers,
   refreshAiAvailability,
 } from './campaigns.js?v=zephyr4';
-import { loadSettings, loadKeys, loadWarmup } from './settings.js?v=sess1';
+import {
+  loadSettings,
+  loadKeys,
+  loadWarmup,
+  loadSessions,
+  loadAccountRisk,
+} from './settings.js?v=sess1';
 import { applyAdminVisibility, loadAdmin } from './admin.js?v=talaria15';
 // Тот же URL модуля, что и в main.js: разные query-string создают два
 // независимых state/слушателя, и тариф рисует одна копия, а клики ждёт другая.
 import { loadSubscription, loadPublicPlans } from './plans.js?v=phone3';
 import { connectLive, disconnectLive } from './live.js?v=tal32';
 import { initTheme } from './theme.js?v=zephyr3';
+// Тот же query-string, что в main.js: иначе браузер создаст вторую копию
+// модуля со своим состоянием (см. комментарий у plans.js выше).
+import { loadSearchUserData } from './search.js?v=talaria19';
 import { renderText } from './shared/dom.js';
 import { bindDialogOpeners } from './shared/dialogs.js';
 
@@ -422,6 +431,9 @@ async function loadUserData() {
     loadWarmup(), // Telegram-аккаунты и прогрев
     loadSubscription(), // подписка: тариф, лимиты, «мой план»
     loadNotifications(), // лента уведомлений
+    loadSessions(), // активные входы (настройки)
+    loadAccountRisk(), // риск блокировки аккаунтов (настройки)
+    loadSearchUserData(), // базы для проверки Telegram + незавершённый поиск
     window.__isAdmin ? loadAdmin() : Promise.resolve(), // админ-сводка
   ]);
 }
