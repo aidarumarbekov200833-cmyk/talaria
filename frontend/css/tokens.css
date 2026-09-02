@@ -176,7 +176,7 @@ html[data-theme='graphite'],
      вложенный блок» читалась без градиентов и свечений. */
   /* v48: единый тёмный цвет с лендингом — #18181B. */
   --cabp-fog: #18181b;
-  --cabp-surface: #1f1f22;
+  --cabp-surface: #18181b;
   --cabp-raised: #26262a;
   --cabp-ink: #f1f1f3;
   --cabp-muted: #9b9ba5;
@@ -194,7 +194,7 @@ html[data-theme='graphite'],
   --cabp-tg-wall-a: #16161a;
   --cabp-tg-wall-b: #101014;
   --cabp-tg-doodle: rgba(255, 255, 255, 0.04);
-  --cabp-tg-header: #1f1f22;
+  --cabp-tg-header: #18181b;
   --cabp-tg-out: #2b4a33;
   --cabp-tg-out-tail: #24402c;
   --cabp-tg-in: #26262a;
@@ -428,7 +428,7 @@ html[data-theme='graphite'],
   /* v48: владелец задал тёмный фон сайта точным цветом — HEX #18181B.
      Ступени поверхностей пересчитаны от него. */
   --fog: #18181b;
-  --surface: #1f1f22;
+  --surface: #18181b;
   --surface-raised: #26262a;
   --ink: #ececee;
   --muted: #9a9aa2;
@@ -462,7 +462,7 @@ html[data-theme='graphite'],
      9k строк talaria-v5.css при запрете массовых переименований. */
   /* v48: страница лендинга в тёмной теме — #18181B (владелец) и её ступени. */
   --tal-0b0a0e: #18181b;
-  --tal-121016: #1f1f22;
+  --tal-121016: #18181b;
   --tal-151218: #202024;
   --tal-ff2fa4: #ececee;
   --tal-c30074: #d9d9de;

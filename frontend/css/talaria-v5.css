@@ -10371,3 +10371,60 @@ body,
     animation: none;
   }
 }
+
+/* ── v52: рамки долой ─────────────────────────────────────────────────────
+   Просьба владельца: убрать контурные рамки на лендинге. border-color
+   становится прозрачным (а не border: 0), чтобы не дёргать layout;
+   читаемость карточек держат фон и мягкая тень. Секционные разделители
+   и корпус телефона — не рамки, их не трогаем. */
+#loginScreen .hero-term,
+#loginScreen .hero-snippet,
+#loginScreen .feed,
+#loginScreen .ab-in,
+#loginScreen .stats,
+#loginScreen .pcard,
+#loginScreen .mini,
+#loginScreen .fun-bar,
+#loginScreen .aw-frame,
+#loginScreen .appwin {
+  border-color: transparent;
+  box-shadow: 0 26px 60px -44px color-mix(in srgb, var(--tal-black) 55%, transparent);
+}
+#loginScreen :is(.hero-snippet, .feed, .ab-in, .stats, .mini, .fun-bar) {
+  background: color-mix(in srgb, var(--ink) 4%, var(--bg2));
+}
+/* Шапки панелей: вместо линии — чуть более плотный фон. */
+#loginScreen .ht-bar,
+#loginScreen .hero-snippet-head,
+#loginScreen .feed-h {
+  border-bottom-color: transparent;
+  background: color-mix(in srgb, var(--ink) 5%, transparent);
+}
+/* Возможности: сетку на линиях меняем на отдельные карточки без рамок. */
+#loginScreen .fgrid {
+  border-color: transparent;
+  background: transparent;
+  gap: 14px;
+  overflow: visible;
+}
+#loginScreen .fcard {
+  border-radius: var(--card-r);
+  background: color-mix(in srgb, var(--ink) 4%, var(--bg2));
+}
+/* Пульс: перегородки между цифрами убираем. */
+#loginScreen .stat + .stat {
+  border-left-color: transparent;
+}
+#loginScreen .stat:nth-child(n + 3) {
+  border-top-color: transparent;
+}
+/* FAQ-факты: без полоски слева, скругление со всех сторон. */
+#loginScreen .faq-facts li {
+  border-left-color: transparent;
+  border-radius: 12px;
+}
+/* Лента ниш: без линий сверху и снизу. */
+#loginScreen .zp-niches {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+}

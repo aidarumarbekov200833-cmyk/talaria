@@ -382,7 +382,8 @@ dialog[open] {
   min-height: 56px;
   padding: 0 22px;
   border-radius: var(--radius);
-  color: var(--on-ink);
+  /* На тёмной теме accent-gradient почти белый: текст берёт цвет «на акценте». */
+  color: var(--on-accent);
   background: var(--accent-gradient);
   box-shadow: var(--shadow-small);
   transition: transform var(--motion-fast) ease;
