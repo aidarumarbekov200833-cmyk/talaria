@@ -263,6 +263,13 @@
       items.forEach(function (li) {
         li.classList.toggle('is-on', li.dataset.step === best);
       });
+      // Линия прогресса слева от списка: заполняется до активного шага.
+      var idx = Math.max(0, Number(best) - 1);
+      var list = items[0].parentNode;
+      list.style.setProperty(
+        '--tl-step-progress',
+        String(Math.round((idx / Math.max(1, items.length - 1)) * 100)) + '%',
+      );
     }
     var io = new IntersectionObserver(
       function (entries) {
@@ -372,6 +379,184 @@
           answer.hidden = false;
         }, 650);
       });
+    });
+  })();
+
+  /* --- v54: письмо по нишам — вкладки, печать, автосмена до первого клика --- */
+  (function letters() {
+    var root = document.getElementById('tlLetter');
+    if (!root) return;
+    var tabs = Array.prototype.slice.call(root.querySelectorAll('[data-niche]'));
+    var ava = document.getElementById('tlLetterAva');
+    var name = document.getElementById('tlLetterName');
+    var meta = document.getElementById('tlLetterMeta');
+    var chips = document.getElementById('tlLetterChips');
+    var text = document.getElementById('tlLetterText');
+    var count = document.getElementById('tlLetterCount');
+    if (!tabs.length || !text) return;
+    var DATA = [
+      {
+        ava: 'И',
+        name: 'Инвестируй Просто',
+        meta: '142 тыс. · RU · @invest_prosto',
+        chips: ['ролик: «Разбор портфеля на 2026»', 'тема: облигации'],
+        text: 'Привет! Смотрел ваш разбор портфеля на 2026, зашла часть про облигации. Собрали медиакит под ваш канал: интеграция в ролик, бюджет обсуждаем. Интересно?',
+      },
+      {
+        ava: 'М',
+        name: 'Тренер Марина',
+        meta: '61 тыс. · RU · @marina_fit',
+        chips: ['ролик: «Тренировка без инвентаря»', 'тема: домашний фитнес'],
+        text: 'Марина, привет! Посмотрел тренировку без инвентаря — разминка в начале сделана честно, без «пропустите её». У нас приложение с планами питания под домашние тренировки, ищем тренеров на интеграцию. Обсудим формат?',
+      },
+      {
+        ava: 'К',
+        name: 'Код без боли',
+        meta: '89 тыс. · RU · @painless_code',
+        chips: ['ролик: «Разбор собеседования в бэкенд»', 'тема: Python, системный дизайн'],
+        text: 'Здравствуйте! Смотрел разбор собеседования — момент про идемпотентность объяснён лучше, чем в половине курсов. Мы делаем платформу мок-интервью с живыми инженерами и хотим предложить интеграцию в следующий разбор. Интересно?',
+      },
+      {
+        ava: 'Д',
+        name: 'Готовим с Дашей',
+        meta: '204 тыс. · RU · @dasha_cooks',
+        chips: ['ролик: «Ужин за 20 минут»', 'тема: быстрые рецепты'],
+        text: 'Даша, привет! Ужин за 20 минут пересмотрел дважды, соус из второго рецепта уже в холодильнике. Мы делаем наборы продуктов с рецептами на неделю — хотим предложить интеграцию с промокодом для ваших зрителей. Обсудим?',
+      },
+      {
+        ava: 'С',
+        name: 'Спокойно',
+        meta: '47 тыс. · RU · @spokoyno_tg',
+        chips: ['ролик: «Как перестать откладывать»', 'тема: прокрастинация, привычки'],
+        text: 'Здравствуйте! Ролик про откладывание — редкий случай, когда советы не сводятся к «просто начни». У нас сервис онлайн-психологов, ищем авторов с таким же тоном для честной интеграции. Расскажу условия?',
+      },
+    ];
+    var current = 0;
+    var timer = null;
+    var rotate = null;
+    var userTouched = false;
+    var visible = false;
+
+    function stop() {
+      if (timer) clearTimeout(timer);
+      timer = null;
+    }
+    function typeInto(str, i) {
+      if (i > str.length) {
+        root.classList.add('is-done');
+        if (!userTouched && visible) {
+          rotate = setTimeout(function () {
+            show((current + 1) % DATA.length);
+          }, 5200);
+        }
+        return;
+      }
+      text.textContent = str.slice(0, i);
+      if (count) count.textContent = i + ' ' + plural(i, ['знак', 'знака', 'знаков']);
+      var ch = str.charAt(i - 1);
+      var delay =
+        ch === '.' || ch === '?' || ch === '!' ? 260 : ch === ',' ? 120 : 16 + Math.random() * 26;
+      timer = setTimeout(function () {
+        typeInto(str, i + 1);
+      }, delay);
+    }
+    function plural(n, forms) {
+      var m10 = n % 10;
+      var m100 = n % 100;
+      if (m10 === 1 && m100 !== 11) return forms[0];
+      if (m10 >= 2 && m10 <= 4 && (m100 < 10 || m100 >= 20)) return forms[1];
+      return forms[2];
+    }
+    function show(i) {
+      stop();
+      if (rotate) clearTimeout(rotate);
+      rotate = null;
+      current = i;
+      var d = DATA[i];
+      tabs.forEach(function (t, k) {
+        t.setAttribute('aria-selected', String(k === i));
+      });
+      if (ava) ava.textContent = d.ava;
+      if (name) name.textContent = d.name;
+      if (meta) meta.textContent = d.meta;
+      if (chips) {
+        chips.innerHTML = '';
+        d.chips.concat(['Telegram найден']).forEach(function (c, k, arr) {
+          var sp = document.createElement('span');
+          sp.textContent = c;
+          if (k === arr.length - 1) sp.className = 'is-on';
+          chips.appendChild(sp);
+        });
+      }
+      root.classList.remove('is-done');
+      if (noMotion()) {
+        text.textContent = d.text;
+        if (count)
+          count.textContent =
+            d.text.length + ' ' + plural(d.text.length, ['знак', 'знака', 'знаков']);
+        root.classList.add('is-done');
+        return;
+      }
+      text.textContent = '';
+      typeInto(d.text, 1);
+    }
+    tabs.forEach(function (t, k) {
+      t.addEventListener('click', function () {
+        userTouched = true;
+        show(k);
+      });
+    });
+    // Печатать только когда блок на экране: печать вне экрана — пустая работа.
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (en) {
+            visible = en.isIntersecting;
+            if (visible && !timer && !root.classList.contains('is-done')) show(current);
+            if (visible && root.classList.contains('is-done') && !userTouched && !rotate)
+              show((current + 1) % DATA.length);
+            if (!visible) {
+              stop();
+              if (rotate) clearTimeout(rotate);
+              rotate = null;
+            }
+          });
+        },
+        { threshold: 0.35 },
+      ).observe(root);
+    } else {
+      show(0);
+    }
+  })();
+
+  /* --- v54: телефон в герое чуть следует за курсором (только мышь, без reduced-motion) --- */
+  (function tilt() {
+    var phone = screen.querySelector('.tl-phone');
+    var hero = screen.querySelector('.tl-hero');
+    if (!phone || !hero) return;
+    if (noMotion()) return;
+    if (!window.matchMedia || !window.matchMedia('(hover: hover) and (pointer: fine)').matches)
+      return;
+    var raf = null;
+    var rx = 0;
+    var ry = 0;
+    function apply() {
+      raf = null;
+      phone.style.transform =
+        'perspective(1200px) rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg)';
+    }
+    hero.addEventListener('mousemove', function (e) {
+      var r = phone.getBoundingClientRect();
+      var cx = r.left + r.width / 2;
+      var cy = r.top + r.height / 2;
+      ry = ((e.clientX - cx) / window.innerWidth) * 10;
+      rx = -((e.clientY - cy) / window.innerHeight) * 10;
+      if (!raf) raf = requestAnimationFrame(apply);
+    });
+    hero.addEventListener('mouseleave', function () {
+      rx = 0;
+      ry = 0;
+      if (!raf) raf = requestAnimationFrame(apply);
     });
   })();
 })();
